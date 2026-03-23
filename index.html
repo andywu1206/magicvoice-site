@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<!--
+  Aria Magic Voice — Landing Page v1.5
+  Changes from v1.3:
+    - Header: height h-11→h-16, width 980px→max-w-7xl, added sparkle AI icon
+    - Footer: replaced with ChatGPT v1.4.1 Apple 5-column style
+    - Footer: added working language switcher dropdown (CN/TW/HK/US/JP/KR)
+  Base layout: Stitch
+  Content: Claude (Anthropic)
+  Date: 2026-03-23
+-->
+<html lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Aria Magic Voice — 让声音，成为文字的独奏</title>
+<meta name="description" content="Aria Magic Voice 是一款 Mac 端本地 AI 语音转文字工具。双击热键开始说话，文字自动输入到任意应用。完全离线，隐私安全。">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#0071e3',
+            'primary-hover': '#0077ED',
+            bgLight: '#f5f5f7',
+            textMain: '#1d1d1f',
+            textMuted: '#6e6e73',
+          },
+          fontFamily: {
+            sans: ['-apple-system', 'BlinkMacSystemFont', 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', 'Arial', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="custom-utilities">
+    .glass-nav {
+      background: rgba(251, 251, 253, 0.8);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    }
+    /* Language switcher dropdown */
+    .lang-switcher { position: relative; }
+    .lang-switcher-btn { cursor: pointer; }
+    .lang-dropdown {
+      display: none;
+      position: absolute;
+      bottom: 100%;
+      right: 0;
+      background: white;
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+      min-width: 180px;
+      padding: 8px 0;
+      margin-bottom: 8px;
+      z-index: 100;
+    }
+    .lang-dropdown.open { display: block; }
+    .lang-dropdown a {
+      display: block;
+      padding: 8px 16px;
+      font-size: 13px;
+      color: #1d1d1f;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+    .lang-dropdown a:hover { background: #f5f5f7; }
+    .lang-dropdown a.active { color: #0071e3; font-weight: 600; }
+  </style>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body class="bg-bgLight text-textMain font-sans antialiased">
+
+<!-- ==================== NAV (h-16, max-w-7xl, sparkle icon) ==================== -->
+<header class="fixed top-0 left-0 right-0 z-50 glass-nav">
+<div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<i class="ph ph-sparkle text-primary text-xl"></i>
+<a href="#" class="font-semibold text-[18px] tracking-tight text-textMain no-underline">
+  Aria <span class="text-primary">Magic</span> Voice
+</a>
+</div>
+<div class="flex items-center gap-8">
+<nav class="hidden md:flex items-center gap-8 text-sm font-medium text-textMuted">
+<a class="hover:text-textMain transition-colors" href="#features">功能</a>
+<a class="hover:text-textMain transition-colors" href="#how">使用方式</a>
+<a class="hover:text-textMain transition-colors" href="#pricing">价格</a>
+<a class="hover:text-textMain transition-colors" href="#faq">常见问题</a>
+</nav>
+<a href="#pricing" class="bg-primary text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-primary-hover transition-colors no-underline">
+  立即下载
+</a>
+</div>
+</div>
+</header>
+
+<!-- ==================== HERO ==================== -->
+<main class="pt-32 pb-20">
+<div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+<div class="space-y-8">
+<div class="inline-block bg-gray-200/60 text-textMuted px-3 py-1 rounded-full text-xs font-semibold tracking-wider">
+  macOS 本地 AI 语音转文字
+</div>
+<h1 class="text-5xl lg:text-6xl font-bold leading-tight tracking-tight">
+  让声音，<br/>成为文字的独奏。
+</h1>
+<p class="text-xl text-textMuted max-w-lg leading-relaxed">
+  Aria，灵感源自音乐中最动人的独唱。<br/>
+  双击热键，开口说话，文字自动出现在光标处。<br/>
+  完全离线，完全隐私。专为 Mac 打造。
+</p>
+<div class="flex items-center gap-4 pt-4">
+<a href="#pricing" class="bg-primary text-white px-8 py-3.5 rounded-full font-medium hover:bg-primary-hover transition-colors shadow-lg shadow-blue-500/20 no-underline">
+  立即下载试用版
+</a>
+<a class="text-primary font-medium px-4 py-2 hover:underline transition-colors flex items-center gap-1 no-underline border border-primary rounded-full" href="#features">
+  了解更多 <i class="ph ph-arrow-right"></i>
+</a>
+</div>
+</div>
+<!-- Hero Mockup -->
+<div class="relative flex justify-center lg:justify-end">
+<div class="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-md border border-gray-100 relative z-10">
+<div class="absolute -top-4 -right-4 bg-white shadow-lg rounded-full px-4 py-2 flex items-center gap-2 border border-gray-100 z-20">
+<i class="ph ph-translate text-primary"></i>
+<span class="text-xs font-medium">中文 / EN / 粤語</span>
+</div>
+<div class="flex items-center gap-3 mb-6">
+<div class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-primary">
+<i class="ph ph-microphone-stage text-xl"></i>
+</div>
+<div class="flex-1">
+<div class="text-sm font-medium text-textMain">Aria Magic Voice</div>
+<div class="text-xs text-textMuted">正在聆听…</div>
+</div>
+</div>
+<div class="space-y-3 mb-6 p-4 bg-gray-50 rounded-xl">
+<p class="text-sm text-textMain leading-relaxed">今天下午三点和 David 开会，讨论 Q2 的 marketing plan，记得带上上周的数据…</p>
+</div>
+<div class="flex items-center justify-between text-xs text-textMuted">
+<span><i class="ph ph-globe"></i> 中英混合识别</span>
+<span class="text-primary font-medium">⌃⌃ 双击唤起</span>
+</div>
+</div>
+<!-- Floating badges -->
+<div class="absolute bottom-8 -left-8 bg-white shadow-xl rounded-xl p-3 flex items-center gap-2 border border-gray-100 z-20">
+<div class="bg-green-50 text-green-600 p-1.5 rounded-lg">
+<i class="ph ph-shield-check text-lg"></i>
+</div>
+<span class="text-xs font-medium">100% 离线</span>
+</div>
+<div class="absolute top-1/2 -right-6 transform -translate-y-1/2 bg-white shadow-lg rounded-full p-3 border border-gray-100 z-0">
+<i class="ph ph-lightning text-primary"></i>
+</div>
+</div>
+</div>
+</main>
+
+<!-- ==================== FEATURES (Bento Grid) ==================== -->
+<section class="py-20 bg-white" id="features">
+<div class="max-w-7xl mx-auto px-6 space-y-6">
+<!-- Row 1 -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Feature 1: Multilingual (2/3 width) -->
+<div class="md:col-span-2 bg-gray-50 rounded-3xl p-10 flex flex-col justify-between relative overflow-hidden group">
+<div class="relative z-10 space-y-4 max-w-md">
+<i class="ph ph-chat-teardrop-text text-3xl text-primary"></i>
+<h3 class="text-3xl font-bold">中文英文，一样准。</h3>
+<p class="text-textMuted leading-relaxed">中英混说，无缝切换。商务沟通、跨国协作、会议记录，说你习惯的方式，Aria Magic Voice 全都听得懂。</p>
+<div class="flex flex-wrap gap-2 pt-4">
+<span class="bg-white border border-gray-200 text-xs px-3 py-1.5 rounded-full text-gray-600">普通话</span>
+<span class="bg-white border border-gray-200 text-xs px-3 py-1.5 rounded-full text-gray-600">English</span>
+<span class="bg-white border border-gray-200 text-xs px-3 py-1.5 rounded-full text-gray-600">粤語</span>
+<span class="bg-white border border-gray-200 text-xs px-3 py-1.5 rounded-full text-gray-600">日本語</span>
+<span class="bg-white border border-gray-200 text-xs px-3 py-1.5 rounded-full text-gray-600">한국어</span>
+<span class="bg-white border border-gray-200 text-xs px-3 py-1.5 rounded-full text-primary font-medium">中英混说</span>
+</div>
+</div>
+<div class="absolute right-0 bottom-0 text-gray-200 opacity-50 transform translate-x-1/4 translate-y-1/4">
+<i class="ph-fill ph-globe text-[200px]"></i>
+</div>
+</div>
+<!-- Feature 2: AI Learning (1/3 width, blue) -->
+<div class="bg-primary rounded-3xl p-10 text-white flex flex-col justify-between">
+<div class="space-y-4">
+<i class="ph ph-brain text-3xl"></i>
+<h3 class="text-2xl font-bold">越用越准，AI 懂你。</h3>
+<p class="text-blue-100 text-sm leading-relaxed">内置世界顶级 AI 学习引擎，快速学习你的用词和发音方式。说得越多，识别越准。所有学习数据留在本地，不上传。</p>
+</div>
+</div>
+</div>
+<!-- Row 2 -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Feature 3: Privacy (2/3 width) -->
+<div class="md:col-span-2 bg-gray-50 rounded-3xl p-10">
+<div class="space-y-4 max-w-lg">
+<i class="ph ph-shield-check text-3xl text-textMain"></i>
+<h3 class="text-3xl font-bold">没有云端，没有上传，<br/>没有第三方。</h3>
+<p class="text-textMuted leading-relaxed">本地运行，又快又安全。即使断网，也能正常使用。你的声音数据，始终只保留在你的 Mac 上。</p>
+</div>
+</div>
+<!-- Feature 4: Speed (1/3 width) -->
+<div class="bg-gray-50 rounded-3xl p-10 flex flex-col justify-center">
+<div class="space-y-4">
+<i class="ph ph-lightning text-3xl text-primary"></i>
+<h3 class="text-2xl font-bold">时间就是金钱</h3>
+<p class="text-textMuted text-sm leading-relaxed">说话速度是打字的 3–5 倍。省下的每一分钟，都是钱。</p>
+<div class="flex items-center gap-3 pt-2">
+<div class="bg-white border border-gray-100 shadow-sm rounded-2xl p-4 flex items-center gap-3 w-full">
+<div class="bg-blue-50 text-primary p-2 rounded-full">
+<i class="ph ph-timer text-xl"></i>
+</div>
+<div>
+<div class="font-bold text-sm">250 字/分钟</div>
+<div class="text-xs text-textMuted">实时识别</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ==================== HOW IT WORKS ==================== -->
+<section class="py-24 bg-bgLight" id="how">
+<div class="max-w-6xl mx-auto px-6">
+<div class="text-center mb-16 space-y-4">
+<h2 class="text-3xl md:text-4xl font-bold">敲两下，开始说话。</h2>
+<p class="text-textMuted">简单三步，即刻上手。</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+<!-- Step 1 -->
+<div class="space-y-6">
+<div class="text-6xl font-bold text-gray-200">01</div>
+<h3 class="text-xl font-bold">双击热键</h3>
+<p class="text-textMuted text-sm leading-relaxed min-h-[4rem]">在任意应用中，双击热键唤起 Aria Magic Voice 录音窗口。</p>
+<div class="flex gap-2 items-center">
+<span class="text-sm font-medium text-textMuted">双击</span>
+<span class="bg-white border border-gray-200 text-xs px-3 py-1.5 rounded shadow-sm text-gray-600 font-mono flex items-center gap-1">
+⌃ Control
+</span>
+<span class="text-sm font-medium text-textMuted">键</span>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="space-y-6">
+<div class="text-6xl font-bold text-blue-100">02</div>
+<h3 class="text-xl font-bold">开口说话</h3>
+<p class="text-textMuted text-sm leading-relaxed min-h-[4rem]">对着 Mac 说话，实时显示识别内容。中英混说也能准确识别。</p>
+<div class="bg-white border border-gray-100 shadow-sm rounded-lg p-3 flex items-center gap-3">
+<div class="flex gap-0.5 items-end h-4">
+<div class="w-1 bg-primary rounded-full h-2 animate-pulse"></div>
+<div class="w-1 bg-primary rounded-full h-4 animate-pulse delay-75"></div>
+<div class="w-1 bg-primary rounded-full h-3 animate-pulse delay-150"></div>
+<div class="w-1 bg-primary rounded-full h-4 animate-pulse delay-200"></div>
+<div class="w-1 bg-primary rounded-full h-2 animate-pulse delay-300"></div>
+</div>
+<span class="text-sm font-medium text-gray-700">正在聆听…</span>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="space-y-6">
+<div class="text-6xl font-bold text-gray-200">03</div>
+<h3 class="text-xl font-bold">文字即刻出现</h3>
+<p class="text-textMuted text-sm leading-relaxed min-h-[4rem]">说完后文字自动插入到当前光标位置。连贯、干脆、利落。</p>
+<div class="bg-white border border-gray-100 shadow-sm rounded-lg p-4 font-mono text-sm text-gray-600 border-l-4 border-l-primary">
+让声音成为文字的独奏<span class="animate-pulse">|</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ==================== PRICING ==================== -->
+<section class="py-24 bg-white" id="pricing">
+<div class="max-w-5xl mx-auto px-6">
+<div class="text-center mb-16 space-y-4">
+<h2 class="text-3xl md:text-4xl font-bold">Aria Magic Voice</h2>
+<p class="text-textMuted text-lg">一次购买，持续使用。无订阅，无隐藏费用。</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+<!-- CN Pricing -->
+<div class="bg-bgLight rounded-3xl p-10">
+<p class="text-primary text-xs font-bold tracking-wider mb-4">🇨🇳 中国大陆</p>
+<div class="text-5xl font-bold mb-1">¥119</div>
+<p class="text-textMuted text-sm mb-8">一次购买，v2.x 版本内永久可用</p>
+<div class="space-y-3 mb-10">
+<div class="flex items-center gap-3"><i class="ph-fill ph-check-circle text-primary"></i><span class="text-sm">完全离线语音识别</span></div>
+<div class="flex items-center gap-3"><i class="ph-fill ph-check-circle text-primary"></i><span class="text-sm">中英粤日韩多语言支持</span></div>
+<div class="flex items-center gap-3"><i class="ph-fill ph-check-circle text-primary"></i><span class="text-sm">AI 纠错学习引擎</span></div>
+<div class="flex items-center gap-3"><i class="ph-fill ph-check-circle text-primary"></i><span class="text-sm">v2.x 版本免费更新</span></div>
+<div class="flex items-center gap-3"><i class="ph-fill ph-check-circle text-primary"></i><span class="text-sm">1 个授权码 = 3 台 Mac</span></div>
+</div>
+<button class="bg-primary text-white w-full py-3.5 rounded-full font-medium hover:bg-primary-hover transition-colors">微信 / 支付宝购买</button>
+<p class="text-xs text-textMuted text-center mt-4">支持微信支付 · 支付宝</p>
+</div>
+<!-- International Pricing -->
+<div class="bg-bgLight rounded-3xl p-10">
+<p class="text-primary text-xs font-bold tracking-wider mb-4">🌍 INTERNATIONAL</p>
+<div class="text-5xl font-bold mb-1">$19.9</div>
+<p class="text-textMuted text-sm mb-8">One-time purchase, free updates in v2.x</p>
+<div class="space-y-3 mb-10">
+<div class="flex items-center gap-3"><i class="ph-fill ph-check-circle text-primary"></i><span class="text-sm">Fully offline speech recognition</span></div>
+<div class="flex items-center gap-3"><i class="ph-fill ph-check-circle text-primary"></i><span class="text-sm">Chinese, English, Cantonese, Japanese, Korean</span></div>
+<div class="flex items-center gap-3"><i class="ph-fill ph-check-circle text-primary"></i><span class="text-sm">AI correction engine</span></div>
+<div class="flex items-center gap-3"><i class="ph-fill ph-check-circle text-primary"></i><span class="text-sm">Free updates within v2.x</span></div>
+<div class="flex items-center gap-3"><i class="ph-fill ph-check-circle text-primary"></i><span class="text-sm">1 license = 3 Macs</span></div>
+</div>
+<button class="bg-primary text-white w-full py-3.5 rounded-full font-medium hover:bg-primary-hover transition-colors">Buy with Visa / PayPal</button>
+<p class="text-xs text-textMuted text-center mt-4">Visa · Mastercard · PayPal</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ==================== FAQ ==================== -->
+<section class="py-24 bg-bgLight" id="faq">
+<div class="max-w-[680px] mx-auto px-6">
+<h2 class="text-3xl md:text-4xl font-bold text-center mb-12">常见问题</h2>
+<div class="divide-y divide-gray-200">
+<details class="group py-5">
+<summary class="flex justify-between items-center cursor-pointer list-none font-semibold text-base">需要联网吗？<span class="text-xl text-gray-400 group-open:rotate-45 transition-transform">+</span></summary>
+<p class="text-textMuted text-sm leading-relaxed mt-3">不需要。Aria Magic Voice 的语音识别完全在你的 Mac 本地运行，不需要网络连接。你的声音数据不会上传到任何服务器。</p>
+</details>
+<details class="group py-5">
+<summary class="flex justify-between items-center cursor-pointer list-none font-semibold text-base">支持哪些语言？<span class="text-xl text-gray-400 group-open:rotate-45 transition-transform">+</span></summary>
+<p class="text-textMuted text-sm leading-relaxed mt-3">支持普通话、英文、粤语、日语、韩语，以及中英混合输入。一句话里中文夹英文也能准确识别。</p>
+</details>
+<details class="group py-5">
+<summary class="flex justify-between items-center cursor-pointer list-none font-semibold text-base">可以在几台 Mac 上使用？<span class="text-xl text-gray-400 group-open:rotate-45 transition-transform">+</span></summary>
+<p class="text-textMuted text-sm leading-relaxed mt-3">1 个授权码可以在最多 3 台 Mac 上激活。更换电脑时，可以释放旧设备的激活名额。</p>
+</details>
+<details class="group py-5">
+<summary class="flex justify-between items-center cursor-pointer list-none font-semibold text-base">买断后还需要额外付费吗？<span class="text-xl text-gray-400 group-open:rotate-45 transition-transform">+</span></summary>
+<p class="text-textMuted text-sm leading-relaxed mt-3">不需要。购买后 v2.x 版本内的所有更新都是免费的。未来如果发布大版本更新，老用户可享受折扣价升级。</p>
+</details>
+<details class="group py-5">
+<summary class="flex justify-between items-center cursor-pointer list-none font-semibold text-base">对 Mac 有什么要求？<span class="text-xl text-gray-400 group-open:rotate-45 transition-transform">+</span></summary>
+<p class="text-textMuted text-sm leading-relaxed mt-3">需要 macOS 13.0 (Ventura) 或更高版本，支持 Apple Silicon (M1/M2/M3/M4) 和 Intel Mac。</p>
+</details>
+</div>
+</div>
+</section>
+
+<!-- ==================== FOOTER (Apple 5-column + language switcher) ==================== -->
+<footer class="bg-[#f5f5f7] border-t border-black/5">
+<div class="max-w-[980px] mx-auto px-6 pt-4 pb-10">
+<!-- Disclaimer -->
+<div class="space-y-3 text-[11px] leading-5 text-[#6e6e73] border-b border-black/10 pb-4">
+<p>Aria Magic Voice 是一款面向 Mac 的本地 AI 语音输入工具。产品功能、语言支持和购买方式可能会随版本更新而调整。</p>
+<p>"免费试用 3 天"为当前页面展示方案，正式上线时应以实际下载页、授权方式和销售政策为准。</p>
+<p>页面中的视觉示意仅用于展示产品方向，不包含 Apple 官方 Logo、产品图片或官方素材。</p>
+</div>
+
+<!-- 5-column links -->
+<div class="grid grid-cols-2 md:grid-cols-5 gap-x-8 gap-y-8 py-6 text-xs border-b border-black/10">
+<div class="space-y-3">
+<h4 class="font-semibold text-textMain">探索 Aria Magic Voice</h4>
+<div class="space-y-2 text-[#6e6e73]">
+<a class="block hover:underline" href="#">首页</a>
+<a class="block hover:underline" href="#features">核心功能</a>
+<a class="block hover:underline" href="#how">使用方式</a>
+<a class="block hover:underline" href="#pricing">价格</a>
+</div>
+</div>
+<div class="space-y-3">
+<h4 class="font-semibold text-textMain">产品</h4>
+<div class="space-y-2 text-[#6e6e73]">
+<a class="block hover:underline" href="#">标准版</a>
+<a class="block hover:underline" href="#">下载试用</a>
+<a class="block hover:underline" href="#">更新日志</a>
+</div>
+</div>
+<div class="space-y-3">
+<h4 class="font-semibold text-textMain">支持</h4>
+<div class="space-y-2 text-[#6e6e73]">
+<a class="block hover:underline" href="#faq">常见问题</a>
+<a class="block hover:underline" href="mailto:hello@ariamagicvoice.com">联系支持</a>
+<a class="block hover:underline" href="#">兼容性说明</a>
+</div>
+</div>
+<div class="space-y-3">
+<h4 class="font-semibold text-textMain">账户与购买</h4>
+<div class="space-y-2 text-[#6e6e73]">
+<a class="block hover:underline" href="#">购买说明</a>
+<a class="block hover:underline" href="#">销售与退款</a>
+<a class="block hover:underline" href="#">许可证规则</a>
+</div>
+</div>
+<div class="space-y-3">
+<h4 class="font-semibold text-textMain">关于 Aria Magic Voice</h4>
+<div class="space-y-2 text-[#6e6e73]">
+<a class="block hover:underline" href="#">品牌故事</a>
+<a class="block hover:underline" href="#">隐私政策</a>
+<a class="block hover:underline" href="#">使用条款</a>
+</div>
+</div>
+</div>
+
+<!-- Bottom bar: copyright + links + language switcher -->
+<div class="pt-4 text-[11px] text-[#6e6e73] md:flex md:items-center md:justify-between md:gap-6">
+<div class="space-y-2 md:space-y-0 md:flex md:items-center md:gap-6">
+<p>Copyright &copy; 2026 Aria Magic Voice. 保留所有权利。</p>
+<div class="flex flex-wrap items-center gap-x-4 gap-y-1">
+<a class="hover:underline" href="#">隐私政策</a>
+<a class="hover:underline" href="#">使用条款</a>
+<a class="hover:underline" href="#">销售与退款</a>
+<a class="hover:underline" href="#">网站地图</a>
+</div>
+</div>
+<!-- Language Switcher (working dropdown) -->
+<div class="lang-switcher mt-3 md:mt-0">
+<button class="lang-switcher-btn hover:underline flex items-center gap-1" onclick="document.getElementById('langDropdown').classList.toggle('open')">
+<span id="currentLang"><img src="https://flagcdn.com/w40/cn.png" width="20" height="14" style="display:inline-block;vertical-align:middle;margin-right:6px;border-radius:2px" alt="CN"> 中国大陆</span>
+<i class="ph ph-caret-up text-xs"></i>
+</button>
+<div class="lang-dropdown" id="langDropdown">
+<a href="#" class="active" onclick="switchLang(this.innerHTML, 'zh-CN', this)"><img src="https://flagcdn.com/w40/cn.png" width="20" height="14" style="display:inline-block;vertical-align:middle;margin-right:6px;border-radius:2px" alt="CN"> 中国大陆</a>
+<a href="#" onclick="switchLang(this.innerHTML, 'zh-TW', this)"><img src="https://flagcdn.com/w40/tw.png" width="20" height="14" style="display:inline-block;vertical-align:middle;margin-right:6px;border-radius:2px" alt="TW"> 中國臺灣地區</a>
+<a href="#" onclick="switchLang(this.innerHTML, 'zh-HK', this)"><img src="https://flagcdn.com/w40/hk.png" width="20" height="14" style="display:inline-block;vertical-align:middle;margin-right:6px;border-radius:2px" alt="HK"> 中國香港</a>
+<a href="#" onclick="switchLang(this.innerHTML, 'en-US', this)"><img src="https://flagcdn.com/w40/us.png" width="20" height="14" style="display:inline-block;vertical-align:middle;margin-right:6px;border-radius:2px" alt="US"> United States</a>
+<a href="#" onclick="switchLang(this.innerHTML, 'ja-JP', this)"><img src="https://flagcdn.com/w40/jp.png" width="20" height="14" style="display:inline-block;vertical-align:middle;margin-right:6px;border-radius:2px" alt="JP"> 日本</a>
+<a href="#" onclick="switchLang(this.innerHTML, 'ko-KR', this)"><img src="https://flagcdn.com/w40/kr.png" width="20" height="14" style="display:inline-block;vertical-align:middle;margin-right:6px;border-radius:2px" alt="KR"> 한국</a>
+</div>
+</div>
+</div>
+</div>
+</footer>
+
+<script>
+function switchLang(label, langCode, el) {
+  // Update display - use innerHTML to support SVG flags
+  document.getElementById('currentLang').innerHTML = el.innerHTML;
+  // Update active state
+  document.querySelectorAll('.lang-dropdown a').forEach(a => a.classList.remove('active'));
+  el.classList.add('active');
+  // Close dropdown
+  document.getElementById('langDropdown').classList.remove('open');
+  // Update html lang attribute
+  document.documentElement.lang = langCode;
+  // Prevent default
+  event.preventDefault();
+}
+// Close dropdown when clicking outside
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.lang-switcher')) {
+    document.getElementById('langDropdown').classList.remove('open');
+  }
+});
+</script>
+
+</body></html>
