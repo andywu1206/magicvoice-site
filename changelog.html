@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <!--
-  Aria Magic Voice — Refund Policy
+  Aria Magic Voice — Changelog
   Style: matches Landing Page v1.5
-  Date: 2026-03-29
+  Date: 2026-03-30
 -->
 <html lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Refund Policy — Aria Magic Voice</title>
-<meta name="description" content="Aria Magic Voice Refund Policy. 14-day money-back guarantee, no questions asked.">
+<title>Changelog — Aria Magic Voice</title>
+<meta name="description" content="Aria Magic Voice release notes and version history. See what's new in each update.">
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script>
     tailwind.config = {
@@ -68,67 +68,82 @@
 <main class="pt-28 pb-20">
 <div class="max-w-[680px] mx-auto px-6">
 
-<h1 class="text-4xl font-bold tracking-tight mb-2">Refund Policy</h1>
-<p class="text-textMuted text-sm mb-12">Last updated: March 29, 2026</p>
+<h1 class="text-4xl font-bold tracking-tight mb-2">Changelog</h1>
+<p class="text-textMuted text-sm mb-12">Release notes and version history</p>
 
-<div class="space-y-10 text-[15px] leading-7 text-textMain/90">
+<div class="space-y-12 text-[15px] leading-7 text-textMain/90">
 
-<!-- 14-Day Guarantee -->
+<!-- v2.1.0 -->
 <section>
-<h2 class="text-xl font-semibold mb-3">14-Day Money-Back Guarantee</h2>
-<p>We want you to be completely satisfied with Aria Magic Voice. If the Software does not meet your expectations for any reason, you may request a <strong>full refund within 14 days</strong> of your purchase date.</p>
-<p class="mt-3">No questions asked. No hoops to jump through.</p>
-</section>
-
-<!-- How to Request -->
-<section>
-<h2 class="text-xl font-semibold mb-3">How to Request a Refund</h2>
-<p>To request a refund, simply send an email to:</p>
-<p class="mt-3 mb-3">
-<a href="mailto:magicvoice.team@outlook.com" class="text-primary hover:underline font-medium">magicvoice.team@outlook.com</a>
-</p>
-<p>Please include the following information:</p>
-<ul class="list-disc pl-5 space-y-2 mt-3">
-<li>The <strong>email address</strong> used for the purchase</li>
-<li>Your <strong>order number</strong> or <strong>license key</strong> (if available)</li>
-<li>A brief reason for the refund (optional, but helps us improve)</li>
+<div class="flex items-center gap-3 mb-4">
+<span class="bg-primary text-white text-xs font-bold px-3 py-1 rounded-full">Latest</span>
+<h2 class="text-xl font-semibold">v2.1.0</h2>
+<span class="text-textMuted text-sm">— March 2026</span>
+</div>
+<div class="bg-white rounded-2xl border border-black/5 p-6 space-y-4">
+<div>
+<h3 class="font-semibold text-sm text-primary mb-2">New Features</h3>
+<ul class="list-disc pl-5 space-y-1.5 text-sm">
+<li>Brand-new floating pill UI -- minimal, unobtrusive, always accessible</li>
+<li>WeChat-style voice wave animation during recording</li>
+<li>Support for both left and right modifier keys (Control, Option, Command)</li>
+<li>Paddle payment integration for international purchases</li>
 </ul>
-</section>
-
-<!-- Processing -->
-<section>
-<h2 class="text-xl font-semibold mb-3">Refund Processing</h2>
-<ul class="list-disc pl-5 space-y-2">
-<li>Refunds are processed through <strong>Paddle.com</strong>, our authorized Merchant of Record.</li>
-<li>Once approved, refunds are typically issued within <strong>5-10 business days</strong> to your original payment method.</li>
-<li>The exact timing depends on your payment provider (credit card company, bank, etc.).</li>
-<li>Upon refund, your license key will be <strong>deactivated</strong>.</li>
+</div>
+<div>
+<h3 class="font-semibold text-sm text-green-600 mb-2">Improvements</h3>
+<ul class="list-disc pl-5 space-y-1.5 text-sm">
+<li>Hotkey detection rewritten with CGEventTap for better reliability</li>
+<li>Improved text insertion accuracy with Return key handling</li>
+<li>Smoother recording-to-processing state transitions</li>
 </ul>
-</section>
-
-<!-- Eligibility -->
-<section>
-<h2 class="text-xl font-semibold mb-3">Eligibility</h2>
-<ul class="list-disc pl-5 space-y-2">
-<li>The refund request must be made <strong>within 14 calendar days</strong> of the original purchase date.</li>
-<li>Each customer is entitled to <strong>one refund</strong>. Repeated purchases and refunds of the same product are not permitted.</li>
-<li>Refund requests made after the 14-day window will be reviewed on a case-by-case basis at our discretion.</li>
+</div>
+<div>
+<h3 class="font-semibold text-sm text-orange-500 mb-2">Bug Fixes</h3>
+<ul class="list-disc pl-5 space-y-1.5 text-sm">
+<li>Fixed hotkey not triggering after macOS permission changes</li>
+<li>Fixed trial expiration state not properly clearing UI</li>
+<li>Fixed Return key not inserting text due to event tap conflict</li>
 </ul>
+</div>
+</div>
 </section>
 
-<!-- Free Trial -->
+<!-- v2.0.0 -->
 <section>
-<h2 class="text-xl font-semibold mb-3">Try Before You Buy</h2>
-<p>We strongly encourage you to use the <strong>free 3-day trial</strong> before purchasing. The trial includes full access to all features, allowing you to evaluate the Software on your own Mac with your own use cases before making a purchase decision.</p>
+<div class="flex items-center gap-3 mb-4">
+<h2 class="text-xl font-semibold">v2.0.0</h2>
+<span class="text-textMuted text-sm">— February 2026</span>
+</div>
+<div class="bg-white rounded-2xl border border-black/5 p-6 space-y-4">
+<div>
+<h3 class="font-semibold text-sm text-primary mb-2">Major Release</h3>
+<ul class="list-disc pl-5 space-y-1.5 text-sm">
+<li>Complete rewrite with SenseVoice AI engine for 100% local processing</li>
+<li>Multi-language support: Mandarin, English, Cantonese, Japanese, Korean</li>
+<li>Chinese-English mixed input recognition</li>
+<li>Double-tap hotkey activation (Control / Option / Command)</li>
+<li>License system with 3-device activation per key</li>
+<li>3-day free trial with full functionality</li>
+</ul>
+</div>
+</div>
 </section>
 
-<!-- Contact -->
+<!-- Coming Soon -->
 <section>
-<h2 class="text-xl font-semibold mb-3">Questions?</h2>
-<p>If you have any questions about our refund policy or need assistance, please don't hesitate to contact us:</p>
-<p class="mt-3">
-<a href="mailto:magicvoice.team@outlook.com" class="text-primary hover:underline">magicvoice.team@outlook.com</a>
-</p>
+<div class="flex items-center gap-3 mb-4">
+<span class="bg-gray-200 text-textMuted text-xs font-bold px-3 py-1 rounded-full">Upcoming</span>
+<h2 class="text-xl font-semibold">What's Next</h2>
+</div>
+<div class="bg-white rounded-2xl border border-black/5 p-6">
+<ul class="list-disc pl-5 space-y-1.5 text-sm">
+<li>AI vocabulary learning -- adapts to your speaking style over time</li>
+<li>Custom punctuation and formatting preferences</li>
+<li>More language support</li>
+<li>Performance optimizations for Intel Macs</li>
+</ul>
+</div>
 </section>
 
 </div>
