@@ -95,7 +95,7 @@
 <a class="hover:text-textMain transition-colors" href="#pricing">价格</a>
 <a class="hover:text-textMain transition-colors" href="#faq">常见问题</a>
 </nav>
-<a href="#pricing" class="bg-primary text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-primary-hover transition-colors no-underline">
+<a href="#pricing" class="bg-primary text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-primary-hover active:scale-[0.97] active:brightness-90 transition-all no-underline">
   立即下载
 </a>
 </div>
@@ -363,6 +363,7 @@
 <p>Aria Magic Voice 是一款面向 Mac 的本地 AI 语音输入工具。产品功能、语言支持和购买方式可能会随版本更新而调整。</p>
 <p>"免费试用 3 天"为当前页面展示方案，正式上线时应以实际下载页、授权方式和销售政策为准。</p>
 <p>页面中的视觉示意仅用于展示产品方向，不包含 Apple 官方 Logo、产品图片或官方素材。</p>
+<p>最后更新：2026 年 3 月 30 日</p>
 </div>
 
 <!-- 5-column links -->
@@ -427,12 +428,12 @@
 <i class="ph ph-caret-up text-xs"></i>
 </button>
 <div class="lang-dropdown" id="langDropdown">
-<a href="#" class="active" onclick="switchLang(this.innerHTML, 'zh-CN', this)"><img src="https://flagcdn.com/w40/cn.png" width="20" height="14" style="display:inline-block;vertical-align:middle;margin-right:6px;border-radius:2px" alt="CN"> 中国大陆</a>
-<a href="#" onclick="switchLang(this.innerHTML, 'zh-TW', this)"><img src="https://flagcdn.com/w40/tw.png" width="20" height="14" style="display:inline-block;vertical-align:middle;margin-right:6px;border-radius:2px" alt="TW"> 中國臺灣地區</a>
-<a href="#" onclick="switchLang(this.innerHTML, 'zh-HK', this)"><img src="https://flagcdn.com/w40/hk.png" width="20" height="14" style="display:inline-block;vertical-align:middle;margin-right:6px;border-radius:2px" alt="HK"> 中國香港</a>
-<a href="#" onclick="switchLang(this.innerHTML, 'en-US', this)"><img src="https://flagcdn.com/w40/us.png" width="20" height="14" style="display:inline-block;vertical-align:middle;margin-right:6px;border-radius:2px" alt="US"> United States</a>
-<a href="#" onclick="switchLang(this.innerHTML, 'ja-JP', this)"><img src="https://flagcdn.com/w40/jp.png" width="20" height="14" style="display:inline-block;vertical-align:middle;margin-right:6px;border-radius:2px" alt="JP"> 日本</a>
-<a href="#" onclick="switchLang(this.innerHTML, 'ko-KR', this)"><img src="https://flagcdn.com/w40/kr.png" width="20" height="14" style="display:inline-block;vertical-align:middle;margin-right:6px;border-radius:2px" alt="KR"> 한국</a>
+<a href="#" class="active" onclick="switchLang(this.innerHTML, 'zh-CN', this, event)"><img src="https://flagcdn.com/w40/cn.png" width="20" height="14" style="display:inline-block;vertical-align:middle;margin-right:6px;border-radius:2px" alt="CN"> 中国大陆</a>
+<a href="#" onclick="switchLang(this.innerHTML, 'zh-TW', this, event)"><img src="https://flagcdn.com/w40/tw.png" width="20" height="14" style="display:inline-block;vertical-align:middle;margin-right:6px;border-radius:2px" alt="TW"> 中國臺灣地區</a>
+<a href="#" onclick="switchLang(this.innerHTML, 'zh-HK', this, event)"><img src="https://flagcdn.com/w40/hk.png" width="20" height="14" style="display:inline-block;vertical-align:middle;margin-right:6px;border-radius:2px" alt="HK"> 中國香港</a>
+<a href="#" onclick="switchLang(this.innerHTML, 'en-US', this, event)"><img src="https://flagcdn.com/w40/us.png" width="20" height="14" style="display:inline-block;vertical-align:middle;margin-right:6px;border-radius:2px" alt="US"> United States</a>
+<a href="#" onclick="switchLang(this.innerHTML, 'ja-JP', this, event)"><img src="https://flagcdn.com/w40/jp.png" width="20" height="14" style="display:inline-block;vertical-align:middle;margin-right:6px;border-radius:2px" alt="JP"> 日本</a>
+<a href="#" onclick="switchLang(this.innerHTML, 'ko-KR', this, event)"><img src="https://flagcdn.com/w40/kr.png" width="20" height="14" style="display:inline-block;vertical-align:middle;margin-right:6px;border-radius:2px" alt="KR"> 한국</a>
 </div>
 </div>
 </div>
@@ -441,7 +442,7 @@
 </footer>
 
 <script>
-function switchLang(label, langCode, el) {
+function switchLang(label, langCode, el, e) {
   // Update display - use innerHTML to support SVG flags
   document.getElementById('currentLang').innerHTML = el.innerHTML;
   // Update active state
@@ -452,7 +453,7 @@ function switchLang(label, langCode, el) {
   // Update html lang attribute
   document.documentElement.lang = langCode;
   // Prevent default
-  event.preventDefault();
+  e.preventDefault();
 }
 // Close dropdown when clicking outside
 document.addEventListener('click', function(e) {
