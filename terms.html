@@ -35,6 +35,17 @@
       -webkit-backdrop-filter: saturate(180%) blur(20px);
       border-bottom: 1px solid rgba(0, 0, 0, 0.04);
     }
+    .mobile-menu-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 60;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+    }
+    .mobile-menu-overlay.open { opacity: 1; pointer-events: auto; }
+    .mobile-menu-panel {
+      position: fixed; top: 0; right: 0; width: 280px; height: 100%;
+      background: #fbfbfd; z-index: 70; transform: translateX(100%);
+      transition: transform 0.3s ease; box-shadow: -4px 0 24px rgba(0,0,0,0.1);
+    }
+    .mobile-menu-panel.open { transform: translateX(0); }
   </style>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <script src="https://unpkg.com/@phosphor-icons/web"></script>
@@ -57,12 +68,32 @@
 <a class="hover:text-textMain transition-colors" href="/#pricing">Pricing</a>
 <a class="hover:text-textMain transition-colors" href="/#faq">FAQ</a>
 </nav>
-<a href="/#pricing" class="bg-primary text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-primary-hover active:scale-[0.97] active:brightness-90 transition-all no-underline">
+<a href="/#pricing" class="hidden md:inline-flex bg-primary text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-primary-hover active:scale-[0.97] active:brightness-90 transition-all no-underline">
   Download Now
 </a>
+<button class="md:hidden text-textMain text-2xl p-1" onclick="toggleMobileMenu()" aria-label="Open menu">
+  <i class="ph ph-list"></i>
+</button>
 </div>
 </div>
 </header>
+
+<div class="mobile-menu-overlay" id="mobileMenuOverlay" onclick="toggleMobileMenu()"></div>
+<div class="mobile-menu-panel" id="mobileMenuPanel">
+  <div class="flex items-center justify-between px-6 h-16 border-b border-black/5">
+    <span class="font-semibold text-[18px] tracking-tight text-textMain">Aria <span class="text-primary">Magic</span> Voice</span>
+    <button class="text-textMain text-2xl p-1" onclick="toggleMobileMenu()" aria-label="Close menu"><i class="ph ph-x"></i></button>
+  </div>
+  <nav class="flex flex-col px-6 py-6 gap-6 text-base font-medium text-textMuted">
+    <a class="hover:text-textMain transition-colors" href="/#features" onclick="toggleMobileMenu()">Features</a>
+    <a class="hover:text-textMain transition-colors" href="/#how" onclick="toggleMobileMenu()">How It Works</a>
+    <a class="hover:text-textMain transition-colors" href="/#pricing" onclick="toggleMobileMenu()">Pricing</a>
+    <a class="hover:text-textMain transition-colors" href="/#faq" onclick="toggleMobileMenu()">FAQ</a>
+  </nav>
+  <div class="px-6">
+    <a href="/#pricing" onclick="toggleMobileMenu()" class="block text-center bg-primary text-white py-3 rounded-full text-sm font-medium hover:bg-primary-hover transition-all no-underline">Download Now</a>
+  </div>
+</div>
 
 <!-- ==================== CONTENT ==================== -->
 <main class="pt-28 pb-20">
@@ -240,4 +271,10 @@
 </div>
 </footer>
 
+<script>
+function toggleMobileMenu() {
+  document.getElementById('mobileMenuOverlay').classList.toggle('open');
+  document.getElementById('mobileMenuPanel').classList.toggle('open');
+}
+</script>
 </body></html>

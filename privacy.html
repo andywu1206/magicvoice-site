@@ -35,6 +35,17 @@
       -webkit-backdrop-filter: saturate(180%) blur(20px);
       border-bottom: 1px solid rgba(0, 0, 0, 0.04);
     }
+    .mobile-menu-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 60;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+    }
+    .mobile-menu-overlay.open { opacity: 1; pointer-events: auto; }
+    .mobile-menu-panel {
+      position: fixed; top: 0; right: 0; width: 280px; height: 100%;
+      background: #fbfbfd; z-index: 70; transform: translateX(100%);
+      transition: transform 0.3s ease; box-shadow: -4px 0 24px rgba(0,0,0,0.1);
+    }
+    .mobile-menu-panel.open { transform: translateX(0); }
   </style>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <script src="https://unpkg.com/@phosphor-icons/web"></script>
@@ -57,12 +68,32 @@
 <a class="hover:text-textMain transition-colors" href="/#pricing">Pricing</a>
 <a class="hover:text-textMain transition-colors" href="/#faq">FAQ</a>
 </nav>
-<a href="/#pricing" class="bg-primary text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-primary-hover active:scale-[0.97] active:brightness-90 transition-all no-underline">
+<a href="/#pricing" class="hidden md:inline-flex bg-primary text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-primary-hover active:scale-[0.97] active:brightness-90 transition-all no-underline">
   Download Now
 </a>
+<button class="md:hidden text-textMain text-2xl p-1" onclick="toggleMobileMenu()" aria-label="Open menu">
+  <i class="ph ph-list"></i>
+</button>
 </div>
 </div>
 </header>
+
+<div class="mobile-menu-overlay" id="mobileMenuOverlay" onclick="toggleMobileMenu()"></div>
+<div class="mobile-menu-panel" id="mobileMenuPanel">
+  <div class="flex items-center justify-between px-6 h-16 border-b border-black/5">
+    <span class="font-semibold text-[18px] tracking-tight text-textMain">Aria <span class="text-primary">Magic</span> Voice</span>
+    <button class="text-textMain text-2xl p-1" onclick="toggleMobileMenu()" aria-label="Close menu"><i class="ph ph-x"></i></button>
+  </div>
+  <nav class="flex flex-col px-6 py-6 gap-6 text-base font-medium text-textMuted">
+    <a class="hover:text-textMain transition-colors" href="/#features" onclick="toggleMobileMenu()">Features</a>
+    <a class="hover:text-textMain transition-colors" href="/#how" onclick="toggleMobileMenu()">How It Works</a>
+    <a class="hover:text-textMain transition-colors" href="/#pricing" onclick="toggleMobileMenu()">Pricing</a>
+    <a class="hover:text-textMain transition-colors" href="/#faq" onclick="toggleMobileMenu()">FAQ</a>
+  </nav>
+  <div class="px-6">
+    <a href="/#pricing" onclick="toggleMobileMenu()" class="block text-center bg-primary text-white py-3 rounded-full text-sm font-medium hover:bg-primary-hover transition-all no-underline">Download Now</a>
+  </div>
+</div>
 
 <!-- ==================== CONTENT ==================== -->
 <main class="pt-28 pb-20">
@@ -130,13 +161,32 @@
 <!-- This Website -->
 <section>
 <h2 class="text-xl font-semibold mb-3">This Website</h2>
-<p>ariamagicvoice.com is a purely static website hosted on GitHub Pages. This website does not use any analytics tools, trackers, or cookies.</p>
+<p>ariamagicvoice.com is a purely static website hosted on GitHub Pages. This website does not use any analytics tools, trackers, or cookies. However, the website loads resources from the following external domains in order to render its pages:</p>
+<ul class="list-disc pl-5 space-y-2 mt-3">
+<li><strong>Google Fonts</strong> (fonts.googleapis.com / fonts.gstatic.com) — for web typography. Google may log standard access data; see <a href="https://developers.google.com/fonts/faq/privacy" class="text-primary hover:underline" target="_blank" rel="noopener">Google Fonts Privacy FAQ</a>.</li>
+<li><strong>Tailwind CSS CDN</strong> (cdn.tailwindcss.com) — for page styling.</li>
+<li><strong>Phosphor Icons</strong> (unpkg.com) — for UI icons.</li>
+<li><strong>Flag CDN</strong> (flagcdn.com) — for country flag images.</li>
+<li><strong>Paddle.js</strong> (paddle.com) — for in-page checkout functionality.</li>
+</ul>
+<p class="mt-3">When your browser loads these resources, your IP address and basic request headers are sent to the respective CDN providers as part of standard HTTP requests. We do not control data handling by these providers.</p>
 </section>
 
 <!-- Third-Party Services -->
 <section>
 <h2 class="text-xl font-semibold mb-3">Third-Party Services</h2>
-<p>Apart from Paddle for payment processing and license verification, Aria Magic Voice does not integrate any third-party services. Speech recognition runs entirely locally and does not depend on any external API.</p>
+<p><strong>The desktop application</strong> does not integrate any third-party cloud services. Speech recognition runs entirely locally and does not depend on any external API. The only network connection the app makes is to Paddle for license activation and verification.</p>
+<p class="mt-3"><strong>This website</strong> loads third-party resources from Google Fonts, Tailwind CSS CDN, unpkg (Phosphor Icons), Flag CDN, and Paddle as described in the "This Website" section above. These services may receive standard HTTP request data (such as your IP address) when the page loads.</p>
+</section>
+
+<!-- Data Retention and Deletion -->
+<section>
+<h2 class="text-xl font-semibold mb-3">Data Retention and Deletion</h2>
+<ul class="list-disc pl-5 space-y-2">
+<li><strong>App data</strong> — All application data (settings, preferences) is stored locally on your Mac. You can delete all app data by removing the application and its configuration directory at <span class="font-mono text-sm text-textMuted">~/.config/magicvoice/</span>.</li>
+<li><strong>Payment data</strong> — Payment and transaction information is handled by Paddle and is subject to <a href="https://www.paddle.com/legal/privacy" class="text-primary hover:underline" target="_blank" rel="noopener">Paddle's privacy and data retention policy</a>.</li>
+<li><strong>Data deletion requests</strong> — If you would like to request deletion of any data associated with your purchase or have questions about your data, please contact us at <a href="mailto:magicvoice.team@outlook.com" class="text-primary hover:underline">magicvoice.team@outlook.com</a>.</li>
+</ul>
 </section>
 
 <!-- Children's Privacy -->
@@ -228,4 +278,10 @@
 </div>
 </footer>
 
+<script>
+function toggleMobileMenu() {
+  document.getElementById('mobileMenuOverlay').classList.toggle('open');
+  document.getElementById('mobileMenuPanel').classList.toggle('open');
+}
+</script>
 </body></html>

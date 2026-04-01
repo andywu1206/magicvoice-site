@@ -14,6 +14,10 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Aria Magic Voice — 让声音，成为文字的独奏</title>
 <meta name="description" content="Aria Magic Voice 是一款 Mac 端本地 AI 语音转文字工具。双击热键开始说话，文字自动输入到任意应用。完全离线，隐私安全。">
+<meta property="og:title" content="Aria Magic Voice — macOS 本地 AI 语音转文字">
+<meta property="og:description" content="Aria Magic Voice 是一款 Mac 端本地 AI 语音转文字工具。双击热键开始说话，文字自动输入到任意应用。完全离线，隐私安全。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ariamagicvoice.com">
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script>
     tailwind.config = {
@@ -39,6 +43,35 @@
       backdrop-filter: saturate(180%) blur(20px);
       -webkit-backdrop-filter: saturate(180%) blur(20px);
       border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    }
+    /* Mobile menu overlay */
+    .mobile-menu-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 60;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .mobile-menu-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .mobile-menu-panel {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 280px;
+      height: 100%;
+      background: #fbfbfd;
+      z-index: 70;
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+      box-shadow: -4px 0 24px rgba(0, 0, 0, 0.1);
+    }
+    .mobile-menu-panel.open {
+      transform: translateX(0);
     }
     /* Language switcher dropdown */
     .lang-switcher { position: relative; }
@@ -74,7 +107,16 @@
 <!-- Paddle.js — payment checkout -->
 <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
 <script>
-  Paddle.Initialize({ token: 'live_d7beb0bd4a366dacc86dcdc998f' });
+  Paddle.Initialize({
+    token: 'live_d7beb0bd4a366dacc86dcdc998f',
+    eventCallback: function(eventData) {
+      if (eventData.name === 'checkout.completed') {
+        var email = '';
+        try { email = eventData.data.customer.email || ''; } catch(e) {}
+        window.location.href = '/thank-you.html' + (email ? '?email=' + encodeURIComponent(email) : '');
+      }
+    }
+  });
 </script>
 </head>
 <body class="bg-bgLight text-textMain font-sans antialiased">
@@ -95,12 +137,35 @@
 <a class="hover:text-textMain transition-colors" href="#pricing">价格</a>
 <a class="hover:text-textMain transition-colors" href="#faq">常见问题</a>
 </nav>
-<a href="#pricing" class="bg-primary text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-primary-hover active:scale-[0.97] active:brightness-90 transition-all no-underline">
+<a href="#pricing" class="hidden md:inline-flex bg-primary text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-primary-hover active:scale-[0.97] active:brightness-90 transition-all no-underline">
   立即下载
 </a>
+<button class="md:hidden text-textMain text-2xl p-1" onclick="toggleMobileMenu()" aria-label="Open menu">
+  <i class="ph ph-list"></i>
+</button>
 </div>
 </div>
 </header>
+
+<!-- Mobile Menu Overlay -->
+<div class="mobile-menu-overlay" id="mobileMenuOverlay" onclick="toggleMobileMenu()"></div>
+<div class="mobile-menu-panel" id="mobileMenuPanel">
+  <div class="flex items-center justify-between px-6 h-16 border-b border-black/5">
+    <span class="font-semibold text-[18px] tracking-tight text-textMain">Aria <span class="text-primary">Magic</span> Voice</span>
+    <button class="text-textMain text-2xl p-1" onclick="toggleMobileMenu()" aria-label="Close menu">
+      <i class="ph ph-x"></i>
+    </button>
+  </div>
+  <nav class="flex flex-col px-6 py-6 gap-6 text-base font-medium text-textMuted">
+    <a class="hover:text-textMain transition-colors" href="#features" onclick="toggleMobileMenu()">功能</a>
+    <a class="hover:text-textMain transition-colors" href="#how" onclick="toggleMobileMenu()">使用方式</a>
+    <a class="hover:text-textMain transition-colors" href="#pricing" onclick="toggleMobileMenu()">价格</a>
+    <a class="hover:text-textMain transition-colors" href="#faq" onclick="toggleMobileMenu()">常见问题</a>
+  </nav>
+  <div class="px-6">
+    <a href="#pricing" onclick="toggleMobileMenu()" class="block text-center bg-primary text-white py-3 rounded-full text-sm font-medium hover:bg-primary-hover transition-all no-underline">立即下载</a>
+  </div>
+</div>
 
 <!-- ==================== HERO ==================== -->
 <main class="pt-32 pb-20">
@@ -318,7 +383,7 @@
 <div class="flex items-center gap-3"><i class="ph-fill ph-check-circle text-primary"></i><span class="text-sm">1 license = 3 Macs</span></div>
 </div>
 <div class="mt-auto">
-<button onclick="Paddle.Checkout.open({ items: [{ priceId: 'pri_01kmx0x2kg7dckq4j2q5nhwj6c', quantity: 1 }] })" class="bg-primary text-white w-full py-3.5 rounded-full font-medium hover:bg-primary-hover active:scale-[0.97] active:brightness-90 transition-all cursor-pointer">Buy with Visa / PayPal</button>
+<button onclick="openPaddleCheckout()" class="bg-primary text-white w-full py-3.5 rounded-full font-medium hover:bg-primary-hover active:scale-[0.97] active:brightness-90 transition-all cursor-pointer">Buy with Visa / PayPal</button>
 <p class="text-xs text-textMuted text-center mt-4">Visa · Mastercard · PayPal · Apple Pay · Google Pay</p>
 </div>
 </div>
@@ -460,6 +525,24 @@ document.addEventListener('click', function(e) {
     document.getElementById('langDropdown').classList.remove('open');
   }
 });
+
+// ── Mobile Menu ──
+function toggleMobileMenu() {
+  document.getElementById('mobileMenuOverlay').classList.toggle('open');
+  document.getElementById('mobileMenuPanel').classList.toggle('open');
+}
+
+// ── Paddle Checkout ──
+// eventCallback 已合并到 Paddle.Initialize()（<head> 中）
+// 不再使用 Paddle.Setup()，避免双初始化风险
+function openPaddleCheckout() {
+  Paddle.Checkout.open({
+    items: [{ priceId: 'pri_01kmx0x2kg7dckq4j2q5nhwj6c', quantity: 1 }],
+    customData: {
+      source: 'website'
+    }
+  });
+}
 </script>
 
 </body></html>
