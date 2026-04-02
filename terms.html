@@ -1,127 +1,274 @@
 <!DOCTYPE html>
 <!--
-  Aria Magic Voice — Terms of Service
-  Style: matches Landing Page v1.5
-  Date: 2026-03-25
+  Aria Magic Voice — Terms of Service (Bilingual)
+  Style: v2.4 Glass design, matching index.html
+  Date: 2026-04-03
 -->
-<html lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Terms of Service — Aria Magic Voice</title>
 <meta name="description" content="Aria Magic Voice Terms of Service. Local AI speech-to-text for macOS.">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: '#0071e3',
-            'primary-hover': '#0077ED',
-            bgLight: '#f5f5f7',
-            textMain: '#1d1d1f',
-            textMuted: '#6e6e73',
-          },
-          fontFamily: {
-            sans: ['-apple-system', 'BlinkMacSystemFont', 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', 'Arial', 'sans-serif'],
-          }
-        }
-      }
-    }
-  </script>
-<style data-purpose="custom-utilities">
-    .glass-nav {
-      background: rgba(251, 251, 253, 0.8);
-      backdrop-filter: saturate(180%) blur(20px);
-      -webkit-backdrop-filter: saturate(180%) blur(20px);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
-    }
-    .mobile-menu-overlay {
-      position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 60;
-      opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
-    }
-    .mobile-menu-overlay.open { opacity: 1; pointer-events: auto; }
-    .mobile-menu-panel {
-      position: fixed; top: 0; right: 0; width: 280px; height: 100%;
-      background: #fbfbfd; z-index: 70; transform: translateX(100%);
-      transition: transform 0.3s ease; box-shadow: -4px 0 24px rgba(0,0,0,0.1);
-    }
-    .mobile-menu-panel.open { transform: translateX(0); }
-  </style>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<script src="https://unpkg.com/@phosphor-icons/web"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/regular/style.css">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --primary: #0071E3;
+  --primary-light: #4da3ff;
+  --primary-dark: #0058b0;
+  --bg: #F5F5F7;
+  --bg-warm: #FAFAFA;
+  --text-main: #1D1D1F;
+  --text-muted: #6E6E73;
+  --text-light: #86868B;
+  --glass-bg: rgba(255, 255, 255, 0.72);
+  --glass-bg-strong: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
+  --glass-blur: blur(28px) saturate(200%);
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 28px;
+  --radius-pill: 100px;
+  --border: #E5E5EA;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Noto Sans SC', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text-main);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* === AMBIENT BACKGROUND === */
+.ambient-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(0, 113, 227, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 20%, rgba(147, 130, 220, 0.06) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 40% at 50% 90%, rgba(0, 200, 170, 0.05) 0%, transparent 50%),
+    var(--bg);
+}
+
+/* === NAV === */
+.nav {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: min(92%, 1100px);
+  height: 56px;
+  padding: 0 24px;
+  border-radius: var(--radius-pill);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--text-main);
+  word-spacing: -4px;
+}
+
+.nav-brand i { color: var(--primary); }
+.nav-brand .brand-magic { color: var(--primary); margin: 0 -2px; }
+
+/* === LANGUAGE TOGGLE === */
+.lang-toggle {
+  display: flex;
+  gap: 4px;
+}
+
+.lang-btn {
+  padding: 4px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.lang-btn.active {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+/* === CONTENT === */
+.content {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 100px 24px 80px;
+}
+
+.page-title {
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin-bottom: 6px;
+}
+
+.page-date {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-bottom: 48px;
+}
+
+.sections {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  font-size: 15px;
+  line-height: 1.75;
+  color: rgba(29, 29, 31, 0.9);
+}
+
+.sections h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--text-main);
+}
+
+.sections p + p { margin-top: 12px; }
+
+.sections ul {
+  list-style: disc;
+  padding-left: 20px;
+}
+
+.sections ul li + li { margin-top: 8px; }
+
+.sections a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.sections a:hover { text-decoration: underline; }
+
+/* data-lang visibility controlled by JS */
+
+/* === FOOTER === */
+.footer {
+  padding: 40px 24px;
+  text-align: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.footer-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--text-main);
+  margin-bottom: 12px;
+  word-spacing: -4px;
+}
+
+.footer-brand i { color: var(--primary); }
+.footer-brand .brand-magic { color: var(--primary); margin: 0 -2px; }
+
+.footer-copy {
+  font-size: 13px;
+  color: var(--text-light);
+}
+
+.footer-links {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+}
+
+.footer-links a {
+  font-size: 13px;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover { color: var(--primary); }
+
+/* === RESPONSIVE === */
+@media (max-width: 640px) {
+  .nav { width: calc(100% - 24px); padding: 0 16px; height: 50px; top: 10px; }
+  .nav-brand { font-size: 14px; gap: 6px; }
+  .content { padding: 88px 20px 60px; }
+  .page-title { font-size: 28px; }
+  .sections { gap: 32px; font-size: 14px; }
+  .sections h2 { font-size: 18px; }
+  .footer-links { flex-direction: column; gap: 12px; }
+}
+</style>
 </head>
-<body class="bg-bgLight text-textMain font-sans antialiased">
+<body>
 
-<!-- ==================== NAV ==================== -->
-<header class="fixed top-0 left-0 right-0 z-50 glass-nav">
-<div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-<div class="flex items-center gap-2.5">
-<i class="ph ph-sparkle text-primary text-xl"></i>
-<a href="/" class="font-semibold text-[18px] tracking-tight text-textMain no-underline">
-  Aria <span class="text-primary">Magic</span> Voice
-</a>
-</div>
-<div class="flex items-center gap-8">
-<nav class="hidden md:flex items-center gap-8 text-sm font-medium text-textMuted">
-<a class="hover:text-textMain transition-colors" href="/#features">Features</a>
-<a class="hover:text-textMain transition-colors" href="/#how">How It Works</a>
-<a class="hover:text-textMain transition-colors" href="/#pricing">Pricing</a>
-<a class="hover:text-textMain transition-colors" href="/#faq">FAQ</a>
+<div class="ambient-bg"></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="/" class="nav-brand">
+    <i class="ph ph-sparkle"></i>
+    Aria <span class="brand-magic">Magic</span> Voice
+  </a>
+  <div class="lang-toggle">
+    <button class="lang-btn" onclick="setLang('zh')">中文</button>
+    <button class="lang-btn" onclick="setLang('en')">EN</button>
+  </div>
 </nav>
-<a href="/#pricing" class="hidden md:inline-flex bg-primary text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-primary-hover active:scale-[0.97] active:brightness-90 transition-all no-underline">
-  Download Now
-</a>
-<button class="md:hidden text-textMain text-2xl p-1" onclick="toggleMobileMenu()" aria-label="Open menu">
-  <i class="ph ph-list"></i>
-</button>
-</div>
-</div>
-</header>
 
-<div class="mobile-menu-overlay" id="mobileMenuOverlay" onclick="toggleMobileMenu()"></div>
-<div class="mobile-menu-panel" id="mobileMenuPanel">
-  <div class="flex items-center justify-between px-6 h-16 border-b border-black/5">
-    <span class="font-semibold text-[18px] tracking-tight text-textMain">Aria <span class="text-primary">Magic</span> Voice</span>
-    <button class="text-textMain text-2xl p-1" onclick="toggleMobileMenu()" aria-label="Close menu"><i class="ph ph-x"></i></button>
-  </div>
-  <nav class="flex flex-col px-6 py-6 gap-6 text-base font-medium text-textMuted">
-    <a class="hover:text-textMain transition-colors" href="/#features" onclick="toggleMobileMenu()">Features</a>
-    <a class="hover:text-textMain transition-colors" href="/#how" onclick="toggleMobileMenu()">How It Works</a>
-    <a class="hover:text-textMain transition-colors" href="/#pricing" onclick="toggleMobileMenu()">Pricing</a>
-    <a class="hover:text-textMain transition-colors" href="/#faq" onclick="toggleMobileMenu()">FAQ</a>
-  </nav>
-  <div class="px-6">
-    <a href="/#pricing" onclick="toggleMobileMenu()" class="block text-center bg-primary text-white py-3 rounded-full text-sm font-medium hover:bg-primary-hover active:scale-[0.97] active:brightness-90 transition-all no-underline">Download Now</a>
-  </div>
-</div>
+<!-- CONTENT -->
+<main class="content">
 
-<!-- ==================== CONTENT ==================== -->
-<main class="pt-28 pb-20">
-<div class="max-w-[680px] mx-auto px-6">
+<!-- English -->
+<div data-lang="en">
+<h1 class="page-title">Terms of Service</h1>
+<p class="page-date">Last updated: April 3, 2026</p>
 
-<h1 class="text-4xl font-bold tracking-tight mb-2">Terms of Service</h1>
-<p class="text-textMuted text-sm mb-12">Last updated: March 30, 2026</p>
+<div class="sections">
 
-<div class="space-y-10 text-[15px] leading-7 text-textMain/90">
-
-<!-- Introduction -->
 <section>
-<h2 class="text-xl font-semibold mb-3">1. Introduction</h2>
+<h2>1. Introduction</h2>
 <p>These Terms of Service ("Terms") govern your use of Aria Magic Voice ("the Software"), a macOS desktop application for local AI-powered speech-to-text conversion, developed and operated by Aria Magic Voice ("we", "us", or "our").</p>
-<p class="mt-3">By downloading, installing, or using the Software, you agree to be bound by these Terms. If you do not agree to these Terms, do not use the Software.</p>
+<p>By downloading, installing, or using the Software, you agree to be bound by these Terms. If you do not agree to these Terms, do not use the Software.</p>
 </section>
 
-<!-- Product Description -->
 <section>
-<h2 class="text-xl font-semibold mb-3">2. Product Description</h2>
+<h2>2. Product Description</h2>
 <p>Aria Magic Voice is a macOS desktop application that provides AI-powered speech-to-text transcription. All voice recognition is performed <strong>100% locally on your Mac</strong> using the built-in SenseVoice AI engine. No audio data is uploaded to any server or cloud service.</p>
 </section>
 
-<!-- License -->
 <section>
-<h2 class="text-xl font-semibold mb-3">3. License</h2>
-<ul class="list-disc pl-5 space-y-2">
+<h2>3. License</h2>
+<ul>
 <li>Aria Magic Voice is offered as a <strong>one-time purchase</strong> with a <strong>perpetual license</strong>. Your license includes all updates within the v2.x release cycle at no additional cost.</li>
 <li>Each license key may be activated on up to <strong>3 (three) Mac devices</strong> owned or controlled by the same individual.</li>
 <li>The license is non-transferable and may not be shared, resold, or redistributed.</li>
@@ -129,47 +276,42 @@
 </ul>
 </section>
 
-<!-- Free Trial -->
 <section>
-<h2 class="text-xl font-semibold mb-3">4. Free Trial</h2>
+<h2>4. Free Trial</h2>
 <p>We offer a <strong>3-day free trial</strong> with full functionality. The trial begins upon first launch of the Software. During the trial period, you have access to all features without any restrictions. No payment information is required to start the trial.</p>
 </section>
 
-<!-- Purchase and Payment -->
 <section>
-<h2 class="text-xl font-semibold mb-3">5. Purchase and Payment</h2>
-<p>Purchases are processed through <strong>Paddle.com</strong>, our authorized Merchant of Record. Paddle handles all payment processing, tax calculation, and invoicing on our behalf. By completing a purchase, you also agree to Paddle's <a href="https://www.paddle.com/legal/terms" class="text-primary hover:underline" target="_blank" rel="noopener">Terms of Service</a> and <a href="https://www.paddle.com/legal/privacy" class="text-primary hover:underline" target="_blank" rel="noopener">Privacy Policy</a>. All prices are displayed at the time of purchase and may vary by region. Payment is due at the time of purchase.</p>
+<h2>5. Purchase and Payment</h2>
+<p>Purchases are processed through <strong>Paddle.com</strong>, our authorized Merchant of Record. Paddle handles all payment processing, tax calculation, and invoicing on our behalf. By completing a purchase, you also agree to Paddle's <a href="https://www.paddle.com/legal/terms" target="_blank" rel="noopener">Terms of Service</a> and <a href="https://www.paddle.com/legal/privacy" target="_blank" rel="noopener">Privacy Policy</a>. All prices are displayed at the time of purchase and may vary by region. Payment is due at the time of purchase.</p>
 </section>
 
-<!-- Refund Policy -->
 <section>
-<h2 class="text-xl font-semibold mb-3">6. Refund Policy</h2>
-<p>We offer a <strong>14-day money-back guarantee</strong>. If you are not satisfied with the Software for any reason, you may request a full refund within 14 days of purchase by contacting us at <a href="mailto:magicvoice.team@outlook.com" class="text-primary hover:underline">magicvoice.team@outlook.com</a>. Refunds will be processed through Paddle, our authorized payment provider, to your original payment method. For full details, please see our <a href="/refund.html" class="text-primary hover:underline">Refund Policy</a>.</p>
+<h2>6. Refund Policy</h2>
+<p>We offer a <strong>14-day money-back guarantee</strong>. If you are not satisfied with the Software for any reason, you may request a full refund within 14 days of purchase by contacting us at <a href="mailto:magicvoice.team@outlook.com">magicvoice.team@outlook.com</a>. Refunds will be processed through Paddle, our authorized payment provider, to your original payment method. For full details, please see our <a href="/refund.html">Refund Policy</a>.</p>
 </section>
 
-<!-- Privacy and Data -->
 <section>
-<h2 class="text-xl font-semibold mb-3">7. Privacy and Data</h2>
-<ul class="list-disc pl-5 space-y-2">
-<li>Aria Magic Voice performs <strong>100% offline processing</strong>. No voice, audio, or text data is collected, transmitted, or stored on any external server.</li>
+<h2>7. Privacy and Data</h2>
+<ul>
+<li>Aria Magic Voice performs <strong>100% offline speech recognition</strong>. No voice, audio, or text data is ever collected, transmitted, or stored on any external server.</li>
 <li>We do not collect any personal information, usage analytics, or telemetry data.</li>
-<li>License keys are validated entirely offline using cryptographic signatures. The app does not connect to any server for license activation or verification.</li>
-<li>For full details, please refer to our <a href="/privacy.html" class="text-primary hover:underline">Privacy Policy</a>.</li>
+<li>License activation requires a <strong>one-time internet connection</strong> to register your device with our activation server. During activation and deactivation, your <strong>device identifier</strong> and <strong>device name</strong> are transmitted to verify license entitlements and manage your activated devices.</li>
+<li>Apart from device-based license activation, the Software makes <strong>no other network connections</strong>. No voice, audio, or text data is ever transmitted.</li>
+<li>For full details, please refer to our <a href="/privacy.html">Privacy Policy</a>.</li>
 </ul>
 </section>
 
-<!-- Intellectual Property -->
 <section>
-<h2 class="text-xl font-semibold mb-3">8. Intellectual Property</h2>
+<h2>8. Intellectual Property</h2>
 <p>All intellectual property rights in and to the Software, including but not limited to the source code, design, graphics, logos, trademarks, and documentation, are owned by Aria Magic Voice or its licensors. These Terms do not grant you any rights to use our trademarks, trade names, or branding without prior written consent.</p>
-<p class="mt-3">The Software includes open-source components, each subject to its own license terms. A list of open-source licenses is available within the Software.</p>
+<p>The Software includes open-source components, each subject to its own license terms. A list of open-source licenses is available within the Software.</p>
 </section>
 
-<!-- Limitation of Liability -->
 <section>
-<h2 class="text-xl font-semibold mb-3">9. Limitation of Liability</h2>
+<h2>9. Limitation of Liability</h2>
 <p>To the maximum extent permitted by applicable law:</p>
-<ul class="list-disc pl-5 space-y-2 mt-3">
+<ul>
 <li>The Software is provided <strong>"as is"</strong> and <strong>"as available"</strong> without warranties of any kind, whether express, implied, or statutory.</li>
 <li>We do not warrant that the Software will be error-free, uninterrupted, or meet your specific requirements.</li>
 <li>In no event shall Aria Magic Voice be liable for any indirect, incidental, special, consequential, or punitive damages, including but not limited to loss of data, profits, or business opportunities.</li>
@@ -177,105 +319,165 @@
 </ul>
 </section>
 
-<!-- Termination -->
 <section>
-<h2 class="text-xl font-semibold mb-3">10. Termination</h2>
+<h2>10. Termination</h2>
 <p>We reserve the right to terminate or suspend your license if you violate these Terms. Upon termination, you must cease all use of the Software and destroy any copies in your possession. Sections regarding intellectual property, limitation of liability, and governing law shall survive termination.</p>
 </section>
 
-<!-- Changes to Terms -->
 <section>
-<h2 class="text-xl font-semibold mb-3">11. Changes to Terms</h2>
+<h2>11. Changes to Terms</h2>
 <p>We may update these Terms from time to time. When we make material changes, we will update the "Last updated" date at the top of this page. Your continued use of the Software after any changes constitutes acceptance of the revised Terms.</p>
 </section>
 
-<!-- Governing Law -->
 <section>
-<h2 class="text-xl font-semibold mb-3">12. Governing Law</h2>
+<h2>12. Governing Law</h2>
 <p>These Terms shall be governed by and construed in accordance with the laws of the People's Republic of China, without regard to conflict of law principles. Any disputes arising out of or relating to these Terms shall be submitted to the competent courts in the jurisdiction where the developer is located.</p>
 </section>
 
-<!-- Contact -->
 <section>
-<h2 class="text-xl font-semibold mb-3">13. Contact Us</h2>
+<h2>13. Contact Us</h2>
 <p>If you have any questions about these Terms of Service, please contact us at:</p>
-<p class="mt-3">
-<a href="mailto:magicvoice.team@outlook.com" class="text-primary hover:underline">magicvoice.team@outlook.com</a>
-</p>
+<p><a href="mailto:magicvoice.team@outlook.com">magicvoice.team@outlook.com</a></p>
 </section>
 
 </div>
 </div>
+
+<!-- Chinese -->
+<div data-lang="zh">
+<h1 class="page-title">使用条款</h1>
+<p class="page-date">最后更新：2026 年 4 月 3 日</p>
+
+<div class="sections">
+
+<section>
+<h2>1. 引言</h2>
+<p>本使用条款（以下简称"条款"）适用于您对 Aria Magic Voice（以下简称"本软件"）的使用。本软件是一款 macOS 桌面应用程序，提供基于本地 AI 的语音转文字功能，由 Aria Magic Voice（以下简称"我们"）开发和运营。</p>
+<p>下载、安装或使用本软件即表示您同意受本条款的约束。如您不同意本条款，请勿使用本软件。</p>
+</section>
+
+<section>
+<h2>2. 产品说明</h2>
+<p>Aria Magic Voice 是一款 macOS 桌面应用程序，提供基于 AI 的语音转文字功能。所有语音识别均通过内置的 SenseVoice AI 引擎在您的 Mac 上<strong>100% 本地处理</strong>，不会将任何音频数据上传至服务器或云端。</p>
+</section>
+
+<section>
+<h2>3. 许可协议</h2>
+<ul>
+<li>Aria Magic Voice 以<strong>一次性购买</strong>方式提供<strong>永久许可</strong>。您的许可包含 v2.x 版本周期内的所有更新，无需额外付费。</li>
+<li>每个许可密钥最多可在同一个人拥有或控制的 <strong>3（三）台 Mac 设备</strong>上激活。</li>
+<li>许可不可转让，不得共享、转售或再分发。</li>
+<li>您不得对本软件进行逆向工程、反编译、反汇编或以其他方式尝试获取源代码。</li>
+</ul>
+</section>
+
+<section>
+<h2>4. 免费试用</h2>
+<p>我们提供 <strong>3 天免费试用</strong>，包含全部功能。试用期从首次启动本软件时开始计算。试用期间您可以不受限制地使用所有功能，且无需提供任何支付信息。</p>
+</section>
+
+<section>
+<h2>5. 购买与付款</h2>
+<p>购买通过 <strong>Paddle.com</strong>（我们授权的商户记录方）处理。Paddle 代表我们处理所有支付、税费计算和开票事宜。完成购买即表示您同意 Paddle 的<a href="https://www.paddle.com/legal/terms" target="_blank" rel="noopener">服务条款</a>和<a href="https://www.paddle.com/legal/privacy" target="_blank" rel="noopener">隐私政策</a>。所有价格在购买时显示，可能因地区而异。付款在购买时即时收取。</p>
+</section>
+
+<section>
+<h2>6. 退款政策</h2>
+<p>我们提供 <strong>14 天无理由退款保证</strong>。如您因任何原因对本软件不满意，可在购买后 14 天内联系 <a href="mailto:magicvoice.team@outlook.com">magicvoice.team@outlook.com</a> 申请全额退款。退款将通过 Paddle（我们授权的支付提供商）退还至您的原始支付方式。详情请参阅我们的<a href="/refund.html">退款政策</a>。</p>
+</section>
+
+<section>
+<h2>7. 隐私与数据</h2>
+<ul>
+<li>Aria Magic Voice 执行 <strong>100% 离线语音识别</strong>。不会收集、传输或存储任何语音、音频或文字数据至外部服务器。</li>
+<li>我们不收集任何个人信息、使用分析或遥测数据。</li>
+<li>许可激活需要<strong>一次性联网</strong>，以在我们的激活服务器上注册您的设备。在激活和停用过程中，您的<strong>设备标识符</strong>和<strong>设备名称</strong>会被传输，用于验证许可权限和管理已激活设备。</li>
+<li>除基于设备的许可激活外，本软件<strong>不进行任何其他网络连接</strong>。语音、音频或文字数据绝不会被传输。</li>
+<li>详情请参阅我们的<a href="/privacy.html">隐私政策</a>。</li>
+</ul>
+</section>
+
+<section>
+<h2>8. 知识产权</h2>
+<p>本软件的所有知识产权，包括但不限于源代码、设计、图形、标志、商标和文档，均归 Aria Magic Voice 或其许可方所有。本条款不授予您在未经事先书面同意的情况下使用我们的商标、商号或品牌的任何权利。</p>
+<p>本软件包含开源组件，每个组件均受其各自的许可条款约束。开源许可列表可在软件内查阅。</p>
+</section>
+
+<section>
+<h2>9. 责任限制</h2>
+<p>在适用法律允许的最大范围内：</p>
+<ul>
+<li>本软件按<strong>"现状"</strong>和<strong>"可用"</strong>基础提供，不附带任何明示、暗示或法定的保证。</li>
+<li>我们不保证本软件无错误、不中断或满足您的特定需求。</li>
+<li>在任何情况下，Aria Magic Voice 均不对任何间接、附带、特殊、后果性或惩罚性损害承担责任，包括但不限于数据丢失、利润损失或商业机会损失。</li>
+<li>我们的累计总责任不超过您为本软件许可支付的金额。</li>
+</ul>
+</section>
+
+<section>
+<h2>10. 终止</h2>
+<p>如您违反本条款，我们保留终止或暂停您许可的权利。终止后，您必须停止使用本软件并销毁您持有的所有副本。有关知识产权、责任限制和适用法律的条款在终止后继续有效。</p>
+</section>
+
+<section>
+<h2>11. 条款变更</h2>
+<p>我们可能会不时更新本条款。当我们做出重大变更时，将更新本页面顶部的"最后更新"日期。您在任何变更后继续使用本软件即表示接受修订后的条款。</p>
+</section>
+
+<section>
+<h2>12. 适用法律</h2>
+<p>本条款受中华人民共和国法律管辖并依其解释，不考虑法律冲突原则。因本条款引起的或与之相关的任何争议，应提交至开发者所在地的有管辖权的法院。</p>
+</section>
+
+<section>
+<h2>13. 联系我们</h2>
+<p>如您对本使用条款有任何疑问，请通过以下方式联系我们：</p>
+<p><a href="mailto:magicvoice.team@outlook.com">magicvoice.team@outlook.com</a></p>
+</section>
+
+</div>
+</div>
+
 </main>
 
-<!-- ==================== FOOTER ==================== -->
-<footer class="bg-[#f5f5f7] border-t border-black/5">
-<div class="max-w-[980px] mx-auto px-6 pt-4 pb-10">
-<div class="space-y-3 text-[11px] leading-5 text-[#6e6e73] border-b border-black/10 pb-4">
-<p>Aria Magic Voice is a local AI voice input tool for Mac. Product features, language support, and purchasing options may change with version updates.</p>
-</div>
-
-<div class="grid grid-cols-2 md:grid-cols-5 gap-x-8 gap-y-8 py-6 text-xs border-b border-black/10">
-<div class="space-y-3">
-<h4 class="font-semibold text-textMain">Explore Aria Magic Voice</h4>
-<div class="space-y-2 text-[#6e6e73]">
-<a class="block hover:underline" href="/">Home</a>
-<a class="block hover:underline" href="/#features">Features</a>
-<a class="block hover:underline" href="/#how">How It Works</a>
-<a class="block hover:underline" href="/#pricing">Pricing</a>
-</div>
-</div>
-<div class="space-y-3">
-<h4 class="font-semibold text-textMain">Product</h4>
-<div class="space-y-2 text-[#6e6e73]">
-<a class="block hover:underline" href="/#pricing">Standard Edition</a>
-<a class="block hover:underline" href="/#pricing">Free Trial</a>
-</div>
-</div>
-<div class="space-y-3">
-<h4 class="font-semibold text-textMain">Support</h4>
-<div class="space-y-2 text-[#6e6e73]">
-<a class="block hover:underline" href="/#faq">FAQ</a>
-<a class="block hover:underline" href="mailto:magicvoice.team@outlook.com">Contact Support</a>
-<a class="block hover:underline" href="/compatibility.html">Compatibility</a>
-</div>
-</div>
-<div class="space-y-3">
-<h4 class="font-semibold text-textMain">Account &amp; Purchase</h4>
-<div class="space-y-2 text-[#6e6e73]">
-<a class="block hover:underline" href="/#pricing">Purchase Guide</a>
-<a class="block hover:underline" href="/refund.html">Refund Policy</a>
-<a class="block hover:underline" href="/terms.html">License Policy</a>
-</div>
-</div>
-<div class="space-y-3">
-<h4 class="font-semibold text-textMain">About Aria Magic Voice</h4>
-<div class="space-y-2 text-[#6e6e73]">
-<a class="block hover:underline" href="/about.html">Our Story</a>
-<a class="block hover:underline" href="/privacy.html">Privacy Policy</a>
-<a class="block hover:underline" href="/terms.html">Terms of Service</a>
-</div>
-</div>
-</div>
-
-<div class="pt-4 text-[11px] text-[#6e6e73] md:flex md:items-center md:justify-between md:gap-6">
-<div class="space-y-2 md:space-y-0 md:flex md:items-center md:gap-6">
-<p>Copyright &copy; 2026 Aria Magic Voice. All rights reserved.</p>
-<div class="flex flex-wrap items-center gap-x-4 gap-y-1">
-<a class="hover:underline" href="/privacy.html">Privacy Policy</a>
-<a class="hover:underline" href="/terms.html">Terms of Service</a>
-<a class="hover:underline" href="/refund.html">Refund Policy</a>
-</div>
-</div>
-</div>
-<p class="text-center text-[11px] text-[#6e6e73] pt-6">Peace and Love</p>
-</div>
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-brand">
+    <i class="ph ph-sparkle"></i>
+    Aria <span class="brand-magic">Magic</span> Voice
+  </div>
+  <div class="footer-copy">© 2026 Aria Magic Voice. All rights reserved.</div>
+  <div class="footer-links">
+    <a href="/privacy.html" data-lang="zh">隐私政策</a>
+    <a href="/privacy.html" data-lang="en">Privacy Policy</a>
+    <a href="/terms.html" data-lang="zh">使用条款</a>
+    <a href="/terms.html" data-lang="en">Terms of Service</a>
+    <a href="mailto:magicvoice.team@outlook.com" data-lang="zh">联系我们</a>
+    <a href="mailto:magicvoice.team@outlook.com" data-lang="en">Contact Us</a>
+  </div>
 </footer>
 
 <script>
-function toggleMobileMenu() {
-  document.getElementById('mobileMenuOverlay').classList.toggle('open');
-  document.getElementById('mobileMenuPanel').classList.toggle('open');
-}
+(function() {
+  var currentLang = navigator.language && navigator.language.startsWith('zh') ? 'zh' : 'en';
+
+  function setLang(lang) {
+    currentLang = lang;
+    document.querySelectorAll('.lang-btn').forEach(function(b) { b.classList.remove('active'); });
+    document.querySelector('.lang-btn[onclick="setLang(\'' + lang + '\')"]').classList.add('active');
+    document.querySelectorAll('[data-lang]').forEach(function(el) {
+      if (el.getAttribute('data-lang') === lang) {
+        el.style.display = '';
+      } else {
+        el.style.display = 'none';
+      }
+    });
+    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+  }
+
+  window.setLang = setLang;
+  setLang(currentLang);
+})();
 </script>
-</body></html>
+</body>
+</html>

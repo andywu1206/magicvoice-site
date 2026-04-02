@@ -1,121 +1,292 @@
 <!DOCTYPE html>
 <!--
-  Aria Magic Voice — Privacy Policy (English)
-  Style: matches Landing Page v1.5
-  Date: 2026-03-29
+  Aria Magic Voice — Privacy Policy (Bilingual: EN / 中文)
+  Style: v2.4 Glass Design (CSS custom properties, no Tailwind)
+  Date: 2026-04-03
 -->
-<html lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Privacy Policy — Aria Magic Voice</title>
-<meta name="description" content="Aria Magic Voice Privacy Policy. All speech recognition runs 100% locally on your Mac. No data is ever uploaded.">
+<meta name="description" content="Aria Magic Voice Privacy Policy. All speech recognition runs 100% locally on your Mac. No voice data is ever uploaded.">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: '#0071e3',
-            'primary-hover': '#0077ED',
-            bgLight: '#f5f5f7',
-            textMain: '#1d1d1f',
-            textMuted: '#6e6e73',
-          },
-          fontFamily: {
-            sans: ['-apple-system', 'BlinkMacSystemFont', 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', 'Arial', 'sans-serif'],
-          }
-        }
-      }
-    }
-  </script>
-<style data-purpose="custom-utilities">
-    .glass-nav {
-      background: rgba(251, 251, 253, 0.8);
-      backdrop-filter: saturate(180%) blur(20px);
-      -webkit-backdrop-filter: saturate(180%) blur(20px);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
-    }
-    .mobile-menu-overlay {
-      position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 60;
-      opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
-    }
-    .mobile-menu-overlay.open { opacity: 1; pointer-events: auto; }
-    .mobile-menu-panel {
-      position: fixed; top: 0; right: 0; width: 280px; height: 100%;
-      background: #fbfbfd; z-index: 70; transform: translateX(100%);
-      transition: transform 0.3s ease; box-shadow: -4px 0 24px rgba(0,0,0,0.1);
-    }
-    .mobile-menu-panel.open { transform: translateX(0); }
-  </style>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<script src="https://unpkg.com/@phosphor-icons/web"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/regular/style.css">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --primary: #0071E3;
+  --primary-dark: #0058b0;
+  --bg: #F5F5F7;
+  --text-main: #1D1D1F;
+  --text-muted: #6E6E73;
+  --text-light: #86868B;
+  --glass-bg: rgba(255, 255, 255, 0.72);
+  --glass-bg-strong: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
+  --glass-blur: blur(28px) saturate(200%);
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-pill: 100px;
+  --border: #E5E5EA;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Noto Sans SC', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text-main);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* === AMBIENT BACKGROUND === */
+.ambient-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(0, 113, 227, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 20%, rgba(147, 130, 220, 0.06) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 40% at 50% 90%, rgba(0, 200, 170, 0.05) 0%, transparent 50%),
+    var(--bg);
+}
+
+/* === GLASS NAV === */
+.nav {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: min(92%, 1100px);
+  height: 56px;
+  padding: 0 24px;
+  border-radius: var(--radius-pill);
+  background: var(--glass-bg-strong);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--text-main);
+  text-decoration: none;
+  word-spacing: -4px;
+}
+.nav-brand i { color: var(--primary); }
+.nav-brand .brand-magic { color: var(--primary); margin: 0 -2px; }
+
+/* === LANGUAGE TOGGLE === */
+.lang-toggle {
+  display: flex;
+  gap: 4px;
+}
+.lang-btn {
+  padding: 4px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.lang-btn.active {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+/* === CONTENT === */
+.content {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 100px 24px 80px;
+}
+
+.page-title {
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin-bottom: 6px;
+}
+
+.page-date {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 48px;
+}
+
+.policy-body {
+  font-size: 15px;
+  line-height: 1.8;
+  color: rgba(29, 29, 31, 0.9);
+}
+
+.policy-body section {
+  margin-bottom: 40px;
+}
+
+.policy-body h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--text-main);
+}
+
+.policy-body p {
+  margin-bottom: 12px;
+}
+
+.policy-body ul {
+  list-style: disc;
+  padding-left: 20px;
+}
+
+.policy-body ul li {
+  margin-bottom: 8px;
+}
+
+.policy-body .highlight {
+  font-weight: 500;
+  color: var(--primary);
+}
+
+.policy-body .code-path {
+  display: inline-block;
+  margin-top: 8px;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: var(--radius-sm);
+  padding: 10px 16px;
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.policy-body a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+.policy-body a:hover {
+  text-decoration: underline;
+}
+
+/* === FOOTER === */
+.footer {
+  padding: 40px 24px;
+  text-align: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.footer-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--text-main);
+  margin-bottom: 12px;
+  word-spacing: -4px;
+}
+.footer-brand i { color: var(--primary); }
+.footer-brand .brand-magic { color: var(--primary); margin: 0 -2px; }
+
+.footer-copy {
+  font-size: 13px;
+  color: var(--text-light);
+}
+
+.footer-links {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+}
+
+.footer-links a {
+  font-size: 13px;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--primary); }
+
+/* === RESPONSIVE === */
+@media (max-width: 600px) {
+  .nav {
+    top: 8px;
+    width: calc(100% - 16px);
+    height: 48px;
+    padding: 0 16px;
+  }
+  .nav-brand { font-size: 14px; }
+  .content { padding: 88px 16px 60px; }
+  .page-title { font-size: 28px; }
+  .policy-body { font-size: 14px; }
+  .policy-body h2 { font-size: 18px; }
+  .footer-links { gap: 16px; }
+}
+</style>
 </head>
-<body class="bg-bgLight text-textMain font-sans antialiased">
+<body>
+
+<div class="ambient-bg"></div>
 
 <!-- ==================== NAV ==================== -->
-<header class="fixed top-0 left-0 right-0 z-50 glass-nav">
-<div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-<div class="flex items-center gap-2.5">
-<i class="ph ph-sparkle text-primary text-xl"></i>
-<a href="/" class="font-semibold text-[18px] tracking-tight text-textMain no-underline">
-  Aria <span class="text-primary">Magic</span> Voice
-</a>
-</div>
-<div class="flex items-center gap-8">
-<nav class="hidden md:flex items-center gap-8 text-sm font-medium text-textMuted">
-<a class="hover:text-textMain transition-colors" href="/#features">Features</a>
-<a class="hover:text-textMain transition-colors" href="/#how">How It Works</a>
-<a class="hover:text-textMain transition-colors" href="/#pricing">Pricing</a>
-<a class="hover:text-textMain transition-colors" href="/#faq">FAQ</a>
+<nav class="nav">
+  <a href="/" class="nav-brand">
+    <i class="ph ph-sparkle"></i>
+    Aria <span class="brand-magic">Magic</span> Voice
+  </a>
+  <div class="lang-toggle">
+    <button class="lang-btn" onclick="setLang('zh')">中文</button>
+    <button class="lang-btn" onclick="setLang('en')">EN</button>
+  </div>
 </nav>
-<a href="/#pricing" class="hidden md:inline-flex bg-primary text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-primary-hover active:scale-[0.97] active:brightness-90 transition-all no-underline">
-  Download Now
-</a>
-<button class="md:hidden text-textMain text-2xl p-1" onclick="toggleMobileMenu()" aria-label="Open menu">
-  <i class="ph ph-list"></i>
-</button>
-</div>
-</div>
-</header>
-
-<div class="mobile-menu-overlay" id="mobileMenuOverlay" onclick="toggleMobileMenu()"></div>
-<div class="mobile-menu-panel" id="mobileMenuPanel">
-  <div class="flex items-center justify-between px-6 h-16 border-b border-black/5">
-    <span class="font-semibold text-[18px] tracking-tight text-textMain">Aria <span class="text-primary">Magic</span> Voice</span>
-    <button class="text-textMain text-2xl p-1" onclick="toggleMobileMenu()" aria-label="Close menu"><i class="ph ph-x"></i></button>
-  </div>
-  <nav class="flex flex-col px-6 py-6 gap-6 text-base font-medium text-textMuted">
-    <a class="hover:text-textMain transition-colors" href="/#features" onclick="toggleMobileMenu()">Features</a>
-    <a class="hover:text-textMain transition-colors" href="/#how" onclick="toggleMobileMenu()">How It Works</a>
-    <a class="hover:text-textMain transition-colors" href="/#pricing" onclick="toggleMobileMenu()">Pricing</a>
-    <a class="hover:text-textMain transition-colors" href="/#faq" onclick="toggleMobileMenu()">FAQ</a>
-  </nav>
-  <div class="px-6">
-    <a href="/#pricing" onclick="toggleMobileMenu()" class="block text-center bg-primary text-white py-3 rounded-full text-sm font-medium hover:bg-primary-hover active:scale-[0.97] active:brightness-90 transition-all no-underline">Download Now</a>
-  </div>
-</div>
 
 <!-- ==================== CONTENT ==================== -->
-<main class="pt-28 pb-20">
-<div class="max-w-[680px] mx-auto px-6">
+<main class="content">
 
-<h1 class="text-4xl font-bold tracking-tight mb-2">Privacy Policy</h1>
-<p class="text-textMuted text-sm mb-12">Last updated: March 30, 2026</p>
+<!-- EN title -->
+<h1 class="page-title" data-lang="en">Privacy Policy</h1>
+<p class="page-date" data-lang="en">Last updated: April 3, 2026</p>
 
-<div class="space-y-10 text-[15px] leading-7 text-textMain/90">
+<!-- ZH title -->
+<h1 class="page-title" data-lang="zh" style="display:none">隐私政策</h1>
+<p class="page-date" data-lang="zh" style="display:none">最后更新：2026 年 4 月 3 日</p>
 
-<!-- Overview -->
+<!-- ====== ENGLISH ====== -->
+<div class="policy-body" data-lang="en">
+
 <section>
-<h2 class="text-xl font-semibold mb-3">Overview</h2>
+<h2>Overview</h2>
 <p>Aria Magic Voice is a macOS desktop application for local AI-powered speech-to-text conversion. We take your privacy seriously and have designed the product with a <strong>privacy-first</strong> approach from day one.</p>
-<p class="mt-3 font-medium text-primary">In short: your voice data never leaves your computer.</p>
+<p class="highlight">In short: your voice data never leaves your computer.</p>
 </section>
 
-<!-- Voice & Text Data -->
 <section>
-<h2 class="text-xl font-semibold mb-3">Voice and Text Data</h2>
-<ul class="list-disc pl-5 space-y-2">
+<h2>Voice and Text Data</h2>
+<ul>
 <li>All speech recognition is performed <strong>100% locally</strong> on your Mac using the SenseVoice AI engine.</li>
 <li>No audio or text data is ever uploaded to any cloud server.</li>
 <li>No third-party cloud speech recognition service is used.</li>
@@ -123,166 +294,221 @@
 </ul>
 </section>
 
-<!-- Local Storage -->
 <section>
-<h2 class="text-xl font-semibold mb-3">Local Storage</h2>
+<h2>Local Storage</h2>
 <p>Application configuration is stored locally at:</p>
-<p class="mt-2 bg-white rounded-xl px-4 py-3 font-mono text-sm text-textMuted border border-black/5">~/.config/magicvoice/</p>
-<p class="mt-3">This directory contains only app settings (hotkey preferences, language selection, etc.) and does not contain any voice or text data.</p>
+<div class="code-path">~/.config/magicvoice/</div>
+<p>This directory contains only app settings (hotkey preferences, language selection, etc.) and does not contain any voice or text data.</p>
 </section>
 
-<!-- Network Connections -->
 <section>
-<h2 class="text-xl font-semibold mb-3">Network Connections</h2>
-<p>Aria Magic Voice <strong>does not require an internet connection</strong> for any functionality, including license activation. All speech recognition and license verification are performed entirely on your device.</p>
-<ul class="list-disc pl-5 space-y-2 mt-3">
-<li><strong>License activation</strong> — License keys are validated offline using cryptographic signatures. The app never contacts any server to activate or verify your license.</li>
+<h2>Network Connections</h2>
+<p>Aria Magic Voice performs all speech recognition <strong>entirely offline</strong> — no internet connection is required for voice input. The only network connection the app may make is for <strong>license activation and deactivation</strong>.</p>
+<ul>
+<li><strong>License activation</strong> — When you activate a license, the app sends a request to our server (a Cloudflare Worker) to register your device. The only data transmitted is your <strong>device identifier</strong> (IOPlatformUUID) and <strong>device name</strong>.</li>
+<li><strong>License deactivation</strong> — When you deactivate a license, the app contacts our server to unregister the device. The same device identifier and device name are sent.</li>
+<li><strong>No voice or audio data</strong> is ever transmitted over the network.</li>
+<li><strong>No usage data, analytics, or telemetry</strong> of any kind is sent.</li>
 </ul>
 </section>
 
-<!-- Data We Do Not Collect -->
 <section>
-<h2 class="text-xl font-semibold mb-3">Data We Do Not Collect</h2>
-<ul class="list-disc pl-5 space-y-2">
-<li>No personal identifiable information</li>
+<h2>Data We Do Not Collect</h2>
+<ul>
+<li>No personal identifiable information (beyond device UUID for activation)</li>
 <li>No analytics or tracking tools</li>
 <li>No cookies</li>
 <li>No account registration required</li>
 <li>No usage behavior or frequency logging</li>
-<li>No device information or system logs</li>
+<li>No system logs</li>
 </ul>
 </section>
 
-<!-- Payment Processing -->
 <section>
-<h2 class="text-xl font-semibold mb-3">Payment Processing</h2>
-<p>Purchases are processed by <strong>Paddle.com</strong>, which acts as our Merchant of Record. When you make a purchase, Paddle collects payment information (such as your name, email address, and payment details) directly. We do not have access to your full payment information. Paddle's handling of your data is governed by their <a href="https://www.paddle.com/legal/privacy" class="text-primary hover:underline" target="_blank" rel="noopener">Privacy Policy</a>.</p>
+<h2>Payment Processing</h2>
+<p>Purchases are processed by <strong>Paddle.com</strong>, which acts as our Merchant of Record. When you make a purchase, Paddle collects payment information (such as your name, email address, and payment details) directly. We do not have access to your full payment information. Paddle's handling of your data is governed by their <a href="https://www.paddle.com/legal/privacy" target="_blank" rel="noopener">Privacy Policy</a>.</p>
 </section>
 
-<!-- This Website -->
 <section>
-<h2 class="text-xl font-semibold mb-3">This Website</h2>
+<h2>This Website</h2>
 <p>ariamagicvoice.com is a purely static website hosted on GitHub Pages. This website does not use any analytics tools, trackers, or cookies. However, the website loads resources from the following external domains in order to render its pages:</p>
-<ul class="list-disc pl-5 space-y-2 mt-3">
-<li><strong>Google Fonts</strong> (fonts.googleapis.com / fonts.gstatic.com) — for web typography. Google may log standard access data; see <a href="https://developers.google.com/fonts/faq/privacy" class="text-primary hover:underline" target="_blank" rel="noopener">Google Fonts Privacy FAQ</a>.</li>
-<li><strong>Tailwind CSS CDN</strong> (cdn.tailwindcss.com) — for page styling.</li>
+<ul>
+<li><strong>Google Fonts</strong> (fonts.googleapis.com / fonts.gstatic.com) — for web typography. Google may log standard access data; see <a href="https://developers.google.com/fonts/faq/privacy" target="_blank" rel="noopener">Google Fonts Privacy FAQ</a>.</li>
 <li><strong>Phosphor Icons</strong> (unpkg.com) — for UI icons.</li>
 <li><strong>Flag CDN</strong> (flagcdn.com) — for country flag images.</li>
 <li><strong>Paddle.js</strong> (paddle.com) — for in-page checkout functionality.</li>
 </ul>
-<p class="mt-3">When your browser loads these resources, your IP address and basic request headers are sent to the respective CDN providers as part of standard HTTP requests. We do not control data handling by these providers.</p>
+<p>When your browser loads these resources, your IP address and basic request headers are sent to the respective CDN providers as part of standard HTTP requests. We do not control data handling by these providers.</p>
 </section>
 
-<!-- Third-Party Services -->
 <section>
-<h2 class="text-xl font-semibold mb-3">Third-Party Services</h2>
-<p><strong>The desktop application</strong> does not integrate any third-party cloud services. Speech recognition runs entirely locally and does not depend on any external API. License keys are validated offline using cryptographic signatures — the app never contacts any server for activation or verification.</p>
-<p class="mt-3"><strong>This website</strong> loads third-party resources from Google Fonts, Tailwind CSS CDN, unpkg (Phosphor Icons), Flag CDN, and Paddle as described in the "This Website" section above. These services may receive standard HTTP request data (such as your IP address) when the page loads.</p>
+<h2>Third-Party Services</h2>
+<p><strong>The desktop application</strong> does not integrate any third-party cloud services for speech recognition. All voice-to-text conversion runs entirely locally and does not depend on any external API. The app connects to our own server (hosted on Cloudflare Workers) solely for license activation and deactivation — only your device identifier and device name are transmitted during this process.</p>
+<p><strong>This website</strong> loads third-party resources from Google Fonts, unpkg (Phosphor Icons), Flag CDN, and Paddle as described in the "This Website" section above. These services may receive standard HTTP request data (such as your IP address) when the page loads.</p>
 </section>
 
-<!-- Data Retention and Deletion -->
 <section>
-<h2 class="text-xl font-semibold mb-3">Data Retention and Deletion</h2>
-<ul class="list-disc pl-5 space-y-2">
-<li><strong>App data</strong> — All application data (settings, preferences) is stored locally on your Mac. You can delete all app data by removing the application and its configuration directory at <span class="font-mono text-sm text-textMuted">~/.config/magicvoice/</span>.</li>
-<li><strong>Payment data</strong> — Payment and transaction information is handled by Paddle and is subject to <a href="https://www.paddle.com/legal/privacy" class="text-primary hover:underline" target="_blank" rel="noopener">Paddle's privacy and data retention policy</a>.</li>
-<li><strong>Data deletion requests</strong> — If you would like to request deletion of any data associated with your purchase or have questions about your data, please contact us at <a href="mailto:magicvoice.team@outlook.com" class="text-primary hover:underline">magicvoice.team@outlook.com</a>.</li>
+<h2>Data Retention and Deletion</h2>
+<ul>
+<li><strong>App data</strong> — All application data (settings, preferences) is stored locally on your Mac. You can delete all app data by removing the application and its configuration directory at <span class="code-path" style="display:inline;padding:2px 8px">~/.config/magicvoice/</span>.</li>
+<li><strong>Activation data</strong> — Device identifiers stored on our server for license management can be removed by deactivating your license within the app, or by using the <a href="/recovery.html">Device Recovery</a> page.</li>
+<li><strong>Payment data</strong> — Payment and transaction information is handled by Paddle and is subject to <a href="https://www.paddle.com/legal/privacy" target="_blank" rel="noopener">Paddle's privacy and data retention policy</a>.</li>
+<li><strong>Data deletion requests</strong> — If you would like to request deletion of any data associated with your purchase or have questions about your data, please contact us at <a href="mailto:magicvoice.team@outlook.com">magicvoice.team@outlook.com</a>.</li>
 </ul>
 </section>
 
-<!-- Children's Privacy -->
 <section>
-<h2 class="text-xl font-semibold mb-3">Children's Privacy</h2>
-<p>Since we do not collect any data, there are no concerns regarding children's data collection. Users of any age may safely use the product.</p>
+<h2>Children's Privacy</h2>
+<p>Since we do not collect personal data (beyond a device identifier for activation), there are no concerns regarding children's data collection. Users of any age may safely use the product.</p>
 </section>
 
-<!-- Changes -->
 <section>
-<h2 class="text-xl font-semibold mb-3">Changes to This Policy</h2>
+<h2>Changes to This Policy</h2>
 <p>If we make material changes to this Privacy Policy, we will update the content on this page and revise the "Last updated" date. We encourage you to review this page periodically.</p>
 </section>
 
-<!-- Contact -->
 <section>
-<h2 class="text-xl font-semibold mb-3">Contact Us</h2>
+<h2>Contact Us</h2>
 <p>If you have any questions about this Privacy Policy, please contact us at:</p>
-<p class="mt-3">
-<a href="mailto:magicvoice.team@outlook.com" class="text-primary hover:underline">magicvoice.team@outlook.com</a>
-</p>
+<p><a href="mailto:magicvoice.team@outlook.com">magicvoice.team@outlook.com</a></p>
 </section>
 
 </div>
+
+<!-- ====== CHINESE ====== -->
+<div class="policy-body" data-lang="zh" style="display:none">
+
+<section>
+<h2>概述</h2>
+<p>Aria Magic Voice 是一款 macOS 桌面应用，基于本地 AI 引擎进行语音转文字。我们高度重视您的隐私，从产品设计之初便贯彻 <strong>隐私优先</strong> 原则。</p>
+<p class="highlight">简而言之：您的语音数据绝不会离开您的电脑。</p>
+</section>
+
+<section>
+<h2>语音与文字数据</h2>
+<ul>
+<li>所有语音识别均在您的 Mac 上 <strong>100% 本地完成</strong>，使用 SenseVoice AI 引擎。</li>
+<li>任何音频或文字数据都不会上传至任何云服务器。</li>
+<li>不使用任何第三方云端语音识别服务。</li>
+<li>转录后的文字仅存在于设备本地内存中，使用完毕后即释放。</li>
+</ul>
+</section>
+
+<section>
+<h2>本地存储</h2>
+<p>应用配置存储在本地目录：</p>
+<div class="code-path">~/.config/magicvoice/</div>
+<p>该目录仅包含应用设置（快捷键偏好、语言选择等），不包含任何语音或文字数据。</p>
+</section>
+
+<section>
+<h2>网络连接</h2>
+<p>Aria Magic Voice 的语音识别功能 <strong>完全离线运行</strong>，无需互联网连接。应用可能建立的唯一网络连接是用于 <strong>授权码激活与停用</strong>。</p>
+<ul>
+<li><strong>授权码激活</strong> — 激活授权码时，应用会向我们的服务器（Cloudflare Worker）发送请求以注册您的设备。传输的数据仅限 <strong>设备标识符</strong>（IOPlatformUUID）和 <strong>设备名称</strong>。</li>
+<li><strong>授权码停用</strong> — 停用授权码时，应用会联系服务器注销设备。传输的数据同样仅限设备标识符和设备名称。</li>
+<li><strong>不会传输</strong> 任何语音或音频数据。</li>
+<li><strong>不会发送</strong> 任何使用数据、分析数据或遥测信息。</li>
+</ul>
+</section>
+
+<section>
+<h2>我们不收集的数据</h2>
+<ul>
+<li>不收集个人身份信息（激活所需的设备 UUID 除外）</li>
+<li>不使用任何分析或追踪工具</li>
+<li>不使用 Cookie</li>
+<li>不要求注册账号</li>
+<li>不记录使用行为或使用频率</li>
+<li>不收集系统日志</li>
+</ul>
+</section>
+
+<section>
+<h2>支付处理</h2>
+<p>购买交易由 <strong>Paddle.com</strong> 作为我们的注册商户（Merchant of Record）处理。当您购买时，Paddle 会直接收集支付信息（如您的姓名、电子邮件地址和支付详情）。我们无法访问您的完整支付信息。Paddle 对您数据的处理受其 <a href="https://www.paddle.com/legal/privacy" target="_blank" rel="noopener">隐私政策</a> 约束。</p>
+</section>
+
+<section>
+<h2>本网站</h2>
+<p>ariamagicvoice.com 是一个托管于 GitHub Pages 的纯静态网站。本网站不使用任何分析工具、追踪器或 Cookie。但网站在呈现页面时会从以下外部域名加载资源：</p>
+<ul>
+<li><strong>Google Fonts</strong>（fonts.googleapis.com / fonts.gstatic.com）— 用于网页排版。Google 可能记录标准访问数据，详见 <a href="https://developers.google.com/fonts/faq/privacy" target="_blank" rel="noopener">Google Fonts 隐私常见问题</a>。</li>
+<li><strong>Phosphor Icons</strong>（unpkg.com）— 用于 UI 图标。</li>
+<li><strong>Flag CDN</strong>（flagcdn.com）— 用于国旗图片。</li>
+<li><strong>Paddle.js</strong>（paddle.com）— 用于页面内结账功能。</li>
+</ul>
+<p>当您的浏览器加载这些资源时，您的 IP 地址和基本请求头信息会作为标准 HTTP 请求的一部分发送至相应 CDN 服务商。我们无法控制这些服务商的数据处理方式。</p>
+</section>
+
+<section>
+<h2>第三方服务</h2>
+<p><strong>桌面应用</strong> 不集成任何第三方云端语音识别服务。所有语音转文字处理完全在本地运行，不依赖任何外部 API。应用仅在授权码激活和停用时连接我们自有的服务器（托管于 Cloudflare Workers）— 此过程中仅传输您的设备标识符和设备名称。</p>
+<p><strong>本网站</strong> 加载来自 Google Fonts、unpkg（Phosphor Icons）、Flag CDN 和 Paddle 的第三方资源，如上文"本网站"部分所述。这些服务可能在页面加载时接收标准 HTTP 请求数据（如您的 IP 地址）。</p>
+</section>
+
+<section>
+<h2>数据保留与删除</h2>
+<ul>
+<li><strong>应用数据</strong> — 所有应用数据（设置、偏好）均存储在您的 Mac 本地。您可以通过删除应用程序及其配置目录 <span class="code-path" style="display:inline;padding:2px 8px">~/.config/magicvoice/</span> 来清除所有应用数据。</li>
+<li><strong>激活数据</strong> — 存储在我们服务器上用于授权管理的设备标识符，可以通过在应用内停用授权码来删除，也可以使用 <a href="/recovery.html">设备重置</a> 页面来操作。</li>
+<li><strong>支付数据</strong> — 支付和交易信息由 Paddle 处理，受 <a href="https://www.paddle.com/legal/privacy" target="_blank" rel="noopener">Paddle 的隐私和数据保留政策</a> 约束。</li>
+<li><strong>数据删除请求</strong> — 如果您希望删除与购买相关的任何数据，或对您的数据有任何疑问，请通过 <a href="mailto:magicvoice.team@outlook.com">magicvoice.team@outlook.com</a> 联系我们。</li>
+</ul>
+</section>
+
+<section>
+<h2>儿童隐私</h2>
+<p>由于我们不收集个人数据（激活所需的设备标识符除外），因此不存在儿童数据收集方面的顾虑。任何年龄的用户均可安全使用本产品。</p>
+</section>
+
+<section>
+<h2>政策变更</h2>
+<p>如果我们对本隐私政策做出重大修改，将更新本页面内容并修改"最后更新"日期。我们建议您定期查阅本页面。</p>
+</section>
+
+<section>
+<h2>联系我们</h2>
+<p>如果您对本隐私政策有任何疑问，请通过以下方式联系我们：</p>
+<p><a href="mailto:magicvoice.team@outlook.com">magicvoice.team@outlook.com</a></p>
+</section>
+
 </div>
+
 </main>
 
 <!-- ==================== FOOTER ==================== -->
-<footer class="bg-[#f5f5f7] border-t border-black/5">
-<div class="max-w-[980px] mx-auto px-6 pt-4 pb-10">
-<div class="space-y-3 text-[11px] leading-5 text-[#6e6e73] border-b border-black/10 pb-4">
-<p>Aria Magic Voice is a local AI voice input tool for Mac. Product features, language support, and purchasing options may change with version updates.</p>
-</div>
-
-<div class="grid grid-cols-2 md:grid-cols-5 gap-x-8 gap-y-8 py-6 text-xs border-b border-black/10">
-<div class="space-y-3">
-<h4 class="font-semibold text-textMain">Explore Aria Magic Voice</h4>
-<div class="space-y-2 text-[#6e6e73]">
-<a class="block hover:underline" href="/">Home</a>
-<a class="block hover:underline" href="/#features">Features</a>
-<a class="block hover:underline" href="/#how">How It Works</a>
-<a class="block hover:underline" href="/#pricing">Pricing</a>
-</div>
-</div>
-<div class="space-y-3">
-<h4 class="font-semibold text-textMain">Product</h4>
-<div class="space-y-2 text-[#6e6e73]">
-<a class="block hover:underline" href="/#pricing">Standard Edition</a>
-<a class="block hover:underline" href="/#pricing">Free Trial</a>
-</div>
-</div>
-<div class="space-y-3">
-<h4 class="font-semibold text-textMain">Support</h4>
-<div class="space-y-2 text-[#6e6e73]">
-<a class="block hover:underline" href="/#faq">FAQ</a>
-<a class="block hover:underline" href="mailto:magicvoice.team@outlook.com">Contact Support</a>
-<a class="block hover:underline" href="/compatibility.html">Compatibility</a>
-</div>
-</div>
-<div class="space-y-3">
-<h4 class="font-semibold text-textMain">Account &amp; Purchase</h4>
-<div class="space-y-2 text-[#6e6e73]">
-<a class="block hover:underline" href="/#pricing">Purchase Guide</a>
-<a class="block hover:underline" href="/refund.html">Refund Policy</a>
-<a class="block hover:underline" href="/terms.html">License Policy</a>
-</div>
-</div>
-<div class="space-y-3">
-<h4 class="font-semibold text-textMain">About Aria Magic Voice</h4>
-<div class="space-y-2 text-[#6e6e73]">
-<a class="block hover:underline" href="/about.html">Our Story</a>
-<a class="block hover:underline" href="/privacy.html">Privacy Policy</a>
-<a class="block hover:underline" href="/terms.html">Terms of Service</a>
-</div>
-</div>
-</div>
-
-<div class="pt-4 text-[11px] text-[#6e6e73] md:flex md:items-center md:justify-between md:gap-6">
-<div class="space-y-2 md:space-y-0 md:flex md:items-center md:gap-6">
-<p>Copyright &copy; 2026 Aria Magic Voice. All rights reserved.</p>
-<div class="flex flex-wrap items-center gap-x-4 gap-y-1">
-<a class="hover:underline" href="/privacy.html">Privacy Policy</a>
-<a class="hover:underline" href="/terms.html">Terms of Service</a>
-<a class="hover:underline" href="/refund.html">Refund Policy</a>
-</div>
-</div>
-</div>
-<p class="text-center text-[11px] text-[#6e6e73] pt-6">Peace and Love</p>
-</div>
+<footer class="footer">
+  <div class="footer-brand">
+    <i class="ph ph-sparkle"></i>
+    Aria <span class="brand-magic">Magic</span> Voice
+  </div>
+  <div class="footer-copy">© 2026 Aria Magic Voice. All rights reserved.</div>
+  <div class="footer-links">
+    <a href="/privacy.html" data-lang="en">Privacy Policy</a>
+    <a href="/privacy.html" data-lang="zh" style="display:none">隐私政策</a>
+    <a href="/terms.html" data-lang="en">Terms of Service</a>
+    <a href="/terms.html" data-lang="zh" style="display:none">使用条款</a>
+    <a href="mailto:magicvoice.team@outlook.com" data-lang="en">Contact Us</a>
+    <a href="mailto:magicvoice.team@outlook.com" data-lang="zh" style="display:none">联系我们</a>
+  </div>
 </footer>
 
 <script>
-function toggleMobileMenu() {
-  document.getElementById('mobileMenuOverlay').classList.toggle('open');
-  document.getElementById('mobileMenuPanel').classList.toggle('open');
+let currentLang = navigator.language.startsWith('zh') ? 'zh' : 'en';
+
+function setLang(lang) {
+  currentLang = lang;
+  document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
+  document.querySelectorAll('[data-lang]').forEach(el => {
+    el.style.display = el.getAttribute('data-lang') === lang ? '' : 'none';
+  });
 }
+
+setLang(currentLang);
 </script>
-</body></html>
+
+</body>
+</html>
