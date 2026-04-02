@@ -231,8 +231,45 @@ body {
 }
 .footer-links a:hover { color: var(--primary); }
 
+/* === HAMBURGER & MOBILE PANEL === */
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 22px;
+  color: var(--text-main);
+  cursor: pointer;
+  padding: 4px;
+}
+.mobile-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 200;
+  opacity: 0; pointer-events: none; transition: opacity 0.3s;
+}
+.mobile-overlay.open { opacity: 1; pointer-events: auto; }
+.mobile-panel {
+  position: fixed; top: 0; right: 0; width: 260px; height: 100%;
+  background: #fbfbfd; z-index: 210; transform: translateX(100%);
+  transition: transform 0.3s; box-shadow: -4px 0 24px rgba(0,0,0,0.1);
+  padding: 24px;
+}
+.mobile-panel.open { transform: translateX(0); }
+.mobile-panel-close {
+  background: none; border: none; font-size: 22px;
+  color: var(--text-main); cursor: pointer; float: right;
+}
+.mobile-panel nav {
+  margin-top: 48px; display: flex; flex-direction: column; gap: 20px;
+}
+.mobile-panel nav a {
+  font-size: 16px; font-weight: 500; color: var(--text-main);
+  text-decoration: none;
+}
+.mobile-panel .lang-toggle { margin-top: 24px; }
+
 /* === RESPONSIVE === */
 @media (max-width: 600px) {
+  .hamburger { display: block; }
+  .lang-toggle { display: none; }
   .nav {
     top: 8px;
     width: calc(100% - 16px);
@@ -262,7 +299,20 @@ body {
     <button class="lang-btn" onclick="setLang('zh')">中文</button>
     <button class="lang-btn" onclick="setLang('en')">EN</button>
   </div>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">☰</button>
 </nav>
+
+<div class="mobile-overlay" id="mobileOverlay" onclick="toggleMenu()"></div>
+<div class="mobile-panel" id="mobilePanel">
+  <button class="mobile-panel-close" onclick="toggleMenu()">✕</button>
+  <nav>
+    <a href="/">Home</a>
+  </nav>
+  <div class="lang-toggle" style="display:flex">
+    <button class="lang-btn" onclick="setLang('zh')">中文</button>
+    <button class="lang-btn" onclick="setLang('en')">EN</button>
+  </div>
+</div>
 
 <!-- ==================== CONTENT ==================== -->
 <main class="content">
@@ -496,6 +546,11 @@ body {
 
 <script>
 let currentLang = navigator.language.startsWith('zh') ? 'zh' : 'en';
+
+function toggleMenu() {
+  document.getElementById('mobileOverlay').classList.toggle('open');
+  document.getElementById('mobilePanel').classList.toggle('open');
+}
 
 function setLang(lang) {
   currentLang = lang;

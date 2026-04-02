@@ -221,9 +221,105 @@ body {
   color: #fff;
   border-color: var(--primary);
 }
+/* Mobile hamburger */
+.mobile-topbar {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 48px;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  z-index: 100;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+}
+.mobile-topbar .topbar-brand {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-main);
+}
+.mobile-topbar .topbar-brand span { color: var(--primary); }
+.hamburger-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+.hamburger-btn svg {
+  width: 22px;
+  height: 22px;
+  stroke: var(--text-main);
+}
+.mobile-menu-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.3);
+  z-index: 199;
+}
+.mobile-menu-overlay.open { display: block; }
+.mobile-menu {
+  position: fixed;
+  top: 0; right: 0;
+  width: 220px;
+  height: 100%;
+  background: #fff;
+  z-index: 200;
+  padding: 64px 24px 24px;
+  transform: translateX(100%);
+  transition: transform 0.25s ease;
+  box-shadow: -4px 0 20px rgba(0,0,0,0.08);
+}
+.mobile-menu.open { transform: translateX(0); }
+.mobile-menu a {
+  display: block;
+  padding: 12px 0;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-main);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+}
+.mobile-menu a:hover { color: var(--primary); }
+.mobile-menu .close-btn {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: var(--text-muted);
+  cursor: pointer;
+  line-height: 1;
+}
+@media (max-width: 600px) {
+  .mobile-topbar { display: flex; }
+  body { padding-top: 60px; }
+}
 </style>
 </head>
 <body>
+
+<!-- Mobile hamburger menu -->
+<div class="mobile-topbar">
+  <div class="topbar-brand">Aria <span>Magic</span> Voice</div>
+  <button class="hamburger-btn" onclick="toggleMobileMenu()" aria-label="Menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+</div>
+<div class="mobile-menu-overlay" id="menuOverlay" onclick="toggleMobileMenu()"></div>
+<div class="mobile-menu" id="mobileMenu">
+  <button class="close-btn" onclick="toggleMobileMenu()">&times;</button>
+  <a href="/" id="menuHome">Home</a>
+</div>
 
 <div class="container">
   <!-- Language Toggle -->
@@ -290,7 +386,7 @@ body {
   <a href="/" class="back-link" id="backLink">← 返回首页</a>
 
   <div class="footer">
-    <p>© 2026 Aria Magic Voice · <a href="mailto:magicvoice.team@outlook.com">联系我们</a></p>
+    <p>© 2026 Aria Magic Voice · <a href="mailto:magicvoice.team@outlook.com" id="footerContact">联系我们</a></p>
   </div>
 </div>
 
@@ -316,6 +412,8 @@ const i18n = {
     successTitle: '重置成功',
     successDesc: '所有设备已解绑。你可以在新 Mac 上使用同一个授权码重新激活。',
     backLink: '← 返回首页',
+    footerContact: '联系我们',
+    menuHome: '首页',
     errEmpty: '请填写授权码和邮箱',
     errCodeEmpty: '请输入验证码',
     errInvalidKey: '授权码格式不正确',
@@ -343,6 +441,8 @@ const i18n = {
     successTitle: 'Reset Successful',
     successDesc: 'All devices have been unlinked. You can now activate on your new Mac with the same license key.',
     backLink: '← Back to Home',
+    footerContact: 'Contact Us',
+    menuHome: 'Home',
     errEmpty: 'Please enter your license key and email',
     errCodeEmpty: 'Please enter the verification code',
     errInvalidKey: 'Invalid license key format',
@@ -360,6 +460,7 @@ function t(key) { return i18n[currentLang][key] || key; }
 
 function setLang(lang) {
   currentLang = lang;
+  document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
   document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
   document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
   updateUI();
@@ -379,6 +480,8 @@ function updateUI() {
   document.getElementById('successTitle').textContent = t('successTitle');
   document.getElementById('successDesc').textContent = t('successDesc');
   document.getElementById('backLink').textContent = t('backLink');
+  document.getElementById('footerContact').textContent = t('footerContact');
+  document.getElementById('menuHome').textContent = t('menuHome');
 }
 
 function showError(boxId, msg) {
@@ -495,6 +598,11 @@ async function verifyAndReset() {
     btn.disabled = false;
     btnText.textContent = t('btnVerify');
   }
+}
+
+function toggleMobileMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+  document.getElementById('menuOverlay').classList.toggle('open');
 }
 
 // Init
