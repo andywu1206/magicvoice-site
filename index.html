@@ -1,548 +1,1134 @@
 <!DOCTYPE html>
-<!--
-  Aria Magic Voice — Landing Page v1.5
-  Changes from v1.3:
-    - Header: height h-11→h-16, width 980px→max-w-7xl, added sparkle AI icon
-    - Footer: replaced with ChatGPT v1.4.1 Apple 5-column style
-    - Footer: added working language switcher dropdown (CN/TW/HK/US/JP/KR)
-  Base layout: Stitch
-  Content: Claude (Anthropic)
-  Date: 2026-03-23
--->
-<html lang="zh-CN"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Aria Magic Voice — 让声音，成为文字的独奏</title>
-<meta name="description" content="Aria Magic Voice 是一款 Mac 端本地 AI 语音转文字工具。双击热键开始说话，文字自动输入到任意应用。完全离线，隐私安全。">
-<meta property="og:title" content="Aria Magic Voice — macOS 本地 AI 语音转文字">
-<meta property="og:description" content="Aria Magic Voice 是一款 Mac 端本地 AI 语音转文字工具。双击热键开始说话，文字自动输入到任意应用。完全离线，隐私安全。">
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aria Magic Voice — 隐私优先 · 本地识别</title>
+<meta name="description" content="Aria Magic Voice — Mac 原生本地 AI 语音输入工具。100% 离线识别，不上传云端，隐私优先。支持中英文混合输入。">
+<meta property="og:title" content="Aria Magic Voice — 隐私优先 · 本地识别">
+<meta property="og:description" content="Mac 原生本地 AI 语音输入工具。100% 离线识别，不上传云端，隐私优先。">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ariamagicvoice.com">
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: '#0071e3',
-            'primary-hover': '#0077ED',
-            bgLight: '#f5f5f7',
-            textMain: '#1d1d1f',
-            textMuted: '#6e6e73',
-          },
-          fontFamily: {
-            sans: ['-apple-system', 'BlinkMacSystemFont', 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', 'Arial', 'sans-serif'],
-          }
-        }
-      }
-    }
-  </script>
-<style data-purpose="custom-utilities">
-    .glass-nav {
-      background: rgba(251, 251, 253, 0.8);
-      backdrop-filter: saturate(180%) blur(20px);
-      -webkit-backdrop-filter: saturate(180%) blur(20px);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
-    }
-    /* Mobile menu overlay */
-    .mobile-menu-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.4);
-      z-index: 60;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-    }
-    .mobile-menu-overlay.open {
-      opacity: 1;
-      pointer-events: auto;
-    }
-    .mobile-menu-panel {
-      position: fixed;
-      top: 0;
-      right: 0;
-      width: 280px;
-      height: 100%;
-      background: #fbfbfd;
-      z-index: 70;
-      transform: translateX(100%);
-      transition: transform 0.3s ease;
-      box-shadow: -4px 0 24px rgba(0, 0, 0, 0.1);
-    }
-    .mobile-menu-panel.open {
-      transform: translateX(0);
-    }
-    /* Language switcher dropdown */
-    .lang-switcher { position: relative; }
-    .lang-switcher-btn { cursor: pointer; }
-    .lang-dropdown {
-      display: none;
-      position: absolute;
-      bottom: 100%;
-      right: 0;
-      background: white;
-      border: 1px solid rgba(0,0,0,0.1);
-      border-radius: 12px;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.12);
-      min-width: 180px;
-      padding: 8px 0;
-      margin-bottom: 8px;
-      z-index: 100;
-    }
-    .lang-dropdown.open { display: block; }
-    .lang-dropdown a {
-      display: block;
-      padding: 8px 16px;
-      font-size: 13px;
-      color: #1d1d1f;
-      text-decoration: none;
-      transition: background 0.15s;
-    }
-    .lang-dropdown a:hover { background: #f5f5f7; }
-    .lang-dropdown a.active { color: #0071e3; font-weight: 600; }
-  </style>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<script src="https://unpkg.com/@phosphor-icons/web"></script>
-<!-- Paddle.js — payment checkout -->
-<script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
-<script>
-  Paddle.Initialize({
-    token: 'live_d7beb0bd4a366dacc86dcdc998f',
-    eventCallback: function(eventData) {
-      if (eventData.name === 'checkout.completed') {
-        var email = '';
-        try { email = eventData.data.customer.email || ''; } catch(e) {}
-        window.location.href = '/thank-you.html' + (email ? '?email=' + encodeURIComponent(email) : '');
-      }
-    }
-  });
-</script>
-</head>
-<body class="bg-bgLight text-textMain font-sans antialiased">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/regular/style.css">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-<!-- ==================== NAV (h-16, max-w-7xl, sparkle icon) ==================== -->
-<header class="fixed top-0 left-0 right-0 z-50 glass-nav">
-<div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-<div class="flex items-center gap-2.5">
-<i class="ph ph-sparkle text-primary text-xl"></i>
-<a href="/" class="font-semibold text-[18px] tracking-tight text-textMain no-underline">
-  Aria <span class="text-primary">Magic</span> Voice
-</a>
-</div>
-<div class="flex items-center gap-8">
-<nav class="hidden md:flex items-center gap-8 text-sm font-medium text-textMuted">
-<a class="hover:text-textMain transition-colors" href="#features">功能</a>
-<a class="hover:text-textMain transition-colors" href="#how">使用方式</a>
-<a class="hover:text-textMain transition-colors" href="#pricing">价格</a>
-<a class="hover:text-textMain transition-colors" href="#faq">常见问题</a>
-</nav>
-<a href="#pricing" class="hidden md:inline-flex bg-primary text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-primary-hover active:scale-[0.97] active:brightness-90 transition-all no-underline">
-  立即下载
-</a>
-<button class="md:hidden text-textMain text-2xl p-1" onclick="toggleMobileMenu()" aria-label="Open menu">
-  <i class="ph ph-list"></i>
-</button>
-</div>
-</div>
+:root {
+  --primary: #0071E3;
+  --primary-light: #4da3ff;
+  --primary-dark: #0058b0;
+  --bg: #F5F5F7;
+  --bg-warm: #FAFAFA;
+  --text-main: #1D1D1F;
+  --text-muted: #6E6E73;
+  --text-light: #86868B;
+  --glass-bg: rgba(255, 255, 255, 0.72);
+  --glass-bg-strong: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
+  --glass-blur: blur(28px) saturate(200%);
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 28px;
+  --radius-pill: 100px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Noto Sans SC', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text-main);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* === AMBIENT BACKGROUND === */
+.ambient-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(0, 113, 227, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 20%, rgba(147, 130, 220, 0.06) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 40% at 50% 90%, rgba(0, 200, 170, 0.05) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 50% at 10% 70%, rgba(255, 180, 120, 0.04) 0%, transparent 50%),
+    var(--bg);
+}
+
+/* === GLASS MIXIN === */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow:
+    var(--glass-shadow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.glass-strong {
+  background: var(--glass-bg-strong);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow:
+    var(--glass-shadow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+/* === NAV === */
+.nav {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: min(92%, 1100px);
+  height: 56px;
+  padding: 0 24px;
+  border-radius: var(--radius-pill);
+  transition: all 0.3s ease;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 17px;
+  color: var(--text-main);
+  white-space: nowrap;
+  flex-shrink: 0;
+  word-spacing: -2px;
+}
+
+.nav-brand i {
+  color: var(--primary);
+  font-size: 20px;
+}
+
+.nav-brand .brand-magic {
+  color: var(--primary);
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+}
+
+.nav-links a {
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-muted);
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--text-main); }
+.nav-links a.active { color: var(--text-main); font-weight: 700; }
+
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 20px;
+  background: var(--primary);
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: var(--radius-pill);
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+
+.nav-cta:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(0, 113, 227, 0.3);
+}
+
+/* === SECTIONS === */
+section { padding: 100px 24px; }
+.container { max-width: 1100px; margin: 0 auto; }
+
+/* === HERO === */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-top: 120px;
+  padding-bottom: 80px;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: center;
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 24px;
+}
+
+.hero-title {
+  font-size: clamp(36px, 5vw, 52px);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+}
+
+.hero-title .highlight {
+  background: linear-gradient(135deg, var(--primary), #5856D6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-subtitle {
+  font-size: 17px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 36px;
+  max-width: 480px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 32px;
+  background: var(--primary);
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: var(--radius-pill);
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 113, 227, 0.35);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 28px;
+  background: transparent;
+  color: var(--primary);
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: var(--radius-pill);
+  transition: all 0.2s;
+}
+
+.btn-secondary:hover { color: var(--primary-dark); }
+
+/* Hero Right - Demo Card */
+.hero-card {
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.demo-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.demo-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  word-spacing: -2px;
+}
+
+.demo-brand i { color: var(--primary); }
+
+.demo-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--primary);
+  font-weight: 500;
+}
+
+.demo-status .dot {
+  width: 8px;
+  height: 8px;
+  background: var(--primary);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* Waveform */
+.waveform {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  height: 60px;
+  margin: 20px 0;
+}
+
+.wave-bar {
+  width: 3.5px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, var(--primary), var(--primary-light));
+  animation: wave 1.2s ease-in-out infinite;
+}
+
+@keyframes wave {
+  0%, 100% { height: 8px; opacity: 0.4; }
+  50% { height: var(--h, 40px); opacity: 1; }
+}
+
+/* Demo transcript */
+.demo-transcript {
+  padding: 16px 20px;
+  border-radius: var(--radius-md);
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--text-main);
+  margin-top: 16px;
+  border: 1px solid rgba(0, 113, 227, 0.08);
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Floating tags */
+.hero-tags {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 600;
+  animation: float 4s ease-in-out infinite;
+}
+
+.hero-tag:nth-child(1) { animation-delay: 0s; }
+.hero-tag:nth-child(2) { animation-delay: 1.3s; }
+.hero-tag:nth-child(3) { animation-delay: 2.6s; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.tag-blue { color: var(--primary); border: 1px solid rgba(0, 113, 227, 0.15); background: rgba(0, 113, 227, 0.06); }
+.tag-purple { color: #5856D6; border: 1px solid rgba(88, 86, 214, 0.15); background: rgba(88, 86, 214, 0.06); }
+.tag-green { color: #34C759; border: 1px solid rgba(52, 199, 89, 0.15); background: rgba(52, 199, 89, 0.06); }
+
+/* === SECOND SCREEN — SOUL SECTION === */
+.soul-section {
+  text-align: center;
+  background: linear-gradient(180deg, var(--bg) 0%, rgba(0, 113, 227, 0.03) 100%);
+}
+
+.soul-title {
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+
+.soul-subtitle {
+  font-size: 17px;
+  color: var(--text-muted);
+  max-width: 560px;
+  margin: 0 auto 20px;
+  line-height: 1.7;
+}
+
+/* === FEATURES === */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 60px;
+}
+
+.feature-card {
+  border-radius: var(--radius-lg);
+  padding: 36px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.08);
+}
+
+.feature-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.feature-icon.blue { background: rgba(0, 113, 227, 0.1); color: var(--primary); }
+.feature-icon.purple { background: rgba(88, 86, 214, 0.1); color: #5856D6; }
+.feature-icon.green { background: rgba(52, 199, 89, 0.1); color: #34C759; }
+.feature-icon.orange { background: rgba(255, 149, 0, 0.1); color: #FF9500; }
+
+.feature-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.feature-desc {
+  font-size: 15px;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* === HOW IT WORKS === */
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--primary);
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+
+.section-subtitle {
+  font-size: 17px;
+  color: var(--text-muted);
+  margin-bottom: 60px;
+  max-width: 500px;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.step-card {
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.step-card:hover { transform: translateY(-4px); }
+
+.step-num {
+  font-size: 48px;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 16px;
+}
+
+.step-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.step-desc {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* Step mini-demo */
+.step-demo {
+  margin-top: 16px;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  background: rgba(0, 113, 227, 0.04);
+  border: 1px solid rgba(0, 113, 227, 0.08);
+  font-size: 13px;
+  color: var(--text-main);
+  font-weight: 500;
+}
+
+.kbd {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  font-size: 12px;
+  font-weight: 600;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* === PRICING === */
+.pricing-section { text-align: center; }
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  max-width: 720px;
+  margin: 60px auto 0;
+}
+
+.pricing-card {
+  border-radius: var(--radius-lg);
+  padding: 40px 32px;
+  text-align: left;
+  transition: transform 0.3s ease;
+}
+
+.pricing-card:hover { transform: translateY(-4px); }
+
+.pricing-region {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pricing-price {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.pricing-currency {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.pricing-amount {
+  font-size: 52px;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.pricing-note {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+}
+
+.pricing-features {
+  list-style: none;
+  margin-bottom: 32px;
+}
+
+.pricing-features li {
+  font-size: 14px;
+  color: var(--text-main);
+  padding: 8px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pricing-features li::before {
+  content: '✓';
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.pricing-btn {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  text-align: center;
+  border-radius: var(--radius-pill);
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.pricing-btn-primary {
+  background: var(--primary);
+  color: #fff;
+}
+
+.pricing-btn-primary:hover {
+  background: var(--primary-dark);
+  box-shadow: 0 4px 16px rgba(0, 113, 227, 0.3);
+}
+
+.pricing-sub {
+  font-size: 12px;
+  color: var(--text-light);
+  margin-top: 12px;
+  text-align: center;
+}
+
+/* === FAQ === */
+.faq-list {
+  max-width: 680px;
+  margin: 60px auto 0;
+}
+
+.faq-item {
+  border-radius: var(--radius-md);
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+
+.faq-q {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 20px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-main);
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: inherit;
+}
+
+.faq-q::after {
+  content: '+';
+  font-size: 20px;
+  font-weight: 300;
+  color: var(--text-light);
+  transition: transform 0.3s;
+}
+
+.faq-q.active::after { transform: rotate(45deg); }
+
+.faq-a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.faq-a-inner {
+  padding: 0 24px 20px;
+  font-size: 15px;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* === FOOTER === */
+.footer {
+  padding: 40px 24px;
+  text-align: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.footer-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--text-main);
+  margin-bottom: 12px;
+  word-spacing: -2px;
+}
+
+.footer-brand i { color: var(--primary); }
+.footer-brand .brand-magic { color: var(--primary); }
+
+.footer-copy {
+  font-size: 13px;
+  color: var(--text-light);
+}
+
+.footer-links {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+}
+
+.footer-links a {
+  font-size: 13px;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover { color: var(--primary); }
+
+/* === SCROLL REVEAL === */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* === RESPONSIVE === */
+/* === HAMBURGER === */
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  flex-direction: column;
+  gap: 5px;
+  z-index: 101;
+}
+
+.hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--primary);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+@media (max-width: 768px) {
+  .hamburger { display: flex; }
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 64px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background: var(--glass-bg-strong);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border-radius: var(--radius-md);
+    padding: 16px 24px;
+    gap: 12px;
+    box-shadow: var(--glass-shadow);
+    border: 1px solid var(--glass-border);
+  }
+  .nav-links.open { display: flex; }
+  .hero-grid { grid-template-columns: 1fr; gap: 24px; max-width: 100%; }
+  .features-grid { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: 1fr; }
+  .pricing-grid { grid-template-columns: 1fr; }
+  .hero { min-height: auto; padding-top: 100px; }
+}
+</style>
+</head>
+<body>
+
+<div class="ambient-bg"></div>
+
+<!-- NAV -->
+<header class="nav glass">
+  <a href="/" class="nav-brand">
+    <i class="ph ph-sparkle"></i>
+    Aria <span class="brand-magic">Magic</span> Voice
+  </a>
+  <div class="nav-right">
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" onclick="document.getElementById('navLinks').classList.toggle('open');this.classList.toggle('active')">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#features">功能</a></li>
+      <li><a href="#how">使用方式</a></li>
+      <li><a href="#pricing">价格</a></li>
+      <li><a href="#faq">常见问题</a></li>
+    </ul>
+    <a href="#pricing" class="nav-cta">立即下载</a>
+  </div>
 </header>
 
-<!-- Mobile Menu Overlay -->
-<div class="mobile-menu-overlay" id="mobileMenuOverlay" onclick="toggleMobileMenu()"></div>
-<div class="mobile-menu-panel" id="mobileMenuPanel">
-  <div class="flex items-center justify-between px-6 h-16 border-b border-black/5">
-    <span class="font-semibold text-[18px] tracking-tight text-textMain">Aria <span class="text-primary">Magic</span> Voice</span>
-    <button class="text-textMain text-2xl p-1" onclick="toggleMobileMenu()" aria-label="Close menu">
-      <i class="ph ph-x"></i>
-    </button>
+<!-- HERO (First Screen: Privacy-first messaging) -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="reveal">
+        <div class="hero-badge glass">
+          <i class="ph ph-shield-check" style="color:var(--primary)"></i>
+          macOS 本地 AI 语音转文字
+        </div>
+        <h1 class="hero-title">
+          隐私优先，<br><span class="highlight">本地识别。</span><br>
+          <span style="font-size:0.72em; font-weight:700; color:var(--text-muted);">敏感信息，不上传云端。</span>
+        </h1>
+        <p class="hero-subtitle">
+          双击热键，开口说话，文字自动出现在光标处。<br>
+          完全离线，完全隐私。专为 Mac 打造。
+        </p>
+        <div class="hero-actions">
+          <a href="#pricing" class="btn-primary">
+            <i class="ph ph-download-simple"></i> 立即下载
+          </a>
+          <a href="#how" class="btn-secondary">了解更多 →</a>
+        </div>
+      </div>
+
+      <!-- Right: Demo Card -->
+      <div class="hero-card glass reveal" style="animation-delay:0.2s">
+        <div class="demo-header">
+          <div class="demo-brand">
+            <i class="ph ph-sparkle"></i> Aria Magic Voice
+          </div>
+          <div class="demo-status">
+            <span class="dot"></span> 正在聆听…
+          </div>
+        </div>
+
+        <!-- Waveform -->
+        <div class="waveform" id="waveform"></div>
+
+        <!-- Transcript -->
+        <div class="demo-transcript">
+          <span style="color:var(--text-muted); font-size:12px; display:block; margin-bottom:6px;">中文 / EN / 粤語</span>
+          今天下午三点和 David 开会，讨论 Q2 的 marketing plan，记得带上上周的数据…
+        </div>
+
+        <!-- Floating Tags -->
+        <div class="hero-tags">
+          <span class="hero-tag tag-blue glass">
+            <i class="ph ph-translate"></i> 中英混合识别
+          </span>
+          <span class="hero-tag tag-purple glass">
+            <i class="ph ph-keyboard"></i> 双击热键唤起
+          </span>
+          <span class="hero-tag tag-green glass">
+            <i class="ph ph-wifi-slash"></i> 100% 离线
+          </span>
+        </div>
+      </div>
+    </div>
   </div>
-  <nav class="flex flex-col px-6 py-6 gap-6 text-base font-medium text-textMuted">
-    <a class="hover:text-textMain transition-colors" href="#features" onclick="toggleMobileMenu()">功能</a>
-    <a class="hover:text-textMain transition-colors" href="#how" onclick="toggleMobileMenu()">使用方式</a>
-    <a class="hover:text-textMain transition-colors" href="#pricing" onclick="toggleMobileMenu()">价格</a>
-    <a class="hover:text-textMain transition-colors" href="#faq" onclick="toggleMobileMenu()">常见问题</a>
-  </nav>
-  <div class="px-6">
-    <a href="#pricing" onclick="toggleMobileMenu()" class="block text-center bg-primary text-white py-3 rounded-full text-sm font-medium hover:bg-primary-hover active:scale-[0.97] active:brightness-90 transition-all no-underline">立即下载</a>
+</section>
+
+<!-- SECOND SCREEN: Soul / Tagline -->
+<section class="soul-section reveal">
+  <div class="container">
+    <h2 class="soul-title">让声音，成为文字的<span class="highlight">独奏</span>。</h2>
+    <p class="soul-subtitle">
+      Aria，灵感源自音乐中最动人的独唱。<br>
+      说话速度约 250 字/分钟，是打字的 3–5 倍。省下的每一分钟，都是钱。
+    </p>
   </div>
-</div>
-
-<!-- ==================== HERO ==================== -->
-<main class="pt-32 pb-20">
-<div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-<div class="space-y-8">
-<div class="inline-block bg-gray-200/60 text-textMuted px-3 py-1 rounded-full text-xs font-semibold tracking-wider">
-  macOS 本地 AI 语音转文字
-</div>
-<h1 class="text-5xl lg:text-6xl font-bold leading-tight tracking-tight">
-  让声音，<br/>成为文字的独奏。
-</h1>
-<p class="text-xl text-textMuted max-w-lg leading-relaxed">
-  Aria，灵感源自音乐中最动人的独唱。<br/>
-  双击热键，开口说话，文字自动出现在光标处。<br/>
-  完全离线，完全隐私。专为 Mac 打造。
-</p>
-<div class="flex items-center gap-4 pt-4">
-<a href="#pricing" class="bg-primary text-white px-8 py-3.5 rounded-full font-medium hover:bg-primary-hover transition-colors shadow-lg shadow-blue-500/20 no-underline">
-  立即下载试用版
-</a>
-<a class="text-primary font-medium px-4 py-2 hover:underline transition-colors flex items-center gap-1 no-underline border border-primary rounded-full" href="#features">
-  了解更多 <i class="ph ph-arrow-right"></i>
-</a>
-</div>
-</div>
-<!-- Hero Mockup -->
-<div class="relative flex justify-center lg:justify-end">
-<div class="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-md border border-gray-100 relative z-10">
-<div class="absolute -top-4 -right-4 bg-white shadow-lg rounded-full px-4 py-2 flex items-center gap-2 border border-gray-100 z-20">
-<i class="ph ph-translate text-primary"></i>
-<span class="text-xs font-medium">中文 / EN / 粤語</span>
-</div>
-<div class="flex items-center gap-3 mb-6">
-<div class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-primary">
-<i class="ph ph-microphone-stage text-xl"></i>
-</div>
-<div class="flex-1">
-<div class="text-sm font-medium text-textMain">Aria Magic Voice</div>
-<div class="text-xs text-textMuted">正在聆听…</div>
-</div>
-</div>
-<div class="space-y-3 mb-6 p-4 bg-gray-50 rounded-xl">
-<p class="text-sm text-textMain leading-relaxed">今天下午三点和 David 开会，讨论 Q2 的 marketing plan，记得带上上周的数据…</p>
-</div>
-<div class="flex items-center justify-between text-xs text-textMuted">
-<span><i class="ph ph-globe"></i> 中英混合识别</span>
-<span class="text-primary font-medium">⌃⌃ 双击唤起</span>
-</div>
-</div>
-<!-- Floating badges -->
-<div class="absolute bottom-8 -left-8 bg-white shadow-xl rounded-xl p-3 flex items-center gap-2 border border-gray-100 z-20">
-<div class="bg-green-50 text-green-600 p-1.5 rounded-lg">
-<i class="ph ph-shield-check text-lg"></i>
-</div>
-<span class="text-xs font-medium">100% 离线</span>
-</div>
-<div class="absolute top-1/2 -right-6 transform -translate-y-1/2 bg-white shadow-lg rounded-full p-3 border border-gray-100 z-0">
-<i class="ph ph-lightning text-primary"></i>
-</div>
-</div>
-</div>
-</main>
-
-<!-- ==================== FEATURES (Bento Grid) ==================== -->
-<section class="py-20 bg-white" id="features">
-<div class="max-w-7xl mx-auto px-6 space-y-6">
-<!-- Row 1 -->
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-<!-- Feature 1: Multilingual (2/3 width) -->
-<div class="md:col-span-2 bg-gray-50 rounded-3xl p-10 flex flex-col justify-between relative overflow-hidden group">
-<div class="relative z-10 space-y-4 max-w-md">
-<i class="ph ph-chat-teardrop-text text-3xl text-primary"></i>
-<h3 class="text-3xl font-bold">中文英文，一样准。</h3>
-<p class="text-textMuted leading-relaxed">中英混说，无缝切换。商务沟通、跨国协作、会议记录，说你习惯的方式，Aria Magic Voice 全都听得懂。</p>
-<div class="flex flex-wrap gap-2 pt-4">
-<span class="bg-white border border-gray-200 text-xs px-3 py-1.5 rounded-full text-gray-600">普通话</span>
-<span class="bg-white border border-gray-200 text-xs px-3 py-1.5 rounded-full text-gray-600">English</span>
-<span class="bg-white border border-gray-200 text-xs px-3 py-1.5 rounded-full text-gray-600">粤語</span>
-<span class="bg-white border border-gray-200 text-xs px-3 py-1.5 rounded-full text-gray-600">日本語</span>
-<span class="bg-white border border-gray-200 text-xs px-3 py-1.5 rounded-full text-gray-600">한국어</span>
-<span class="bg-white border border-gray-200 text-xs px-3 py-1.5 rounded-full text-primary font-medium">中英混说</span>
-</div>
-</div>
-<div class="absolute right-0 bottom-0 text-gray-200 opacity-50 transform translate-x-1/4 translate-y-1/4">
-<i class="ph-fill ph-globe text-[200px]"></i>
-</div>
-</div>
-<!-- Feature 2: AI Learning (1/3 width, blue) -->
-<div class="bg-primary rounded-3xl p-10 text-white flex flex-col justify-between">
-<div class="space-y-4">
-<i class="ph ph-brain text-3xl"></i>
-<h3 class="text-2xl font-bold">越用越准，AI 懂你。</h3>
-<p class="text-blue-100 text-sm leading-relaxed">内置世界顶级 AI 学习引擎，快速学习你的用词和发音方式。说得越多，识别越准。所有学习数据留在本地，不上传。</p>
-</div>
-</div>
-</div>
-<!-- Row 2 -->
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-<!-- Feature 3: Privacy (2/3 width) -->
-<div class="md:col-span-2 bg-gray-50 rounded-3xl p-10">
-<div class="space-y-4 max-w-lg">
-<i class="ph ph-shield-check text-3xl text-textMain"></i>
-<h3 class="text-3xl font-bold">没有云端，没有上传，<br/>没有第三方。</h3>
-<p class="text-textMuted leading-relaxed">本地运行，又快又安全。即使断网，也能正常使用。你的声音数据，始终只保留在你的 Mac 上。</p>
-</div>
-</div>
-<!-- Feature 4: Speed (1/3 width) -->
-<div class="bg-gray-50 rounded-3xl p-10 flex flex-col justify-center">
-<div class="space-y-4">
-<i class="ph ph-lightning text-3xl text-primary"></i>
-<h3 class="text-2xl font-bold">时间就是金钱</h3>
-<p class="text-textMuted text-sm leading-relaxed">说话速度是打字的 3–5 倍。省下的每一分钟，都是钱。</p>
-<div class="flex items-center gap-3 pt-2">
-<div class="bg-white border border-gray-100 shadow-sm rounded-2xl p-4 flex items-center gap-3 w-full">
-<div class="bg-blue-50 text-primary p-2 rounded-full">
-<i class="ph ph-timer text-xl"></i>
-</div>
-<div>
-<div class="font-bold text-sm">250 字/分钟</div>
-<div class="text-xs text-textMuted">实时识别</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
 </section>
 
-<!-- ==================== HOW IT WORKS ==================== -->
-<section class="py-24 bg-bgLight" id="how">
-<div class="max-w-6xl mx-auto px-6">
-<div class="text-center mb-16 space-y-4">
-<h2 class="text-3xl md:text-4xl font-bold">敲两下，开始说话。</h2>
-<p class="text-textMuted">简单三步，即刻上手。</p>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-<!-- Step 1 -->
-<div class="space-y-6">
-<div class="text-6xl font-bold text-gray-200">01</div>
-<h3 class="text-xl font-bold">双击热键</h3>
-<p class="text-textMuted text-sm leading-relaxed min-h-[4rem]">在任意应用中，双击热键唤起 Aria Magic Voice 录音窗口。</p>
-<div class="flex gap-2 items-center">
-<span class="text-sm font-medium text-textMuted">双击</span>
-<span class="bg-white border border-gray-200 text-xs px-3 py-1.5 rounded shadow-sm text-gray-600 font-mono flex items-center gap-1">
-⌃ Control
-</span>
-<span class="text-sm font-medium text-textMuted">键</span>
-</div>
-</div>
-<!-- Step 2 -->
-<div class="space-y-6">
-<div class="text-6xl font-bold text-blue-100">02</div>
-<h3 class="text-xl font-bold">开口说话</h3>
-<p class="text-textMuted text-sm leading-relaxed min-h-[4rem]">对着 Mac 说话，实时显示识别内容。中英混说也能准确识别。</p>
-<div class="bg-white border border-gray-100 shadow-sm rounded-lg p-3 flex items-center gap-3">
-<div class="flex gap-0.5 items-end h-4">
-<div class="w-1 bg-primary rounded-full h-2 animate-pulse"></div>
-<div class="w-1 bg-primary rounded-full h-4 animate-pulse delay-75"></div>
-<div class="w-1 bg-primary rounded-full h-3 animate-pulse delay-150"></div>
-<div class="w-1 bg-primary rounded-full h-4 animate-pulse delay-200"></div>
-<div class="w-1 bg-primary rounded-full h-2 animate-pulse delay-300"></div>
-</div>
-<span class="text-sm font-medium text-gray-700">正在聆听…</span>
-</div>
-</div>
-<!-- Step 3 -->
-<div class="space-y-6">
-<div class="text-6xl font-bold text-gray-200">03</div>
-<h3 class="text-xl font-bold">文字即刻出现</h3>
-<p class="text-textMuted text-sm leading-relaxed min-h-[4rem]">说完后文字自动插入到当前光标位置。连贯、干脆、利落。</p>
-<div class="bg-white border border-gray-100 shadow-sm rounded-lg p-4 font-mono text-sm text-gray-600 border-l-4 border-l-primary">
-让声音成为文字的独奏<span class="animate-pulse">|</span>
-</div>
-</div>
-</div>
-</div>
+<!-- FEATURES -->
+<section id="features">
+  <div class="container">
+    <div class="section-label"><i class="ph ph-star-four"></i> 核心功能</div>
+    <h2 class="section-title">为什么选择 Magic Voice</h2>
+    <div class="features-grid">
+      <div class="feature-card glass reveal">
+        <div class="feature-icon blue"><i class="ph ph-translate"></i></div>
+        <div class="feature-title">中文英文，一样准</div>
+        <div class="feature-desc">多语言混合识别，中英混输，无缝切换。商务沟通、跨国协作、会议记录，说你习惯的方式，Aria Magic Voice 全都听得懂。</div>
+      </div>
+      <div class="feature-card glass reveal">
+        <div class="feature-icon green"><i class="ph ph-lock-simple"></i></div>
+        <div class="feature-title">没有云端，没有上传</div>
+        <div class="feature-desc">本地运行，又快又安全。即使断网，也能正常使用。你的声音数据，始终只保留在你的 Mac 上。</div>
+      </div>
+      <div class="feature-card glass reveal">
+        <div class="feature-icon purple"><i class="ph ph-brain"></i></div>
+        <div class="feature-title">越用越准，AI 懂你</div>
+        <div class="feature-desc">内置世界顶级 AI 学习引擎，快速学习你的用词和发音方式。说得越多，识别越准。所有学习数据留在本地，不上传。</div>
+      </div>
+      <div class="feature-card glass reveal">
+        <div class="feature-icon orange"><i class="ph ph-timer"></i></div>
+        <div class="feature-title">时间就是金钱</div>
+        <div class="feature-desc">说话速度是打字的 3–5 倍。实时识别，即说即得。省下的每一分钟，都是钱。</div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- ==================== PRICING ==================== -->
-<section class="py-24 bg-white" id="pricing">
-<div class="max-w-5xl mx-auto px-6">
-<div class="text-center mb-16 space-y-4">
-<h2 class="text-3xl md:text-4xl font-bold">Aria Magic Voice</h2>
-<p class="text-textMuted text-lg">一次购买，持续使用。无订阅，无隐藏费用。</p>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto items-stretch">
-<!-- CN Pricing -->
-<div class="bg-bgLight rounded-3xl p-10 flex flex-col">
-<p class="text-primary text-xs font-bold tracking-wider mb-4">🇨🇳 中国大陆</p>
-<div class="text-5xl font-bold mb-1">¥119</div>
-<p class="text-textMuted text-sm mb-8">一次购买，v2.x 版本内永久可用</p>
-<div class="space-y-3 mb-10">
-<div class="flex items-center gap-3"><i class="ph-fill ph-check-circle text-primary"></i><span class="text-sm">完全离线语音识别</span></div>
-<div class="flex items-center gap-3"><i class="ph-fill ph-check-circle text-primary"></i><span class="text-sm">中英粤日韩多语言支持</span></div>
-<div class="flex items-center gap-3"><i class="ph-fill ph-check-circle text-primary"></i><span class="text-sm">AI 纠错学习引擎</span></div>
-<div class="flex items-center gap-3"><i class="ph-fill ph-check-circle text-primary"></i><span class="text-sm">v2.x 版本免费更新</span></div>
-<div class="flex items-center gap-3"><i class="ph-fill ph-check-circle text-primary"></i><span class="text-sm">1 个授权码 = 3 台 Mac</span></div>
-</div>
-<div class="mt-auto">
-<button onclick="alert('微信 / 支付宝购买通道即将上线，敬请期待！\n\n如需提前购买，请联系 magicvoice.team@outlook.com')" class="bg-primary text-white w-full py-3.5 rounded-full font-medium hover:bg-primary-hover active:scale-[0.97] active:brightness-90 transition-all cursor-pointer">微信 / 支付宝购买</button>
-<p class="text-xs text-textMuted text-center mt-4">支持微信支付 · 支付宝</p>
-</div>
-</div>
-<!-- International Pricing -->
-<div class="bg-bgLight rounded-3xl p-10 flex flex-col">
-<p class="text-primary text-xs font-bold tracking-wider mb-4">🌍 INTERNATIONAL</p>
-<div class="text-5xl font-bold mb-1">$19.9</div>
-<p class="text-textMuted text-sm mb-8">One-time purchase, free updates in v2.x</p>
-<div class="space-y-3 mb-10">
-<div class="flex items-center gap-3"><i class="ph-fill ph-check-circle text-primary"></i><span class="text-sm">Fully offline speech recognition</span></div>
-<div class="flex items-center gap-3"><i class="ph-fill ph-check-circle text-primary"></i><span class="text-sm">Chinese, English, Cantonese, Japanese, Korean</span></div>
-<div class="flex items-center gap-3"><i class="ph-fill ph-check-circle text-primary"></i><span class="text-sm">AI correction engine</span></div>
-<div class="flex items-center gap-3"><i class="ph-fill ph-check-circle text-primary"></i><span class="text-sm">Free updates within v2.x</span></div>
-<div class="flex items-center gap-3"><i class="ph-fill ph-check-circle text-primary"></i><span class="text-sm">1 license = 3 Macs</span></div>
-</div>
-<div class="mt-auto">
-<button onclick="openPaddleCheckout()" class="bg-primary text-white w-full py-3.5 rounded-full font-medium hover:bg-primary-hover active:scale-[0.97] active:brightness-90 transition-all cursor-pointer">Buy with Visa / PayPal</button>
-<p class="text-xs text-textMuted text-center mt-4">Visa · Mastercard · PayPal · Apple Pay · Google Pay</p>
-</div>
-</div>
-</div>
-</div>
+<!-- HOW IT WORKS -->
+<section id="how" style="background: linear-gradient(180deg, var(--bg) 0%, rgba(0,113,227,0.02) 50%, var(--bg) 100%);">
+  <div class="container">
+    <div class="section-label"><i class="ph ph-lightning"></i> 使用方式</div>
+    <h2 class="section-title">敲两下，开始说话。</h2>
+    <p class="section-subtitle">简单三步，即刻上手。</p>
+
+    <div class="steps">
+      <div class="step-card glass reveal">
+        <div class="step-num">01</div>
+        <div class="step-title">双击热键</div>
+        <div class="step-desc">在任意应用中，双击热键唤起 Aria Magic Voice 录音窗口。</div>
+        <div class="step-demo">
+          双击 <span class="kbd">⌃ Control</span> 键
+        </div>
+      </div>
+      <div class="step-card glass reveal">
+        <div class="step-num">02</div>
+        <div class="step-title">开口说话</div>
+        <div class="step-desc">对着 Mac 说话，实时显示识别内容，中英混说也能准确识别。</div>
+        <div class="step-demo">
+          <span class="dot" style="display:inline-block;width:6px;height:6px;background:var(--primary);border-radius:50%;margin-right:4px;animation:pulse 2s infinite"></span>
+          正在聆听…
+        </div>
+      </div>
+      <div class="step-card glass reveal">
+        <div class="step-num">03</div>
+        <div class="step-title">文字即刻出现</div>
+        <div class="step-desc">说完后按回车插入到当前光标位置，连贯、干脆、利落。</div>
+        <div class="step-demo">
+          让声音成为文字的独奏<span style="animation:blink 1s infinite;color:var(--primary)">|</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- ==================== FAQ ==================== -->
-<section class="py-24 bg-bgLight" id="faq">
-<div class="max-w-[680px] mx-auto px-6">
-<h2 class="text-3xl md:text-4xl font-bold text-center mb-12">常见问题</h2>
-<div class="divide-y divide-gray-200">
-<details class="group py-5">
-<summary class="flex justify-between items-center cursor-pointer list-none font-semibold text-base">需要联网吗？<span class="text-xl text-gray-400 group-open:rotate-45 transition-transform">+</span></summary>
-<p class="text-textMuted text-sm leading-relaxed mt-3">不需要。Aria Magic Voice 的语音识别完全在你的 Mac 本地运行，不需要网络连接。你的声音数据不会上传到任何服务器。</p>
-</details>
-<details class="group py-5">
-<summary class="flex justify-between items-center cursor-pointer list-none font-semibold text-base">支持哪些语言？<span class="text-xl text-gray-400 group-open:rotate-45 transition-transform">+</span></summary>
-<p class="text-textMuted text-sm leading-relaxed mt-3">支持普通话、英文、粤语、日语、韩语，以及中英混合输入。一句话里中文夹英文也能准确识别。</p>
-</details>
-<details class="group py-5">
-<summary class="flex justify-between items-center cursor-pointer list-none font-semibold text-base">可以在几台 Mac 上使用？<span class="text-xl text-gray-400 group-open:rotate-45 transition-transform">+</span></summary>
-<p class="text-textMuted text-sm leading-relaxed mt-3">1 个授权码可以在最多 3 台 Mac 上激活。更换电脑时，可以释放旧设备的激活名额。</p>
-</details>
-<details class="group py-5">
-<summary class="flex justify-between items-center cursor-pointer list-none font-semibold text-base">买断后还需要额外付费吗？<span class="text-xl text-gray-400 group-open:rotate-45 transition-transform">+</span></summary>
-<p class="text-textMuted text-sm leading-relaxed mt-3">不需要。购买后 v2.x 版本内的所有更新都是免费的。未来如果发布大版本更新，老用户可享受折扣价升级。</p>
-</details>
-<details class="group py-5">
-<summary class="flex justify-between items-center cursor-pointer list-none font-semibold text-base">对 Mac 有什么要求？<span class="text-xl text-gray-400 group-open:rotate-45 transition-transform">+</span></summary>
-<p class="text-textMuted text-sm leading-relaxed mt-3">需要 macOS 13.0 (Ventura) 或更高版本，支持 Apple Silicon (M1/M2/M3/M4) 和 Intel Mac。</p>
-</details>
-</div>
-</div>
+<style>
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+</style>
+
+<!-- PRICING -->
+<section id="pricing" class="pricing-section">
+  <div class="container">
+    <div class="section-label"><i class="ph ph-tag"></i> 价格</div>
+    <h2 class="section-title">一次购买，持续使用。</h2>
+    <p style="color:var(--text-muted); font-size:16px;">无订阅，无隐藏费用。</p>
+
+    <div class="pricing-grid">
+      <!-- CN -->
+      <div class="pricing-card glass reveal">
+        <div class="pricing-region">🇨🇳 中国大陆</div>
+        <div class="pricing-price">
+          <span class="pricing-currency">¥</span>
+          <span class="pricing-amount">119</span>
+        </div>
+        <div class="pricing-note">一次购买，v2.x 版本内永久可用</div>
+        <ul class="pricing-features">
+          <li>完全离线语音识别</li>
+          <li>中英粤日韩多语言支持</li>
+          <li>AI 纠错学习引擎</li>
+          <li>v2.x 版本免费更新</li>
+          <li>1 个授权码 = 3 台 Mac</li>
+        </ul>
+        <a href="https://mbd.pub" target="_blank" rel="noopener" class="pricing-btn pricing-btn-primary">微信 / 支付宝购买</a>
+        <div class="pricing-sub">支持微信支付 · 支付宝</div>
+      </div>
+
+      <!-- International -->
+      <div class="pricing-card glass reveal">
+        <div class="pricing-region">🌍 International</div>
+        <div class="pricing-price">
+          <span class="pricing-currency">$</span>
+          <span class="pricing-amount">19.9</span>
+        </div>
+        <div class="pricing-note">One-time purchase, free updates in v2.x</div>
+        <ul class="pricing-features">
+          <li>Fully offline speech recognition</li>
+          <li>Multi-language support</li>
+          <li>AI learning engine</li>
+          <li>Free updates within v2.x</li>
+          <li>1 license = 3 Macs</li>
+        </ul>
+        <button class="pricing-btn pricing-btn-primary" style="border:none;cursor:pointer;font-family:inherit;" onclick="Paddle.Checkout.open({items:[{priceId:'pri_01kmx0x2kg7dckq4j2q5nhwj6c',quantity:1}]})">Buy with Paddle</button>
+        <div class="pricing-sub">Visa · Mastercard · PayPal</div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- ==================== FOOTER (Apple 5-column + language switcher) ==================== -->
-<footer class="bg-[#f5f5f7] border-t border-black/5">
-<div class="max-w-[980px] mx-auto px-6 pt-4 pb-10">
-<!-- Disclaimer -->
-<div class="space-y-3 text-[11px] leading-5 text-[#6e6e73] border-b border-black/10 pb-4">
-<p>Aria Magic Voice 是一款面向 Mac 的本地 AI 语音输入工具。产品功能、语言支持和购买方式可能会随版本更新而调整。</p>
-<p>"免费试用 3 天"为当前页面展示方案，正式上线时应以实际下载页、授权方式和销售政策为准。</p>
-<p>页面中的视觉示意仅用于展示产品方向，不包含 Apple 官方 Logo、产品图片或官方素材。</p>
-<p>最后更新：2026 年 3 月 30 日</p>
-</div>
+<!-- FAQ -->
+<section id="faq">
+  <div class="container">
+    <div style="text-align:center">
+      <div class="section-label"><i class="ph ph-question"></i> FAQ</div>
+      <h2 class="section-title">常见问题</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item glass reveal">
+        <button class="faq-q" onclick="this.classList.toggle('active');this.nextElementSibling.style.maxHeight=this.classList.contains('active')?this.nextElementSibling.scrollHeight+'px':'0'">
+          需要联网才能用吗？
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">完全不需要。Aria Magic Voice 100% 本地运行，断网也能正常使用。你的声音数据永远不会离开你的 Mac。</div></div>
+      </div>
+      <div class="faq-item glass reveal">
+        <button class="faq-q" onclick="this.classList.toggle('active');this.nextElementSibling.style.maxHeight=this.classList.contains('active')?this.nextElementSibling.scrollHeight+'px':'0'">
+          支持哪些语言？
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">支持普通话、English、粤語、日本語、한국어，以及中英混说。未来会持续增加更多语言支持。</div></div>
+      </div>
+      <div class="faq-item glass reveal">
+        <button class="faq-q" onclick="this.classList.toggle('active');this.nextElementSibling.style.maxHeight=this.classList.contains('active')?this.nextElementSibling.scrollHeight+'px':'0'">
+          和其他语音输入有什么区别？
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">主要区别是隐私：搜狗、讯飞、微信输入法等都需要联网上传你的语音到云端处理。Magic Voice 完全在你的 Mac 本地运行，你的录音、文字、学习模型都不会离开你的电脑。</div></div>
+      </div>
+      <div class="faq-item glass reveal">
+        <button class="faq-q" onclick="this.classList.toggle('active');this.nextElementSibling.style.maxHeight=this.classList.contains('active')?this.nextElementSibling.scrollHeight+'px':'0'">
+          可以在多少台 Mac 上使用？
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">1 个授权码最多激活 3 台 Mac。换电脑时可以在旧设备上取消激活，然后在新设备上重新激活。</div></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-<!-- 5-column links -->
-<div class="grid grid-cols-2 md:grid-cols-5 gap-x-8 gap-y-8 py-6 text-xs border-b border-black/10">
-<div class="space-y-3">
-<h4 class="font-semibold text-textMain">探索 Aria Magic Voice</h4>
-<div class="space-y-2 text-[#6e6e73]">
-<a class="block hover:underline" href="/">首页</a>
-<a class="block hover:underline" href="#features">核心功能</a>
-<a class="block hover:underline" href="#how">使用方式</a>
-<a class="block hover:underline" href="#pricing">价格</a>
-</div>
-</div>
-<div class="space-y-3">
-<h4 class="font-semibold text-textMain">产品</h4>
-<div class="space-y-2 text-[#6e6e73]">
-<a class="block hover:underline" href="/#pricing">标准版</a>
-<a class="block hover:underline" href="/#pricing">下载试用</a>
-</div>
-</div>
-<div class="space-y-3">
-<h4 class="font-semibold text-textMain">支持</h4>
-<div class="space-y-2 text-[#6e6e73]">
-<a class="block hover:underline" href="#faq">常见问题</a>
-<a class="block hover:underline" href="mailto:magicvoice.team@outlook.com">联系支持</a>
-<a class="block hover:underline" href="/compatibility.html">兼容性说明</a>
-</div>
-</div>
-<div class="space-y-3">
-<h4 class="font-semibold text-textMain">账户与购买</h4>
-<div class="space-y-2 text-[#6e6e73]">
-<a class="block hover:underline" href="/#pricing">购买说明</a>
-<a class="block hover:underline" href="/refund.html">销售与退款</a>
-<a class="block hover:underline" href="/terms.html">许可证规则</a>
-</div>
-</div>
-<div class="space-y-3">
-<h4 class="font-semibold text-textMain">关于 Aria Magic Voice</h4>
-<div class="space-y-2 text-[#6e6e73]">
-<a class="block hover:underline" href="/about.html">品牌故事</a>
-<a class="block hover:underline" href="/privacy.html">隐私政策</a>
-<a class="block hover:underline" href="/terms.html">使用条款</a>
-</div>
-</div>
-</div>
-
-<!-- Bottom bar: copyright + links + language switcher -->
-<div class="pt-4 text-[11px] text-[#6e6e73] md:flex md:items-center md:justify-between md:gap-6">
-<div class="space-y-2 md:space-y-0 md:flex md:items-center md:gap-6">
-<p>Copyright &copy; 2026 Aria Magic Voice. 保留所有权利。</p>
-<div class="flex flex-wrap items-center gap-x-4 gap-y-1">
-<a class="hover:underline" href="/privacy.html">隐私政策</a>
-<a class="hover:underline" href="/terms.html">使用条款</a>
-<a class="hover:underline" href="/refund.html">退款政策</a>
-</div>
-</div>
-<!-- Language Switcher (working dropdown) -->
-<div class="lang-switcher mt-3 md:mt-0">
-<button class="lang-switcher-btn hover:underline flex items-center gap-1" onclick="document.getElementById('langDropdown').classList.toggle('open')">
-<span id="currentLang"><img src="https://flagcdn.com/w40/cn.png" width="20" height="14" style="display:inline-block;vertical-align:middle;margin-right:6px;border-radius:2px" alt="CN"> 中国大陆</span>
-<i class="ph ph-caret-up text-xs"></i>
-</button>
-<div class="lang-dropdown" id="langDropdown">
-<a href="#" class="active" onclick="switchLang(this.innerHTML, 'zh-CN', this, event)"><img src="https://flagcdn.com/w40/cn.png" width="20" height="14" style="display:inline-block;vertical-align:middle;margin-right:6px;border-radius:2px" alt="CN"> 中国大陆</a>
-<a href="#" onclick="switchLang(this.innerHTML, 'zh-TW', this, event)"><img src="https://flagcdn.com/w40/tw.png" width="20" height="14" style="display:inline-block;vertical-align:middle;margin-right:6px;border-radius:2px" alt="TW"> 中國臺灣地區</a>
-<a href="#" onclick="switchLang(this.innerHTML, 'zh-HK', this, event)"><img src="https://flagcdn.com/w40/hk.png" width="20" height="14" style="display:inline-block;vertical-align:middle;margin-right:6px;border-radius:2px" alt="HK"> 中國香港</a>
-<a href="#" onclick="switchLang(this.innerHTML, 'en-US', this, event)"><img src="https://flagcdn.com/w40/us.png" width="20" height="14" style="display:inline-block;vertical-align:middle;margin-right:6px;border-radius:2px" alt="US"> United States</a>
-<a href="#" onclick="switchLang(this.innerHTML, 'ja-JP', this, event)"><img src="https://flagcdn.com/w40/jp.png" width="20" height="14" style="display:inline-block;vertical-align:middle;margin-right:6px;border-radius:2px" alt="JP"> 日本</a>
-<a href="#" onclick="switchLang(this.innerHTML, 'ko-KR', this, event)"><img src="https://flagcdn.com/w40/kr.png" width="20" height="14" style="display:inline-block;vertical-align:middle;margin-right:6px;border-radius:2px" alt="KR"> 한국</a>
-</div>
-</div>
-</div>
-<p class="text-center text-[11px] text-[#6e6e73] pt-6">爱与和平 · Peace and Love</p>
-</div>
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-brand">
+    <i class="ph ph-sparkle"></i>
+    Aria <span class="brand-magic">Magic</span> Voice
+  </div>
+  <div class="footer-copy">© 2026 Aria Magic Voice. All rights reserved.</div>
+  <div class="footer-links">
+    <a href="/privacy.html">隐私政策</a>
+    <a href="/terms.html">使用条款</a>
+    <a href="mailto:magicvoice.team@outlook.com">联系我们</a>
+  </div>
 </footer>
 
 <script>
-function switchLang(label, langCode, el, e) {
-  // Update display - use innerHTML to support SVG flags
-  document.getElementById('currentLang').innerHTML = el.innerHTML;
-  // Update active state
-  document.querySelectorAll('.lang-dropdown a').forEach(a => a.classList.remove('active'));
-  el.classList.add('active');
-  // Close dropdown
-  document.getElementById('langDropdown').classList.remove('open');
-  // Update html lang attribute
-  document.documentElement.lang = langCode;
-  // Prevent default
-  e.preventDefault();
-}
-// Close dropdown when clicking outside
-document.addEventListener('click', function(e) {
-  if (!e.target.closest('.lang-switcher')) {
-    document.getElementById('langDropdown').classList.remove('open');
-  }
-});
-
-// ── Mobile Menu ──
-function toggleMobileMenu() {
-  document.getElementById('mobileMenuOverlay').classList.toggle('open');
-  document.getElementById('mobileMenuPanel').classList.toggle('open');
+// Waveform bars
+const waveform = document.getElementById('waveform');
+for (let i = 0; i < 24; i++) {
+  const bar = document.createElement('div');
+  bar.className = 'wave-bar';
+  const h = 10 + Math.random() * 38;
+  bar.style.setProperty('--h', h + 'px');
+  bar.style.animationDelay = (i * 0.08) + 's';
+  waveform.appendChild(bar);
 }
 
-// ── Paddle Checkout ──
-// eventCallback 已合并到 Paddle.Initialize()（<head> 中）
-// 不再使用 Paddle.Setup()，避免双初始化风险
-function openPaddleCheckout() {
-  Paddle.Checkout.open({
-    items: [{ priceId: 'pri_01kmx0x2kg7dckq4j2q5nhwj6c', quantity: 1 }],
-    customData: {
-      source: 'website'
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
     }
   });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+// Scroll-spy: highlight active nav link
+const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+const sections = [];
+navLinks.forEach(link => {
+  const id = link.getAttribute('href').slice(1);
+  const sec = document.getElementById(id);
+  if (sec) sections.push({ el: sec, link });
+});
+
+function updateActiveNav() {
+  let current = null;
+  const scrollY = window.scrollY + 120;
+  for (const s of sections) {
+    if (s.el.offsetTop <= scrollY) current = s;
+  }
+  navLinks.forEach(l => l.classList.remove('active'));
+  if (current) current.link.classList.add('active');
 }
+
+window.addEventListener('scroll', updateActiveNav, { passive: true });
+updateActiveNav();
 </script>
 
-</body></html>
+<script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+<script>
+Paddle.Initialize({ token: 'live_d7beb0bd4a366dacc86dcdc998f' });
+</script>
+
+</body>
+</html>
