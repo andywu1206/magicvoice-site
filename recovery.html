@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aria Magic Voice — Device Recovery</title>
+<meta name="description" content="Reset your Aria Magic Voice device activations. Use this page when you can't access your old Mac.">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --primary: #0071E3;
+  --primary-dark: #0058b0;
+  --bg: #F5F5F7;
+  --text-main: #1D1D1F;
+  --text-muted: #6E6E73;
+  --text-light: #86868B;
+  --card-bg: #fff;
+  --border: #E5E5EA;
+  --error: #FF3B30;
+  --success: #34C759;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text-main);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+}
+.container {
+  width: 100%;
+  max-width: 440px;
+}
+.header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+.header-brand {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+.header-brand span { color: var(--primary); }
+.header h1 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.header p {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+.step-indicator {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+.step-dot {
+  flex: 1;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--border);
+  transition: background 0.3s;
+}
+.step-dot.active { background: var(--primary); }
+.step-dot.done { background: var(--success); }
+.form-group {
+  margin-bottom: 16px;
+}
+.form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 6px;
+}
+.form-group input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-size: 15px;
+  font-family: inherit;
+  color: var(--text-main);
+  background: var(--bg);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.form-group input:focus {
+  border-color: var(--primary);
+}
+.form-group input.mono {
+  font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.form-group .hint {
+  font-size: 12px;
+  color: var(--text-light);
+  margin-top: 4px;
+}
+.btn {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+}
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+}
+.btn-primary:hover { background: var(--primary-dark); }
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.error-msg {
+  background: #FFF2F2;
+  border: 1px solid #FFD4D4;
+  color: var(--error);
+  font-size: 13px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  display: none;
+}
+.error-msg.show { display: block; }
+.success-box {
+  text-align: center;
+  padding: 20px 0;
+}
+.success-box .icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+.success-box h2 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--success);
+}
+.success-box p {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.back-link {
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+  font-size: 13px;
+  color: var(--text-muted);
+  text-decoration: none;
+}
+.back-link:hover { color: var(--primary); }
+.loading {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.footer {
+  margin-top: 40px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-light);
+}
+.footer a {
+  color: var(--text-muted);
+  text-decoration: none;
+}
+.footer a:hover { color: var(--primary); }
+/* Language toggle */
+.lang-toggle {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 24px;
+}
+.lang-btn {
+  padding: 4px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.lang-btn.active {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Language Toggle -->
+  <div class="lang-toggle">
+    <button class="lang-btn active" onclick="setLang('zh')">中文</button>
+    <button class="lang-btn" onclick="setLang('en')">EN</button>
+  </div>
+
+  <div class="header">
+    <div class="header-brand">Aria <span>Magic</span> Voice</div>
+    <h1 id="pageTitle">设备重置</h1>
+    <p id="pageDesc">旧电脑无法使用时，通过此页面重置所有设备激活，释放授权码名额。</p>
+  </div>
+
+  <div class="card">
+    <div class="step-indicator">
+      <div class="step-dot active" id="dot1"></div>
+      <div class="step-dot" id="dot2"></div>
+      <div class="step-dot" id="dot3"></div>
+    </div>
+
+    <!-- Step 1: Input license key + email -->
+    <div id="step1">
+      <div id="errorBox" class="error-msg"></div>
+      <div class="form-group">
+        <label id="labelKey">授权码</label>
+        <input type="text" id="inputKey" class="mono" placeholder="XXXXX-XXXXX-XXXXX-XXXXXXXX" maxlength="26" autocomplete="off" spellcheck="false">
+        <div class="hint" id="hintKey">购买邮件中收到的授权码</div>
+      </div>
+      <div class="form-group">
+        <label id="labelEmail">购买邮箱</label>
+        <input type="email" id="inputEmail" placeholder="your@email.com" autocomplete="email">
+        <div class="hint" id="hintEmail">购买时使用的邮箱地址</div>
+      </div>
+      <button class="btn btn-primary" id="btnSendCode" onclick="sendCode()">
+        <span id="btnSendText">发送验证码</span>
+      </button>
+    </div>
+
+    <!-- Step 2: Enter verification code -->
+    <div id="step2" style="display:none">
+      <div id="errorBox2" class="error-msg"></div>
+      <div class="form-group">
+        <label id="labelCode">验证码</label>
+        <input type="text" id="inputCode" class="mono" placeholder="000000" maxlength="6" autocomplete="one-time-code" inputmode="numeric">
+        <div class="hint" id="hintCode">已发送到你的邮箱，10 分钟内有效</div>
+      </div>
+      <button class="btn btn-primary" id="btnVerify" onclick="verifyAndReset()">
+        <span id="btnVerifyText">重置所有设备</span>
+      </button>
+    </div>
+
+    <!-- Step 3: Success -->
+    <div id="step3" style="display:none">
+      <div class="success-box">
+        <div class="icon">✅</div>
+        <h2 id="successTitle">重置成功</h2>
+        <p id="successDesc">所有设备已解绑。你可以在新 Mac 上使用同一个授权码重新激活。</p>
+        <p id="successNext" style="margin-top:12px;font-size:13px;color:var(--text-light)"></p>
+      </div>
+    </div>
+  </div>
+
+  <a href="/" class="back-link" id="backLink">← 返回首页</a>
+
+  <div class="footer">
+    <p>© 2026 Aria Magic Voice · <a href="mailto:magicvoice.team@outlook.com">联系我们</a></p>
+  </div>
+</div>
+
+<script>
+const API = 'https://magicvoice-webhook.andywu1206.workers.dev';
+let currentLang = navigator.language.startsWith('zh') ? 'zh' : 'en';
+
+// i18n strings
+const i18n = {
+  zh: {
+    pageTitle: '设备重置',
+    pageDesc: '旧电脑无法使用时，通过此页面重置所有设备激活，释放授权码名额。',
+    labelKey: '授权码',
+    hintKey: '购买邮件中收到的授权码',
+    labelEmail: '购买邮箱',
+    hintEmail: '购买时使用的邮箱地址',
+    btnSend: '发送验证码',
+    btnSending: '发送中...',
+    labelCode: '验证码',
+    hintCode: '已发送到你的邮箱，10 分钟内有效',
+    btnVerify: '重置所有设备',
+    btnVerifying: '重置中...',
+    successTitle: '重置成功',
+    successDesc: '所有设备已解绑。你可以在新 Mac 上使用同一个授权码重新激活。',
+    backLink: '← 返回首页',
+    errEmpty: '请填写授权码和邮箱',
+    errCodeEmpty: '请输入验证码',
+    errInvalidKey: '授权码格式不正确',
+    errEmailMismatch: '邮箱与购买记录不匹配',
+    errRateLimit: '重置过于频繁，请在 {date} 之后再试',
+    errCodeMismatch: '验证码错误',
+    errCodeExpired: '验证码已过期，请重新发送',
+    errNetwork: '网络错误，请稍后重试',
+    errServer: '服务器错误，请稍后重试',
+    nextReset: '下次可重置时间：{date}',
+  },
+  en: {
+    pageTitle: 'Device Recovery',
+    pageDesc: 'Reset all device activations when you can\'t access your old Mac.',
+    labelKey: 'License Key',
+    hintKey: 'The license key from your purchase email',
+    labelEmail: 'Purchase Email',
+    hintEmail: 'The email address used for purchase',
+    btnSend: 'Send Verification Code',
+    btnSending: 'Sending...',
+    labelCode: 'Verification Code',
+    hintCode: 'Sent to your email, valid for 10 minutes',
+    btnVerify: 'Reset All Devices',
+    btnVerifying: 'Resetting...',
+    successTitle: 'Reset Successful',
+    successDesc: 'All devices have been unlinked. You can now activate on your new Mac with the same license key.',
+    backLink: '← Back to Home',
+    errEmpty: 'Please enter your license key and email',
+    errCodeEmpty: 'Please enter the verification code',
+    errInvalidKey: 'Invalid license key format',
+    errEmailMismatch: 'Email does not match purchase record',
+    errRateLimit: 'Too many resets. Try again after {date}',
+    errCodeMismatch: 'Incorrect verification code',
+    errCodeExpired: 'Code expired, please request a new one',
+    errNetwork: 'Network error, please try again',
+    errServer: 'Server error, please try again',
+    nextReset: 'Next reset available: {date}',
+  }
+};
+
+function t(key) { return i18n[currentLang][key] || key; }
+
+function setLang(lang) {
+  currentLang = lang;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
+  updateUI();
+}
+
+function updateUI() {
+  document.getElementById('pageTitle').textContent = t('pageTitle');
+  document.getElementById('pageDesc').textContent = t('pageDesc');
+  document.getElementById('labelKey').textContent = t('labelKey');
+  document.getElementById('hintKey').textContent = t('hintKey');
+  document.getElementById('labelEmail').textContent = t('labelEmail');
+  document.getElementById('hintEmail').textContent = t('hintEmail');
+  document.getElementById('btnSendText').textContent = t('btnSend');
+  document.getElementById('labelCode').textContent = t('labelCode');
+  document.getElementById('hintCode').textContent = t('hintCode');
+  document.getElementById('btnVerifyText').textContent = t('btnVerify');
+  document.getElementById('successTitle').textContent = t('successTitle');
+  document.getElementById('successDesc').textContent = t('successDesc');
+  document.getElementById('backLink').textContent = t('backLink');
+}
+
+function showError(boxId, msg) {
+  const box = document.getElementById(boxId);
+  box.textContent = msg;
+  box.classList.add('show');
+}
+
+function hideError(boxId) {
+  document.getElementById(boxId).classList.remove('show');
+}
+
+function setStep(n) {
+  document.getElementById('step1').style.display = n === 1 ? 'block' : 'none';
+  document.getElementById('step2').style.display = n === 2 ? 'block' : 'none';
+  document.getElementById('step3').style.display = n === 3 ? 'block' : 'none';
+  for (let i = 1; i <= 3; i++) {
+    const dot = document.getElementById('dot' + i);
+    dot.className = 'step-dot' + (i < n ? ' done' : i === n ? ' active' : '');
+  }
+}
+
+// Auto-format license key input
+document.getElementById('inputKey').addEventListener('input', function(e) {
+  let v = e.target.value.toUpperCase().replace(/[^A-Z0-9-]/g, '');
+  // Auto-insert dashes
+  const raw = v.replace(/-/g, '');
+  if (raw.length > 5 && v.indexOf('-') === -1) {
+    v = raw.slice(0,5) + '-' + raw.slice(5,10) + '-' + raw.slice(10,15) + '-' + raw.slice(15,23);
+  }
+  e.target.value = v;
+});
+
+async function sendCode() {
+  hideError('errorBox');
+  const key = document.getElementById('inputKey').value.trim().toUpperCase();
+  const email = document.getElementById('inputEmail').value.trim();
+
+  if (!key || !email) { showError('errorBox', t('errEmpty')); return; }
+
+  const keyPattern = /^[A-Z0-9]{5}-[A-Z0-9]{5}-[A-Z0-9]{5}-[A-Z0-9]{8}$/;
+  if (!keyPattern.test(key)) { showError('errorBox', t('errInvalidKey')); return; }
+
+  const btn = document.getElementById('btnSendCode');
+  const btnText = document.getElementById('btnSendText');
+  btn.disabled = true;
+  btnText.innerHTML = '<span class="loading"></span>' + t('btnSending');
+
+  try {
+    const resp = await fetch(API + '/emergency-reset', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ licenseKey: key, email: email, action: 'request_code' }),
+    });
+    const data = await resp.json();
+
+    if (data.success) {
+      setStep(2);
+    } else if (data.error === 'email_mismatch') {
+      showError('errorBox', t('errEmailMismatch'));
+    } else if (data.error === 'rate_limited') {
+      const date = new Date(data.nextResetAvailableAt).toLocaleDateString();
+      showError('errorBox', t('errRateLimit').replace('{date}', date));
+    } else if (data.error === 'invalid_license_key') {
+      showError('errorBox', t('errInvalidKey'));
+    } else {
+      showError('errorBox', t('errServer'));
+    }
+  } catch (e) {
+    showError('errorBox', t('errNetwork'));
+  } finally {
+    btn.disabled = false;
+    btnText.textContent = t('btnSend');
+  }
+}
+
+async function verifyAndReset() {
+  hideError('errorBox2');
+  const key = document.getElementById('inputKey').value.trim().toUpperCase();
+  const email = document.getElementById('inputEmail').value.trim();
+  const code = document.getElementById('inputCode').value.trim();
+
+  if (!code) { showError('errorBox2', t('errCodeEmpty')); return; }
+
+  const btn = document.getElementById('btnVerify');
+  const btnText = document.getElementById('btnVerifyText');
+  btn.disabled = true;
+  btnText.innerHTML = '<span class="loading"></span>' + t('btnVerifying');
+
+  try {
+    const resp = await fetch(API + '/emergency-reset', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ licenseKey: key, email: email, action: 'verify_and_reset', code: code }),
+    });
+    const data = await resp.json();
+
+    if (data.success) {
+      setStep(3);
+      if (data.nextResetAvailableAt) {
+        const date = new Date(data.nextResetAvailableAt).toLocaleDateString();
+        document.getElementById('successNext').textContent = t('nextReset').replace('{date}', date);
+      }
+    } else if (data.error === 'code_mismatch') {
+      showError('errorBox2', t('errCodeMismatch'));
+    } else if (data.error === 'code_expired_or_not_found') {
+      showError('errorBox2', t('errCodeExpired'));
+    } else {
+      showError('errorBox2', t('errServer'));
+    }
+  } catch (e) {
+    showError('errorBox2', t('errNetwork'));
+  } finally {
+    btn.disabled = false;
+    btnText.textContent = t('btnVerify');
+  }
+}
+
+// Init
+setLang(currentLang);
+</script>
+
+</body>
+</html>
