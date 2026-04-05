@@ -602,12 +602,14 @@ section { padding: 100px 24px; }
 }
 
 .pricing-features li {
-  font-size: 14px;
+  font-size: 15px;
   color: var(--text-main);
-  padding: 8px 0;
+  padding: 9px 0;
   display: flex;
   align-items: center;
   gap: 10px;
+  line-height: 1.6;
+  font-weight: 500;
 }
 
 .pricing-features li::before {
@@ -995,8 +997,8 @@ section { padding: 100px 24px; }
           <li>v2.x 版本免费更新</li>
           <li>1 个授权码 = 3 台 Mac</li>
         </ul>
-        <button class="pricing-btn pricing-btn-primary" style="border:none;cursor:pointer;font-family:inherit;" onclick="Paddle.Checkout.open({items:[{priceId:'pri_01kmx0x2kg7dckq4j2q5nhwj6c',quantity:1}]})">微信支付购买</button>
-        <div class="pricing-sub">支持微信支付 · Visa · Mastercard · PayPal</div>
+        <button class="pricing-btn pricing-btn-primary" style="border:none;cursor:pointer;font-family:inherit;" onclick="Paddle.Checkout.open({items:[{priceId:'pri_01kmx0x2kg7dckq4j2q5nhwj6c',quantity:1}]})">微信支付</button>
+        <div class="pricing-sub">支付宝暂不支持</div>
         <a href="https://downloads.ariamagicvoice.com/AriaMagicVoice_latest.dmg" class="pricing-btn" style="margin-top:8px;text-decoration:none;display:block;text-align:center;">
           <i class="ph ph-download-simple"></i> 下载安装包
         </a>
