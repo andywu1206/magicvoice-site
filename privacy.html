@@ -356,7 +356,7 @@ body {
 <h2>Network Connections</h2>
 <p>Aria Magic Voice performs all speech recognition <strong>entirely offline</strong> — no internet connection is required for voice input. The only network connection the app may make is for <strong>license activation and deactivation</strong>.</p>
 <ul>
-<li><strong>License activation</strong> — When you activate a license, the app sends a request to our server (a Cloudflare Worker) to register your device. The only data transmitted is your <strong>device identifier</strong> (IOPlatformUUID) and <strong>device name</strong>.</li>
+<li><strong>License activation</strong> — When you activate a license, the app sends a request to our server to register your device. The only data transmitted is your <strong>device identifier</strong> (IOPlatformUUID) and <strong>device name</strong>.</li>
 <li><strong>License deactivation</strong> — When you deactivate a license, the app contacts our server to unregister the device. The same device identifier and device name are sent.</li>
 <li><strong>No voice or audio data</strong> is ever transmitted over the network.</li>
 <li><strong>No usage data, analytics, or telemetry</strong> of any kind is sent.</li>
@@ -394,7 +394,7 @@ body {
 
 <section>
 <h2>Third-Party Services</h2>
-<p><strong>The desktop application</strong> does not integrate any third-party cloud services for speech recognition. All voice-to-text conversion runs entirely locally and does not depend on any external API. The app connects to our own server (hosted on Cloudflare Workers) solely for license activation and deactivation — only your device identifier and device name are transmitted during this process.</p>
+<p><strong>The desktop application</strong> does not integrate any third-party cloud services for speech recognition. All voice-to-text conversion runs entirely locally and does not depend on any external API. The app connects to our own server (hosted on our own infrastructure) solely for license activation and deactivation — only your device identifier and device name are transmitted during this process.</p>
 <p><strong>This website</strong> loads third-party resources from Google Fonts, unpkg (Phosphor Icons), Flag CDN, and Paddle as described in the "This Website" section above. These services may receive standard HTTP request data (such as your IP address) when the page loads.</p>
 </section>
 
@@ -456,7 +456,7 @@ body {
 <h2>网络连接</h2>
 <p>Aria Magic Voice 的语音识别功能 <strong>完全离线运行</strong>，无需互联网连接。应用可能建立的唯一网络连接是用于 <strong>授权码激活与停用</strong>。</p>
 <ul>
-<li><strong>授权码激活</strong> — 激活授权码时，应用会向我们的服务器（Cloudflare Worker）发送请求以注册您的设备。传输的数据仅限 <strong>设备标识符</strong>（IOPlatformUUID）和 <strong>设备名称</strong>。</li>
+<li><strong>授权码激活</strong> — 激活授权码时，应用会向我们的服务器发送请求以注册您的设备。传输的数据仅限 <strong>设备标识符</strong>（IOPlatformUUID）和 <strong>设备名称</strong>。</li>
 <li><strong>授权码停用</strong> — 停用授权码时，应用会联系服务器注销设备。传输的数据同样仅限设备标识符和设备名称。</li>
 <li><strong>不会传输</strong> 任何语音或音频数据。</li>
 <li><strong>不会发送</strong> 任何使用数据、分析数据或遥测信息。</li>
@@ -494,7 +494,7 @@ body {
 
 <section>
 <h2>第三方服务</h2>
-<p><strong>桌面应用</strong> 不集成任何第三方云端语音识别服务。所有语音转文字处理完全在本地运行，不依赖任何外部 API。应用仅在授权码激活和停用时连接我们自有的服务器（托管于 Cloudflare Workers）— 此过程中仅传输您的设备标识符和设备名称。</p>
+<p><strong>桌面应用</strong> 不集成任何第三方云端语音识别服务。所有语音转文字处理完全在本地运行，不依赖任何外部 API。应用仅在授权码激活和停用时连接我们自有的服务器（托管于我们自有的基础设施）— 此过程中仅传输您的设备标识符和设备名称。</p>
 <p><strong>本网站</strong> 加载来自 Google Fonts、unpkg（Phosphor Icons）、Flag CDN 和 Paddle 的第三方资源，如上文"本网站"部分所述。这些服务可能在页面加载时接收标准 HTTP 请求数据（如您的 IP 地址）。</p>
 </section>
 
