@@ -1,15 +1,23 @@
 <!DOCTYPE html>
 <!--
-  Aria Magic Voice — User Guide (Bilingual: EN / 中文)
-  Style: v2.4 Glass Design (CSS custom properties, no Tailwind)
-  Date: 2026-04-03
+  Aria Magic Voice — User Guide v2.5 (Bilingual: EN / 中文)
+  Style: v2.4 Glass Design + Top Tab Bar (Installation / Quick User Guide)
+  Date: 2026-04-12 (deployed)
+  Upgraded from v2.4 (2026-04-03)
+  Changes from v2.4:
+    1. 顶部新增 Tab Bar：Installation（默认选中，嵌入权威 PNG）/ Quick User Guide
+    2. Header 布局调整：lang-toggle 从页面中央移到 Free Download 按钮左侧
+    3. 原有 7 个 guide-section 全部保留，搬进 Quick User Guide tab
+    4. 删除原 page-title / page-subtitle（Tab Bar 接管导航语义）
+  Purpose: 防止新用户点击 User Guide 后看不到安装说明导致卡在权限授予这一步
+  Status: LIVE — ariamagicvoice.com/guide.html
 -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>User Guide — Aria Magic Voice</title>
-<meta name="description" content="Aria Magic Voice User Guide. Learn how to set up and use local AI speech-to-text on your Mac.">
+<meta name="description" content="Aria Magic Voice User Guide. Installation and usage of local AI speech-to-text on your Mac.">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -27,7 +35,7 @@
   --glass-bg: rgba(255, 255, 255, 0.72);
   --glass-bg-strong: rgba(255, 255, 255, 0.85);
   --glass-border: rgba(255, 255, 255, 0.5);
-  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.6);
   --glass-blur: blur(28px) saturate(200%);
   --radius-sm: 12px;
   --radius-md: 20px;
@@ -92,28 +100,57 @@ body {
 .nav-brand i { color: var(--primary); }
 .nav-brand .brand-magic { color: var(--primary); margin: 0 -2px; }
 
-/* === LANGUAGE TOGGLE === */
+/* === LANGUAGE TOGGLE (pill-style, centered below tab bar) === */
+.lang-toggle-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 36px;
+}
 .lang-toggle {
   display: flex;
-  gap: 4px;
+  gap: 1px;
+  padding: 2px;
+  background: var(--glass-bg-strong);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-pill);
 }
 .lang-btn {
-  padding: 4px 14px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  font-size: 13px;
-  font-weight: 500;
+  padding: 2px 10px;
+  border: none;
   background: transparent;
   color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: var(--radius-pill);
   cursor: pointer;
   transition: all 0.2s;
   font-family: inherit;
 }
+.lang-btn:hover {
+  color: var(--text-main);
+}
 .lang-btn.active {
   background: var(--primary);
   color: #fff;
-  border-color: var(--primary);
 }
+.lang-btn.active:hover {
+  color: #fff;
+}
+
+.nav-download {
+  background: var(--primary);
+  color: white;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+.nav-download:hover { background: var(--primary-dark); }
 
 /* === CONTENT === */
 .content {
@@ -122,17 +159,93 @@ body {
   padding: 100px 24px 80px;
 }
 
-.page-title {
-  font-size: 36px;
-  font-weight: 700;
-  letter-spacing: -0.5px;
-  margin-bottom: 6px;
+/* === TAB BAR (Apple-style underline tabs) === */
+.tab-bar {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin: 0 auto 20px;
+  width: fit-content;
+}
+.tab-bar::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: rgba(110, 110, 115, 0.3);
+  z-index: 0;
 }
 
-.page-subtitle {
-  font-size: 16px;
+.tab-btn {
+  position: relative;
+  z-index: 1;
+  padding: 12px 3px 14px;
+  min-width: 170px;
+  text-align: center;
+  border: none;
+  background: transparent;
   color: var(--text-muted);
-  margin-bottom: 48px;
+  font-size: 17px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s;
+  font-family: inherit;
+  white-space: nowrap;
+  border-radius: 0;
+}
+.tab-btn::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: var(--primary);
+  border-radius: 1.5px 1.5px 0 0;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.25s ease;
+}
+.tab-btn:hover {
+  color: var(--text-main);
+}
+.tab-btn.active {
+  color: var(--text-main);
+  font-weight: 600;
+}
+.tab-btn.active::after {
+  transform: scaleX(1);
+}
+
+/* === TAB PANELS === */
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* === Installation panel === */
+.panel-intro {
+  text-align: center;
+  font-size: 15px;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+  padding: 0 12px;
+}
+.installation-img-wrap {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--glass-shadow);
+  padding: 16px;
+}
+.installation-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius-sm);
 }
 
 /* === GUIDE CARDS === */
@@ -251,19 +364,6 @@ body {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
 }
 
-/* === CODE PATH === */
-.code-path {
-  display: inline-block;
-  margin-top: 4px;
-  background: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  border-radius: var(--radius-sm);
-  padding: 8px 14px;
-  font-family: 'SF Mono', 'Menlo', monospace;
-  font-size: 13px;
-  color: var(--text-muted);
-}
-
 /* === LANGUAGE TAGS === */
 .lang-tags {
   display: flex;
@@ -340,6 +440,7 @@ body {
   color: var(--text-main);
   cursor: pointer;
   padding: 4px;
+  margin-left: 8px;
 }
 .mobile-overlay {
   position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 200;
@@ -369,7 +470,7 @@ body {
 /* === RESPONSIVE === */
 @media (max-width: 600px) {
   .hamburger { display: block; }
-  .lang-toggle { display: none; }
+  .nav-download { display: none; }
   .nav {
     top: 8px;
     width: calc(100% - 16px);
@@ -378,7 +479,7 @@ body {
   }
   .nav-brand { font-size: 14px; }
   .content { padding: 88px 16px 60px; }
-  .page-title { font-size: 28px; }
+  .tab-btn { padding: 9px 18px; font-size: 14px; }
   .guide-card { padding: 20px; }
   .guide-card-title { font-size: 18px; }
   .guide-card-body { font-size: 14px; }
@@ -396,11 +497,10 @@ body {
     <i class="ph ph-sparkle"></i>
     Aria <span class="brand-magic">Magic</span> Voice
   </a>
-  <div class="lang-toggle">
-    <button class="lang-btn" onclick="setLang('zh')">中文</button>
-    <button class="lang-btn" onclick="setLang('en')">EN</button>
-  </div>
-  <a href="https://downloads.ariamagicvoice.com/AriaMagicVoice_latest.dmg" style="background:var(--primary);color:white;padding:6px 16px;border-radius:20px;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;">Free Download</a>
+  <a href="https://downloads.ariamagicvoice.com/AriaMagicVoice_latest.dmg" class="nav-download">
+    <span data-lang="en">Free Download</span>
+    <span data-lang="zh" style="display:none">立即下载</span>
+  </a>
   <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">&#9776;</button>
 </nav>
 
@@ -420,254 +520,273 @@ body {
 <!-- ==================== CONTENT ==================== -->
 <main class="content">
 
-<!-- EN title -->
-<h1 class="page-title" data-lang="en">User Guide</h1>
-<p class="page-subtitle" data-lang="en">Everything you need to get started with Aria Magic Voice.</p>
+  <!-- ====== TAB BAR (underline style) ====== -->
+  <div class="tab-bar" role="tablist">
+    <button class="tab-btn active" data-tab="installation" role="tab">
+      <span data-lang="en">Installation</span>
+      <span data-lang="zh" style="display:none">安装指引</span>
+    </button>
+    <button class="tab-btn" data-tab="quick-guide" role="tab">
+      <span data-lang="en">Quick User Guide</span>
+      <span data-lang="zh" style="display:none">快速上手</span>
+    </button>
+  </div>
 
-<!-- ZH title -->
-<h1 class="page-title" data-lang="zh" style="display:none">使用指南</h1>
-<p class="page-subtitle" data-lang="zh" style="display:none">快速上手 Aria Magic Voice 所需的一切。</p>
-
-
-<!-- ====== 1. Quick Start ====== -->
-<div class="guide-section">
-  <div class="guide-card" data-lang="en">
-    <div class="guide-card-header">
-      <div class="guide-card-icon"><i class="ph ph-rocket"></i></div>
-      <h2 class="guide-card-title">Quick Start</h2>
-    </div>
-    <div class="guide-card-body">
-      <ol class="steps">
-        <li><strong>Download and install</strong> &mdash; Download the DMG from the official website, open it, and drag Aria Magic Voice into the Applications folder.</li>
-        <li><strong>First launch</strong> &mdash; Open the app. Grant <strong>Microphone</strong> permission and <strong>Accessibility</strong> permission when prompted.</li>
-        <li><strong>Start using</strong> &mdash; Double-press <span class="kbd">Control</span> to start speaking. Double-press again to stop. Press <span class="kbd">Return</span> to insert the text.</li>
-      </ol>
+  <!-- ====== LANG TOGGLE (pill style, centered below tab bar) ====== -->
+  <div class="lang-toggle-wrap">
+    <div class="lang-toggle">
+      <button class="lang-btn" onclick="setLang('zh')">中文</button>
+      <button class="lang-btn" onclick="setLang('en')">EN</button>
     </div>
   </div>
-  <div class="guide-card" data-lang="zh" style="display:none">
-    <div class="guide-card-header">
-      <div class="guide-card-icon"><i class="ph ph-rocket"></i></div>
-      <h2 class="guide-card-title">快速开始</h2>
-    </div>
-    <div class="guide-card-body">
-      <ol class="steps">
-        <li><strong>下载安装</strong> &mdash; 从官网下载 DMG 文件，打开后将 Aria Magic Voice 拖入 Applications 文件夹。</li>
-        <li><strong>首次启动</strong> &mdash; 打开应用，根据提示授予<strong>麦克风权限</strong>和<strong>辅助功能权限</strong>。</li>
-        <li><strong>开始使用</strong> &mdash; 双击 <span class="kbd">Control</span> 键开始说话，再次双击停止。按 <span class="kbd">Return</span> 键插入文字。</li>
-      </ol>
-    </div>
-  </div>
-</div>
 
+  <!-- ====== TAB PANEL: INSTALLATION ====== -->
+  <div class="tab-panel active" data-panel="installation" role="tabpanel">
+    <p class="panel-intro" data-lang="en">Follow these 8 steps to grant all the permissions Aria Magic Voice needs to run properly on macOS.</p>
+    <p class="panel-intro" data-lang="zh" style="display:none">按照以下 8 步依次授予 Aria Magic Voice 在 macOS 上正常运行所需的全部权限。</p>
+    <div class="installation-img-wrap">
+      <img src="installation-guide.png" alt="Installation Guide — 8 steps to grant permissions" class="installation-img">
+    </div>
+  </div>
 
-<!-- ====== 2. Basic Usage ====== -->
-<div class="guide-section">
-  <div class="guide-card" data-lang="en">
-    <div class="guide-card-header">
-      <div class="guide-card-icon"><i class="ph ph-microphone"></i></div>
-      <h2 class="guide-card-title">Basic Usage</h2>
-    </div>
-    <div class="guide-card-body">
-      <ul class="feature-list">
-        <li><strong>Start recording</strong> &mdash; Double-press <span class="kbd">Control</span> (default hotkey).</li>
-        <li><strong>Stop recording</strong> &mdash; Double-press <span class="kbd">Control</span> again, or wait for silence to auto-stop.</li>
-        <li><strong>Insert text</strong> &mdash; After recognition completes, press <span class="kbd">Return</span> to insert the text at the cursor position.</li>
-        <li><strong>Copy text</strong> &mdash; Click the copy button to copy the recognized text to the clipboard.</li>
-        <li><strong>Clear text</strong> &mdash; Click the clear button to dismiss the result.</li>
-      </ul>
-    </div>
-  </div>
-  <div class="guide-card" data-lang="zh" style="display:none">
-    <div class="guide-card-header">
-      <div class="guide-card-icon"><i class="ph ph-microphone"></i></div>
-      <h2 class="guide-card-title">基本用法</h2>
-    </div>
-    <div class="guide-card-body">
-      <ul class="feature-list">
-        <li><strong>触发录音</strong> &mdash; 双击 <span class="kbd">Control</span> 键（默认热键）。</li>
-        <li><strong>停止录音</strong> &mdash; 再次双击 <span class="kbd">Control</span> 键，或等待静音自动结束。</li>
-        <li><strong>文字插入</strong> &mdash; 识别完成后按 <span class="kbd">Return</span> 键，文字自动插入到光标位置。</li>
-        <li><strong>复制文字</strong> &mdash; 点击复制按钮，文字复制到剪贴板。</li>
-        <li><strong>清除文字</strong> &mdash; 点击清除按钮，关闭识别结果。</li>
-      </ul>
-    </div>
-  </div>
-</div>
+  <!-- ====== TAB PANEL: QUICK USER GUIDE ====== -->
+  <div class="tab-panel" data-panel="quick-guide" role="tabpanel">
 
+    <!-- ====== 1. Quick Start ====== -->
+    <div class="guide-section">
+      <div class="guide-card" data-lang="en">
+        <div class="guide-card-header">
+          <div class="guide-card-icon"><i class="ph ph-rocket"></i></div>
+          <h2 class="guide-card-title">Quick Start</h2>
+        </div>
+        <div class="guide-card-body">
+          <ol class="steps">
+            <li><strong>Download and install</strong> &mdash; Download the DMG from the official website, open it, and drag Aria Magic Voice into the Applications folder.</li>
+            <li><strong>First launch</strong> &mdash; Open the app. Grant <strong>Microphone</strong> permission and <strong>Accessibility</strong> permission when prompted.</li>
+            <li><strong>Start using</strong> &mdash; Double-press <span class="kbd">Control</span> to start speaking. Double-press again to stop. Press <span class="kbd">Return</span> to insert the text.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="guide-card" data-lang="zh" style="display:none">
+        <div class="guide-card-header">
+          <div class="guide-card-icon"><i class="ph ph-rocket"></i></div>
+          <h2 class="guide-card-title">快速开始</h2>
+        </div>
+        <div class="guide-card-body">
+          <ol class="steps">
+            <li><strong>下载安装</strong> &mdash; 从官网下载 DMG 文件，打开后将 Aria Magic Voice 拖入 Applications 文件夹。</li>
+            <li><strong>首次启动</strong> &mdash; 打开应用，根据提示授予<strong>麦克风权限</strong>和<strong>辅助功能权限</strong>。</li>
+            <li><strong>开始使用</strong> &mdash; 双击 <span class="kbd">Control</span> 键开始说话，再次双击停止。按 <span class="kbd">Return</span> 键插入文字。</li>
+          </ol>
+        </div>
+      </div>
+    </div>
 
-<!-- ====== 3. Settings ====== -->
-<div class="guide-section">
-  <div class="guide-card" data-lang="en">
-    <div class="guide-card-header">
-      <div class="guide-card-icon"><i class="ph ph-gear"></i></div>
-      <h2 class="guide-card-title">Settings</h2>
+    <!-- ====== 2. Basic Usage ====== -->
+    <div class="guide-section">
+      <div class="guide-card" data-lang="en">
+        <div class="guide-card-header">
+          <div class="guide-card-icon"><i class="ph ph-microphone"></i></div>
+          <h2 class="guide-card-title">Basic Usage</h2>
+        </div>
+        <div class="guide-card-body">
+          <ul class="feature-list">
+            <li><strong>Start recording</strong> &mdash; Double-press <span class="kbd">Control</span> (default hotkey).</li>
+            <li><strong>Stop recording</strong> &mdash; Double-press <span class="kbd">Control</span> again, or wait for silence to auto-stop.</li>
+            <li><strong>Insert text</strong> &mdash; After recognition completes, press <span class="kbd">Return</span> to insert the text at the cursor position.</li>
+            <li><strong>Copy text</strong> &mdash; Click the copy button to copy the recognized text to the clipboard.</li>
+            <li><strong>Clear text</strong> &mdash; Click the clear button to dismiss the result.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="guide-card" data-lang="zh" style="display:none">
+        <div class="guide-card-header">
+          <div class="guide-card-icon"><i class="ph ph-microphone"></i></div>
+          <h2 class="guide-card-title">基本用法</h2>
+        </div>
+        <div class="guide-card-body">
+          <ul class="feature-list">
+            <li><strong>触发录音</strong> &mdash; 双击 <span class="kbd">Control</span> 键(默认热键)。</li>
+            <li><strong>停止录音</strong> &mdash; 再次双击 <span class="kbd">Control</span> 键,或等待静音自动结束。</li>
+            <li><strong>文字插入</strong> &mdash; 识别完成后按 <span class="kbd">Return</span> 键,文字自动插入到光标位置。</li>
+            <li><strong>复制文字</strong> &mdash; 点击复制按钮,文字复制到剪贴板。</li>
+            <li><strong>清除文字</strong> &mdash; 点击清除按钮,关闭识别结果。</li>
+          </ul>
+        </div>
+      </div>
     </div>
-    <div class="guide-card-body">
-      <ul class="feature-list">
-        <li><strong>Hotkey</strong> &mdash; Customize the trigger hotkey to your preference.</li>
-        <li><strong>Interface language</strong> &mdash; Switch between Chinese and English interface.</li>
-        <li><strong>Filler word filter</strong> &mdash; Automatically filters out filler words like "um" and "uh". You can customize the filter word list.</li>
-        <li><strong>Launch at login</strong> &mdash; Enable to start Aria Magic Voice automatically when you log in.</li>
-      </ul>
-    </div>
-  </div>
-  <div class="guide-card" data-lang="zh" style="display:none">
-    <div class="guide-card-header">
-      <div class="guide-card-icon"><i class="ph ph-gear"></i></div>
-      <h2 class="guide-card-title">设置</h2>
-    </div>
-    <div class="guide-card-body">
-      <ul class="feature-list">
-        <li><strong>快捷键设置</strong> &mdash; 可自定义触发热键。</li>
-        <li><strong>界面语言</strong> &mdash; 支持中文/英文界面切换。</li>
-        <li><strong>口水词过滤</strong> &mdash; 自动过滤"嗯"、"啊"等口水词，可自定义过滤词列表。</li>
-        <li><strong>开机自启动</strong> &mdash; 可设置登录时自动启动。</li>
-      </ul>
-    </div>
-  </div>
-</div>
 
+    <!-- ====== 3. Settings ====== -->
+    <div class="guide-section">
+      <div class="guide-card" data-lang="en">
+        <div class="guide-card-header">
+          <div class="guide-card-icon"><i class="ph ph-gear"></i></div>
+          <h2 class="guide-card-title">Settings</h2>
+        </div>
+        <div class="guide-card-body">
+          <ul class="feature-list">
+            <li><strong>Hotkey</strong> &mdash; Customize the trigger hotkey to your preference.</li>
+            <li><strong>Interface language</strong> &mdash; Switch between Chinese and English interface.</li>
+            <li><strong>Filler word filter</strong> &mdash; Automatically filters out filler words like "um" and "uh". You can customize the filter word list.</li>
+            <li><strong>Launch at login</strong> &mdash; Enable to start Aria Magic Voice automatically when you log in.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="guide-card" data-lang="zh" style="display:none">
+        <div class="guide-card-header">
+          <div class="guide-card-icon"><i class="ph ph-gear"></i></div>
+          <h2 class="guide-card-title">设置</h2>
+        </div>
+        <div class="guide-card-body">
+          <ul class="feature-list">
+            <li><strong>快捷键设置</strong> &mdash; 可自定义触发热键。</li>
+            <li><strong>界面语言</strong> &mdash; 支持中文/英文界面切换。</li>
+            <li><strong>口水词过滤</strong> &mdash; 自动过滤"嗯"、"啊"等口水词,可自定义过滤词列表。</li>
+            <li><strong>开机自启动</strong> &mdash; 可设置登录时自动启动。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
 
-<!-- ====== 4. Supported Languages ====== -->
-<div class="guide-section">
-  <div class="guide-card" data-lang="en">
-    <div class="guide-card-header">
-      <div class="guide-card-icon"><i class="ph ph-translate"></i></div>
-      <h2 class="guide-card-title">Supported Languages</h2>
+    <!-- ====== 4. Supported Languages ====== -->
+    <div class="guide-section">
+      <div class="guide-card" data-lang="en">
+        <div class="guide-card-header">
+          <div class="guide-card-icon"><i class="ph ph-translate"></i></div>
+          <h2 class="guide-card-title">Supported Languages</h2>
+        </div>
+        <div class="guide-card-body">
+          <ul class="lang-tags">
+            <li>Chinese (Mandarin)</li>
+            <li>English</li>
+            <li>Cantonese</li>
+            <li>Chinese-English Mixed</li>
+          </ul>
+        </div>
+      </div>
+      <div class="guide-card" data-lang="zh" style="display:none">
+        <div class="guide-card-header">
+          <div class="guide-card-icon"><i class="ph ph-translate"></i></div>
+          <h2 class="guide-card-title">支持的语言</h2>
+        </div>
+        <div class="guide-card-body">
+          <ul class="lang-tags">
+            <li>中文(普通话)</li>
+            <li>English</li>
+            <li>粤语</li>
+            <li>中英混合输入</li>
+          </ul>
+        </div>
+      </div>
     </div>
-    <div class="guide-card-body">
-      <ul class="lang-tags">
-        <li>Chinese (Mandarin)</li>
-        <li>English</li>
-        <li>Cantonese</li>
-        <li>Chinese-English Mixed</li>
-      </ul>
-    </div>
-  </div>
-  <div class="guide-card" data-lang="zh" style="display:none">
-    <div class="guide-card-header">
-      <div class="guide-card-icon"><i class="ph ph-translate"></i></div>
-      <h2 class="guide-card-title">支持的语言</h2>
-    </div>
-    <div class="guide-card-body">
-      <ul class="lang-tags">
-        <li>中文（普通话）</li>
-        <li>English</li>
-        <li>粤语</li>
-        <li>中英混合输入</li>
-      </ul>
-    </div>
-  </div>
-</div>
 
+    <!-- ====== 5. Permissions ====== -->
+    <div class="guide-section">
+      <div class="guide-card" data-lang="en">
+        <div class="guide-card-header">
+          <div class="guide-card-icon"><i class="ph ph-shield-check"></i></div>
+          <h2 class="guide-card-title">Permissions</h2>
+        </div>
+        <div class="guide-card-body">
+          <ul class="feature-list">
+            <li><strong>Microphone</strong> &mdash; Required for recording your voice. Must be granted.</li>
+            <li><strong>Accessibility</strong> &mdash; Required to automatically insert text at the cursor position (simulates <span class="kbd">Cmd+V</span>). Must be granted.</li>
+          </ul>
+          <p style="margin-top:16px"><strong>How to grant Accessibility permission:</strong></p>
+          <ol class="steps">
+            <li>Open <strong>System Settings</strong></li>
+            <li>Go to <strong>Privacy &amp; Security</strong> &rarr; <strong>Accessibility</strong></li>
+            <li>Click the <strong>+</strong> button and add <strong>MagicVoice</strong></li>
+          </ol>
+        </div>
+      </div>
+      <div class="guide-card" data-lang="zh" style="display:none">
+        <div class="guide-card-header">
+          <div class="guide-card-icon"><i class="ph ph-shield-check"></i></div>
+          <h2 class="guide-card-title">权限说明</h2>
+        </div>
+        <div class="guide-card-body">
+          <ul class="feature-list">
+            <li><strong>麦克风权限</strong> &mdash; 用于录音,必须授予。</li>
+            <li><strong>辅助功能权限</strong> &mdash; 用于将文字自动插入到光标位置(模拟 <span class="kbd">Cmd+V</span>),必须授予。</li>
+          </ul>
+          <p style="margin-top:16px"><strong>如何授予辅助功能权限:</strong></p>
+          <ol class="steps">
+            <li>打开 <strong>System Settings</strong>(系统设置)</li>
+            <li>进入 <strong>Privacy &amp; Security</strong> &rarr; <strong>Accessibility</strong></li>
+            <li>点击 <strong>+</strong> 按钮,添加 <strong>MagicVoice</strong></li>
+          </ol>
+        </div>
+      </div>
+    </div>
 
-<!-- ====== 5. Permissions ====== -->
-<div class="guide-section">
-  <div class="guide-card" data-lang="en">
-    <div class="guide-card-header">
-      <div class="guide-card-icon"><i class="ph ph-shield-check"></i></div>
-      <h2 class="guide-card-title">Permissions</h2>
+    <!-- ====== 6. License ====== -->
+    <div class="guide-section">
+      <div class="guide-card" data-lang="en">
+        <div class="guide-card-header">
+          <div class="guide-card-icon"><i class="ph ph-key"></i></div>
+          <h2 class="guide-card-title">License</h2>
+        </div>
+        <div class="guide-card-body">
+          <ul class="feature-list">
+            <li><strong>Free trial</strong> &mdash; 3-day full-feature free trial, no credit card required.</li>
+            <li><strong>Activate</strong> &mdash; Open "Enter License Key" from the menu bar icon, paste the license key from your purchase email.</li>
+            <li><strong>Up to 3 devices</strong> &mdash; One license key can be activated on up to 3 Macs.</li>
+            <li><strong>Deactivate</strong> &mdash; Choose "Deactivate" from the menu bar icon to release a device slot.</li>
+            <li><strong>Device reset</strong> &mdash; If you can no longer access an old Mac, visit the <a href="/recovery.html">Device Recovery</a> page to reset your device slots.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="guide-card" data-lang="zh" style="display:none">
+        <div class="guide-card-header">
+          <div class="guide-card-icon"><i class="ph ph-key"></i></div>
+          <h2 class="guide-card-title">授权码</h2>
+        </div>
+        <div class="guide-card-body">
+          <ul class="feature-list">
+            <li><strong>免费试用</strong> &mdash; 3 天全功能免费试用,无需信用卡。</li>
+            <li><strong>激活</strong> &mdash; 从状态栏菜单打开"输入授权码",粘贴购买邮件中的授权码。</li>
+            <li><strong>最多 3 台设备</strong> &mdash; 同一授权码最多在 3 台 Mac 上激活。</li>
+            <li><strong>取消激活</strong> &mdash; 从状态栏菜单选择"取消激活",释放设备名额。</li>
+            <li><strong>设备重置</strong> &mdash; 旧电脑无法使用时,访问<a href="/recovery.html">设备重置页面</a>自助重置。</li>
+          </ul>
+        </div>
+      </div>
     </div>
-    <div class="guide-card-body">
-      <ul class="feature-list">
-        <li><strong>Microphone</strong> &mdash; Required for recording your voice. Must be granted.</li>
-        <li><strong>Accessibility</strong> &mdash; Required to automatically insert text at the cursor position (simulates <span class="kbd">Cmd+V</span>). Must be granted.</li>
-      </ul>
-      <p style="margin-top:16px"><strong>How to grant Accessibility permission:</strong></p>
-      <ol class="steps">
-        <li>Open <strong>System Settings</strong></li>
-        <li>Go to <strong>Privacy &amp; Security</strong> &rarr; <strong>Accessibility</strong></li>
-        <li>Click the <strong>+</strong> button and add <strong>MagicVoice</strong></li>
-      </ol>
-    </div>
-  </div>
-  <div class="guide-card" data-lang="zh" style="display:none">
-    <div class="guide-card-header">
-      <div class="guide-card-icon"><i class="ph ph-shield-check"></i></div>
-      <h2 class="guide-card-title">权限说明</h2>
-    </div>
-    <div class="guide-card-body">
-      <ul class="feature-list">
-        <li><strong>麦克风权限</strong> &mdash; 用于录音，必须授予。</li>
-        <li><strong>辅助功能权限</strong> &mdash; 用于将文字自动插入到光标位置（模拟 <span class="kbd">Cmd+V</span>），必须授予。</li>
-      </ul>
-      <p style="margin-top:16px"><strong>如何授予辅助功能权限：</strong></p>
-      <ol class="steps">
-        <li>打开 <strong>System Settings</strong>（系统设置）</li>
-        <li>进入 <strong>Privacy &amp; Security</strong> &rarr; <strong>Accessibility</strong></li>
-        <li>点击 <strong>+</strong> 按钮，添加 <strong>MagicVoice</strong></li>
-      </ol>
-    </div>
-  </div>
-</div>
 
+    <!-- ====== 7. Troubleshooting ====== -->
+    <div class="guide-section">
+      <div class="guide-card" data-lang="en">
+        <div class="guide-card-header">
+          <div class="guide-card-icon"><i class="ph ph-question"></i></div>
+          <h2 class="guide-card-title">Troubleshooting</h2>
+        </div>
+        <div class="guide-card-body">
+          <ul class="feature-list">
+            <li><strong>No sound / not recognizing</strong> &mdash; Check that Microphone permission is granted. Make sure the correct microphone is selected in your system Sound settings.</li>
+            <li><strong>Text not inserting</strong> &mdash; Check that Accessibility permission is granted. Confirm MagicVoice is listed under System Settings &rarr; Privacy &amp; Security &rarr; Accessibility.</li>
+            <li><strong>Hotkey conflict</strong> &mdash; Try changing to a different hotkey combination in Settings.</li>
+            <li><strong>Contact support</strong> &mdash; <a href="mailto:magicvoice.team@outlook.com">magicvoice.team@outlook.com</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="guide-card" data-lang="zh" style="display:none">
+        <div class="guide-card-header">
+          <div class="guide-card-icon"><i class="ph ph-question"></i></div>
+          <h2 class="guide-card-title">常见问题</h2>
+        </div>
+        <div class="guide-card-body">
+          <ul class="feature-list">
+            <li><strong>没有声音 / 不识别</strong> &mdash; 检查麦克风权限是否已授予,确认在系统声音设置中选择了正确的麦克风。</li>
+            <li><strong>文字无法插入</strong> &mdash; 检查辅助功能权限是否已授予,确认 MagicVoice 已添加到 System Settings &rarr; Privacy &amp; Security &rarr; Accessibility 列表中。</li>
+            <li><strong>快捷键冲突</strong> &mdash; 尝试在设置中更换其他热键组合。</li>
+            <li><strong>联系支持</strong> &mdash; <a href="mailto:magicvoice.team@outlook.com">magicvoice.team@outlook.com</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
 
-<!-- ====== 6. License ====== -->
-<div class="guide-section">
-  <div class="guide-card" data-lang="en">
-    <div class="guide-card-header">
-      <div class="guide-card-icon"><i class="ph ph-key"></i></div>
-      <h2 class="guide-card-title">License</h2>
-    </div>
-    <div class="guide-card-body">
-      <ul class="feature-list">
-        <li><strong>Free trial</strong> &mdash; 3-day full-feature free trial, no credit card required.</li>
-        <li><strong>Activate</strong> &mdash; Open "Enter License Key" from the menu bar icon, paste the license key from your purchase email.</li>
-        <li><strong>Up to 3 devices</strong> &mdash; One license key can be activated on up to 3 Macs.</li>
-        <li><strong>Deactivate</strong> &mdash; Choose "Deactivate" from the menu bar icon to release a device slot.</li>
-        <li><strong>Device reset</strong> &mdash; If you can no longer access an old Mac, visit the <a href="/recovery.html">Device Recovery</a> page to reset your device slots.</li>
-      </ul>
-    </div>
-  </div>
-  <div class="guide-card" data-lang="zh" style="display:none">
-    <div class="guide-card-header">
-      <div class="guide-card-icon"><i class="ph ph-key"></i></div>
-      <h2 class="guide-card-title">授权码</h2>
-    </div>
-    <div class="guide-card-body">
-      <ul class="feature-list">
-        <li><strong>免费试用</strong> &mdash; 3 天全功能免费试用，无需信用卡。</li>
-        <li><strong>激活</strong> &mdash; 从状态栏菜单打开"输入授权码"，粘贴购买邮件中的授权码。</li>
-        <li><strong>最多 3 台设备</strong> &mdash; 同一授权码最多在 3 台 Mac 上激活。</li>
-        <li><strong>取消激活</strong> &mdash; 从状态栏菜单选择"取消激活"，释放设备名额。</li>
-        <li><strong>设备重置</strong> &mdash; 旧电脑无法使用时，访问<a href="/recovery.html">设备重置页面</a>自助重置。</li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-
-<!-- ====== 7. Troubleshooting ====== -->
-<div class="guide-section">
-  <div class="guide-card" data-lang="en">
-    <div class="guide-card-header">
-      <div class="guide-card-icon"><i class="ph ph-question"></i></div>
-      <h2 class="guide-card-title">Troubleshooting</h2>
-    </div>
-    <div class="guide-card-body">
-      <ul class="feature-list">
-        <li><strong>No sound / not recognizing</strong> &mdash; Check that Microphone permission is granted. Make sure the correct microphone is selected in your system Sound settings.</li>
-        <li><strong>Text not inserting</strong> &mdash; Check that Accessibility permission is granted. Confirm MagicVoice is listed under System Settings &rarr; Privacy &amp; Security &rarr; Accessibility.</li>
-        <li><strong>Hotkey conflict</strong> &mdash; Try changing to a different hotkey combination in Settings.</li>
-        <li><strong>Contact support</strong> &mdash; <a href="mailto:magicvoice.team@outlook.com">magicvoice.team@outlook.com</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="guide-card" data-lang="zh" style="display:none">
-    <div class="guide-card-header">
-      <div class="guide-card-icon"><i class="ph ph-question"></i></div>
-      <h2 class="guide-card-title">常见问题</h2>
-    </div>
-    <div class="guide-card-body">
-      <ul class="feature-list">
-        <li><strong>没有声音 / 不识别</strong> &mdash; 检查麦克风权限是否已授予，确认在系统声音设置中选择了正确的麦克风。</li>
-        <li><strong>文字无法插入</strong> &mdash; 检查辅助功能权限是否已授予，确认 MagicVoice 已添加到 System Settings &rarr; Privacy &amp; Security &rarr; Accessibility 列表中。</li>
-        <li><strong>快捷键冲突</strong> &mdash; 尝试在设置中更换其他热键组合。</li>
-        <li><strong>联系支持</strong> &mdash; <a href="mailto:magicvoice.team@outlook.com">magicvoice.team@outlook.com</a></li>
-      </ul>
-    </div>
-  </div>
-</div>
+  </div><!-- /tab-panel quick-guide -->
 
 </main>
 
@@ -707,6 +826,19 @@ function setLang(lang) {
   // Re-show mobile lang toggle
   document.querySelectorAll('.mobile-panel .lang-toggle').forEach(t => t.style.display = 'flex');
 }
+
+function switchTab(tabName) {
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.tab === tabName);
+  });
+  document.querySelectorAll('.tab-panel').forEach(panel => {
+    panel.classList.toggle('active', panel.dataset.panel === tabName);
+  });
+}
+
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+});
 
 setLang(currentLang);
 </script>
