@@ -391,7 +391,8 @@ body {
 </div>
 
 <script>
-const API = atob('aHR0cHM6Ly9tYWdpY3ZvaWNlLXdlYmhvb2suYW5keXd1MTIwNi53b3JrZXJzLmRldg==');
+// Worker URL is publicly known; real security comes from CORS + Origin validation on the Worker side
+const API = 'https://magicvoice-webhook.andywu1206.workers.dev';
 let currentLang = navigator.language.startsWith('zh') ? 'zh' : 'en';
 
 // i18n strings
