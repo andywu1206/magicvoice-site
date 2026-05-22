@@ -1053,8 +1053,7 @@ section { padding: 100px 24px; }
           <li>v2.x 版本免费更新</li>
           <li>1 个授权码 = 3 台 Mac</li>
         </ul>
-        <button class="pricing-btn pricing-btn-primary" style="border:none;cursor:pointer;font-family:inherit;" onclick="Paddle.Checkout.open({items:[{priceId:'pri_01kmx0x2kg7dckq4j2q5nhwj6c',quantity:1}]})">微信支付</button>
-        <div class="pricing-sub">即将支持支付宝</div>
+        <button class="pricing-btn pricing-btn-primary" style="border:none;cursor:pointer;font-family:inherit;" onclick="openAriaCheckout()">购买授权</button>
       </div>
 
       <!-- International -->
@@ -1072,7 +1071,7 @@ section { padding: 100px 24px; }
           <li>Free updates within v2.x</li>
           <li>1 license = 3 Macs</li>
         </ul>
-        <button class="pricing-btn pricing-btn-primary" style="border:none;cursor:pointer;font-family:inherit;" onclick="Paddle.Checkout.open({items:[{priceId:'pri_01kmx0x2kg7dckq4j2q5nhwj6c',quantity:1}]})">Buy with Paddle</button>
+        <button class="pricing-btn pricing-btn-primary" style="border:none;cursor:pointer;font-family:inherit;" onclick="openAriaCheckout()">Buy with Paddle</button>
         <div class="pricing-sub">Visa · Mastercard · PayPal</div>
       </div>
     </div>
@@ -1186,7 +1185,27 @@ updateActiveNav();
 
 <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
 <script>
-Paddle.Initialize({ token: 'live_d7beb0bd4a366dacc86dcdc998f' });
+const ARIA_PADDLE_PRICE_ID = 'pri_01kmx0x2kg7dckq4j2q5nhwj6c';
+const ARIA_CHECKOUT_SUCCESS_URL = 'https://ariamagicvoice.com/thank-you.html';
+
+function openAriaCheckout() {
+  Paddle.Checkout.open({
+    items: [{ priceId: ARIA_PADDLE_PRICE_ID, quantity: 1 }],
+    settings: {
+      successUrl: ARIA_CHECKOUT_SUCCESS_URL,
+      theme: 'light'
+    }
+  });
+}
+
+Paddle.Initialize({
+  token: 'live_d7beb0bd4a366dacc86dcdc998f',
+  eventCallback: function (event) {
+    if (event && event.name === 'checkout.completed') {
+      window.location.assign(ARIA_CHECKOUT_SUCCESS_URL);
+    }
+  }
+});
 </script>
 
 </body>
