@@ -123,12 +123,12 @@ body {
 .nav-right {
   display: flex;
   align-items: center;
-  gap: 28px;
+  gap: 16px;
 }
 
 .nav-links {
   display: flex;
-  gap: 24px;
+  gap: 20px;
   list-style: none;
 }
 
@@ -142,6 +142,37 @@ body {
 
 .nav-links a:hover { color: var(--text-main); }
 .nav-links a.active { color: var(--text-main); font-weight: 700; }
+
+.site-lang-toggle {
+  display: inline-flex;
+  gap: 1px;
+  padding: 2px;
+  background: var(--glass-bg-strong);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-pill);
+}
+
+.site-lang-btn {
+  padding: 4px 10px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.site-lang-btn.active {
+  background: var(--primary);
+  color: #fff;
+}
+
+.nav-lang-mobile {
+  display: none;
+}
 
 .nav-cta {
   display: inline-flex;
@@ -775,6 +806,12 @@ section { padding: 100px 24px; }
   color: var(--text-light);
 }
 
+.footer-slogan {
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--text-light);
+}
+
 .footer-links {
   margin-top: 12px;
   display: flex;
@@ -848,6 +885,11 @@ section { padding: 100px 24px; }
     border: 1px solid var(--glass-border);
   }
   .nav-links.open { display: flex; }
+  .site-lang-desktop { display: none; }
+  .nav-lang-mobile {
+    display: flex;
+    justify-content: center;
+  }
   .hero-grid { grid-template-columns: 1fr; gap: 24px; max-width: 100%; }
   .features-grid { grid-template-columns: 1fr; }
   .steps { grid-template-columns: 1fr; }
@@ -861,48 +903,72 @@ section { padding: 100px 24px; }
 <div class="ambient-bg"></div>
 
 <!-- NAV -->
-<header class="nav glass">
+  <header class="nav glass">
   <a href="/" class="nav-brand">
     <i class="ph ph-sparkle"></i>
     Aria <span class="brand-magic">Magic</span> Voice
   </a>
   <div class="nav-right">
-    <button class="hamburger" id="hamburger" aria-label="Toggle menu" onclick="document.getElementById('navLinks').classList.toggle('open');this.classList.toggle('active')">
+<button class="hamburger" id="hamburger" aria-label="打开菜单" onclick="document.getElementById('navLinks').classList.toggle('open');this.classList.toggle('active')">
       <span></span><span></span><span></span>
     </button>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#features">功能</a></li>
-      <li><a href="#how">使用方式</a></li>
-      <li><a href="#pricing">价格</a></li>
-      <li><a href="#faq">常见问题</a></li>
-    </ul>
-    <a href="#pricing" class="nav-cta">立即下载</a>
-  </div>
-</header>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#features"><span data-lang="zh">功能</span><span data-lang="en" style="display:none">Features</span></a></li>
+        <li><a href="#how"><span data-lang="zh">使用方式</span><span data-lang="en" style="display:none">How it works</span></a></li>
+        <li><a href="#pricing"><span data-lang="zh">价格</span><span data-lang="en" style="display:none">Pricing</span></a></li>
+        <li><a href="#faq"><span data-lang="zh">常见问题</span><span data-lang="en" style="display:none">FAQ</span></a></li>
+        <li class="nav-lang-mobile">
+          <div class="site-lang-toggle" aria-label="语言切换">
+            <button class="site-lang-btn" onclick="setSiteLang('zh')" type="button">中文</button>
+            <button class="site-lang-btn" onclick="setSiteLang('en')" type="button">EN</button>
+          </div>
+        </li>
+      </ul>
+      <div class="site-lang-toggle site-lang-desktop" aria-label="语言切换">
+        <button class="site-lang-btn" onclick="setSiteLang('zh')" type="button">中文</button>
+        <button class="site-lang-btn" onclick="setSiteLang('en')" type="button">EN</button>
+      </div>
+      <a href="https://downloads.ariamagicvoice.com/AriaMagicVoice_2.2.0.dmg" class="nav-cta">
+        <span data-lang="zh">立即下载</span><span data-lang="en" style="display:none">Download</span>
+      </a>
+    </div>
+  </header>
 
 <!-- HERO (First Screen: Privacy-first messaging) -->
 <section class="hero">
   <div class="container">
     <div class="hero-grid">
       <div class="reveal">
-        <div class="hero-badge glass">
-          <i class="ph ph-shield-check" style="color:var(--primary)"></i>
-          macOS 本地 AI 语音转文字
-        </div>
-        <h1 class="hero-title">
-          隐私优先，<br><span class="highlight">本地识别。</span><br>
-          <span style="font-size:0.72em; font-weight:700; color:var(--text-muted);">敏感信息，不上传云端。</span>
-        </h1>
-        <p class="hero-subtitle">
-          双击热键，开口说话，文字自动出现在光标处。<br>
-          完全离线，完全隐私。专为 Mac 打造。
-        </p>
-        <div class="hero-actions">
-          <a href="#pricing" class="btn-primary">
-            <i class="ph ph-download-simple"></i> 立即下载
-          </a>
-          <a href="#how" class="btn-secondary">了解更多 →</a>
-        </div>
+          <div class="hero-badge glass">
+            <i class="ph ph-shield-check" style="color:var(--primary)"></i>
+            <span data-lang="zh">macOS 本地 AI 语音转文字</span>
+            <span data-lang="en" style="display:none">Local AI speech to text for macOS</span>
+          </div>
+          <h1 class="hero-title" data-lang="zh">
+            隐私优先，<br><span class="highlight">本地识别。</span><br>
+            <span style="font-size:0.72em; font-weight:700; color:var(--text-muted);">敏感信息，不上传云端。</span>
+          </h1>
+          <h1 class="hero-title" data-lang="en" style="display:none">
+            Privacy first,<br><span class="highlight">local recognition.</span><br>
+            <span style="font-size:0.72em; font-weight:700; color:var(--text-muted);">Sensitive data never leaves your Mac.</span>
+          </h1>
+          <p class="hero-subtitle" data-lang="zh">
+            双击热键，开口说话，文字自动出现在光标处。<br>
+            完全离线，完全隐私。专为 Mac 打造。
+          </p>
+          <p class="hero-subtitle" data-lang="en" style="display:none">
+            Double-tap your hotkey, speak naturally, and text appears at the cursor.<br>
+            Fully offline and privacy-first, built for Mac.
+          </p>
+          <div class="hero-actions">
+            <a href="https://downloads.ariamagicvoice.com/AriaMagicVoice_2.2.0.dmg" class="btn-primary">
+              <i class="ph ph-download-simple"></i>
+              <span data-lang="zh">立即下载</span><span data-lang="en" style="display:none">Download installer</span>
+            </a>
+            <a href="#pricing" class="btn-secondary">
+              <span data-lang="zh">购买授权 →</span><span data-lang="en" style="display:none">Buy license →</span>
+            </a>
+          </div>
       </div>
 
       <!-- Right: Demo Card -->
@@ -912,7 +978,8 @@ section { padding: 100px 24px; }
             <i class="ph ph-sparkle"></i> Aria Magic Voice
           </div>
           <div class="demo-status">
-            <span class="dot"></span> 正在聆听…
+            <span class="dot"></span>
+            <span data-lang="zh">正在聆听…</span><span data-lang="en" style="display:none">Listening…</span>
           </div>
         </div>
 
@@ -921,20 +988,25 @@ section { padding: 100px 24px; }
 
         <!-- Transcript -->
         <div class="demo-transcript">
-          <span style="color:var(--text-muted); font-size:12px; display:block; margin-bottom:6px;">中文 / EN / 粤語</span>
-          今天下午三点和 David 开会，讨论 Q2 的 marketing plan，记得带上上周的数据…
+          <span style="color:var(--text-muted); font-size:12px; display:block; margin-bottom:6px;" data-lang="zh">中文 / 粤语 / 日语</span>
+          <span style="color:var(--text-muted); font-size:12px; display:none; margin-bottom:6px;" data-lang="en">Mandarin / Cantonese / Japanese</span>
+          <span data-lang="zh">今天下午三点和团队开会，讨论第二季度营销计划，记得带上上周的数据…</span>
+          <span data-lang="en" style="display:none">Team meeting at three this afternoon. Bring last week's data for the Q2 marketing plan…</span>
         </div>
 
         <!-- Floating Tags -->
         <div class="hero-tags">
           <span class="hero-tag tag-blue glass">
-            <i class="ph ph-translate"></i> 中英混合识别
+            <i class="ph ph-translate"></i>
+            <span data-lang="zh">多语言识别</span><span data-lang="en" style="display:none">Multilingual recognition</span>
           </span>
           <span class="hero-tag tag-purple glass">
-            <i class="ph ph-keyboard"></i> 双击热键唤起
+            <i class="ph ph-keyboard"></i>
+            <span data-lang="zh">双击热键唤起</span><span data-lang="en" style="display:none">Double-tap hotkey</span>
           </span>
           <span class="hero-tag tag-green glass">
-            <i class="ph ph-wifi-slash"></i> 100% 离线
+            <i class="ph ph-wifi-slash"></i>
+            <span data-lang="zh">完全离线</span><span data-lang="en" style="display:none">Fully offline</span>
           </span>
         </div>
       </div>
@@ -945,10 +1017,15 @@ section { padding: 100px 24px; }
 <!-- SECOND SCREEN: Soul / Tagline -->
 <section class="soul-section reveal">
   <div class="container">
-    <h2 class="soul-title">让声音，成为文字的<span class="highlight">独奏</span>。</h2>
-    <p class="soul-subtitle">
+    <h2 class="soul-title" data-lang="zh">让声音，成为文字的<span class="highlight">独奏</span>。</h2>
+    <h2 class="soul-title" data-lang="en" style="display:none">Let your voice become a written <span class="highlight">solo</span>.</h2>
+    <p class="soul-subtitle" data-lang="zh">
       Aria，灵感源自音乐中最动人的独唱。<br>
       说话速度约 250 字/分钟，是打字的 3–5 倍。省下的每一分钟，都是钱。
+    </p>
+    <p class="soul-subtitle" data-lang="en" style="display:none">
+      Aria is named after the most expressive solo in music.<br>
+      Speaking is often 3-5 times faster than typing. Every minute saved matters.
     </p>
   </div>
 </section>
@@ -956,28 +1033,28 @@ section { padding: 100px 24px; }
 <!-- FEATURES -->
 <section id="features">
   <div class="container">
-    <div class="section-label"><i class="ph ph-star-four"></i> 核心功能</div>
-    <h2 class="section-title">为什么选择 Magic Voice</h2>
+    <div class="section-label"><i class="ph ph-star-four"></i> <span data-lang="zh">核心功能</span><span data-lang="en" style="display:none">Core features</span></div>
+    <h2 class="section-title"><span data-lang="zh">为什么选择 Magic Voice</span><span data-lang="en" style="display:none">Why choose Magic Voice</span></h2>
     <div class="features-grid">
       <div class="feature-card glass reveal">
         <div class="feature-icon blue"><i class="ph ph-translate"></i></div>
-        <div class="feature-title">中文英文，一样准</div>
-        <div class="feature-desc">多语言混合识别，中英混输，无缝切换。商务沟通、跨国协作、会议记录，说你习惯的方式，Aria Magic Voice 全都听得懂。</div>
+        <div class="feature-title"><span data-lang="zh">多语言识别，一样准确</span><span data-lang="en" style="display:none">Accurate in multiple languages</span></div>
+        <div class="feature-desc"><span data-lang="zh">支持多语言语音识别，适合商务沟通、跨国协作和会议记录。按你习惯的方式说话，Aria Magic Voice 都能听懂。</span><span data-lang="en" style="display:none">Recognize multiple languages for business notes, international collaboration, and meetings. Speak naturally, and Aria Magic Voice keeps up.</span></div>
       </div>
       <div class="feature-card glass reveal">
         <div class="feature-icon green"><i class="ph ph-lock-simple"></i></div>
-        <div class="feature-title">没有云端，没有上传</div>
-        <div class="feature-desc">本地运行，又快又安全。即使断网，也能正常使用。你的声音数据，始终只保留在你的 Mac 上。</div>
+        <div class="feature-title"><span data-lang="zh">没有云端，没有上传</span><span data-lang="en" style="display:none">No cloud, no uploads</span></div>
+        <div class="feature-desc"><span data-lang="zh">本地运行，又快又安全。即使断网，也能正常使用。你的声音数据，始终只保留在你的 Mac 上。</span><span data-lang="en" style="display:none">Runs locally on your Mac, fast and private. It works even offline, and your voice data stays on your device.</span></div>
       </div>
       <div class="feature-card glass reveal">
         <div class="feature-icon purple"><i class="ph ph-brain"></i></div>
-        <div class="feature-title">越用越准，AI 懂你</div>
-        <div class="feature-desc">内置世界顶级 AI 学习引擎，快速学习你的用词和发音方式。说得越多，识别越准。所有学习数据留在本地，不上传。</div>
+        <div class="feature-title"><span data-lang="zh">越用越准，懂你的习惯</span><span data-lang="en" style="display:none">Learns your speaking style</span></div>
+        <div class="feature-desc"><span data-lang="zh">内置本地学习引擎，逐步适应你的用词和发音方式。说得越多，识别越准。所有学习数据都保留在本地。</span><span data-lang="en" style="display:none">The local learning engine adapts to your vocabulary and pronunciation over time. The more you use it, the better it fits you.</span></div>
       </div>
       <div class="feature-card glass reveal">
         <div class="feature-icon orange"><i class="ph ph-timer"></i></div>
-        <div class="feature-title">时间就是金钱</div>
-        <div class="feature-desc">说话速度是打字的 3–5 倍。实时识别，即说即得。省下的每一分钟，都是钱。</div>
+        <div class="feature-title"><span data-lang="zh">节省时间，减少打字</span><span data-lang="en" style="display:none">Save time, type less</span></div>
+        <div class="feature-desc"><span data-lang="zh">说话通常比打字快 3 到 5 倍。实时识别，即说即得。省下的每一分钟，都可以用在更重要的事情上。</span><span data-lang="en" style="display:none">Speaking is often 3-5 times faster than typing. Dictate in real time and spend your attention where it matters.</span></div>
       </div>
     </div>
   </div>
@@ -986,41 +1063,41 @@ section { padding: 100px 24px; }
 <!-- HOW IT WORKS -->
 <section id="how" style="background: linear-gradient(180deg, var(--bg) 0%, rgba(0,113,227,0.02) 50%, var(--bg) 100%);">
   <div class="container">
-    <div class="section-label"><i class="ph ph-lightning"></i> 使用方式</div>
-    <h2 class="section-title">敲两下，开始说话。</h2>
-    <p class="section-subtitle">简单三步，即刻上手。</p>
+    <div class="section-label"><i class="ph ph-lightning"></i> <span data-lang="zh">使用方式</span><span data-lang="en" style="display:none">How it works</span></div>
+    <h2 class="section-title"><span data-lang="zh">敲两下，开始说话。</span><span data-lang="en" style="display:none">Double-tap and start speaking.</span></h2>
+    <p class="section-subtitle"><span data-lang="zh">简单三步，即刻上手。</span><span data-lang="en" style="display:none">Three simple steps to get started.</span></p>
 
     <div class="steps">
       <div class="step-card glass reveal">
         <div class="step-num">01</div>
-        <div class="step-title">双击热键</div>
-        <div class="step-desc">在任意应用中，双击热键唤起 Aria Magic Voice 录音窗口。</div>
+        <div class="step-title"><span data-lang="zh">双击热键</span><span data-lang="en" style="display:none">Double-tap the hotkey</span></div>
+        <div class="step-desc"><span data-lang="zh">在任意应用中，双击热键唤起 Aria Magic Voice 录音窗口。</span><span data-lang="en" style="display:none">In any app, double-tap your hotkey to open the Aria Magic Voice recording window.</span></div>
         <div class="step-demo">
-          双击 <span class="kbd">⌃ Control</span> 键
+          <span data-lang="zh">双击</span><span data-lang="en" style="display:none">Double-tap</span> <span class="kbd">⌃ Control</span> <span data-lang="zh">键</span><span data-lang="en" style="display:none">key</span>
         </div>
       </div>
       <div class="step-card glass reveal">
         <div class="step-num">02</div>
-        <div class="step-title">开口说话</div>
-        <div class="step-desc">对着 Mac 说话，实时显示识别内容，中英混说也能准确识别。</div>
+        <div class="step-title"><span data-lang="zh">开口说话</span><span data-lang="en" style="display:none">Speak naturally</span></div>
+        <div class="step-desc"><span data-lang="zh">对着 Mac 说话，实时显示识别内容，多语言内容也能准确识别。</span><span data-lang="en" style="display:none">Speak to your Mac and see the transcript appear in real time, even across multiple languages.</span></div>
         <div class="step-demo">
           <span class="dot" style="display:inline-block;width:6px;height:6px;background:var(--primary);border-radius:50%;margin-right:4px;animation:pulse 2s infinite"></span>
-          正在聆听…
+          <span data-lang="zh">正在聆听…</span><span data-lang="en" style="display:none">Listening…</span>
         </div>
       </div>
       <div class="step-card glass reveal">
         <div class="step-num">03</div>
-        <div class="step-title">文字即刻出现</div>
-        <div class="step-desc">说完后按回车插入到当前光标位置，连贯、干脆、利落。</div>
+        <div class="step-title"><span data-lang="zh">文字即刻出现</span><span data-lang="en" style="display:none">Text appears instantly</span></div>
+        <div class="step-desc"><span data-lang="zh">说完后按回车插入到当前光标位置，连贯、干脆、利落。</span><span data-lang="en" style="display:none">Press Return when you finish, and the text is inserted right where your cursor is.</span></div>
         <div class="step-demo">
-          让声音成为文字的独奏<span style="animation:blink 1s infinite;color:var(--primary)">|</span>
+          <span data-lang="zh">让声音成为文字的独奏</span><span data-lang="en" style="display:none">Let voice become text</span><span style="animation:blink 1s infinite;color:var(--primary)">|</span>
         </div>
       </div>
     </div>
 
     <a href="/guide.html" class="guide-cta glass reveal">
       <div class="guide-cta-num">04</div>
-      <div class="guide-cta-title">需要详细教程？查看完整安装与使用指南</div>
+      <div class="guide-cta-title"><span data-lang="zh">需要详细教程？查看完整安装与使用指南</span><span data-lang="en" style="display:none">Need details? Open the full installation and usage guide</span></div>
       <div class="guide-cta-arrow"><i class="ph ph-arrow-right"></i></div>
     </a>
   </div>
@@ -1033,45 +1110,45 @@ section { padding: 100px 24px; }
 <!-- PRICING -->
 <section id="pricing" class="pricing-section">
   <div class="container">
-    <div class="section-label"><i class="ph ph-tag"></i> 价格</div>
-    <h2 class="section-title">一次购买，持续使用。</h2>
-    <p style="color:var(--text-muted); font-size:16px;">无订阅，无隐藏费用。</p>
+    <div class="section-label"><i class="ph ph-tag"></i> <span data-lang="zh">价格</span><span data-lang="en" style="display:none">Pricing</span></div>
+    <h2 class="section-title"><span data-lang="zh">一次购买，持续使用。</span><span data-lang="en" style="display:none">One purchase, ongoing use.</span></h2>
+    <p style="color:var(--text-muted); font-size:16px;"><span data-lang="zh">无订阅，无隐藏费用。</span><span data-lang="en" style="display:none">No subscription. No hidden fees.</span></p>
 
     <div class="pricing-grid">
       <!-- CN -->
       <div class="pricing-card glass reveal">
-        <div class="pricing-region">🇨🇳 中国大陆</div>
+        <div class="pricing-region">🇨🇳 <span data-lang="zh">中国大陆</span><span data-lang="en" style="display:none">Mainland China</span></div>
         <div class="pricing-price">
           <span class="pricing-currency">¥</span>
           <span class="pricing-amount">268</span>
         </div>
-        <div class="pricing-note">一次购买，v2.x 版本内永久可用</div>
+        <div class="pricing-note"><span data-lang="zh">一次购买，v2.x 版本内永久可用</span><span data-lang="en" style="display:none">One-time purchase, valid within v2.x</span></div>
         <ul class="pricing-features">
-          <li>完全离线语音识别</li>
-          <li>中英粤日韩多语言支持</li>
-          <li>AI 纠错学习引擎</li>
-          <li>v2.x 版本免费更新</li>
-          <li>1 个授权码 = 3 台 Mac</li>
+          <li><span data-lang="zh">完全离线语音识别</span><span data-lang="en" style="display:none">Fully offline speech recognition</span></li>
+          <li><span data-lang="zh">多语言支持</span><span data-lang="en" style="display:none">Multi-language support</span></li>
+          <li><span data-lang="zh">本地纠错学习引擎</span><span data-lang="en" style="display:none">Local correction and learning engine</span></li>
+          <li><span data-lang="zh">v2.x 版本免费更新</span><span data-lang="en" style="display:none">Free updates within v2.x</span></li>
+          <li><span data-lang="zh">1 个授权码 = 3 台 Mac</span><span data-lang="en" style="display:none">1 license = 3 Macs</span></li>
         </ul>
-        <button class="pricing-btn pricing-btn-primary" style="border:none;cursor:pointer;font-family:inherit;" onclick="openAriaCheckout()">购买授权</button>
+        <button class="pricing-btn pricing-btn-primary" style="border:none;cursor:pointer;font-family:inherit;" onclick="openAriaCheckout()"><span data-lang="zh">购买授权</span><span data-lang="en" style="display:none">Buy license</span></button>
       </div>
 
       <!-- International -->
       <div class="pricing-card glass reveal">
-        <div class="pricing-region">🌍 International</div>
+        <div class="pricing-region">🌍 <span data-lang="zh">国际版</span><span data-lang="en" style="display:none">International</span></div>
         <div class="pricing-price">
           <span class="pricing-currency">$</span>
           <span class="pricing-amount">39.9</span>
         </div>
-        <div class="pricing-note">One-time purchase, free updates in v2.x</div>
+        <div class="pricing-note"><span data-lang="zh">一次购买，v2.x 版本内免费更新</span><span data-lang="en" style="display:none">One-time purchase, free updates in v2.x</span></div>
         <ul class="pricing-features">
-          <li>Fully offline speech recognition</li>
-          <li>Multi-language support</li>
-          <li>AI learning engine</li>
-          <li>Free updates within v2.x</li>
-          <li>1 license = 3 Macs</li>
+          <li><span data-lang="zh">完全离线语音识别</span><span data-lang="en" style="display:none">Fully offline speech recognition</span></li>
+          <li><span data-lang="zh">多语言支持</span><span data-lang="en" style="display:none">Multi-language support</span></li>
+          <li><span data-lang="zh">本地学习引擎</span><span data-lang="en" style="display:none">Local learning engine</span></li>
+          <li><span data-lang="zh">v2.x 版本免费更新</span><span data-lang="en" style="display:none">Free updates within v2.x</span></li>
+          <li><span data-lang="zh">1 个授权码 = 3 台 Mac</span><span data-lang="en" style="display:none">1 license = 3 Macs</span></li>
         </ul>
-        <button class="pricing-btn pricing-btn-primary" style="border:none;cursor:pointer;font-family:inherit;" onclick="openAriaCheckout()">Buy with Paddle</button>
+        <button class="pricing-btn pricing-btn-primary" style="border:none;cursor:pointer;font-family:inherit;" onclick="openAriaCheckout()"><span data-lang="zh">购买授权</span><span data-lang="en" style="display:none">Buy with Paddle</span></button>
         <div class="pricing-sub">Visa · Mastercard · PayPal</div>
       </div>
     </div>
@@ -1082,33 +1159,33 @@ section { padding: 100px 24px; }
 <section id="faq">
   <div class="container">
     <div style="text-align:center">
-      <div class="section-label"><i class="ph ph-question"></i> FAQ</div>
-      <h2 class="section-title">常见问题</h2>
+      <div class="section-label"><i class="ph ph-question"></i> <span data-lang="zh">常见问题</span><span data-lang="en" style="display:none">FAQ</span></div>
+        <h2 class="section-title"><span data-lang="zh">常见问题</span><span data-lang="en" style="display:none">Frequently asked questions</span></h2>
     </div>
     <div class="faq-list">
       <div class="faq-item glass reveal">
         <button class="faq-q" onclick="this.classList.toggle('active');this.nextElementSibling.style.maxHeight=this.classList.contains('active')?this.nextElementSibling.scrollHeight+'px':'0'">
-          需要联网才能用吗？
+          <span data-lang="zh">需要联网才能用吗？</span><span data-lang="en" style="display:none">Do I need internet access?</span>
         </button>
-        <div class="faq-a"><div class="faq-a-inner">完全不需要。Aria Magic Voice 100% 本地运行，断网也能正常使用。你的声音数据永远不会离开你的 Mac。</div></div>
+        <div class="faq-a"><div class="faq-a-inner"><span data-lang="zh">完全不需要。Aria Magic Voice 完全在本地运行，断网也能正常使用。你的声音数据永远不会离开你的 Mac。</span><span data-lang="en" style="display:none">No. Aria Magic Voice runs locally on your Mac and works offline. Your voice data never leaves your device.</span></div></div>
       </div>
       <div class="faq-item glass reveal">
         <button class="faq-q" onclick="this.classList.toggle('active');this.nextElementSibling.style.maxHeight=this.classList.contains('active')?this.nextElementSibling.scrollHeight+'px':'0'">
-          支持哪些语言？
+          <span data-lang="zh">支持哪些语言？</span><span data-lang="en" style="display:none">Which languages are supported?</span>
         </button>
-        <div class="faq-a"><div class="faq-a-inner">支持普通话、English、粤語、日本語、한국어，以及中英混说。未来会持续增加更多语言支持。</div></div>
+        <div class="faq-a"><div class="faq-a-inner"><span data-lang="zh">支持普通话、英语、粤语、日语、韩语，以及多语言内容。未来会持续增加更多语言支持。</span><span data-lang="en" style="display:none">It supports Mandarin, English, Cantonese, Japanese, Korean, and multilingual speech. More languages will be added over time.</span></div></div>
       </div>
       <div class="faq-item glass reveal">
         <button class="faq-q" onclick="this.classList.toggle('active');this.nextElementSibling.style.maxHeight=this.classList.contains('active')?this.nextElementSibling.scrollHeight+'px':'0'">
-          和其他语音输入有什么区别？
+          <span data-lang="zh">和其他语音输入有什么区别？</span><span data-lang="en" style="display:none">How is it different from other dictation tools?</span>
         </button>
-        <div class="faq-a"><div class="faq-a-inner">主要区别是隐私：搜狗、讯飞、微信输入法等都需要联网上传你的语音到云端处理。Magic Voice 完全在你的 Mac 本地运行，你的录音、文字、学习模型都不会离开你的电脑。</div></div>
+        <div class="faq-a"><div class="faq-a-inner"><span data-lang="zh">主要区别是隐私：常见语音输入通常需要联网，把语音上传到云端处理。Magic Voice 完全在你的 Mac 本地运行，你的录音、文字和学习数据都不会离开电脑。</span><span data-lang="en" style="display:none">The main difference is privacy. Many dictation tools send audio to the cloud, while Magic Voice runs locally on your Mac. Your recordings, text, and learning data stay on your computer.</span></div></div>
       </div>
       <div class="faq-item glass reveal">
         <button class="faq-q" onclick="this.classList.toggle('active');this.nextElementSibling.style.maxHeight=this.classList.contains('active')?this.nextElementSibling.scrollHeight+'px':'0'">
-          可以在多少台 Mac 上使用？
+          <span data-lang="zh">可以在多少台 Mac 上使用？</span><span data-lang="en" style="display:none">How many Macs can I use it on?</span>
         </button>
-        <div class="faq-a"><div class="faq-a-inner">1 个授权码最多激活 3 台 Mac。换电脑时可以在旧设备上取消激活，然后在新设备上重新激活。</div></div>
+        <div class="faq-a"><div class="faq-a-inner"><span data-lang="zh">1 个授权码最多激活 3 台 Mac。换电脑时可以在旧设备上取消激活，然后在新设备上重新激活。</span><span data-lang="en" style="display:none">One license can be activated on up to 3 Macs. When you switch devices, deactivate an old Mac and activate the new one.</span></div></div>
       </div>
     </div>
   </div>
@@ -1120,17 +1197,67 @@ section { padding: 100px 24px; }
     <i class="ph ph-sparkle"></i>
     Aria <span class="brand-magic">Magic</span> Voice
   </div>
-  <div class="footer-copy">© 2026 Aria Magic Voice. All rights reserved.</div>
-  <div class="footer-links">
-    <a href="/privacy.html">隐私政策</a>
-    <a href="/terms.html">使用条款</a>
-    <a href="mailto:magicvoice.team@outlook.com">联系我们</a>
-  </div>
-</footer>
+    <div class="footer-copy"><span data-lang="zh">© 2026 Aria Magic Voice。保留所有权利。</span><span data-lang="en" style="display:none">© 2026 Aria Magic Voice. All rights reserved.</span></div>
+    <div class="footer-links">
+      <a href="/privacy.html"><span data-lang="zh">隐私政策</span><span data-lang="en" style="display:none">Privacy Policy</span></a>
+      <a href="/terms.html"><span data-lang="zh">使用条款</span><span data-lang="en" style="display:none">Terms of Service</span></a>
+      <a href="mailto:magicvoice.team@outlook.com"><span data-lang="zh">联系我们</span><span data-lang="en" style="display:none">Contact Us</span></a>
+    </div>
+    <div class="footer-slogan">Peace &amp; Light</div>
+  </footer>
 
-<script>
-// Waveform bars
-const waveform = document.getElementById('waveform');
+  <script>
+  const siteLangCopy = {
+    zh: {
+      title: 'Aria Magic Voice — 隐私优先 · 本地识别',
+      description: 'Aria Magic Voice — Mac 原生本地语音输入工具。离线识别，不上传云端，隐私优先。支持多语言输入。',
+      ogTitle: 'Aria Magic Voice — 隐私优先 · 本地识别',
+      ogDescription: 'Mac 原生本地语音输入工具。离线识别，不上传云端，隐私优先。',
+      menuLabel: '打开菜单',
+      langLabel: '语言切换'
+    },
+    en: {
+      title: 'Aria Magic Voice — Privacy-first local dictation',
+      description: 'Aria Magic Voice is a native Mac dictation tool with offline recognition, no cloud uploads, and privacy-first multilingual input.',
+      ogTitle: 'Aria Magic Voice — Privacy-first local dictation',
+      ogDescription: 'Native Mac dictation with offline recognition, no cloud uploads, and privacy-first multilingual input.',
+      menuLabel: 'Open menu',
+      langLabel: 'Language selector'
+    }
+  };
+
+  function setSiteLang(lang) {
+    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+    const copy = siteLangCopy[lang] || siteLangCopy.en;
+    document.title = copy.title;
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) metaDescription.setAttribute('content', copy.description);
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.setAttribute('content', copy.ogTitle);
+    const ogDescription = document.querySelector('meta[property="og:description"]');
+    if (ogDescription) ogDescription.setAttribute('content', copy.ogDescription);
+    const hamburger = document.getElementById('hamburger');
+    if (hamburger) hamburger.setAttribute('aria-label', copy.menuLabel);
+    document.querySelectorAll('.site-lang-toggle').forEach(el => el.setAttribute('aria-label', copy.langLabel));
+    try { localStorage.setItem('aria-site-lang', lang); } catch (e) {}
+    document.querySelectorAll('.site-lang-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll(`.site-lang-btn[onclick="setSiteLang('${lang}')"]`).forEach(btn => btn.classList.add('active'));
+    document.querySelectorAll('[data-lang]').forEach(el => {
+      el.style.display = el.getAttribute('data-lang') === lang ? '' : 'none';
+    });
+    document.querySelectorAll('.faq-q.active').forEach(btn => {
+      const panel = btn.nextElementSibling;
+      if (panel) panel.style.maxHeight = panel.scrollHeight + 'px';
+    });
+  }
+
+  const savedSiteLang = (() => {
+    try { return localStorage.getItem('aria-site-lang'); } catch (e) { return null; }
+  })();
+  setSiteLang(savedSiteLang || (navigator.language && navigator.language.startsWith('zh') ? 'zh' : 'en'));
+
+  // Waveform bars
+  const waveform = document.getElementById('waveform');
 for (let i = 0; i < 24; i++) {
   const bar = document.createElement('div');
   bar.className = 'wave-bar';
