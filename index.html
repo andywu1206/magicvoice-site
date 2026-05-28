@@ -901,13 +901,6 @@ section { padding: 100px 24px; }
 <body>
 
 <div class="ambient-bg"></div>
-<div id="release-update" style="position:relative;z-index:1000;background:#111827;color:#fff;text-align:center;padding:12px 18px;font-size:14px;font-weight:700;">
-  <span data-lang="zh">Aria Magic Voice 安装包正在更新，下载与购买暂时暂停。</span>
-  <span data-lang="en" style="display:none">Aria Magic Voice installer is being refreshed. Download and checkout are temporarily paused.</span>
-  <a href="/release-update.html" style="color:#fff;text-decoration:underline;margin-left:10px;">
-    <span data-lang="zh">查看说明</span><span data-lang="en" style="display:none">Details</span>
-  </a>
-</div>
 
 <!-- NAV -->
   <header class="nav glass">
@@ -935,7 +928,7 @@ section { padding: 100px 24px; }
         <button class="site-lang-btn" onclick="setSiteLang('zh')" type="button">中文</button>
         <button class="site-lang-btn" onclick="setSiteLang('en')" type="button">EN</button>
       </div>
-      <a href="/release-update.html" class="nav-cta">
+      <a href="https://downloads.ariamagicvoice.com/AriaMagicVoice_2.2.0.dmg?v=87.24-004655" class="nav-cta">
         <span data-lang="zh">立即下载</span><span data-lang="en" style="display:none">Download</span>
       </a>
     </div>
@@ -968,7 +961,7 @@ section { padding: 100px 24px; }
             Fully offline and privacy-first, built for Mac.
           </p>
           <div class="hero-actions">
-            <a href="/release-update.html" class="btn-primary">
+            <a href="https://downloads.ariamagicvoice.com/AriaMagicVoice_2.2.0.dmg?v=87.24-004655" class="btn-primary">
               <i class="ph ph-download-simple"></i>
               <span data-lang="zh">立即下载</span><span data-lang="en" style="display:none">Download installer</span>
             </a>
@@ -1137,7 +1130,7 @@ section { padding: 100px 24px; }
           <li><span data-lang="zh">v2.x 版本免费更新</span><span data-lang="en" style="display:none">Free updates within v2.x</span></li>
           <li><span data-lang="zh">1 个授权码 = 3 台 Mac</span><span data-lang="en" style="display:none">1 license = 3 Macs</span></li>
         </ul>
-        <button class="pricing-btn pricing-btn-primary" style="border:none;cursor:not-allowed;font-family:inherit;opacity:0.62;" onclick="openAriaCheckout()"><span data-lang="zh">暂时暂停</span><span data-lang="en" style="display:none">Temporarily paused</span></button>
+        <button class="pricing-btn pricing-btn-primary" style="border:none;cursor:pointer;font-family:inherit;" onclick="openAriaCheckout()"><span data-lang="zh">购买授权</span><span data-lang="en" style="display:none">Buy license</span></button>
       </div>
 
       <!-- International -->
@@ -1155,7 +1148,7 @@ section { padding: 100px 24px; }
           <li><span data-lang="zh">v2.x 版本免费更新</span><span data-lang="en" style="display:none">Free updates within v2.x</span></li>
           <li><span data-lang="zh">1 个授权码 = 3 台 Mac</span><span data-lang="en" style="display:none">1 license = 3 Macs</span></li>
         </ul>
-        <button class="pricing-btn pricing-btn-primary" style="border:none;cursor:not-allowed;font-family:inherit;opacity:0.62;" onclick="openAriaCheckout()"><span data-lang="zh">暂时暂停</span><span data-lang="en" style="display:none">Temporarily paused</span></button>
+        <button class="pricing-btn pricing-btn-primary" style="border:none;cursor:pointer;font-family:inherit;" onclick="openAriaCheckout()"><span data-lang="zh">购买授权</span><span data-lang="en" style="display:none">Buy with Paddle</span></button>
         <div class="pricing-sub">Visa · Mastercard · PayPal</div>
       </div>
     </div>
@@ -1323,7 +1316,13 @@ const ARIA_PADDLE_PRICE_ID = 'pri_01kmx0x2kg7dckq4j2q5nhwj6c';
 const ARIA_CHECKOUT_SUCCESS_URL = 'https://ariamagicvoice.com/thank-you.html';
 
 function openAriaCheckout() {
-  window.location.assign('/release-update.html');
+  Paddle.Checkout.open({
+    items: [{ priceId: ARIA_PADDLE_PRICE_ID, quantity: 1 }],
+    settings: {
+      successUrl: ARIA_CHECKOUT_SUCCESS_URL,
+      theme: 'light'
+    }
+  });
 }
 
 Paddle.Initialize({
