@@ -127,14 +127,30 @@
   <h1 class="text-3xl font-bold mb-4">感谢你的购买！</h1>
   <h2 class="text-xl font-semibold text-gray-300 mb-6">Thank you for your purchase!</h2>
 
-  <div class="bg-white/5 border border-white/10 rounded-2xl p-8 mb-8">
-    <p class="text-lg text-gray-300 leading-relaxed mb-4">
-      你的 <strong class="text-white">License Key</strong> 正在飞往你的邮箱
+  <div id="licensePanel" class="bg-white/5 border border-white/10 rounded-2xl p-8 mb-8">
+    <p id="licenseStatus" class="text-lg text-gray-300 leading-relaxed mb-4">
+      正在确认付款并准备你的 <strong class="text-white">License Key</strong>
     </p>
-    <p class="text-sm text-gray-400 leading-relaxed">
-      请检查你在付款时填写的邮箱（包括垃圾邮件文件夹）。<br>
-      邮件通常在 1-2 分钟内送达。
-    </p>
+    <div id="licenseReady" class="hidden">
+      <p class="text-sm text-gray-400 mb-3">你的 License Key 已准备好：</p>
+      <div class="bg-black/40 border border-white/15 rounded-xl px-4 py-4 mb-4">
+        <code id="licenseKeyValue" class="block text-lg md:text-xl font-mono font-semibold tracking-wider text-white break-all"></code>
+      </div>
+      <button id="copyLicenseKeyButton" type="button" class="inline-flex items-center justify-center bg-primary text-white px-6 py-3 rounded-full text-sm font-medium hover:bg-primary-hover active:scale-[0.97] transition-all">
+        复制 License Key
+      </button>
+      <p id="copyLicenseKeyStatus" class="text-xs text-gray-500 mt-3 min-h-[18px]"></p>
+      <p class="text-sm text-gray-400 leading-relaxed mt-4">
+        我们也会把同一枚 License Key 发送到你的邮箱，方便你以后查找。
+      </p>
+    </div>
+    <div id="licenseHelp" class="hidden">
+      <p class="text-sm text-gray-400 leading-relaxed">
+        我们正在核对付款记录。请保留 Paddle 订单邮件，并联系
+        <a href="mailto:magicvoice.team@outlook.com" class="text-primary hover:underline">magicvoice.team@outlook.com</a>。
+      </p>
+      <p id="licenseHelpDetail" class="text-xs text-gray-500 mt-3"></p>
+    </div>
   </div>
 
   <!-- 下载安装包 -->
@@ -150,12 +166,12 @@
     <ol class="text-sm text-gray-300 space-y-2 list-decimal list-inside">
       <li>下载并安装 <strong>Aria Magic Voice</strong></li>
       <li>点击菜单栏图标 → <strong>输入授权码…</strong></li>
-      <li>粘贴邮件中的 License Key → 激活</li>
+      <li>粘贴上方 License Key → 激活</li>
     </ol>
   </div>
 
   <p class="text-sm text-gray-500 mb-8">
-    没收到邮件？请联系 <a href="mailto:magicvoice.team@outlook.com" class="text-primary hover:underline">magicvoice.team@outlook.com</a>
+    需要帮助？请联系 <a href="mailto:magicvoice.team@outlook.com" class="text-primary hover:underline">magicvoice.team@outlook.com</a>
   </p>
 
   <a href="/" class="inline-block text-primary hover:underline text-sm">&larr; 返回首页</a>
@@ -236,6 +252,75 @@ function toggleMobileMenu() {
   document.getElementById('mobileMenuOverlay').classList.toggle('open');
   document.getElementById('mobileMenuPanel').classList.toggle('open');
 }
+
+const ARIA_CHECKOUT_CLAIM_SESSION_KEY = 'aria_checkout_claim_v1';
+const ARIA_LICENSE_CLAIM_ENDPOINT = 'https://magicvoice-webhook.andywu1206.workers.dev/checkout/claim-license';
+
+function readCheckoutClaim() {
+  try {
+    const raw = sessionStorage.getItem(ARIA_CHECKOUT_CLAIM_SESSION_KEY);
+    if (!raw) return null;
+    const claim = JSON.parse(raw);
+    if (!/^txn_[a-z0-9]+$/i.test(claim.transactionId || '') || !claim.email) return null;
+    return claim;
+  } catch {
+    return null;
+  }
+}
+
+function showLicenseHelp(message) {
+  document.getElementById('licenseStatus').textContent = '付款已收到，我们正在核对 License Key';
+  document.getElementById('licenseReady').classList.add('hidden');
+  document.getElementById('licenseHelp').classList.remove('hidden');
+  document.getElementById('licenseHelpDetail').textContent = message || '';
+}
+
+function showLicenseReady(licenseKey) {
+  document.getElementById('licenseStatus').textContent = '你的 License Key 已准备好';
+  document.getElementById('licenseHelp').classList.add('hidden');
+  document.getElementById('licenseReady').classList.remove('hidden');
+  document.getElementById('licenseKeyValue').textContent = licenseKey;
+}
+
+async function claimLicenseKey() {
+  const claim = readCheckoutClaim();
+  if (!claim) {
+    showLicenseHelp('没有检测到本浏览器的 checkout 完成信息。');
+    return;
+  }
+
+  try {
+    const response = await fetch(ARIA_LICENSE_CLAIM_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        transactionId: claim.transactionId,
+        email: claim.email
+      })
+    });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok || !data.success || !data.licenseKey) {
+      showLicenseHelp(`Transaction: ${claim.transactionId}`);
+      return;
+    }
+    showLicenseReady(data.licenseKey);
+  } catch {
+    showLicenseHelp(`Transaction: ${claim.transactionId}`);
+  }
+}
+
+document.getElementById('copyLicenseKeyButton').addEventListener('click', async () => {
+  const key = document.getElementById('licenseKeyValue').textContent.trim();
+  const status = document.getElementById('copyLicenseKeyStatus');
+  try {
+    await navigator.clipboard.writeText(key);
+    status.textContent = '已复制';
+  } catch {
+    status.textContent = '复制失败，请手动选择上方 License Key。';
+  }
+});
+
+claimLicenseKey();
 </script>
 </body>
 </html>
