@@ -148,10 +148,24 @@
     </div>
     <div id="licenseHelp" class="hidden">
       <p class="text-sm text-gray-400 leading-relaxed">
-        我们正在核对付款记录。请保留 Paddle 订单邮件，并联系
-        <a href="mailto:magicvoice.team@outlook.com" class="text-primary hover:underline">magicvoice.team@outlook.com</a>。
+        如果页面没有自动带回订单信息，请输入 Paddle 订单 Transaction ID 和购买邮箱重新领取同一枚 License Key。
       </p>
       <p id="licenseHelpDetail" class="text-xs text-gray-500 mt-3"></p>
+      <form id="manualClaimForm" class="mt-5 space-y-3 text-left">
+        <label class="block text-xs font-semibold text-gray-300" for="manualTransactionId">Paddle Transaction ID</label>
+        <input id="manualTransactionId" name="transactionId" autocomplete="off" inputmode="text" placeholder="txn_..." class="w-full rounded-xl border border-white/15 bg-black/30 px-4 py-3 text-sm text-white placeholder:text-gray-600 focus:border-primary focus:ring-primary"/>
+        <label class="block text-xs font-semibold text-gray-300" for="manualEmail">购买邮箱 / Purchase email</label>
+        <input id="manualEmail" name="email" autocomplete="email" inputmode="email" placeholder="you@example.com" class="w-full rounded-xl border border-white/15 bg-black/30 px-4 py-3 text-sm text-white placeholder:text-gray-600 focus:border-primary focus:ring-primary"/>
+        <button id="manualClaimButton" type="submit" class="w-full inline-flex items-center justify-center bg-primary text-white px-6 py-3 rounded-full text-sm font-medium hover:bg-primary-hover active:scale-[0.97] transition-all">
+          重新领取 License Key
+        </button>
+        <p id="manualClaimStatus" class="text-xs text-gray-500 min-h-[18px]"></p>
+      </form>
+      <p class="text-xs text-gray-500 mt-4 leading-relaxed">
+        系统会先向 Paddle 服务器确认这笔订单已付款、邮箱匹配且商品正确；未付款或邮箱不匹配不会返回 License Key。
+        如仍无法领取，请保留 Paddle 订单邮件并联系
+        <a href="mailto:magicvoice.team@outlook.com" class="text-primary hover:underline">magicvoice.team@outlook.com</a>。
+      </p>
     </div>
   </div>
 
@@ -256,18 +270,64 @@ function toggleMobileMenu() {
 }
 
 const ARIA_CHECKOUT_CLAIM_SESSION_KEY = 'aria_checkout_claim_v1';
+const ARIA_CHECKOUT_CLAIM_LOCAL_KEY = 'aria_checkout_claim_latest_v1';
+const ARIA_CHECKOUT_AUTO_ATTEMPT_KEY = 'aria_checkout_claim_auto_attempt_v1';
 const ARIA_LICENSE_CLAIM_ENDPOINT = 'https://magicvoice-webhook.andywu1206.workers.dev/checkout/claim-license';
+const ARIA_MANUAL_CLAIM_COOLDOWN_MS = 5000;
+let ariaClaimInFlight = false;
+let ariaManualClaimCooldownUntil = 0;
 
-function readCheckoutClaim() {
+function isValidTransactionId(transactionId) {
+  return /^txn_[a-z0-9]+$/i.test(transactionId || '');
+}
+
+function getUrlTransactionId() {
+  const params = new URLSearchParams(window.location.search);
+  const transactionId = params.get('txn') || params.get('_ptxn') || params.get('ptxn') || '';
+  return isValidTransactionId(transactionId) ? transactionId : '';
+}
+
+function readStoredClaim(storage, key) {
   try {
-    const raw = sessionStorage.getItem(ARIA_CHECKOUT_CLAIM_SESSION_KEY);
+    const raw = storage.getItem(key);
     if (!raw) return null;
     const claim = JSON.parse(raw);
-    if (!/^txn_[a-z0-9]+$/i.test(claim.transactionId || '') || !claim.email) return null;
+    if (!isValidTransactionId(claim.transactionId) || !claim.email) return null;
     return claim;
   } catch {
     return null;
   }
+}
+
+function writeCheckoutClaim(claim) {
+  if (!isValidTransactionId(claim.transactionId) || !claim.email) return;
+  const normalized = {
+    transactionId: claim.transactionId.trim(),
+    email: claim.email.trim(),
+    completedAt: claim.completedAt || new Date().toISOString()
+  };
+  try {
+    sessionStorage.setItem(ARIA_CHECKOUT_CLAIM_SESSION_KEY, JSON.stringify(normalized));
+    localStorage.setItem(ARIA_CHECKOUT_CLAIM_LOCAL_KEY, JSON.stringify(normalized));
+  } catch {
+    // Storage can be unavailable in private modes. Manual form still works.
+  }
+}
+
+function readCheckoutClaim() {
+  const urlTransactionId = getUrlTransactionId();
+  const sessionClaim = readStoredClaim(sessionStorage, ARIA_CHECKOUT_CLAIM_SESSION_KEY);
+  const localClaim = readStoredClaim(localStorage, ARIA_CHECKOUT_CLAIM_LOCAL_KEY);
+  const claim = sessionClaim || localClaim || null;
+
+  if (urlTransactionId && claim && claim.email) {
+    return { ...claim, transactionId: urlTransactionId };
+  }
+  if (claim) return claim;
+  if (urlTransactionId) {
+    return { transactionId: urlTransactionId, email: '' };
+  }
+  return null;
 }
 
 function showLicenseHelp(message) {
@@ -275,6 +335,11 @@ function showLicenseHelp(message) {
   document.getElementById('licenseReady').classList.add('hidden');
   document.getElementById('licenseHelp').classList.remove('hidden');
   document.getElementById('licenseHelpDetail').textContent = message || '';
+  const claim = readCheckoutClaim();
+  if (claim) {
+    document.getElementById('manualTransactionId').value = claim.transactionId || '';
+    document.getElementById('manualEmail').value = claim.email || '';
+  }
 }
 
 function showLicenseReady(licenseKey) {
@@ -284,11 +349,42 @@ function showLicenseReady(licenseKey) {
   document.getElementById('licenseKeyValue').textContent = licenseKey;
 }
 
-async function claimLicenseKey() {
-  const claim = readCheckoutClaim();
-  if (!claim) {
-    showLicenseHelp('没有检测到本浏览器的 checkout 完成信息。');
+function setManualClaimBusy(isBusy, message = '') {
+  const button = document.getElementById('manualClaimButton');
+  const status = document.getElementById('manualClaimStatus');
+  button.disabled = isBusy;
+  button.classList.toggle('opacity-60', isBusy);
+  button.classList.toggle('cursor-not-allowed', isBusy);
+  if (message) status.textContent = message;
+}
+
+function shouldRunAutoClaim(claim) {
+  if (!claim || !claim.transactionId || !claim.email) return false;
+  const key = `${claim.transactionId}:${claim.email.trim().toLowerCase()}`;
+  try {
+    const raw = sessionStorage.getItem(ARIA_CHECKOUT_AUTO_ATTEMPT_KEY);
+    const last = raw ? JSON.parse(raw) : null;
+    if (last && last.key === key && Date.now() - Number(last.attemptedAt || 0) < ARIA_MANUAL_CLAIM_COOLDOWN_MS) {
+      return false;
+    }
+    sessionStorage.setItem(ARIA_CHECKOUT_AUTO_ATTEMPT_KEY, JSON.stringify({ key, attemptedAt: Date.now() }));
+  } catch {
+    // Debounce is best-effort; backend rate limits remain authoritative.
+  }
+  return true;
+}
+
+async function claimLicenseKey(claimOverride = null, options = {}) {
+  if (ariaClaimInFlight) return;
+  const claim = claimOverride || readCheckoutClaim();
+  if (!claim || !isValidTransactionId(claim.transactionId) || !claim.email) {
+    showLicenseHelp('没有检测到完整的 checkout 完成信息。');
     return;
+  }
+
+  ariaClaimInFlight = true;
+  if (options.source === 'manual') {
+    setManualClaimBusy(true, '正在向 Paddle 核对付款记录...');
   }
 
   try {
@@ -305,9 +401,16 @@ async function claimLicenseKey() {
       showLicenseHelp(`Transaction: ${claim.transactionId}`);
       return;
     }
+    writeCheckoutClaim(claim);
     showLicenseReady(data.licenseKey);
   } catch {
     showLicenseHelp(`Transaction: ${claim.transactionId}`);
+  } finally {
+    ariaClaimInFlight = false;
+    if (options.source === 'manual') {
+      ariaManualClaimCooldownUntil = Date.now() + ARIA_MANUAL_CLAIM_COOLDOWN_MS;
+      setTimeout(() => setManualClaimBusy(false), ARIA_MANUAL_CLAIM_COOLDOWN_MS);
+    }
   }
 }
 
@@ -322,7 +425,35 @@ document.getElementById('copyLicenseKeyButton').addEventListener('click', async 
   }
 });
 
-claimLicenseKey();
+document.getElementById('manualClaimForm').addEventListener('submit', async (event) => {
+  event.preventDefault();
+  if (ariaClaimInFlight) return;
+  if (Date.now() < ariaManualClaimCooldownUntil) {
+    document.getElementById('manualClaimStatus').textContent = '请稍等几秒后再试。';
+    return;
+  }
+  const transactionId = document.getElementById('manualTransactionId').value.trim();
+  const email = document.getElementById('manualEmail').value.trim();
+  const status = document.getElementById('manualClaimStatus');
+  if (!isValidTransactionId(transactionId)) {
+    status.textContent = '请输入有效的 Paddle Transaction ID（txn_...）。';
+    return;
+  }
+  if (!email || !email.includes('@')) {
+    status.textContent = '请输入购买时使用的邮箱。';
+    return;
+  }
+  await claimLicenseKey({ transactionId, email, completedAt: new Date().toISOString() }, { source: 'manual' });
+});
+
+const initialClaim = readCheckoutClaim();
+if (initialClaim && shouldRunAutoClaim(initialClaim)) {
+  claimLicenseKey(initialClaim, { source: 'auto' });
+} else if (initialClaim) {
+  showLicenseHelp('正在等待上一轮领取请求完成。');
+} else {
+  showLicenseHelp('没有检测到完整的 checkout 完成信息。');
+}
 </script>
 </body>
 </html>

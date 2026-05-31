@@ -1315,6 +1315,7 @@ updateActiveNav();
 const ARIA_PADDLE_PRICE_ID = 'pri_01kmx0x2kg7dckq4j2q5nhwj6c';
 const ARIA_CHECKOUT_SUCCESS_URL = `${window.location.origin}/thank-you.html`;
 const ARIA_CHECKOUT_CLAIM_SESSION_KEY = 'aria_checkout_claim_v1';
+const ARIA_CHECKOUT_CLAIM_LOCAL_KEY = 'aria_checkout_claim_latest_v1';
 
 function storeAriaCheckoutClaim(event) {
   const data = event && event.data ? event.data : {};
@@ -1322,14 +1323,25 @@ function storeAriaCheckoutClaim(event) {
   const email = data.customer?.email || data.customer_email || data.email || '';
   if (!/^txn_[a-z0-9]+$/i.test(transactionId) || !email) return;
   try {
-    sessionStorage.setItem(ARIA_CHECKOUT_CLAIM_SESSION_KEY, JSON.stringify({
+    const claim = {
       transactionId,
       email,
       completedAt: new Date().toISOString()
-    }));
+    };
+    sessionStorage.setItem(ARIA_CHECKOUT_CLAIM_SESSION_KEY, JSON.stringify(claim));
+    localStorage.setItem(ARIA_CHECKOUT_CLAIM_LOCAL_KEY, JSON.stringify(claim));
   } catch (err) {
     console.warn('Unable to store checkout claim context', err);
   }
+  return { transactionId, email };
+}
+
+function buildAriaCheckoutSuccessUrl(transactionId) {
+  const url = new URL(ARIA_CHECKOUT_SUCCESS_URL);
+  if (/^txn_[a-z0-9]+$/i.test(transactionId || '')) {
+    url.searchParams.set('txn', transactionId);
+  }
+  return url.toString();
 }
 
 function openAriaCheckout() {
@@ -1346,8 +1358,8 @@ Paddle.Initialize({
   token: 'live_d7beb0bd4a366dacc86dcdc998f',
   eventCallback: function (event) {
     if (event && event.name === 'checkout.completed') {
-      storeAriaCheckoutClaim(event);
-      window.location.assign(ARIA_CHECKOUT_SUCCESS_URL);
+      const claim = storeAriaCheckoutClaim(event);
+      window.location.assign(buildAriaCheckoutSuccessUrl(claim && claim.transactionId));
     }
   }
 });
