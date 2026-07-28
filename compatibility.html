@@ -9,7 +9,7 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Compatibility — Aria Magic Voice</title>
 <meta name="description" content="Aria Magic Voice system requirements and compatibility. Supports Apple Silicon and Intel Macs running macOS 13.0+.">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script>
     tailwind.config = {
@@ -58,18 +58,18 @@
 <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
 <div class="flex items-center gap-2.5">
 <i class="ph ph-sparkle text-primary text-xl"></i>
-<a href="/" class="font-semibold text-[18px] tracking-tight text-textMain no-underline">
+<a href="./index.html" class="font-semibold text-[18px] tracking-tight text-textMain no-underline">
   Aria <span class="text-primary">Magic</span> Voice
 </a>
 </div>
 <div class="flex items-center gap-8">
 <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-textMuted">
-<a class="hover:text-textMain transition-colors" href="/#features">Features</a>
-<a class="hover:text-textMain transition-colors" href="/#how">How It Works</a>
-<a class="hover:text-textMain transition-colors" href="/#pricing">Pricing</a>
-<a class="hover:text-textMain transition-colors" href="/#faq">FAQ</a>
+<a class="hover:text-textMain transition-colors" href="./index.html#features">Features</a>
+<a class="hover:text-textMain transition-colors" href="./index.html#how">How It Works</a>
+<a class="hover:text-textMain transition-colors" href="./index.html#pricing">Pricing</a>
+<a class="hover:text-textMain transition-colors" href="./index.html#faq">FAQ</a>
 </nav>
-<a href="https://downloads.ariamagicvoice.com/AriaMagicVoice_2.2.0.dmg?v=87.24-004655" class="hidden md:inline-flex bg-primary text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-primary-hover active:scale-[0.97] active:brightness-90 transition-all no-underline">
+<a href="./index.html#pricing" class="hidden md:inline-flex bg-primary text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-primary-hover active:scale-[0.97] active:brightness-90 transition-all no-underline">
   Download Now
 </a>
 <button class="md:hidden text-textMain text-2xl p-1" onclick="toggleMobileMenu()" aria-label="Open menu">
@@ -86,13 +86,13 @@
     <button class="text-textMain text-2xl p-1" onclick="toggleMobileMenu()" aria-label="Close menu"><i class="ph ph-x"></i></button>
   </div>
   <nav class="flex flex-col px-6 py-6 gap-6 text-base font-medium text-textMuted">
-    <a class="hover:text-textMain transition-colors" href="/#features" onclick="toggleMobileMenu()">Features</a>
-    <a class="hover:text-textMain transition-colors" href="/#how" onclick="toggleMobileMenu()">How It Works</a>
-    <a class="hover:text-textMain transition-colors" href="/#pricing" onclick="toggleMobileMenu()">Pricing</a>
-    <a class="hover:text-textMain transition-colors" href="/#faq" onclick="toggleMobileMenu()">FAQ</a>
+    <a class="hover:text-textMain transition-colors" href="./index.html#features" onclick="toggleMobileMenu()">Features</a>
+    <a class="hover:text-textMain transition-colors" href="./index.html#how" onclick="toggleMobileMenu()">How It Works</a>
+    <a class="hover:text-textMain transition-colors" href="./index.html#pricing" onclick="toggleMobileMenu()">Pricing</a>
+    <a class="hover:text-textMain transition-colors" href="./index.html#faq" onclick="toggleMobileMenu()">FAQ</a>
   </nav>
   <div class="px-6">
-    <a href="https://downloads.ariamagicvoice.com/AriaMagicVoice_2.2.0.dmg?v=87.24-004655" onclick="toggleMobileMenu()" class="block text-center bg-primary text-white py-3 rounded-full text-sm font-medium hover:bg-primary-hover active:scale-[0.97] active:brightness-90 transition-all no-underline">Download Now</a>
+    <a href="./index.html#pricing" onclick="toggleMobileMenu()" class="block text-center bg-primary text-white py-3 rounded-full text-sm font-medium hover:bg-primary-hover active:scale-[0.97] active:brightness-90 transition-all no-underline">Available now</a>
   </div>
 </div>
 
@@ -158,7 +158,7 @@
 <li>MacBook Pro (M1, 2020 and later)</li>
 <li>Mac mini (M1, 2020 and later)</li>
 <li>iMac (M1, 2021 and later)</li>
-<li>Mac Studio (M1 Max, 2022 and later)</li>
+<li>Mac Studio (2022 and later)</li>
 <li>Mac Pro (M2 Ultra, 2023 and later)</li>
 </ul>
 </div>
@@ -195,7 +195,7 @@
 </div>
 <div>
 <h3 class="font-semibold mb-1">Microphone Access</h3>
-<p class="text-sm text-textMuted">Required to capture your voice for speech recognition. All audio is processed locally and never stored or transmitted.</p>
+<p class="text-sm text-textMuted">Required to capture your voice. Free and the planned Pro tier use the local recognition path; original recordings and complete chat content remain on your Mac.</p>
 </div>
 </div>
 </div>
@@ -206,7 +206,7 @@
 </div>
 <div>
 <h3 class="font-semibold mb-1">Accessibility</h3>
-<p class="text-sm text-textMuted">Required for the double-tap hotkey detection and automatic text insertion at the cursor position.</p>
+<p class="text-sm text-textMuted">Required for detecting the single-tap Left Control voice trigger and committing recognized text at the cursor position.</p>
 </div>
 </div>
 </div>
@@ -217,7 +217,7 @@
 </div>
 <div>
 <h3 class="font-semibold mb-1">Input Monitoring</h3>
-<p class="text-sm text-textMuted">Required for detecting the double-tap hotkey (Control, Option, or Command key) to activate voice input.</p>
+<p class="text-sm text-textMuted">Required for the input method edition to monitor the Left Control voice trigger while the Aria input source is active.</p>
 </div>
 </div>
 </div>
@@ -304,48 +304,48 @@
 <footer class="bg-[#f5f5f7] border-t border-black/5">
 <div class="max-w-[980px] mx-auto px-6 pt-4 pb-10">
 <div class="space-y-3 text-[11px] leading-5 text-[#6e6e73] border-b border-black/10 pb-4">
-<p>Aria Magic Voice is a local AI voice input tool for Mac. Product features, language support, and purchasing options may change with version updates.</p>
+<p>Aria Magic Voice is a macOS AI input method. The Free version is available as a direct download. Pro is a one-time purchase (US$39.9); website licensing and Apple IAP are separate candidate purchase paths and neither is available yet.</p>
 </div>
 
 <div class="grid grid-cols-2 md:grid-cols-5 gap-x-8 gap-y-8 py-6 text-xs border-b border-black/10">
 <div class="space-y-3">
 <h4 class="font-semibold text-textMain">Explore Aria Magic Voice</h4>
 <div class="space-y-2 text-[#6e6e73]">
-<a class="block hover:underline" href="/">Home</a>
-<a class="block hover:underline" href="/#features">Features</a>
-<a class="block hover:underline" href="/#how">How It Works</a>
-<a class="block hover:underline" href="/#pricing">Pricing</a>
+<a class="block hover:underline" href="./index.html">Home</a>
+<a class="block hover:underline" href="./index.html#features">Features</a>
+<a class="block hover:underline" href="./index.html#how">How It Works</a>
+<a class="block hover:underline" href="./index.html#pricing">Pricing</a>
 </div>
 </div>
 <div class="space-y-3">
 <h4 class="font-semibold text-textMain">Product</h4>
 <div class="space-y-2 text-[#6e6e73]">
-<a class="block hover:underline" href="/#pricing">Standard Edition</a>
-<a class="block hover:underline" href="/#pricing">Free Trial</a>
+<a class="block hover:underline" href="./index.html#pricing">Free · No charge</a>
+<a class="block hover:underline" href="./index.html#pricing">Pro · Website license / Apple IAP preparing</a>
 </div>
 </div>
 <div class="space-y-3">
 <h4 class="font-semibold text-textMain">Support</h4>
 <div class="space-y-2 text-[#6e6e73]">
-<a class="block hover:underline" href="/#faq">FAQ</a>
+<a class="block hover:underline" href="./index.html#faq">FAQ</a>
 <a class="block hover:underline" href="mailto:magicvoice.team@outlook.com">Contact Support</a>
-<a class="block hover:underline" href="/compatibility.html">Compatibility</a>
+<a class="block hover:underline" href="./compatibility.html">Compatibility</a>
 </div>
 </div>
 <div class="space-y-3">
 <h4 class="font-semibold text-textMain">Account &amp; Purchase</h4>
 <div class="space-y-2 text-[#6e6e73]">
-<a class="block hover:underline" href="/#pricing">Purchase Guide</a>
-<a class="block hover:underline" href="/refund.html">Refund Policy</a>
-<a class="block hover:underline" href="/terms.html">License Policy</a>
+<a class="block hover:underline" href="./index.html#pricing">Purchase Guide</a>
+<a class="block hover:underline" href="./refund.html">Refund Policy</a>
+<a class="block hover:underline" href="./terms.html">Subscription Terms</a>
 </div>
 </div>
 <div class="space-y-3">
 <h4 class="font-semibold text-textMain">About Aria Magic Voice</h4>
 <div class="space-y-2 text-[#6e6e73]">
-<a class="block hover:underline" href="/about.html">Our Story</a>
-<a class="block hover:underline" href="/privacy.html">Privacy Policy</a>
-<a class="block hover:underline" href="/terms.html">Terms of Service</a>
+<a class="block hover:underline" href="./about.html">Our Story</a>
+<a class="block hover:underline" href="./privacy.html">Privacy Policy</a>
+<a class="block hover:underline" href="./terms.html">Terms of Service</a>
 </div>
 </div>
 </div>
@@ -354,9 +354,9 @@
 <div class="space-y-2 md:space-y-0 md:flex md:items-center md:gap-6">
 <p>Copyright &copy; 2026 Aria Magic Voice. All rights reserved.</p>
 <div class="flex flex-wrap items-center gap-x-4 gap-y-1">
-<a class="hover:underline" href="/privacy.html">Privacy Policy</a>
-<a class="hover:underline" href="/terms.html">Terms of Service</a>
-<a class="hover:underline" href="/refund.html">Refund Policy</a>
+<a class="hover:underline" href="./privacy.html">Privacy Policy</a>
+<a class="hover:underline" href="./terms.html">Terms of Service</a>
+<a class="hover:underline" href="./refund.html">Refund Policy</a>
 </div>
 </div>
 </div>

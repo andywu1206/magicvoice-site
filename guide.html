@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <!--
-  Aria Magic Voice — User Guide v2.5 (Bilingual: EN / 中文)
+  Aria Magic Voice — User Guide v2.6 (Bilingual: EN / 中文)
   Style: v2.4 Glass Design + Top Tab Bar (Installation / Quick User Guide)
   Date: 2026-04-12 (deployed)
   Upgraded from v2.4 (2026-04-03)
   Changes from v2.4:
     1. 顶部新增 Tab Bar：Installation（默认选中，嵌入权威 PNG）/ Quick User Guide
     2. Header 布局调整：lang-toggle 从页面中央移到 Free Download 按钮左侧
+    3. 90.201 staging：指南改为 macOS 输入法启用路径 + 单击左 Ctrl 开始/结束
     3. 原有 7 个 guide-section 全部保留，搬进 Quick User Guide tab
     4. 删除原 page-title / page-subtitle（Tab Bar 接管导航语义）
   Purpose: 防止新用户点击 User Guide 后看不到安装说明导致卡在权限授予这一步
-  Status: LIVE — ariamagicvoice.com/guide.html
 -->
 <html lang="en">
 <head>
@@ -18,9 +18,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>User Guide — Aria Magic Voice</title>
 <meta name="description" content="Aria Magic Voice User Guide. Installation and usage of local AI speech-to-text on your Mac.">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Noto+Sans+SC:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/regular/style.css">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -493,11 +493,11 @@ body {
 
 <!-- ==================== NAV ==================== -->
 <nav class="nav">
-  <a href="/" class="nav-brand">
+  <a href="./index.html" class="nav-brand">
     <i class="ph ph-sparkle"></i>
     Aria <span class="brand-magic">Magic</span> Voice
   </a>
-  <a href="https://downloads.ariamagicvoice.com/AriaMagicVoice_2.2.0.dmg?v=87.24-004655" class="nav-download">
+  <a href="./index.html#pricing" class="nav-download">
     <span data-lang="en">Free Download</span>
     <span data-lang="zh" style="display:none">立即下载</span>
   </a>
@@ -508,8 +508,8 @@ body {
 <div class="mobile-panel" id="mobilePanel">
   <button class="mobile-panel-close" onclick="toggleMenu()">&#10005;</button>
   <nav>
-    <a href="/" data-lang="en">Home</a>
-    <a href="/" data-lang="zh">首页</a>
+    <a href="./index.html" data-lang="en">Home</a>
+    <a href="./index.html" data-lang="zh">首页</a>
   </nav>
   <div class="lang-toggle" style="display:flex">
     <button class="lang-btn" onclick="setLang('zh')">中文</button>
@@ -542,8 +542,8 @@ body {
 
   <!-- ====== TAB PANEL: INSTALLATION ====== -->
   <div class="tab-panel active" data-panel="installation" role="tabpanel">
-    <p class="panel-intro" data-lang="en">Follow these 8 steps to grant all the permissions Aria Magic Voice needs to run properly on macOS.</p>
-    <p class="panel-intro" data-lang="zh" style="display:none">按照以下 8 步依次授予 Aria Magic Voice 在 macOS 上正常运行所需的全部权限。</p>
+    <p class="panel-intro" data-lang="en">Follow these steps to install Aria, enable it as a macOS input method, and grant only the permissions required for voice input.</p>
+    <p class="panel-intro" data-lang="zh" style="display:none">按照以下步骤安装 Aria、在 macOS 里启用输入法，并授予语音输入所需的权限。</p>
     <div class="installation-img-wrap">
       <img src="installation-guide.png" alt="Installation Guide — 8 steps to grant permissions" class="installation-img">
     </div>
@@ -561,9 +561,9 @@ body {
         </div>
         <div class="guide-card-body">
           <ol class="steps">
-            <li><strong>Download and install</strong> &mdash; Download the DMG from the official website, open it, and drag Aria Magic Voice into the Applications folder.</li>
-            <li><strong>First launch</strong> &mdash; Open the app. Grant <strong>Microphone</strong> permission and <strong>Accessibility</strong> permission when prompted.</li>
-            <li><strong>Start using</strong> &mdash; Double-press <span class="kbd">Control</span> to start speaking. Double-press again to stop. Press <span class="kbd">Return</span> to insert the text.</li>
+            <li><strong>Install</strong> &mdash; Open the DMG and run the one-click installer. The input method edition installs into the macOS Input Methods location.</li>
+            <li><strong>Enable the input source</strong> &mdash; Open System Settings → Keyboard → Text Input, add or enable <strong>Aria Magic Voice</strong>, then switch to it from the menu bar.</li>
+            <li><strong>Start using</strong> &mdash; Tap <span class="kbd">Left Control</span> once to start speaking. Tap <span class="kbd">Left Control</span> again to finish and commit the text into the current field.</li>
           </ol>
         </div>
       </div>
@@ -574,9 +574,9 @@ body {
         </div>
         <div class="guide-card-body">
           <ol class="steps">
-            <li><strong>下载安装</strong> &mdash; 从官网下载 DMG 文件，打开后将 Aria Magic Voice 拖入 Applications 文件夹。</li>
-            <li><strong>首次启动</strong> &mdash; 打开应用，根据提示授予<strong>麦克风权限</strong>和<strong>辅助功能权限</strong>。</li>
-            <li><strong>开始使用</strong> &mdash; 双击 <span class="kbd">Control</span> 键开始说话，再次双击停止。按 <span class="kbd">Return</span> 键插入文字。</li>
+            <li><strong>安装</strong> &mdash; 打开 DMG，运行一键安装器。输入法版会安装到 macOS 输入法目录。</li>
+            <li><strong>启用输入源</strong> &mdash; 打开系统设置 → 键盘 → 文本输入，添加或启用 <strong>Aria Magic Voice</strong>，再从菜单栏切换到它。</li>
+            <li><strong>开始使用</strong> &mdash; 单击 <span class="kbd">左 Control</span> 开始说话，再次单击 <span class="kbd">左 Control</span> 结束并自动上屏到当前输入框。</li>
           </ol>
         </div>
       </div>
@@ -591,11 +591,11 @@ body {
         </div>
         <div class="guide-card-body">
           <ul class="feature-list">
-            <li><strong>Start recording</strong> &mdash; Double-press <span class="kbd">Control</span> (default hotkey).</li>
-            <li><strong>Stop recording</strong> &mdash; Double-press <span class="kbd">Control</span> again, or wait for silence to auto-stop.</li>
-            <li><strong>Insert text</strong> &mdash; After recognition completes, press <span class="kbd">Return</span> to insert the text at the cursor position.</li>
-            <li><strong>Copy text</strong> &mdash; Click the copy button to copy the recognized text to the clipboard.</li>
-            <li><strong>Clear text</strong> &mdash; Click the clear button to dismiss the result.</li>
+            <li><strong>Type normally</strong> &mdash; Use the Aria input source for regular keyboard input.</li>
+            <li><strong>Start voice input</strong> &mdash; Tap <span class="kbd">Left Control</span> once. A live draft appears underlined while you speak.</li>
+            <li><strong>Finish voice input</strong> &mdash; Tap <span class="kbd">Left Control</span> again. Final text commits to the focused field.</li>
+            <li><strong>Optional AI polish</strong> &mdash; Turn it on when you want smoother spoken phrasing in writing.</li>
+            <li><strong>Privacy</strong> &mdash; The User Experience Improvement Program can be managed in settings. It processes isolated correction pairs and quality signals, and does not upload original recordings or complete source text.</li>
           </ul>
         </div>
       </div>
@@ -606,11 +606,11 @@ body {
         </div>
         <div class="guide-card-body">
           <ul class="feature-list">
-            <li><strong>触发录音</strong> &mdash; 双击 <span class="kbd">Control</span> 键(默认热键)。</li>
-            <li><strong>停止录音</strong> &mdash; 再次双击 <span class="kbd">Control</span> 键,或等待静音自动结束。</li>
-            <li><strong>文字插入</strong> &mdash; 识别完成后按 <span class="kbd">Return</span> 键,文字自动插入到光标位置。</li>
-            <li><strong>复制文字</strong> &mdash; 点击复制按钮,文字复制到剪贴板。</li>
-            <li><strong>清除文字</strong> &mdash; 点击清除按钮,关闭识别结果。</li>
+            <li><strong>正常打字</strong> &mdash; 使用 Aria 输入源进行常规键盘输入。</li>
+            <li><strong>开始语音</strong> &mdash; 单击 <span class="kbd">左 Control</span>，说话时实时草稿以下划线显示。</li>
+            <li><strong>结束语音</strong> &mdash; 再次单击 <span class="kbd">左 Control</span>，最终文本自动上屏到当前输入框。</li>
+            <li><strong>AI 自动润色</strong> &mdash; 可开可关，让口语表达更流畅。</li>
+            <li><strong>隐私边界</strong> &mdash; 体验改进计划可在设置中管理；只处理隔离纠错对与质量信号，不上传原始录音或完整原文。</li>
           </ul>
         </div>
       </div>
@@ -625,10 +625,10 @@ body {
         </div>
         <div class="guide-card-body">
           <ul class="feature-list">
-            <li><strong>Hotkey</strong> &mdash; Customize the trigger hotkey to your preference.</li>
+            <li><strong>Voice trigger</strong> &mdash; The input method edition uses single-tap Left Control to start and finish voice input.</li>
             <li><strong>Interface language</strong> &mdash; Switch between Chinese and English interface.</li>
-            <li><strong>Filler word filter</strong> &mdash; Automatically filters out filler words like "um" and "uh". You can customize the filter word list.</li>
-            <li><strong>Launch at login</strong> &mdash; Enable to start Aria Magic Voice automatically when you log in.</li>
+            <li><strong>Super learning</strong> &mdash; Learn local corrections while keeping sensitive numbers, URLs, paths, accounts, and code protected.</li>
+            <li><strong>Voice and chat data are not uploaded</strong> &mdash; Original recordings and complete chat content stay on your Mac. The improvement program only processes isolated correction pairs and quality signals and can be managed in settings.</li>
           </ul>
         </div>
       </div>
@@ -639,10 +639,10 @@ body {
         </div>
         <div class="guide-card-body">
           <ul class="feature-list">
-            <li><strong>快捷键设置</strong> &mdash; 可自定义触发热键。</li>
+            <li><strong>语音触发</strong> &mdash; 输入法版使用单击左 Control 开始和结束语音输入。</li>
             <li><strong>界面语言</strong> &mdash; 支持中文/英文界面切换。</li>
-            <li><strong>口水词过滤</strong> &mdash; 自动过滤"嗯"、"啊"等口水词,可自定义过滤词列表。</li>
-            <li><strong>开机自启动</strong> &mdash; 可设置登录时自动启动。</li>
+            <li><strong>超级学习功能</strong> &mdash; 本地学习你的订正，同时保护数字、网址、路径、账号和代码。</li>
+            <li><strong>语音聊天数据不上传</strong> &mdash; 原始录音和完整聊天内容只在本机处理，不上传；体验改进计划可在设置中管理，只处理隔离纠错对与质量信号。</li>
           </ul>
         </div>
       </div>
@@ -720,35 +720,33 @@ body {
       </div>
     </div>
 
-    <!-- ====== 6. License ====== -->
+    <!-- ====== 6. Plans ====== -->
     <div class="guide-section">
       <div class="guide-card" data-lang="en">
         <div class="guide-card-header">
           <div class="guide-card-icon"><i class="ph ph-key"></i></div>
-          <h2 class="guide-card-title">License</h2>
+          <h2 class="guide-card-title">Plans</h2>
         </div>
         <div class="guide-card-body">
           <ul class="feature-list">
-            <li><strong>Free trial</strong> &mdash; 3-day full-feature free trial, no credit card required.</li>
-            <li><strong>Activate</strong> &mdash; Open "Enter License Key" from the menu bar icon, paste the license key from your purchase email.</li>
-            <li><strong>Up to 3 devices</strong> &mdash; One license key can be activated on up to 3 Macs.</li>
-            <li><strong>Deactivate</strong> &mdash; Choose "Deactivate" from the menu bar icon to release a device slot.</li>
-            <li><strong>Device reset</strong> &mdash; If you can no longer access an old Mac, visit the <a href="/recovery.html">Device Recovery</a> page to reset your device slots.</li>
+            <li><strong>Free</strong> &mdash; Permanently free.</li>
+            <li><strong>Pro</strong> &mdash; Planned at US$39.9 one-time; website licensing and Apple IAP are separate candidate purchase paths, and neither is purchasable yet.</li>
+            <li><strong>Improvement program</strong> &mdash; It can be managed in settings, processes isolated correction pairs and quality signals, and does not upload original recordings or complete source text.</li>
+            <li><strong>Device reset</strong> &mdash; If you can no longer access an old Mac, visit the <a href="./recovery.html">Device Recovery</a> page to reset your device slots.</li>
           </ul>
         </div>
       </div>
       <div class="guide-card" data-lang="zh" style="display:none">
         <div class="guide-card-header">
           <div class="guide-card-icon"><i class="ph ph-key"></i></div>
-          <h2 class="guide-card-title">授权码</h2>
+          <h2 class="guide-card-title">版本方案</h2>
         </div>
         <div class="guide-card-body">
           <ul class="feature-list">
-            <li><strong>免费试用</strong> &mdash; 3 天全功能免费试用,无需信用卡。</li>
-            <li><strong>激活</strong> &mdash; 从状态栏菜单打开"输入授权码",粘贴购买邮件中的授权码。</li>
-            <li><strong>最多 3 台设备</strong> &mdash; 同一授权码最多在 3 台 Mac 上激活。</li>
-            <li><strong>取消激活</strong> &mdash; 从状态栏菜单选择"取消激活",释放设备名额。</li>
-            <li><strong>设备重置</strong> &mdash; 旧电脑无法使用时,访问<a href="/recovery.html">设备重置页面</a>自助重置。</li>
+            <li><strong>Free</strong> &mdash; 永久免费。</li>
+            <li><strong>Pro</strong> &mdash; 当前显示 ¥268 一次性参考价；官网 License 与 Apple IAP 分渠道准备中，最终价格以各自结账页为准，目前均不可购买。</li>
+            <li><strong>体验改进计划</strong> &mdash; 可在设置中管理；只处理隔离纠错对与质量信号，不上传原始录音或完整原文。</li>
+            <li><strong>设备重置</strong> &mdash; 旧电脑无法使用时,访问<a href="./recovery.html">设备重置页面</a>自助重置。</li>
           </ul>
         </div>
       </div>
@@ -798,10 +796,10 @@ body {
   </div>
   <div class="footer-copy">&copy; 2026 Aria Magic Voice. All rights reserved.</div>
   <div class="footer-links">
-    <a href="/privacy.html" data-lang="en">Privacy Policy</a>
-    <a href="/privacy.html" data-lang="zh" style="display:none">隐私政策</a>
-    <a href="/terms.html" data-lang="en">Terms of Service</a>
-    <a href="/terms.html" data-lang="zh" style="display:none">使用条款</a>
+    <a href="./privacy.html" data-lang="en">Privacy Policy</a>
+    <a href="./privacy.html" data-lang="zh" style="display:none">隐私政策</a>
+    <a href="./terms.html" data-lang="en">Terms of Service</a>
+    <a href="./terms.html" data-lang="zh" style="display:none">使用条款</a>
     <a href="mailto:magicvoice.team@outlook.com" data-lang="en">Contact Us</a>
     <a href="mailto:magicvoice.team@outlook.com" data-lang="zh" style="display:none">联系我们</a>
   </div>

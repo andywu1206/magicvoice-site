@@ -9,7 +9,7 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>品牌故事 — Aria Magic Voice</title>
 <meta name="description" content="Aria Magic Voice 的故事。为什么我们要打造一款完全离线、保护隐私的 Mac 端 AI 语音转文字工具。">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script>
     tailwind.config = {
@@ -58,18 +58,18 @@
 <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
 <div class="flex items-center gap-2.5">
 <i class="ph ph-sparkle text-primary text-xl"></i>
-<a href="/" class="font-semibold text-[18px] tracking-tight text-textMain no-underline">
+<a href="./index.html" class="font-semibold text-[18px] tracking-tight text-textMain no-underline">
   Aria <span class="text-primary">Magic</span> Voice
 </a>
 </div>
 <div class="flex items-center gap-8">
 <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-textMuted">
-<a class="hover:text-textMain transition-colors" href="/#features">功能</a>
-<a class="hover:text-textMain transition-colors" href="/#how">使用方式</a>
-<a class="hover:text-textMain transition-colors" href="/#pricing">价格</a>
-<a class="hover:text-textMain transition-colors" href="/#faq">常见问题</a>
+<a class="hover:text-textMain transition-colors" href="./index.html#features">功能</a>
+<a class="hover:text-textMain transition-colors" href="./index.html#how">使用方式</a>
+<a class="hover:text-textMain transition-colors" href="./index.html#pricing">价格</a>
+<a class="hover:text-textMain transition-colors" href="./index.html#faq">常见问题</a>
 </nav>
-<a href="https://downloads.ariamagicvoice.com/AriaMagicVoice_2.2.0.dmg?v=87.24-004655" class="hidden md:inline-flex bg-primary text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-primary-hover active:scale-[0.97] active:brightness-90 transition-all no-underline">
+<a href="./index.html#pricing" class="hidden md:inline-flex bg-primary text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-primary-hover active:scale-[0.97] active:brightness-90 transition-all no-underline">
   立即下载
 </a>
 <button class="md:hidden text-textMain text-2xl p-1" onclick="toggleMobileMenu()" aria-label="Open menu">
@@ -86,13 +86,13 @@
     <button class="text-textMain text-2xl p-1" onclick="toggleMobileMenu()" aria-label="Close menu"><i class="ph ph-x"></i></button>
   </div>
   <nav class="flex flex-col px-6 py-6 gap-6 text-base font-medium text-textMuted">
-    <a class="hover:text-textMain transition-colors" href="/#features" onclick="toggleMobileMenu()">功能</a>
-    <a class="hover:text-textMain transition-colors" href="/#how" onclick="toggleMobileMenu()">使用方式</a>
-    <a class="hover:text-textMain transition-colors" href="/#pricing" onclick="toggleMobileMenu()">价格</a>
-    <a class="hover:text-textMain transition-colors" href="/#faq" onclick="toggleMobileMenu()">常见问题</a>
+    <a class="hover:text-textMain transition-colors" href="./index.html#features" onclick="toggleMobileMenu()">功能</a>
+    <a class="hover:text-textMain transition-colors" href="./index.html#how" onclick="toggleMobileMenu()">使用方式</a>
+    <a class="hover:text-textMain transition-colors" href="./index.html#pricing" onclick="toggleMobileMenu()">价格</a>
+    <a class="hover:text-textMain transition-colors" href="./index.html#faq" onclick="toggleMobileMenu()">常见问题</a>
   </nav>
   <div class="px-6">
-    <a href="https://downloads.ariamagicvoice.com/AriaMagicVoice_2.2.0.dmg?v=87.24-004655" onclick="toggleMobileMenu()" class="block text-center bg-primary text-white py-3 rounded-full text-sm font-medium hover:bg-primary-hover active:scale-[0.97] active:brightness-90 transition-all no-underline">免费下载</a>
+    <a href="./index.html#pricing" onclick="toggleMobileMenu()" class="block text-center bg-primary text-white py-3 rounded-full text-sm font-medium hover:bg-primary-hover active:scale-[0.97] active:brightness-90 transition-all no-underline">可直接下载</a>
   </div>
 </div>
 
@@ -110,7 +110,7 @@
 <section>
 <h2 class="text-xl font-semibold mb-3">为什么叫 "Aria"？</h2>
 <p>在音乐中，<strong>Aria（咏叹调）</strong>是一段独唱——当一个声音从整个管弦乐团中升起，独自占据舞台的那个瞬间。它亲密、有力，且无可替代。</p>
-<p class="mt-3">这正是我们想要捕捉的感觉。当你对着 Mac 说话时，你的声音应该就像那样——自然、从容，是一切的中心。没有云端服务器的背景噪音，没有第三方服务的杂音。只有你，和你的话语。</p>
+<p class="mt-3">这正是我们想要捕捉的感觉。当你对着 Mac 说话时，你的声音应该就像那样——自然、从容，是一切的中心。Free 和 Pro 以本地输入为主；需要联网的数据路径必须先把用途和边界讲清楚。</p>
 </section>
 
 <!-- 我们看到的问题 -->
@@ -121,19 +121,19 @@
 <p class="mt-3">我们想：<em>一定有更好的方式。</em></p>
 </section>
 
-<!-- 100% 本地 -->
+<!-- 本地优先 -->
 <section>
-<h2 class="text-xl font-semibold mb-3">100% 本地，没有例外。</h2>
-<p>我们在打造 Aria Magic Voice 时只有一个不可妥协的原则：<strong>你的语音数据，永远不会离开你的电脑</strong>。</p>
-<p class="mt-3">你说的每一个字，都完全在你的 Mac 上由本地 AI 引擎处理。没有云端备选方案，没有"可选的"数据共享，没有对你说话习惯的分析追踪。当你关闭应用时，音频就消失了——因为它从一开始就没有被存储。</p>
+<h2 class="text-xl font-semibold mb-3">本地优先，边界清楚。</h2>
+<p>Free 与拟定 Pro 的本地输入能力在 Mac 上处理。<strong>体验改进计划可在设置中管理；只处理隔离纠错对与质量信号，不上传原始录音或完整原文。</strong></p>
+<p class="mt-3">原始录音和完整聊天内容只在本机处理，不上传；体验改进计划不会借此扩大收集范围。</p>
 <p class="mt-3">这不仅仅是一个隐私功能。这是一切的基石。</p>
 </section>
 
 <!-- 为 Mac 而生 -->
 <section>
 <h2 class="text-xl font-semibold mb-3">为 Mac 而生，只为 Mac</h2>
-<p>我们没有做一个跨平台工具然后顺便移植到 macOS。Aria Magic Voice 是一款<strong>原生 Mac 应用</strong>，从第一天起就为 Mac 体验量身打造。</p>
-<p class="mt-3">悬浮药丸界面、双击热键唤起、文字自动出现在光标处——每一个细节都是为 Mac 用户设计的。它能在你日常使用的所有应用中工作：Pages、Notion、Slack、微信、VS Code、终端，以及一切可以输入文字的地方。</p>
+<p>我们没有做一个跨平台工具然后顺便移植到 macOS。Aria Magic Voice 正在走向一款<strong>原生 macOS 输入法</strong>：拼音打字和语音输入在同一个输入源里工作。</p>
+<p class="mt-3">单击左 Ctrl 开始说话，再单击结束，文字自动进入当前输入框。这个体验不是“识别后复制粘贴”，而是像输入法候选上屏一样自然。它能在你日常使用的所有应用中工作：Pages、Notion、Slack、微信、VS Code、终端，以及一切可以输入文字的地方。</p>
 </section>
 
 <!-- 多语言 -->
@@ -148,14 +148,14 @@
 <h2 class="text-xl font-semibold mb-3">我们相信的事</h2>
 <p>我们相信这个世界应该是<strong>和平的、充满爱的</strong>——技术的存在，应该让生活变得更温柔，而不是更艰难。</p>
 <p class="mt-3">这个信念驱动着我们做的每一件事。我们想打造让世界变得更美好、更温暖、更有人情味的工具。</p>
-<p class="mt-3">Aria Magic Voice 就是这样一款工具。它把你的声音即时转化为文字，完全在你的 Mac 上完成——不上传云端，不妥协隐私。它每周帮你省下大量打字时间，让你把这些时间花在真正重要的事情上：和朋友聊天、在午后散步、享受一刻安静。</p>
+<p class="mt-3">Aria Magic Voice 就是这样一款工具。Free 与拟定 Pro 的本地输入能力在 Mac 上处理；原始录音和完整聊天内容不上传。体验改进计划可在设置中管理，只处理隔离纠错对与质量信号。它每周帮你省下大量打字时间，让你把这些时间花在真正重要的事情上：和朋友聊天、在午后散步、享受一刻安静。</p>
 <p class="mt-3">我们不只是想帮你工作得更快。我们想把时间还给你——让你活得更好。</p>
 </section>
 
 <!-- 未来 -->
 <section>
 <h2 class="text-xl font-semibold mb-3">接下来</h2>
-<p>我们是一个小团队，但我们有大计划。更高的识别准确率、更多语言支持、更智能的 AI 学习你的用词和说话方式——一切都保持本地运行、完全隐私。</p>
+<p>我们是一个小团队，但我们有大计划：更高的识别准确率、更多语言支持，以及更实用的本地纠错学习。</p>
 <p class="mt-3">Aria Magic Voice 才刚刚开始。我们希望你能和我们一起走下去。</p>
 </section>
 
@@ -176,48 +176,48 @@
 <footer class="bg-[#f5f5f7] border-t border-black/5">
 <div class="max-w-[980px] mx-auto px-6 pt-4 pb-10">
 <div class="space-y-3 text-[11px] leading-5 text-[#6e6e73] border-b border-black/10 pb-4">
-<p>Aria Magic Voice 是一款面向 Mac 的本地 AI 语音输入工具。产品功能、语言支持和购买方式可能会随版本更新而调整。</p>
+<p>Aria Magic Voice 是一款面向 Mac 的新一代 AI 输入法。产品功能、语言支持和购买方式可能会随版本更新而调整。</p>
 </div>
 
 <div class="grid grid-cols-2 md:grid-cols-5 gap-x-8 gap-y-8 py-6 text-xs border-b border-black/10">
 <div class="space-y-3">
 <h4 class="font-semibold text-textMain">探索 Aria Magic Voice</h4>
 <div class="space-y-2 text-[#6e6e73]">
-<a class="block hover:underline" href="/">首页</a>
-<a class="block hover:underline" href="/#features">核心功能</a>
-<a class="block hover:underline" href="/#how">使用方式</a>
-<a class="block hover:underline" href="/#pricing">价格</a>
+<a class="block hover:underline" href="./index.html">首页</a>
+<a class="block hover:underline" href="./index.html#features">核心功能</a>
+<a class="block hover:underline" href="./index.html#how">使用方式</a>
+<a class="block hover:underline" href="./index.html#pricing">价格</a>
 </div>
 </div>
 <div class="space-y-3">
 <h4 class="font-semibold text-textMain">产品</h4>
 <div class="space-y-2 text-[#6e6e73]">
-<a class="block hover:underline" href="/#pricing">标准版</a>
-<a class="block hover:underline" href="/#pricing">下载试用</a>
+<a class="block hover:underline" href="./index.html#pricing">Free 免费版</a>
+<a class="block hover:underline" href="./index.html#pricing">下载试用</a>
 </div>
 </div>
 <div class="space-y-3">
 <h4 class="font-semibold text-textMain">支持</h4>
 <div class="space-y-2 text-[#6e6e73]">
-<a class="block hover:underline" href="/#faq">常见问题</a>
+<a class="block hover:underline" href="./index.html#faq">常见问题</a>
 <a class="block hover:underline" href="mailto:magicvoice.team@outlook.com">联系支持</a>
-<a class="block hover:underline" href="/compatibility.html">兼容性说明</a>
+<a class="block hover:underline" href="./compatibility.html">兼容性说明</a>
 </div>
 </div>
 <div class="space-y-3">
 <h4 class="font-semibold text-textMain">账户与购买</h4>
 <div class="space-y-2 text-[#6e6e73]">
-<a class="block hover:underline" href="/#pricing">购买说明</a>
-<a class="block hover:underline" href="/refund.html">销售与退款</a>
-<a class="block hover:underline" href="/terms.html">许可证规则</a>
+<a class="block hover:underline" href="./index.html#pricing">购买说明</a>
+<a class="block hover:underline" href="./refund.html">销售与退款</a>
+<a class="block hover:underline" href="./terms.html">许可证规则</a>
 </div>
 </div>
 <div class="space-y-3">
 <h4 class="font-semibold text-textMain">关于 Aria Magic Voice</h4>
 <div class="space-y-2 text-[#6e6e73]">
-<a class="block hover:underline" href="/about.html">品牌故事</a>
-<a class="block hover:underline" href="/privacy.html">隐私政策</a>
-<a class="block hover:underline" href="/terms.html">使用条款</a>
+<a class="block hover:underline" href="./about.html">品牌故事</a>
+<a class="block hover:underline" href="./privacy.html">隐私政策</a>
+<a class="block hover:underline" href="./terms.html">使用条款</a>
 </div>
 </div>
 </div>
@@ -226,9 +226,9 @@
 <div class="space-y-2 md:space-y-0 md:flex md:items-center md:gap-6">
 <p>Copyright &copy; 2026 Aria Magic Voice. 保留所有权利。</p>
 <div class="flex flex-wrap items-center gap-x-4 gap-y-1">
-<a class="hover:underline" href="/privacy.html">隐私政策</a>
-<a class="hover:underline" href="/terms.html">使用条款</a>
-<a class="hover:underline" href="/refund.html">退款政策</a>
+<a class="hover:underline" href="./privacy.html">隐私政策</a>
+<a class="hover:underline" href="./terms.html">使用条款</a>
+<a class="hover:underline" href="./refund.html">退款政策</a>
 </div>
 </div>
 </div>

@@ -1,17 +1,53 @@
 <!DOCTYPE html>
+<!-- Content version: v1.0.7 · 2026-07-13 00:13:06 CST · by codex-main + independent blue deputy review · previous v1.0.6 archived under history/WebsiteStaging_v1.0.6_before_channel_split_v1.0.7_20260713_001306_CST_by-codex-main/ -->
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aria Magic Voice — 隐私优先 · 本地识别</title>
-<meta name="description" content="Aria Magic Voice — Mac 原生本地 AI 语音输入工具。100% 离线识别，不上传云端，隐私优先。支持中英文混合输入。">
-<meta property="og:title" content="Aria Magic Voice — 隐私优先 · 本地识别">
-<meta property="og:description" content="Mac 原生本地 AI 语音输入工具。100% 离线识别，不上传云端，隐私优先。">
+<title>Aria Input Method — AI-powered input method for Mac | Aria Magic Voice</title>
+<meta name="description" content="Aria Input Method (Aria Magic Voice) is an AI-powered input method for macOS: on-device voice input, pinyin typing, and smart correction. Download free, or unlock Pro with a one-time purchase.">
+<meta property="og:title" content="Aria Input Method — AI-powered input method for Mac">
+<meta property="og:description" content="On-device voice input, pinyin typing, and smart correction for macOS. Download free, or unlock Pro with a one-time purchase.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ariamagicvoice.com">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Aria Magic Voice",
+      "operatingSystem": "macOS",
+      "applicationCategory": "UtilitiesApplication",
+      "description": "A macOS AI input method that combines voice input, pinyin typing, and local correction learning. The Free download candidate and separate Pro website-license and Apple-IAP purchase paths are not available yet."
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is Aria Magic Voice an input method?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Aria Magic Voice is a complete independent input method for macOS, combining voice input, pinyin typing, on-device learning, and optional AI polish."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What does the User Experience Improvement Program upload?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The User Experience Improvement Program can be managed in settings. It processes isolated correction pairs and quality signals, and does not upload original recordings or complete source text."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Noto+Sans+SC:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/regular/style.css">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -20,6 +56,7 @@
   --primary: #0071E3;
   --primary-light: #4da3ff;
   --primary-dark: #0058b0;
+  --success: #188038;
   --bg: #F5F5F7;
   --bg-warm: #FAFAFA;
   --text-main: #1D1D1F;
@@ -36,6 +73,8 @@
   --radius-pill: 100px;
 }
 
+.is-disabled { opacity: .58; cursor: not-allowed; pointer-events: none; }
+
 html { scroll-behavior: smooth; }
 
 body {
@@ -45,6 +84,12 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid rgba(0, 113, 227, 0.38);
+  outline-offset: 3px;
 }
 
 /* === AMBIENT BACKGROUND === */
@@ -88,7 +133,8 @@ body {
   left: 50%;
   transform: translateX(-50%);
   z-index: 100;
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
   justify-content: space-between;
   width: min(92%, 1100px);
@@ -124,6 +170,15 @@ body {
   display: flex;
   align-items: center;
   gap: 16px;
+  justify-self: end;
+}
+
+.nav-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  justify-self: center;
 }
 
 .nav-links {
@@ -170,10 +225,6 @@ body {
   color: #fff;
 }
 
-.nav-lang-mobile {
-  display: none;
-}
-
 .nav-cta {
   display: inline-flex;
   align-items: center;
@@ -201,11 +252,11 @@ section { padding: 100px 24px; }
 
 /* === HERO === */
 .hero {
-  min-height: 100vh;
+  min-height: auto;
   display: flex;
   align-items: center;
-  padding-top: 120px;
-  padding-bottom: 80px;
+  padding-top: 128px;
+  padding-bottom: 56px;
 }
 
 .hero-grid {
@@ -230,10 +281,10 @@ section { padding: 100px 24px; }
 }
 
 .hero-title {
-  font-size: clamp(36px, 5vw, 52px);
+  font-size: 44px;
   font-weight: 800;
   line-height: 1.15;
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
   margin-bottom: 20px;
 }
 
@@ -321,6 +372,8 @@ section { padding: 100px 24px; }
 }
 
 .demo-brand i { color: var(--primary); }
+.icon-primary { color: var(--primary); }
+.reveal-delay-2 { animation-delay: 0.2s; }
 
 .demo-status {
   display: flex;
@@ -378,6 +431,50 @@ section { padding: 100px 24px; }
   background: rgba(255, 255, 255, 0.5);
 }
 
+.ime-surface {
+  display: grid;
+  gap: 16px;
+}
+
+.ime-window {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(0, 113, 227, 0.1);
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
+}
+
+.ime-label {
+  color: var(--text-light);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.ime-field {
+  min-height: 104px;
+  color: var(--text-main);
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+.ime-draft {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 5px;
+  text-decoration-color: rgba(0, 113, 227, 0.45);
+}
+
+.ime-commit {
+  color: var(--text-main);
+}
+
+.ime-caret {
+  color: var(--primary);
+  animation: blink 1s infinite;
+}
+
 /* Floating tags */
 .hero-tags {
   display: flex;
@@ -417,10 +514,10 @@ section { padding: 100px 24px; }
 }
 
 .soul-title {
-  font-size: clamp(28px, 4vw, 44px);
+  font-size: 44px;
   font-weight: 800;
   line-height: 1.2;
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
   margin-bottom: 16px;
 }
 
@@ -493,10 +590,10 @@ section { padding: 100px 24px; }
 }
 
 .section-title {
-  font-size: clamp(28px, 4vw, 40px);
+  font-size: 40px;
   font-weight: 800;
   line-height: 1.2;
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
   margin-bottom: 16px;
 }
 
@@ -505,6 +602,25 @@ section { padding: 100px 24px; }
   color: var(--text-muted);
   margin-bottom: 60px;
   max-width: 500px;
+}
+
+.how-section {
+  background: linear-gradient(180deg, var(--bg) 0%, rgba(0, 113, 227, 0.02) 50%, var(--bg) 100%);
+}
+
+.step-listening-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 4px;
+  background: var(--primary);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+.inline-caret {
+  color: var(--primary);
+  animation: blink 1s infinite;
 }
 
 .steps {
@@ -623,110 +739,293 @@ section { padding: 100px 24px; }
 /* === PRICING === */
 .pricing-section { text-align: center; }
 
+.pricing-intro {
+  max-width: 640px;
+  margin: 0 auto;
+  color: var(--text-muted);
+  font-size: 17px;
+}
+
 .pricing-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
-  max-width: 720px;
-  margin: 60px auto 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 20px;
+  max-width: 1040px;
+  margin: 52px auto 0;
 }
 
 .pricing-card {
-  border-radius: var(--radius-lg);
-  padding: 40px 32px;
+  display: flex;
+  flex-direction: column;
+  min-height: 604px;
+  padding: 36px 32px 30px;
   text-align: left;
-  transition: transform 0.3s ease;
+  background: rgba(255, 255, 255, 0.90);
+  border: 1px solid rgba(29, 29, 31, 0.12);
+  border-radius: 8px;
+  box-shadow: 0 10px 32px rgba(29, 29, 31, 0.05);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.pricing-card:hover { transform: translateY(-4px); }
+.pricing-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 38px rgba(29, 29, 31, 0.08);
+}
 
-.pricing-region {
-  font-size: 14px;
-  font-weight: 600;
+.pricing-plan-name {
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text-main);
+}
+
+.pricing-plan-desc {
+  min-height: 54px;
+  margin-top: 8px;
   color: var(--text-muted);
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  font-size: 16px;
+  line-height: 1.55;
 }
 
 .pricing-price {
+  min-height: 78px;
+  margin-top: 42px;
   display: flex;
-  align-items: baseline;
-  gap: 6px;
-  margin-bottom: 8px;
+  align-items: flex-end;
 }
 
-.pricing-currency {
-  font-size: 24px;
-  font-weight: 700;
-  color: var(--text-main);
+.pricing-price-local {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
 }
 
 .pricing-amount {
-  font-size: 52px;
-  font-weight: 800;
   color: var(--text-main);
-  letter-spacing: -0.03em;
+  font-size: 50px;
+  font-weight: 600;
   line-height: 1;
 }
 
-.pricing-note {
-  font-size: 14px;
+.pricing-period {
   color: var(--text-muted);
-  margin-bottom: 28px;
-}
-
-.pricing-features {
-  list-style: none;
-  margin-bottom: 32px;
-}
-
-.pricing-features li {
   font-size: 15px;
-  color: var(--text-main);
-  padding: 9px 0;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  line-height: 1.6;
   font-weight: 500;
 }
 
-.pricing-features li::before {
-  content: '✓';
-  color: var(--primary);
-  font-weight: 700;
+.pricing-note {
+  min-height: 24px;
+  margin-top: 8px;
+  color: var(--text-muted);
   font-size: 14px;
 }
 
 .pricing-btn {
-  display: block;
+  display: flex;
   width: 100%;
-  padding: 14px;
-  text-align: center;
+  min-height: 50px;
+  margin-top: 22px;
+  padding: 12px 18px;
+  align-items: center;
+  justify-content: center;
   border-radius: var(--radius-pill);
+  font-family: inherit;
   font-size: 15px;
   font-weight: 600;
+  text-align: center;
   text-decoration: none;
-  transition: all 0.25s ease;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pricing-btn-secondary {
+  color: var(--text-main);
+  background: #fff;
+  border: 1px solid rgba(29, 29, 31, 0.28);
+}
+
+.pricing-btn-secondary:hover {
+  background: #f7f7f8;
+  border-color: rgba(29, 29, 31, 0.48);
 }
 
 .pricing-btn-primary {
-  background: var(--primary);
   color: #fff;
+  background: var(--primary);
+  border: 1px solid var(--primary);
 }
 
 .pricing-btn-primary:hover {
   background: var(--primary-dark);
-  box-shadow: 0 4px 16px rgba(0, 113, 227, 0.3);
+  border-color: var(--primary-dark);
+  box-shadow: 0 4px 16px rgba(0, 113, 227, 0.24);
+}
+
+.pricing-feature-lead {
+  min-height: 52px;
+  margin-top: 34px;
+  color: var(--text-main);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.55;
+}
+
+.pricing-divider {
+  height: 1px;
+  margin: 0 0 14px;
+  background: rgba(29, 29, 31, 0.10);
+}
+
+.pricing-features {
+  flex: 1;
+  list-style: none;
+}
+
+.pricing-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  padding: 8px 0;
+  color: var(--text-main);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.55;
+}
+
+.pricing-features li::before {
+  content: '✓';
+  flex: 0 0 auto;
+  color: var(--success);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.45;
 }
 
 .pricing-sub {
-  font-size: 12px;
+  min-height: 20px;
+  margin-top: 18px;
   color: var(--text-light);
-  margin-top: 12px;
+  font-size: 12px;
   text-align: center;
+}
+
+.plan-comparison {
+  max-width: 1040px;
+  margin: 82px auto 0;
+  text-align: left;
+}
+
+.comparison-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 26px;
+}
+
+.comparison-title {
+  color: var(--text-main);
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.comparison-note {
+  max-width: 430px;
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.6;
+  text-align: right;
+}
+
+.comparison-table {
+  width: 100%;
+  overflow: clip;
+  border-spacing: 0;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(29, 29, 31, 0.12);
+  border-radius: 12px;
+  box-shadow: 0 12px 34px rgba(29, 29, 31, 0.045);
+}
+
+.comparison-row {
+  display: grid;
+  grid-template-columns: minmax(280px, 1.62fr) repeat(2, minmax(0, 1fr));
+  border-bottom: 1px solid rgba(29, 29, 31, 0.09);
+  transition: background 0.18s ease;
+}
+
+.comparison-row:last-child { border-bottom: 0; }
+.comparison-row:not(.comparison-head):hover { background: rgba(0, 113, 227, 0.035); }
+
+.comparison-cell {
+  min-width: 0;
+  padding: 18px 20px;
+  color: var(--text-main);
+  font-size: 15px;
+  font-weight: inherit;
+  line-height: 1.45;
+  text-align: left;
+}
+
+.comparison-cell + .comparison-cell {
+  border-left: 1px solid rgba(29, 29, 31, 0.08);
+  text-align: center;
+}
+
+.comparison-head {
+  position: sticky;
+  top: 76px;
+  z-index: 2;
+  background: rgba(249, 250, 253, 0.96);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.comparison-head .comparison-cell {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.comparison-feature {
+  font-weight: 600;
+}
+
+.comparison-feature small {
+  display: block;
+  margin-top: 4px;
+  color: var(--text-light);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.comparison-mark {
+  display: inline-flex;
+  min-width: 28px;
+  min-height: 28px;
+  align-items: center;
+  justify-content: center;
+  color: var(--success);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.comparison-mark.is-empty { color: rgba(29, 29, 31, 0.32); }
+.comparison-text { color: var(--text-muted); font-size: 13px; font-weight: 600; }
+.comparison-mobile-plan { display: none; }
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* === FAQ === */
@@ -734,6 +1033,8 @@ section { padding: 100px 24px; }
   max-width: 680px;
   margin: 60px auto 0;
 }
+
+.faq-heading { text-align: center; }
 
 .faq-item {
   border-radius: var(--radius-md);
@@ -865,8 +1166,20 @@ section { padding: 100px 24px; }
 .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
 .hamburger.active span:nth-child(2) { opacity: 0; }
 .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+.nav-cta-mobile-label { display: none; }
 
 @media (max-width: 768px) {
+  .nav {
+    grid-template-columns: max-content auto max-content;
+    column-gap: 6px;
+    padding: 0 10px;
+  }
+  .nav-brand { gap: 5px; font-size: 14px; }
+  .nav-brand i { font-size: 17px; }
+  .nav-center { gap: 0; }
+  .nav-right { gap: 8px; }
+  .nav-cta { display: none; }
+  .site-lang-btn { padding: 4px 6px; font-size: 11px; }
   .hamburger { display: flex; }
   .nav-links {
     display: none;
@@ -885,16 +1198,62 @@ section { padding: 100px 24px; }
     border: 1px solid var(--glass-border);
   }
   .nav-links.open { display: flex; }
-  .site-lang-desktop { display: none; }
-  .nav-lang-mobile {
-    display: flex;
-    justify-content: center;
-  }
   .hero-grid { grid-template-columns: 1fr; gap: 24px; max-width: 100%; }
   .features-grid { grid-template-columns: 1fr; }
   .steps { grid-template-columns: 1fr; }
-  .pricing-grid { grid-template-columns: 1fr; }
-  .hero { min-height: auto; padding-top: 100px; }
+  .pricing-grid { grid-template-columns: 1fr; gap: 16px; margin-top: 36px; }
+  .pricing-card { min-height: 0; padding: 30px 24px 26px; }
+  .pricing-plan-name { font-size: 30px; }
+  .pricing-plan-desc { min-height: 0; }
+  .pricing-price { min-height: 0; margin-top: 34px; }
+  .pricing-amount { font-size: 44px; }
+  .pricing-feature-lead { min-height: 0; }
+  .plan-comparison { margin-top: 56px; }
+  .comparison-heading { align-items: flex-start; flex-direction: column; gap: 10px; }
+  .comparison-title { font-size: 26px; }
+  .comparison-note { text-align: left; }
+  .comparison-table { overflow: visible; background: transparent; border: 0; border-radius: 0; box-shadow: none; }
+  .comparison-head { display: none; }
+  .comparison-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-bottom: 12px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.86);
+    border: 1px solid rgba(29, 29, 31, 0.11);
+    border-radius: 10px;
+  }
+  .comparison-row:last-child { border-bottom: 1px solid rgba(29, 29, 31, 0.11); }
+  .comparison-feature {
+    grid-column: 1 / -1;
+    padding: 16px 16px 12px;
+    border-bottom: 1px solid rgba(29, 29, 31, 0.08);
+  }
+  .comparison-cell:not(.comparison-feature) { padding: 12px 5px 14px; }
+  .comparison-cell + .comparison-cell { border-left: 1px solid rgba(29, 29, 31, 0.07); }
+  .comparison-mobile-plan {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--text-light);
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .comparison-text { font-size: 11px; }
+  .hero { min-height: auto; padding-top: 100px; padding-bottom: 44px; }
+  .hero-title { font-size: 34px; }
+  #features { padding-top: 44px; }
+  .soul-title, .section-title { font-size: 28px; }
+  .hero-actions { flex-direction: column; align-items: flex-start; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal { opacity: 1; transform: none; }
 }
 </style>
 </head>
@@ -904,129 +1263,80 @@ section { padding: 100px 24px; }
 
 <!-- NAV -->
   <header class="nav glass">
-  <a href="/" class="nav-brand">
+  <a href="./index.html" class="nav-brand">
     <i class="ph ph-sparkle"></i>
     Aria <span class="brand-magic">Magic</span> Voice
   </a>
-  <div class="nav-right">
-<button class="hamburger" id="hamburger" aria-label="打开菜单" onclick="document.getElementById('navLinks').classList.toggle('open');this.classList.toggle('active')">
-      <span></span><span></span><span></span>
-    </button>
-      <ul class="nav-links" id="navLinks">
+  <nav class="nav-center" aria-label="主菜单">
+    <ul class="nav-links" id="navLinks">
         <li><a href="#features"><span data-lang="zh">功能</span><span data-lang="en" style="display:none">Features</span></a></li>
         <li><a href="#how"><span data-lang="zh">使用方式</span><span data-lang="en" style="display:none">How it works</span></a></li>
         <li><a href="#pricing"><span data-lang="zh">价格</span><span data-lang="en" style="display:none">Pricing</span></a></li>
         <li><a href="#faq"><span data-lang="zh">常见问题</span><span data-lang="en" style="display:none">FAQ</span></a></li>
-        <li class="nav-lang-mobile">
-          <div class="site-lang-toggle" aria-label="语言切换">
-            <button class="site-lang-btn" onclick="setSiteLang('zh')" type="button">中文</button>
-            <button class="site-lang-btn" onclick="setSiteLang('en')" type="button">EN</button>
-          </div>
-        </li>
-      </ul>
-      <div class="site-lang-toggle site-lang-desktop" aria-label="语言切换">
-        <button class="site-lang-btn" onclick="setSiteLang('zh')" type="button">中文</button>
-        <button class="site-lang-btn" onclick="setSiteLang('en')" type="button">EN</button>
-      </div>
-      <a href="https://downloads.ariamagicvoice.com/AriaMagicVoice_2.2.0.dmg?v=87.24-004655" class="nav-cta">
-        <span data-lang="zh">立即下载</span><span data-lang="en" style="display:none">Download</span>
-      </a>
+    </ul>
+    <div class="site-lang-toggle" role="group" aria-label="语言切换">
+      <button class="site-lang-btn" onclick="setSiteLang('zh')" type="button">中文</button>
+      <button class="site-lang-btn" onclick="setSiteLang('en')" type="button">EN</button>
     </div>
+  </nav>
+  <div class="nav-right">
+    <button class="hamburger" id="hamburger" type="button" aria-label="打开菜单" aria-controls="navLinks" aria-expanded="false" onclick="toggleMobileMenu(this)">
+      <span></span><span></span><span></span>
+    </button>
+    <a class="nav-cta" href="#pricing"><span data-lang="zh">立即获取</span><span data-lang="en" style="display:none">Get Aria</span></a>
+  </div>
   </header>
 
-<!-- HERO (First Screen: Privacy-first messaging) -->
+  <!-- HERO (First Screen: input-method positioning) -->
 <section class="hero">
   <div class="container">
     <div class="hero-grid">
       <div class="reveal">
           <div class="hero-badge glass">
-            <i class="ph ph-shield-check" style="color:var(--primary)"></i>
-            <span data-lang="zh">macOS 本地 AI 语音转文字</span>
-            <span data-lang="en" style="display:none">Local AI speech to text for macOS</span>
+            <i class="ph ph-shield-check icon-primary"></i>
+            <span data-lang="zh">macOS 输入法 · 语音输入 + 拼音打字</span>
+            <span data-lang="en" style="display:none">macOS input method · voice + typing</span>
           </div>
           <h1 class="hero-title" data-lang="zh">
-            隐私优先，<br><span class="highlight">本地识别。</span><br>
-            <span style="font-size:0.72em; font-weight:700; color:var(--text-muted);">敏感信息，不上传云端。</span>
+            Aria Magic Voice<br><span class="highlight">是新一代 AI 输入法。</span>
           </h1>
           <h1 class="hero-title" data-lang="en" style="display:none">
-            Privacy first,<br><span class="highlight">local recognition.</span><br>
-            <span style="font-size:0.72em; font-weight:700; color:var(--text-muted);">Sensitive data never leaves your Mac.</span>
+            Aria Magic Voice<br><span class="highlight">is a next-generation AI input method.</span>
           </h1>
-          <p class="hero-subtitle" data-lang="zh">
-            双击热键，开口说话，文字自动出现在光标处。<br>
-            完全离线，完全隐私。专为 Mac 打造。
-          </p>
-          <p class="hero-subtitle" data-lang="en" style="display:none">
-            Double-tap your hotkey, speak naturally, and text appears at the cursor.<br>
-            Fully offline and privacy-first, built for Mac.
-          </p>
           <div class="hero-actions">
-            <a href="https://downloads.ariamagicvoice.com/AriaMagicVoice_2.2.0.dmg?v=87.24-004655" class="btn-primary">
+            <a class="btn-primary" href="https://downloads.ariamagicvoice.com/AriaMagicVoice_2.2.0.dmg?v=87.24-004655">
               <i class="ph ph-download-simple"></i>
-              <span data-lang="zh">立即下载</span><span data-lang="en" style="display:none">Download installer</span>
-            </a>
-            <a href="#pricing" class="btn-secondary">
-              <span data-lang="zh">购买授权 →</span><span data-lang="en" style="display:none">Buy license →</span>
+              <span data-lang="zh">免费下载 Mac 版</span><span data-lang="en" style="display:none">Download for Mac</span>
             </a>
           </div>
       </div>
 
-      <!-- Right: Demo Card -->
-      <div class="hero-card glass reveal" style="animation-delay:0.2s">
+      <!-- Right: Input method demo -->
+      <div class="hero-card glass reveal reveal-delay-2">
         <div class="demo-header">
           <div class="demo-brand">
-            <i class="ph ph-sparkle"></i> Aria Magic Voice
+            <i class="ph ph-keyboard"></i> Aria Magic Voice IME
           </div>
           <div class="demo-status">
             <span class="dot"></span>
-            <span data-lang="zh">正在聆听…</span><span data-lang="en" style="display:none">Listening…</span>
+            <span data-lang="zh">Aria 输入法已启用</span><span data-lang="en" style="display:none">Input source active</span>
           </div>
         </div>
-
-        <!-- Waveform -->
-        <div class="waveform" id="waveform"></div>
-
-        <!-- Transcript -->
-        <div class="demo-transcript">
-          <span style="color:var(--text-muted); font-size:12px; display:block; margin-bottom:6px;" data-lang="zh">中文 / 粤语 / 日语</span>
-          <span style="color:var(--text-muted); font-size:12px; display:none; margin-bottom:6px;" data-lang="en">Mandarin / Cantonese / Japanese</span>
-          <span data-lang="zh">今天下午三点和团队开会，讨论第二季度营销计划，记得带上上周的数据…</span>
-          <span data-lang="en" style="display:none">Team meeting at three this afternoon. Bring last week's data for the Q2 marketing plan…</span>
-        </div>
-
-        <!-- Floating Tags -->
-        <div class="hero-tags">
-          <span class="hero-tag tag-blue glass">
-            <i class="ph ph-translate"></i>
-            <span data-lang="zh">多语言识别</span><span data-lang="en" style="display:none">Multilingual recognition</span>
-          </span>
-          <span class="hero-tag tag-purple glass">
-            <i class="ph ph-keyboard"></i>
-            <span data-lang="zh">双击热键唤起</span><span data-lang="en" style="display:none">Double-tap hotkey</span>
-          </span>
-          <span class="hero-tag tag-green glass">
-            <i class="ph ph-wifi-slash"></i>
-            <span data-lang="zh">完全离线</span><span data-lang="en" style="display:none">Fully offline</span>
-          </span>
+        <div class="ime-surface">
+          <div class="ime-window">
+            <div class="ime-label" data-lang="zh">当前输入框</div>
+            <div class="ime-label" data-lang="en" style="display:none">Current text field</div>
+            <div class="ime-field">
+              <span class="ime-commit" data-lang="zh">今天下午三点和团队开会，</span>
+              <span class="ime-commit" data-lang="en" style="display:none">Team meeting at three this afternoon, </span>
+              <span class="ime-draft" data-lang="zh">讨论第二季度营销计划</span>
+              <span class="ime-draft" data-lang="en" style="display:none">bring last week's data for Q2 planning</span>
+              <span class="ime-caret">|</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- SECOND SCREEN: Soul / Tagline -->
-<section class="soul-section reveal">
-  <div class="container">
-    <h2 class="soul-title" data-lang="zh">让声音，成为文字的<span class="highlight">独奏</span>。</h2>
-    <h2 class="soul-title" data-lang="en" style="display:none">Let your voice become a written <span class="highlight">solo</span>.</h2>
-    <p class="soul-subtitle" data-lang="zh">
-      Aria，灵感源自音乐中最动人的独唱。<br>
-      说话速度约 250 字/分钟，是打字的 3–5 倍。省下的每一分钟，都是钱。
-    </p>
-    <p class="soul-subtitle" data-lang="en" style="display:none">
-      Aria is named after the most expressive solo in music.<br>
-      Speaking is often 3-5 times faster than typing. Every minute saved matters.
-    </p>
   </div>
 </section>
 
@@ -1034,68 +1344,68 @@ section { padding: 100px 24px; }
 <section id="features">
   <div class="container">
     <div class="section-label"><i class="ph ph-star-four"></i> <span data-lang="zh">核心功能</span><span data-lang="en" style="display:none">Core features</span></div>
-    <h2 class="section-title"><span data-lang="zh">为什么选择 Magic Voice</span><span data-lang="en" style="display:none">Why choose Magic Voice</span></h2>
+    <h2 class="section-title"><span data-lang="zh">Aria Magic Voice 输入法的核心功能亮点</span><span data-lang="en" style="display:none">Core highlights of the Aria Magic Voice input method</span></h2>
     <div class="features-grid">
       <div class="feature-card glass reveal">
         <div class="feature-icon blue"><i class="ph ph-translate"></i></div>
-        <div class="feature-title"><span data-lang="zh">多语言识别，一样准确</span><span data-lang="en" style="display:none">Accurate in multiple languages</span></div>
-        <div class="feature-desc"><span data-lang="zh">支持多语言语音识别，适合商务沟通、跨国协作和会议记录。按你习惯的方式说话，Aria Magic Voice 都能听懂。</span><span data-lang="en" style="display:none">Recognize multiple languages for business notes, international collaboration, and meetings. Speak naturally, and Aria Magic Voice keeps up.</span></div>
+        <div class="feature-title"><span data-lang="zh">语音输入 + 拼音打字</span><span data-lang="en" style="display:none">Voice input + pinyin typing</span></div>
+        <div class="feature-desc"><span data-lang="zh">语音输入和拼音打字相互补充。切到 Aria 输入法后，可以单击左 Ctrl 说话，也可以正常打字。</span><span data-lang="en" style="display:none">Voice input and pinyin typing complement each other. Switch to Aria, tap Left Ctrl to speak, or type normally.</span></div>
       </div>
       <div class="feature-card glass reveal">
         <div class="feature-icon green"><i class="ph ph-lock-simple"></i></div>
-        <div class="feature-title"><span data-lang="zh">没有云端，没有上传</span><span data-lang="en" style="display:none">No cloud, no uploads</span></div>
-        <div class="feature-desc"><span data-lang="zh">本地运行，又快又安全。即使断网，也能正常使用。你的声音数据，始终只保留在你的 Mac 上。</span><span data-lang="en" style="display:none">Runs locally on your Mac, fast and private. It works even offline, and your voice data stays on your device.</span></div>
+        <div class="feature-title"><span data-lang="zh">语音聊天数据不上传</span><span data-lang="en" style="display:none">Voice and chat data are not uploaded</span></div>
+        <div class="feature-desc"><span data-lang="zh">原始录音和完整聊天内容只在本机处理，不上传。体验改进计划可在设置中管理，只处理隔离纠错对与质量信号。</span><span data-lang="en" style="display:none">Original recordings and complete chat content are processed only on your Mac and are not uploaded. The User Experience Improvement Program can be managed in Settings and only processes isolated correction pairs and quality signals.</span></div>
       </div>
       <div class="feature-card glass reveal">
         <div class="feature-icon purple"><i class="ph ph-brain"></i></div>
-        <div class="feature-title"><span data-lang="zh">越用越准，懂你的习惯</span><span data-lang="en" style="display:none">Learns your speaking style</span></div>
-        <div class="feature-desc"><span data-lang="zh">内置本地学习引擎，逐步适应你的用词和发音方式。说得越多，识别越准。所有学习数据都保留在本地。</span><span data-lang="en" style="display:none">The local learning engine adapts to your vocabulary and pronunciation over time. The more you use it, the better it fits you.</span></div>
+        <div class="feature-title"><span data-lang="zh">超级学习功能</span><span data-lang="en" style="display:none">Super learning</span></div>
+        <div class="feature-desc"><span data-lang="zh">当你把错字改成正确写法，Aria 会在本地学习这类修改。敏感数字、网址、路径、账号和代码不会盲目入库。</span><span data-lang="en" style="display:none">When you correct text, Aria can learn that edit locally. Sensitive numbers, URLs, paths, accounts, and code are protected by safety rules.</span></div>
       </div>
       <div class="feature-card glass reveal">
         <div class="feature-icon orange"><i class="ph ph-timer"></i></div>
-        <div class="feature-title"><span data-lang="zh">节省时间，减少打字</span><span data-lang="en" style="display:none">Save time, type less</span></div>
-        <div class="feature-desc"><span data-lang="zh">说话通常比打字快 3 到 5 倍。实时识别，即说即得。省下的每一分钟，都可以用在更重要的事情上。</span><span data-lang="en" style="display:none">Speaking is often 3-5 times faster than typing. Dictate in real time and spend your attention where it matters.</span></div>
+        <div class="feature-title"><span data-lang="zh">AI 自动润色，口语表达更流畅</span><span data-lang="en" style="display:none">AI polish for smoother wording</span></div>
+        <div class="feature-desc"><span data-lang="zh">需要时开启自动润色，把口语表达变得更流畅；不开时就保持原始识别结果，适合记录、代码和敏感场景。</span><span data-lang="en" style="display:none">Turn on polish when you want smoother phrasing, or keep it off for raw transcripts, code, and sensitive work.</span></div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- HOW IT WORKS -->
-<section id="how" style="background: linear-gradient(180deg, var(--bg) 0%, rgba(0,113,227,0.02) 50%, var(--bg) 100%);">
+<section id="how" class="how-section">
   <div class="container">
     <div class="section-label"><i class="ph ph-lightning"></i> <span data-lang="zh">使用方式</span><span data-lang="en" style="display:none">How it works</span></div>
-    <h2 class="section-title"><span data-lang="zh">敲两下，开始说话。</span><span data-lang="en" style="display:none">Double-tap and start speaking.</span></h2>
-    <p class="section-subtitle"><span data-lang="zh">简单三步，即刻上手。</span><span data-lang="en" style="display:none">Three simple steps to get started.</span></p>
+    <h2 class="section-title"><span data-lang="zh">单击左 Ctrl，开始；再单击，结束。</span><span data-lang="en" style="display:none">Tap Left Ctrl to start. Tap again to finish.</span></h2>
+    <p class="section-subtitle"><span data-lang="zh">输入法版的重点是少一步：不复制、不粘贴、不找窗口。</span><span data-lang="en" style="display:none">The input method edition removes a step: no copy, no paste, no hunting for a panel.</span></p>
 
     <div class="steps">
       <div class="step-card glass reveal">
         <div class="step-num">01</div>
-        <div class="step-title"><span data-lang="zh">双击热键</span><span data-lang="en" style="display:none">Double-tap the hotkey</span></div>
-        <div class="step-desc"><span data-lang="zh">在任意应用中，双击热键唤起 Aria Magic Voice 录音窗口。</span><span data-lang="en" style="display:none">In any app, double-tap your hotkey to open the Aria Magic Voice recording window.</span></div>
+        <div class="step-title"><span data-lang="zh">切到 Aria 输入法</span><span data-lang="en" style="display:none">Switch to Aria input source</span></div>
+        <div class="step-desc"><span data-lang="zh">在系统输入法菜单里选择 Aria Magic Voice，然后照常进入任意输入框。</span><span data-lang="en" style="display:none">Choose Aria Magic Voice from the macOS input menu, then focus any text field as usual.</span></div>
         <div class="step-demo">
-          <span data-lang="zh">双击</span><span data-lang="en" style="display:none">Double-tap</span> <span class="kbd">⌃ Control</span> <span data-lang="zh">键</span><span data-lang="en" style="display:none">key</span>
+          <span data-lang="zh">菜单栏输入源</span><span data-lang="en" style="display:none">Input source menu</span>
         </div>
       </div>
       <div class="step-card glass reveal">
         <div class="step-num">02</div>
-        <div class="step-title"><span data-lang="zh">开口说话</span><span data-lang="en" style="display:none">Speak naturally</span></div>
-        <div class="step-desc"><span data-lang="zh">对着 Mac 说话，实时显示识别内容，多语言内容也能准确识别。</span><span data-lang="en" style="display:none">Speak to your Mac and see the transcript appear in real time, even across multiple languages.</span></div>
+        <div class="step-title"><span data-lang="zh">单击左 Ctrl 说话</span><span data-lang="en" style="display:none">Tap Left Ctrl and speak</span></div>
+        <div class="step-desc"><span data-lang="zh">一句话开始录音，实时草稿以下划线显示；再次单击左 Ctrl 结束。</span><span data-lang="en" style="display:none">A single tap starts recording. Live draft text appears underlined. Tap Left Ctrl again to finish.</span></div>
         <div class="step-demo">
-          <span class="dot" style="display:inline-block;width:6px;height:6px;background:var(--primary);border-radius:50%;margin-right:4px;animation:pulse 2s infinite"></span>
+          <span class="step-listening-dot"></span>
           <span data-lang="zh">正在聆听…</span><span data-lang="en" style="display:none">Listening…</span>
         </div>
       </div>
       <div class="step-card glass reveal">
         <div class="step-num">03</div>
-        <div class="step-title"><span data-lang="zh">文字即刻出现</span><span data-lang="en" style="display:none">Text appears instantly</span></div>
-        <div class="step-desc"><span data-lang="zh">说完后按回车插入到当前光标位置，连贯、干脆、利落。</span><span data-lang="en" style="display:none">Press Return when you finish, and the text is inserted right where your cursor is.</span></div>
+        <div class="step-title"><span data-lang="zh">文字自动上屏</span><span data-lang="en" style="display:none">Text commits in place</span></div>
+        <div class="step-desc"><span data-lang="zh">最终文本直接进入当前光标位置，像普通输入法候选上屏一样干净。</span><span data-lang="en" style="display:none">Final text commits at the cursor, like a normal input method candidate.</span></div>
         <div class="step-demo">
-          <span data-lang="zh">让声音成为文字的独奏</span><span data-lang="en" style="display:none">Let voice become text</span><span style="animation:blink 1s infinite;color:var(--primary)">|</span>
+          <span data-lang="zh">ASR API 不会被拆成 A S R A P I</span><span data-lang="en" style="display:none">ASR API stays readable</span><span class="inline-caret">|</span>
         </div>
       </div>
     </div>
 
-    <a href="/guide.html" class="guide-cta glass reveal">
+    <a href="./guide.html" class="guide-cta glass reveal">
       <div class="guide-cta-num">04</div>
       <div class="guide-cta-title"><span data-lang="zh">需要详细教程？查看完整安装与使用指南</span><span data-lang="en" style="display:none">Need details? Open the full installation and usage guide</span></div>
       <div class="guide-cta-arrow"><i class="ph ph-arrow-right"></i></div>
@@ -1103,54 +1413,124 @@ section { padding: 100px 24px; }
   </div>
 </section>
 
-<style>
-@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-</style>
-
 <!-- PRICING -->
 <section id="pricing" class="pricing-section">
   <div class="container">
     <div class="section-label"><i class="ph ph-tag"></i> <span data-lang="zh">价格</span><span data-lang="en" style="display:none">Pricing</span></div>
-    <h2 class="section-title"><span data-lang="zh">一次购买，持续使用。</span><span data-lang="en" style="display:none">One purchase, ongoing use.</span></h2>
-    <p style="color:var(--text-muted); font-size:16px;"><span data-lang="zh">无订阅，无隐藏费用。</span><span data-lang="en" style="display:none">No subscription. No hidden fees.</span></p>
+    <h2 class="section-title"><span data-lang="zh">选择适合你的版本。</span><span data-lang="en" style="display:none">Choose the plan that fits.</span></h2>
+    <p class="pricing-intro"><span data-lang="zh">免费下载即可开始使用；Pro 一次性买断，无订阅。</span><span data-lang="en" style="display:none">Download free and start typing. Unlock Pro with a one-time purchase — no subscription.</span></p>
 
     <div class="pricing-grid">
-      <!-- CN -->
-      <div class="pricing-card glass reveal">
-        <div class="pricing-region">🇨🇳 <span data-lang="zh">中国大陆</span><span data-lang="en" style="display:none">Mainland China</span></div>
+      <!-- Free -->
+      <div class="pricing-card reveal">
+        <h3 class="pricing-plan-name"><span data-lang="zh">免费版</span><span data-lang="en" style="display:none">Free</span></h3>
+        <p class="pricing-plan-desc"><span data-lang="zh">完整、独立的 AI 输入法基础能力</span><span data-lang="en" style="display:none">The complete essentials of an independent AI input method</span></p>
         <div class="pricing-price">
-          <span class="pricing-currency">¥</span>
-          <span class="pricing-amount">268</span>
+          <span class="pricing-price-local" data-lang="zh"><span class="pricing-amount">¥0</span></span>
+          <span class="pricing-price-local" data-lang="en" style="display:none"><span class="pricing-amount">US$0</span></span>
         </div>
-        <div class="pricing-note"><span data-lang="zh">一次购买，v2.x 版本内永久可用</span><span data-lang="en" style="display:none">One-time purchase, valid within v2.x</span></div>
+        <div class="pricing-note"><span data-lang="zh">永久免费</span><span data-lang="en" style="display:none">Free forever</span></div>
+        <a class="pricing-btn pricing-btn-secondary" href="https://downloads.ariamagicvoice.com/AriaMagicVoice_2.2.0.dmg?v=87.24-004655"><span data-lang="zh">下载当前稳定版</span><span data-lang="en" style="display:none">Download current stable</span></a>
+        <div class="pricing-feature-lead"><span data-lang="zh">免费版包含：</span><span data-lang="en" style="display:none">Free includes:</span></div>
+        <div class="pricing-divider" aria-hidden="true"></div>
         <ul class="pricing-features">
-          <li><span data-lang="zh">完全离线语音识别</span><span data-lang="en" style="display:none">Fully offline speech recognition</span></li>
-          <li><span data-lang="zh">多语言支持</span><span data-lang="en" style="display:none">Multi-language support</span></li>
-          <li><span data-lang="zh">本地纠错学习引擎</span><span data-lang="en" style="display:none">Local correction and learning engine</span></li>
-          <li><span data-lang="zh">v2.x 版本免费更新</span><span data-lang="en" style="display:none">Free updates within v2.x</span></li>
-          <li><span data-lang="zh">1 个授权码 = 3 台 Mac</span><span data-lang="en" style="display:none">1 license = 3 Macs</span></li>
-        </ul>
-        <button class="pricing-btn pricing-btn-primary" style="border:none;cursor:pointer;font-family:inherit;" onclick="openAriaCheckout()"><span data-lang="zh">购买授权</span><span data-lang="en" style="display:none">Buy license</span></button>
+          <li><span data-lang="zh">语音输入与拼音打字</span><span data-lang="en" style="display:none">Voice input and pinyin typing</span></li>
+          <li><span data-lang="zh">全局唤起与麦克风选择</span><span data-lang="en" style="display:none">Global voice wake-up and microphone selection</span></li>
+          <li><span data-lang="zh">基础口水词过滤与词表纠错</span><span data-lang="en" style="display:none">Basic filler filtering and lexicon correction</span></li>
+          <li><span data-lang="zh">本地输入处理</span><span data-lang="en" style="display:none">Local input processing</span></li>
+                  </ul>
+        <div class="pricing-sub"><span data-lang="zh">无需订阅</span><span data-lang="en" style="display:none">No subscription required</span></div>
       </div>
 
-      <!-- International -->
-      <div class="pricing-card glass reveal">
-        <div class="pricing-region">🌍 <span data-lang="zh">国际版</span><span data-lang="en" style="display:none">International</span></div>
+      <!-- Pro -->
+      <div class="pricing-card reveal">
+        <h3 class="pricing-plan-name">Pro</h3>
+        <p class="pricing-plan-desc"><span data-lang="zh">同一款输入法，按购买渠道解锁 Pro 权益</span><span data-lang="en" style="display:none">One input method, with Pro access unlocked per purchase channel</span></p>
         <div class="pricing-price">
-          <span class="pricing-currency">$</span>
-          <span class="pricing-amount">39.9</span>
+          <span class="pricing-price-local" data-lang="zh"><span class="pricing-amount">¥268</span></span>
+          <span class="pricing-price-local" data-lang="en" style="display:none"><span class="pricing-amount">US$39.9</span></span>
         </div>
-        <div class="pricing-note"><span data-lang="zh">一次购买，v2.x 版本内免费更新</span><span data-lang="en" style="display:none">One-time purchase, free updates in v2.x</span></div>
-        <ul class="pricing-features">
-          <li><span data-lang="zh">完全离线语音识别</span><span data-lang="en" style="display:none">Fully offline speech recognition</span></li>
-          <li><span data-lang="zh">多语言支持</span><span data-lang="en" style="display:none">Multi-language support</span></li>
-          <li><span data-lang="zh">本地学习引擎</span><span data-lang="en" style="display:none">Local learning engine</span></li>
-          <li><span data-lang="zh">v2.x 版本免费更新</span><span data-lang="en" style="display:none">Free updates within v2.x</span></li>
-          <li><span data-lang="zh">1 个授权码 = 3 台 Mac</span><span data-lang="en" style="display:none">1 license = 3 Macs</span></li>
-        </ul>
+        <div class="pricing-note"><span data-lang="zh">一次性买断 · 无订阅</span><span data-lang="en" style="display:none">One-time purchase · no subscription</span></div>
         <button class="pricing-btn pricing-btn-primary" style="border:none;cursor:pointer;font-family:inherit;" onclick="openAriaCheckout()"><span data-lang="zh">购买授权</span><span data-lang="en" style="display:none">Buy with Paddle</span></button>
-        <div class="pricing-sub">Visa · Mastercard · PayPal</div>
+        <div class="pricing-feature-lead"><span data-lang="zh">免费版的全部功能，以及：</span><span data-lang="en" style="display:none">Everything in Free, plus:</span></div>
+        <div class="pricing-divider" aria-hidden="true"></div>
+        <ul class="pricing-features">
+          <li><span data-lang="zh">更高精度的本地语音识别</span><span data-lang="en" style="display:none">Higher-accuracy local voice recognition</span></li>
+          <li><span data-lang="zh">一次纠正，立即学会</span><span data-lang="en" style="display:none">Correct once, learned immediately</span></li>
+          <li><span data-lang="zh">AI 自动润色，口语表达更流畅</span><span data-lang="en" style="display:none">AI polish for more fluent wording</span></li>
+          <li><span data-lang="zh">官网 License 与 Apple IAP 分渠道准备中</span><span data-lang="en" style="display:none">Website licensing and Apple IAP are being prepared separately</span></li>
+        </ul>
+        <div class="pricing-sub"><span data-lang="zh">官网与 Apple 最终价格以各自结账页为准</span><span data-lang="en" style="display:none">Final website and Apple prices are shown by their respective checkout channels</span></div>
       </div>
+
+      <!-- Free and Pro are the only current plan columns. -->
+    </div>
+
+    <div class="plan-comparison reveal">
+      <div class="comparison-heading">
+        <h3 class="comparison-title" id="plan-comparison-title"><span data-lang="zh">逐项比较版本</span><span data-lang="en" style="display:none">Compare plans feature by feature</span></h3>
+        <p class="comparison-note" id="plan-comparison-note"><span data-lang="zh">Free 与 Pro 均处于本地候选阶段；当前页面不提供购买。</span><span data-lang="en" style="display:none">Free and Pro are local staging candidates; this page does not offer purchasing.</span></p>
+      </div>
+
+      <table class="comparison-table" aria-labelledby="plan-comparison-title" aria-describedby="plan-comparison-note">
+        <thead>
+        <tr class="comparison-row comparison-head">
+          <th class="comparison-cell" scope="col"><span data-lang="zh">功能</span><span data-lang="en" style="display:none">Feature</span></th>
+          <th class="comparison-cell" scope="col"><span data-lang="zh">免费版</span><span data-lang="en" style="display:none">Free</span></th>
+          <th class="comparison-cell" scope="col">Pro</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr class="comparison-row">
+          <th class="comparison-cell comparison-feature" scope="row"><span data-lang="zh">语音输入与拼音打字</span><span data-lang="en" style="display:none">Voice input and pinyin typing</span><small><span data-lang="zh">一套输入法，两种输入方式</span><span data-lang="en" style="display:none">One input method, two ways to type</span></small></th>
+          <td class="comparison-cell"><span class="comparison-mobile-plan"><span data-lang="zh">免费版</span><span data-lang="en" style="display:none">Free</span></span><span class="comparison-mark" aria-hidden="true">✓</span><span class="sr-only"><span data-lang="zh">包含</span><span data-lang="en" style="display:none">Included</span></span></td>
+          <td class="comparison-cell"><span class="comparison-mobile-plan">Pro</span><span class="comparison-mark" aria-hidden="true">✓</span><span class="sr-only"><span data-lang="zh">包含</span><span data-lang="en" style="display:none">Included</span></span></td>
+        </tr>
+
+        <tr class="comparison-row">
+          <th class="comparison-cell comparison-feature" scope="row"><span data-lang="zh">全局语音唤醒与麦克风选择</span><span data-lang="en" style="display:none">Global voice wake-up and microphone selection</span><small><span data-lang="zh">单击左 Ctrl 开始或结束</span><span data-lang="en" style="display:none">Tap Left Ctrl to start or stop</span></small></th>
+          <td class="comparison-cell"><span class="comparison-mobile-plan"><span data-lang="zh">免费版</span><span data-lang="en" style="display:none">Free</span></span><span class="comparison-mark" aria-hidden="true">✓</span><span class="sr-only"><span data-lang="zh">包含</span><span data-lang="en" style="display:none">Included</span></span></td>
+          <td class="comparison-cell"><span class="comparison-mobile-plan">Pro</span><span class="comparison-mark" aria-hidden="true">✓</span><span class="sr-only"><span data-lang="zh">包含</span><span data-lang="en" style="display:none">Included</span></span></td>
+        </tr>
+
+        <tr class="comparison-row">
+          <th class="comparison-cell comparison-feature" scope="row"><span data-lang="zh">本地输入处理</span><span data-lang="en" style="display:none">Local input processing</span><small><span data-lang="zh">Free 与 Pro 的核心输入能力可离线</span><span data-lang="en" style="display:none">Core Free and Pro input features work offline</span></small></th>
+          <td class="comparison-cell"><span class="comparison-mobile-plan"><span data-lang="zh">免费版</span><span data-lang="en" style="display:none">Free</span></span><span class="comparison-mark" aria-hidden="true">✓</span><span class="sr-only"><span data-lang="zh">包含</span><span data-lang="en" style="display:none">Included</span></span></td>
+          <td class="comparison-cell"><span class="comparison-mobile-plan">Pro</span><span class="comparison-mark" aria-hidden="true">✓</span><span class="sr-only"><span data-lang="zh">包含</span><span data-lang="en" style="display:none">Included</span></span></td>
+        </tr>
+
+        <tr class="comparison-row">
+          <th class="comparison-cell comparison-feature" scope="row"><span data-lang="zh">超级学习：一次纠正，立即学会</span><span data-lang="en" style="display:none">Super learning: correct once, learned immediately</span><small><span data-lang="zh">学习资料保留在本机并跨版本累积</span><span data-lang="en" style="display:none">Learning stays local and accumulates across updates</span></small></th>
+          <td class="comparison-cell"><span class="comparison-mobile-plan"><span data-lang="zh">免费版</span><span data-lang="en" style="display:none">Free</span></span><span class="comparison-text"><span data-lang="zh">有限额度候选</span><span data-lang="en" style="display:none">Limited candidate</span></span></td>
+          <td class="comparison-cell"><span class="comparison-mobile-plan">Pro</span><span class="comparison-mark" aria-hidden="true">✓</span><span class="sr-only"><span data-lang="zh">包含</span><span data-lang="en" style="display:none">Included</span></span></td>
+        </tr>
+
+        <tr class="comparison-row">
+          <th class="comparison-cell comparison-feature" scope="row"><span data-lang="zh">更高精度的本地语音识别</span><span data-lang="en" style="display:none">Higher-accuracy local voice recognition</span></th>
+          <td class="comparison-cell"><span class="comparison-mobile-plan"><span data-lang="zh">免费版</span><span data-lang="en" style="display:none">Free</span></span><span class="comparison-mark is-empty" aria-hidden="true">—</span><span class="sr-only"><span data-lang="zh">不包含</span><span data-lang="en" style="display:none">Not included</span></span></td>
+          <td class="comparison-cell"><span class="comparison-mobile-plan">Pro</span><span class="comparison-mark" aria-hidden="true">✓</span><span class="sr-only"><span data-lang="zh">包含</span><span data-lang="en" style="display:none">Included</span></span></td>
+        </tr>
+
+        <tr class="comparison-row">
+          <th class="comparison-cell comparison-feature" scope="row"><span data-lang="zh">AI 自动润色</span><span data-lang="en" style="display:none">AI polish</span><small><span data-lang="zh">需要时手动开启，默认关闭</span><span data-lang="en" style="display:none">Optional and off by default</span></small></th>
+          <td class="comparison-cell"><span class="comparison-mobile-plan"><span data-lang="zh">免费版</span><span data-lang="en" style="display:none">Free</span></span><span class="comparison-mark is-empty" aria-hidden="true">—</span><span class="sr-only"><span data-lang="zh">不包含</span><span data-lang="en" style="display:none">Not included</span></span></td>
+          <td class="comparison-cell"><span class="comparison-mobile-plan">Pro</span><span class="comparison-mark" aria-hidden="true">✓</span><span class="sr-only"><span data-lang="zh">包含</span><span data-lang="en" style="display:none">Included</span></span></td>
+        </tr>
+
+        <tr class="comparison-row">
+          <th class="comparison-cell comparison-feature" scope="row"><span data-lang="zh">购买与授权</span><span data-lang="en" style="display:none">Purchase and access</span><small><span data-lang="zh">官网使用 License；Apple 版本使用 IAP</span><span data-lang="en" style="display:none">Website uses licensing; the Apple edition uses IAP</span></small></th>
+          <td class="comparison-cell"><span class="comparison-mobile-plan"><span data-lang="zh">免费版</span><span data-lang="en" style="display:none">Free</span></span><span class="comparison-text"><span data-lang="zh">无需购买</span><span data-lang="en" style="display:none">No purchase required</span></span></td>
+          <td class="comparison-cell"><span class="comparison-mobile-plan">Pro</span><span class="comparison-text"><span data-lang="zh">分渠道准备中</span><span data-lang="en" style="display:none">Channels in preparation</span></span></td>
+        </tr>
+
+        <tr class="comparison-row">
+          <th class="comparison-cell comparison-feature" scope="row"><span data-lang="zh">当前状态</span><span data-lang="en" style="display:none">Availability</span></th>
+          <td class="comparison-cell"><span class="comparison-mobile-plan"><span data-lang="zh">免费版</span><span data-lang="en" style="display:none">Free</span></span><span class="comparison-text"><span data-lang="zh">可直接下载</span><span data-lang="en" style="display:none">Available now</span></span></td>
+          <td class="comparison-cell"><span class="comparison-mobile-plan">Pro</span><span class="comparison-text"><span data-lang="zh">购买与授权准备中</span><span data-lang="en" style="display:none">Purchase and access preparing</span></span></td>
+        </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </section>
@@ -1158,34 +1538,34 @@ section { padding: 100px 24px; }
 <!-- FAQ -->
 <section id="faq">
   <div class="container">
-    <div style="text-align:center">
+    <div class="faq-heading">
       <div class="section-label"><i class="ph ph-question"></i> <span data-lang="zh">常见问题</span><span data-lang="en" style="display:none">FAQ</span></div>
         <h2 class="section-title"><span data-lang="zh">常见问题</span><span data-lang="en" style="display:none">Frequently asked questions</span></h2>
     </div>
     <div class="faq-list">
       <div class="faq-item glass reveal">
-        <button class="faq-q" onclick="this.classList.toggle('active');this.nextElementSibling.style.maxHeight=this.classList.contains('active')?this.nextElementSibling.scrollHeight+'px':'0'">
+        <button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">
           <span data-lang="zh">需要联网才能用吗？</span><span data-lang="en" style="display:none">Do I need internet access?</span>
         </button>
-        <div class="faq-a"><div class="faq-a-inner"><span data-lang="zh">完全不需要。Aria Magic Voice 完全在本地运行，断网也能正常使用。你的声音数据永远不会离开你的 Mac。</span><span data-lang="en" style="display:none">No. Aria Magic Voice runs locally on your Mac and works offline. Your voice data never leaves your device.</span></div></div>
+        <div class="faq-a" aria-hidden="true"><div class="faq-a-inner"><span data-lang="zh">Free 与拟定 Pro 的本地输入能力可离线使用。体验改进计划可在设置中管理；只处理隔离纠错对与质量信号，不上传原始录音或完整原文。</span><span data-lang="en" style="display:none">Local input features for Free and the planned Pro tier can work offline. The User Experience Improvement Program can be managed in settings; it processes isolated correction pairs and quality signals, and does not upload original recordings or complete source text.</span></div></div>
       </div>
       <div class="faq-item glass reveal">
-        <button class="faq-q" onclick="this.classList.toggle('active');this.nextElementSibling.style.maxHeight=this.classList.contains('active')?this.nextElementSibling.scrollHeight+'px':'0'">
+        <button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">
           <span data-lang="zh">支持哪些语言？</span><span data-lang="en" style="display:none">Which languages are supported?</span>
         </button>
-        <div class="faq-a"><div class="faq-a-inner"><span data-lang="zh">支持普通话、英语、粤语、日语、韩语，以及多语言内容。未来会持续增加更多语言支持。</span><span data-lang="en" style="display:none">It supports Mandarin, English, Cantonese, Japanese, Korean, and multilingual speech. More languages will be added over time.</span></div></div>
+        <div class="faq-a" aria-hidden="true"><div class="faq-a-inner"><span data-lang="zh">支持普通话、英语、粤语、日语、韩语，以及多语言内容。未来会持续增加更多语言支持。</span><span data-lang="en" style="display:none">It supports Mandarin, English, Cantonese, Japanese, Korean, and multilingual speech. More languages will be added over time.</span></div></div>
       </div>
       <div class="faq-item glass reveal">
-        <button class="faq-q" onclick="this.classList.toggle('active');this.nextElementSibling.style.maxHeight=this.classList.contains('active')?this.nextElementSibling.scrollHeight+'px':'0'">
-          <span data-lang="zh">和其他语音输入有什么区别？</span><span data-lang="en" style="display:none">How is it different from other dictation tools?</span>
+        <button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">
+          <span data-lang="zh">和普通语音输入法有什么区别？</span><span data-lang="en" style="display:none">How is it different from regular voice input methods?</span>
         </button>
-        <div class="faq-a"><div class="faq-a-inner"><span data-lang="zh">主要区别是隐私：常见语音输入通常需要联网，把语音上传到云端处理。Magic Voice 完全在你的 Mac 本地运行，你的录音、文字和学习数据都不会离开电脑。</span><span data-lang="en" style="display:none">The main difference is privacy. Many dictation tools send audio to the cloud, while Magic Voice runs locally on your Mac. Your recordings, text, and learning data stay on your computer.</span></div></div>
+        <div class="faq-a" aria-hidden="true"><div class="faq-a-inner"><span data-lang="zh">Aria Magic Voice 把语音输入、拼音打字、本地纠错学习和 AI 自动润色放在同一个 macOS 输入法里，并对数字、网址、路径、账号和代码设置安全保护。</span><span data-lang="en" style="display:none">Aria Magic Voice combines voice input, pinyin typing, local correction learning, and AI polish in one macOS input method, with safeguards for numbers, URLs, paths, accounts, and code.</span></div></div>
       </div>
       <div class="faq-item glass reveal">
-        <button class="faq-q" onclick="this.classList.toggle('active');this.nextElementSibling.style.maxHeight=this.classList.contains('active')?this.nextElementSibling.scrollHeight+'px':'0'">
-          <span data-lang="zh">可以在多少台 Mac 上使用？</span><span data-lang="en" style="display:none">How many Macs can I use it on?</span>
+        <button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">
+          <span data-lang="zh">免费版和 Pro 有什么区别？</span><span data-lang="en" style="display:none">What is the difference between Free and Pro?</span>
         </button>
-        <div class="faq-a"><div class="faq-a-inner"><span data-lang="zh">1 个授权码最多激活 3 台 Mac。换电脑时可以在旧设备上取消激活，然后在新设备上重新激活。</span><span data-lang="en" style="display:none">One license can be activated on up to 3 Macs. When you switch devices, deactivate an old Mac and activate the new one.</span></div></div>
+        <div class="faq-a" aria-hidden="true"><div class="faq-a-inner"><span data-lang="zh">免费版可直接下载使用：语音输入、拼音打字、全局唤起、基础纠错都包含在内。Pro 为一次性买断（¥268 / US$39.9，无订阅），解锁更高精度的本地语音识别、超级学习与 AI 自动润色。两个版本的原始录音和完整文本都只在本机处理，不上传。</span><span data-lang="en" style="display:none">The Free version is a full download: voice input, pinyin typing, global voice wake-up, and basic correction are all included. Pro is a one-time purchase (US$39.9 / ¥268, no subscription) that unlocks higher-accuracy on-device recognition, super learning, and AI polish. In both versions, your recordings and full text stay on your Mac.</span></div></div>
       </div>
     </div>
   </div>
@@ -1199,8 +1579,8 @@ section { padding: 100px 24px; }
   </div>
     <div class="footer-copy"><span data-lang="zh">© 2026 Aria Magic Voice。保留所有权利。</span><span data-lang="en" style="display:none">© 2026 Aria Magic Voice. All rights reserved.</span></div>
     <div class="footer-links">
-      <a href="/privacy.html"><span data-lang="zh">隐私政策</span><span data-lang="en" style="display:none">Privacy Policy</span></a>
-      <a href="/terms.html"><span data-lang="zh">使用条款</span><span data-lang="en" style="display:none">Terms of Service</span></a>
+      <a href="./privacy.html"><span data-lang="zh">隐私政策</span><span data-lang="en" style="display:none">Privacy Policy</span></a>
+      <a href="./terms.html"><span data-lang="zh">使用条款</span><span data-lang="en" style="display:none">Terms of Service</span></a>
       <a href="mailto:magicvoice.team@outlook.com"><span data-lang="zh">联系我们</span><span data-lang="en" style="display:none">Contact Us</span></a>
     </div>
     <div class="footer-slogan">Peace &amp; Light</div>
@@ -1209,20 +1589,24 @@ section { padding: 100px 24px; }
   <script>
   const siteLangCopy = {
     zh: {
-      title: 'Aria Magic Voice — 隐私优先 · 本地识别',
-      description: 'Aria Magic Voice — Mac 原生本地语音输入工具。离线识别，不上传云端，隐私优先。支持多语言输入。',
-      ogTitle: 'Aria Magic Voice — 隐私优先 · 本地识别',
-      ogDescription: 'Mac 原生本地语音输入工具。离线识别，不上传云端，隐私优先。',
+      title: 'Aria Magic Voice — 新一代 AI 输入法',
+      description: 'Aria Input Method（Aria Magic Voice）是 macOS AI 输入法：本地语音输入、拼音打字与智能纠错。免费下载即可使用，Pro 一次性买断。',
+      ogTitle: 'Aria Magic Voice — 新一代 AI 输入法',
+      ogDescription: 'macOS AI 输入法：本地语音输入、拼音打字与智能纠错。免费下载即可使用，Pro 一次性买断。',
       menuLabel: '打开菜单',
-      langLabel: '语言切换'
+      closeMenuLabel: '关闭菜单',
+      langLabel: '语言切换',
+      navLabel: '主菜单'
     },
     en: {
-      title: 'Aria Magic Voice — Privacy-first local dictation',
-      description: 'Aria Magic Voice is a native Mac dictation tool with offline recognition, no cloud uploads, and privacy-first multilingual input.',
-      ogTitle: 'Aria Magic Voice — Privacy-first local dictation',
-      ogDescription: 'Native Mac dictation with offline recognition, no cloud uploads, and privacy-first multilingual input.',
+      title: 'Aria Magic Voice — macOS input method for typing and voice',
+      description: 'Aria Magic Voice is a macOS AI input method. The Free download candidate is preparing; Pro access is being prepared separately for website licensing and Apple IAP.',
+      ogTitle: 'Aria Magic Voice — macOS input method for typing and voice',
+      ogDescription: 'A macOS AI input method with a Free download candidate in preparation and separate website-license and Apple-IAP routes planned for Pro.',
       menuLabel: 'Open menu',
-      langLabel: 'Language selector'
+      closeMenuLabel: 'Close menu',
+      langLabel: 'Language selector',
+      navLabel: 'Main navigation'
     }
   };
 
@@ -1239,9 +1623,15 @@ section { padding: 100px 24px; }
     const hamburger = document.getElementById('hamburger');
     if (hamburger) hamburger.setAttribute('aria-label', copy.menuLabel);
     document.querySelectorAll('.site-lang-toggle').forEach(el => el.setAttribute('aria-label', copy.langLabel));
+    const mainNav = document.querySelector('.nav-center');
+    if (mainNav) mainNav.setAttribute('aria-label', copy.navLabel);
     try { localStorage.setItem('aria-site-lang', lang); } catch (e) {}
     document.querySelectorAll('.site-lang-btn').forEach(btn => btn.classList.remove('active'));
-    document.querySelectorAll(`.site-lang-btn[onclick="setSiteLang('${lang}')"]`).forEach(btn => btn.classList.add('active'));
+    document.querySelectorAll('.site-lang-btn').forEach(btn => btn.setAttribute('aria-pressed', 'false'));
+    document.querySelectorAll(`.site-lang-btn[onclick="setSiteLang('${lang}')"]`).forEach(btn => {
+      btn.classList.add('active');
+      btn.setAttribute('aria-pressed', 'true');
+    });
     document.querySelectorAll('[data-lang]').forEach(el => {
       el.style.display = el.getAttribute('data-lang') === lang ? '' : 'none';
     });
@@ -1249,23 +1639,49 @@ section { padding: 100px 24px; }
       const panel = btn.nextElementSibling;
       if (panel) panel.style.maxHeight = panel.scrollHeight + 'px';
     });
+    const mobileNav = document.getElementById('navLinks');
+    const mobileMenuButton = document.getElementById('hamburger');
+    if (mobileNav) mobileNav.classList.remove('open');
+    if (mobileMenuButton) {
+      mobileMenuButton.classList.remove('active');
+      mobileMenuButton.setAttribute('aria-expanded', 'false');
+      mobileMenuButton.setAttribute('aria-label', copy.menuLabel);
+    }
+  }
+
+  function toggleMobileMenu(button) {
+    const mobileNav = document.getElementById('navLinks');
+    if (!mobileNav) return;
+    const isOpen = mobileNav.classList.toggle('open');
+    button.classList.toggle('active', isOpen);
+    button.setAttribute('aria-expanded', String(isOpen));
+    const lang = document.documentElement.lang === 'zh-CN' ? 'zh' : 'en';
+    const copy = siteLangCopy[lang] || siteLangCopy.en;
+    button.setAttribute('aria-label', isOpen ? copy.closeMenuLabel : copy.menuLabel);
+  }
+
+  function toggleFaq(button) {
+    const panel = button.nextElementSibling;
+    const isOpen = !button.classList.contains('active');
+    button.classList.toggle('active', isOpen);
+    button.setAttribute('aria-expanded', String(isOpen));
+    if (panel) {
+      panel.style.maxHeight = isOpen ? panel.scrollHeight + 'px' : '0';
+      panel.setAttribute('aria-hidden', String(!isOpen));
+    }
   }
 
   const savedSiteLang = (() => {
     try { return localStorage.getItem('aria-site-lang'); } catch (e) { return null; }
   })();
-  setSiteLang(savedSiteLang || (navigator.language && navigator.language.startsWith('zh') ? 'zh' : 'en'));
+  setSiteLang(savedSiteLang || 'en'); // 90.x 立约: 默认纯英文, 用户可手动切中文
 
-  // Waveform bars
-  const waveform = document.getElementById('waveform');
-for (let i = 0; i < 24; i++) {
-  const bar = document.createElement('div');
-  bar.className = 'wave-bar';
-  const h = 10 + Math.random() * 38;
-  bar.style.setProperty('--h', h + 'px');
-  bar.style.animationDelay = (i * 0.08) + 's';
-  waveform.appendChild(bar);
-}
+document.querySelectorAll('.faq-q').forEach((button, index) => {
+  const panel = button.nextElementSibling;
+  if (!panel) return;
+  panel.id = panel.id || `faq-panel-${index + 1}`;
+  button.setAttribute('aria-controls', panel.id);
+});
 
 // Scroll reveal
 const observer = new IntersectionObserver((entries) => {
@@ -1283,7 +1699,17 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
     e.preventDefault();
     const target = document.querySelector(a.getAttribute('href'));
-    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (target) target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+    const mobileNav = document.getElementById('navLinks');
+    const mobileMenuButton = document.getElementById('hamburger');
+    if (mobileNav) mobileNav.classList.remove('open');
+    if (mobileMenuButton) {
+      mobileMenuButton.classList.remove('active');
+      mobileMenuButton.setAttribute('aria-expanded', 'false');
+      const lang = document.documentElement.lang === 'zh-CN' ? 'zh' : 'en';
+      mobileMenuButton.setAttribute('aria-label', (siteLangCopy[lang] || siteLangCopy.en).menuLabel);
+    }
   });
 });
 
