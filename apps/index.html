@@ -299,7 +299,7 @@ body.dark .chlog{background:rgba(28,28,32,.94);border-color:rgba(255,255,255,.12
 .cnote{margin-top:18px;font:400 12px/1.6 var(--font);color:var(--ink3)}
 
 /* ── Footer + 低调的 Admin 入口（Harry 2026-08-04）──
-   入口对所有人可见，但可见 ≠ 有权限：点进去要 Gmail 授权，别人过不了。
+   入口对所有人可见，但可见 ≠ 有权限：点进去要登录，别人过不了。
    好处 = 重装系统 / 换浏览器后，入口依然在原地，不依赖任何本地存储。 */
 .ft{display:none}
 [data-v="5"] .ft,[data-v="6"] .ft,[data-v="7"] .ft,[data-v="8"] .ft,[data-v="9"] .ft{display:flex;align-items:center;gap:14px;
@@ -320,7 +320,7 @@ body.dark .chlog{background:rgba(28,28,32,.94);border-color:rgba(255,255,255,.12
   gap:6px;border:1px solid var(--line);border-radius:8px;background:transparent;
   color:var(--ink2);font:500 12px/1 var(--font);cursor:pointer}
 .about .adm-entry:hover{background:var(--sel);color:var(--ink)}
-/* 模拟 Gmail 授权弹层 */
+/* 登录弹层 */
 .gate{display:none;position:fixed;inset:0;z-index:50;place-items:center;
   background:rgba(0,0,0,.42);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
 .gate.on{display:grid}
@@ -768,7 +768,7 @@ body.dark .ccard{box-shadow:0 8px 26px -14px rgba(0,0,0,.5)}
     </section>
 
     <!-- Footer · Admin 入口藏在「关于」里 -->
-    <div class="about" id="ab"><button class="adm-entry" id="admEntry">&#9881;&#65038; Admin</button><span class="admhint" id="admHint">仅站主本人的 Google 账号可进入</span></div>
+    <div class="about" id="ab"><button class="adm-entry" id="admEntry">&#9881;&#65038; Admin</button><span class="admhint" id="admHint">仅站主本人可进入</span></div>
     <footer class="ft">
       <!-- About 不单独列，入口并进署名：点 Harry Wood 展开（Harry 2026-08-04）-->
       <span>© 2026 Peace &amp; Light · Designed by <a id="aboutLink">Harry Wood</a></span>
@@ -782,13 +782,13 @@ body.dark .ccard{box-shadow:0 8px 26px -14px rgba(0,0,0,.5)}
 <!-- 管理员授权 -->
 <div class="gate" id="gate">
   <div class="gbox">
-    <div class="gg">G</div>
-    <h4>用 Google 账号登录</h4>
-    <p id="gaDesc">仅限站主本人的 Google 账号。密码由 Google 保管，本站不接触密码。</p>
+    <div class="gg">&#128274;</div>
+    <h4 id="gaTitle">登录</h4>
+    <p id="gaDesc">仅限站主本人。</p>
     <div id="gaBtn"></div>
-    <button class="ga" id="gaOk" hidden>使用 Google 账号继续</button>
+    <button class="ga" id="gaOk" hidden>继续</button>
     <button class="gc" id="gaNo">取消</button>
-    <div class="gn" id="gaNote">正在加载 Google 登录…</div>
+    <div class="gn" id="gaNote">正在加载…</div>
   </div>
 </div>
 
@@ -1065,7 +1065,7 @@ function render(){
   // Footer 跟着语言走（之前上面英文下面中文，是错的）
   $('#bizLink').textContent=zh?'商务合作':'Partnerships';
   $('#fbLink').textContent=zh?'问题反馈':'Feedback';
-  $('#admHint').textContent=zh?'仅站主本人的 Google 账号可进入':'Owner account only';
+  $('#admHint').textContent=zh?'仅站主本人可进入':'Owner account only';
   $('#ebTitle').textContent=zh?'内容编辑':'Content editing';
   $('#ebHint').textContent=zh?'只改文字，版式与样式已锁死':'Text only — layout & styling are locked';
   $('#btnSave').textContent=zh?'保存':'Save';
@@ -1131,7 +1131,7 @@ addEventListener('resize',closeMenus); addEventListener('scroll',closeMenus,true
 $('#admin').onclick=e=>{document.body.classList.toggle('admin');
   e.target.classList.toggle('on',document.body.classList.contains('admin'));};
 
-/* Footer「关于」→ Admin → Gmail 授权门 */
+/* Footer「关于」→ Admin → 登录门 */
 $('#aboutLink').onclick=()=>$('#ab').classList.toggle('on');
 
 /* ══ 内容编辑（Harry 2026-08-04）══
@@ -1345,32 +1345,44 @@ function enterAdmin(){SNAP={};document.body.classList.add('admin');render();rend
 function initGoogle(){
   const zh=lang==='zh';
   if(!GOOGLE_CLIENT_ID){gnote(zh
-    ?'尚未配置 Google 客户端 ID —— 线上 Admin 登录暂不可用。'
-    :'Google client ID not configured — admin sign-in is unavailable.');return;}
+    ?'登录尚未配置。'
+    :'Sign-in not configured yet.');return;}
   if(gsiReady)return;
   const go=()=>{try{
       google.accounts.id.initialize({client_id:GOOGLE_CLIENT_ID,callback:onGoogleCred});
       google.accounts.id.renderButton($('#gaBtn'),{theme:'outline',size:'large',width:250});
-      gsiReady=true;gnote(zh?'仅站主本人的账号可以进入。':'Only the owner account can get in.');
-    }catch(e){gnote((zh?'Google 登录初始化失败：':'Init failed: ')+e.message);}};
+      gsiReady=true;gnote(zh?'仅站主本人可以进入。':'Only the owner can get in.');
+    }catch(e){gnote((zh?'登录初始化失败：':'Init failed: ')+e.message);}};
   if(window.google&&window.google.accounts)return go();
   const sc=document.createElement('script');
   sc.src='https://accounts.google.com/gsi/client';sc.async=true;sc.defer=true;
-  sc.onload=go;sc.onerror=()=>gnote(zh?'Google 登录组件加载失败。':'Failed to load Google sign-in.');
+  sc.onload=go;sc.onerror=()=>gnote(zh?'登录组件加载失败。':'Failed to load the sign-in component.');
   document.head.appendChild(sc);}
+/* 红军 P0-2b：旧实现只在前端 decode JWT payload、不验签名 ——
+   谁都能在 console 里塞一段没签过名的假 JSON 冒充邮箱字段。
+   改用 Google 自己的 tokeninfo 端点验签（Google 是真服务器，
+   我们没有自己的后端也能拿到真验证）。fetch 失败一律拒绝。
+   这仍然挡不住直接在 console 调 enterAdmin()——纯静态站没有
+   任何办法能挡住那个；这里只是让"走登录流程"这条路名副其实。 */
 async function onGoogleCred(resp){const zh=lang==='zh';let p=null;
-  try{const b=resp.credential.split('.')[1].replace(/-/g,'+').replace(/_/g,'/');
-    p=JSON.parse(decodeURIComponent(Array.prototype.map.call(atob(b),
-      ch=>'%'+('00'+ch.charCodeAt(0).toString(16)).slice(-2)).join('')));
-  }catch(e){gnote(zh?'登录凭据解析失败。':'Could not read the credential.');return;}
+  try{const r=await fetch('https://oauth2.googleapis.com/tokeninfo?id_token='+
+      encodeURIComponent(resp.credential));
+    if(!r.ok)throw 0;p=await r.json();
+  }catch(e){gnote(zh?'签名校验失败，未放行。':'Signature check failed.');return;}
+  if(GOOGLE_CLIENT_ID&&p.aud!==GOOGLE_CLIENT_ID){
+    gnote(zh?'客户端不匹配，未放行。':'Client mismatch.');return;}
   const em=String(p.email||'').toLowerCase().trim();
-  if((await sha256hex(em))!==ADMIN_EMAIL_SHA256||p.email_verified===false){
+  if((await sha256hex(em))!==ADMIN_EMAIL_SHA256||p.email_verified!=='true'){
     gnote((zh?'账号 ':'Account ')+(em||'?')+(zh?' 无权进入。':' is not allowed.'));return;}
   $('#gate').classList.remove('on');enterAdmin();}
 $('#admEntry').onclick=()=>{$('#gate').classList.add('on');initGoogle();};
 $('#gaNo').onclick=()=>$('#gate').classList.remove('on');
-/* 本机模式：不在页面上暴露，爬虫扫不到。这不是安全边界，
-   只是让“改动只存在这台电脑”这件事在未配 Client ID 前仍然可用。 */
-if(location.hash==='#local-admin')setTimeout(enterAdmin,0);
+/* 本机开发快捷键。红军 P0-1 指出：这行原样部署到线上，
+   任何人打开 ariamagicvoice.com/apps/#local-admin 就绕过登录直接进编辑态。
+   只写 localStorage、改不到线上，但这足以推翻"Admin 门已拆干净"的说法。
+   改成域名门禁：只在 localhost / 127.0.0.1 生效，正式域名下这行永远是死代码。 */
+if(location.hash==='#local-admin'
+   &&(location.hostname==='localhost'||location.hostname==='127.0.0.1'))
+  setTimeout(enterAdmin,0);
 render();
 </script>
