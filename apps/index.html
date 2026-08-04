@@ -258,7 +258,7 @@ body.dark{--line-soft:rgba(255,255,255,.07)}
    入口对所有人可见，但可见 ≠ 有权限：点进去要 Gmail 授权，别人过不了。
    好处 = 重装系统 / 换浏览器后，入口依然在原地，不依赖任何本地存储。 */
 .ft{display:none}
-[data-v="5"] .ft,[data-v="6"] .ft,[data-v="7"] .ft,[data-v="8"] .ft{display:flex;align-items:center;gap:14px;
+[data-v="5"] .ft,[data-v="6"] .ft,[data-v="7"] .ft,[data-v="8"] .ft,[data-v="9"] .ft{display:flex;align-items:center;gap:14px;
   padding:18px 56px 26px;border-top:1px solid var(--line);
   font:400 12px/1 var(--font);color:var(--ink3)}
 .ft .sp{flex:1}
@@ -480,6 +480,88 @@ body.dark [data-v="8"] .ccard{border-color:rgba(255,255,255,.095)}
    Harry 2026-08-04：不要把上面的渐变拉伸下来（那版试过，太重），
    而是取 Hero 渐变同一套色相，用遮罩从上往下淡淡地 fade 到纯白 —— 消掉纯白的割裂感。
    上方 Hero 一个字节未动。 */
+[data-v="9"]{background:
+    linear-gradient(118deg,color-mix(in srgb,var(--b2) 52%,transparent) 0%,
+      color-mix(in srgb,var(--b3) 34%,transparent) 48%,transparent 80%),
+    radial-gradient(900px 780px at 88% 44%,color-mix(in srgb,var(--b1) 44%,transparent),transparent 66%),
+    /* ★ 方案 8 新增两层（上面 Hero 两层一个字节未动）：
+       band8 = JS 用离屏 canvas 原样重绘 Hero 渐变后，取其【底边那一行】的真实像素做成的水平色带
+       fade8 = 盖在色带上的垂直淡出，把色带从上往下化到纯白 */
+    var(--fade9,linear-gradient(180deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.62) 46%,#fff 90%)),
+    var(--band9,transparent),
+    var(--page);
+  background-size:100% 620px,100% 620px,100% 360px,100% 360px,100% 100%;
+  background-position:0 0,0 0,0 620px,0 620px,0 0;background-repeat:no-repeat;
+  transition:grid-template-columns .32s var(--ease,cubic-bezier(.25,.1,.25,1))}
+[data-v="9"] main{background:transparent}
+[data-v="9"] .top{border-bottom:none;background:transparent}
+[data-v="9"] .hero::before{opacity:0}
+
+/* 侧栏 = 悬浮玻璃卡 —— 高度由内容决定，不通栏到底（Harry 2026-08-04）*/
+[data-v="9"] .side{align-self:start;min-height:352px;
+  margin:118px 0 14px 14px;padding:16px 12px 18px;border-right:none;border-radius:16px;
+  background:rgba(255,255,255,.60);
+  -webkit-backdrop-filter:blur(26px) saturate(180%);backdrop-filter:blur(26px) saturate(180%);
+  border:1px solid rgba(255,255,255,.55);
+  box-shadow:0 14px 36px -14px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.6);
+  overflow:hidden}
+body.dark [data-v="9"] .side{background:rgba(22,22,26,.55);border-color:rgba(255,255,255,.12);
+  box-shadow:0 14px 36px -14px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.14)}
+[data-v="9"] .item:hover,[data-v="9"] .item.on{background:rgba(255,255,255,.62)}
+body.dark [data-v="9"] .item:hover,body.dark [data-v="9"] .item.on{background:rgba(255,255,255,.10)}
+
+/* 收起态：只留图标 */
+/* 收起态：卡片接近正方形，不做成上窄下长的细条（Harry 2026-08-04）*/
+[data-v="9"].sbmin{grid-template-columns:110px minmax(0,1fr)}
+[data-v="9"].sbmin .side{padding:14px 12px 14px;min-height:0;width:96px}
+/* 高亮块缩小，不再顶到上一个图标底部（Harry 2026-08-04）*/
+[data-v="9"].sbmin .item{justify-content:center;padding:0;height:46px;width:46px;margin:0 auto 6px;
+  border-radius:11px}
+[data-v="9"].sbmin .item .tx,[data-v="9"].sbmin .brand b,[data-v="9"].sbmin .slab{display:none}
+[data-v="9"].sbmin .brand{justify-content:center;padding:0 0 10px;margin-bottom:6px;
+  border-bottom:1px solid var(--line)}
+[data-v="9"].sbmin .side .sp{flex:0;height:6px}
+
+/* Hero / 版本区沿用方案 6 */
+[data-v="9"] .hero{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;
+  gap:32px;padding:76px 0 76px 48px;min-height:494px}
+[data-v="9"] .copy{display:grid;gap:18px;justify-items:start;max-width:600px;padding-bottom:10px}
+[data-v="9"] .acts{margin-top:8px}
+[data-v="9"] .logo{width:270px;height:270px;margin-right:-58px}
+[data-v="9"] .hmeta{display:block}
+[data-v="9"] .dl{display:none}
+[data-v="9"] #admin{display:none}
+/* 分隔线已去掉，「选择版本」整体上提：空白减为原来的一半（120px → 62px · Harry 2026-08-04）*/
+[data-v="9"] .cmp{display:block;padding:14px 48px 40px;border-top:0;background:transparent}
+[data-v="9"] .hero{padding-bottom:38px}
+body.dark [data-v="9"]{--fade9:linear-gradient(180deg,rgba(11,11,13,0) 0%,rgba(11,11,13,.62) 46%,#0B0B0D 90%)}
+[data-v="9"] .ccard{border-color:rgba(0,0,0,.075)}
+body.dark [data-v="9"] .ccard{border-color:rgba(255,255,255,.095)}
+[data-v="9"] .ft,[data-v="9"] .about{padding-left:48px;padding-right:48px}
+
+
+/* ══ 方案 8 · 只改「选择版本」这一段的底 ══
+   Harry 2026-08-04：不要把上面的渐变拉伸下来（那版试过，太重），
+   而是取 Hero 渐变同一套色相，用遮罩从上往下淡淡地 fade 到纯白 —— 消掉纯白的割裂感。
+   上方 Hero 一个字节未动。 */
+
+/* ══ 方案 9 · 方案 8 + 渐变铺满浏览器两边（Harry 2026-08-04 选定的「方案 B」）══
+   之前 logo 故意出血到右缘，是因为那时右边有硬边界、截断是设计的一部分；
+   现在两边都铺开了，同一处截断就变成了 bug —— 所以 logo 缩 10% 并回到内容区内完整显示。 */
+body:has(.app[data-v="9"]){padding:0;background:var(--page)}
+[data-v="9"]{max-width:none;border-radius:0;box-shadow:none;min-height:100vh;
+  overflow:visible;   /* sticky 的死穴：祖先 overflow 非 visible 就整个失效 */
+  /* 背景铺满整幅，内容仍守 1280px 居中 —— 像被两条看不见的线框住 */
+  padding-left:max(0px,calc((100% - 1280px)/2));
+  padding-right:max(0px,calc((100% - 1280px)/2))}
+/* logo：缩小 10%（270→243）· 右缘与下方 Pro 卡片右缘对齐（左移 48px = 卡片区 padding）*/
+[data-v="9"] .logo{width:243px;height:243px;margin-right:48px}
+/* hero 原本 overflow:hidden 是为了裁掉出血的 logo；方案 9 的 logo 不出血了，
+   继续裁只会把它的投影切出一条硬边 —— 放开 */
+[data-v="9"] .hero{overflow:visible}
+/* 侧栏钉在原地：页面上下滚它都不跟着走，产品切换随时可点（Harry 2026-08-04）*/
+[data-v="9"] .side{position:sticky;top:14px;align-self:start;overflow:visible}
+
 /* ── 下载来源 ── */
 .dl{padding:32px 56px 40px;border-top:1px solid var(--line)}
 .dl h2{font:600 15px/1 var(--font);color:var(--ink);letter-spacing:0;margin-bottom:4px}
@@ -553,7 +635,7 @@ body.dark .mnu{background:rgba(40,40,44,.86);border-color:rgba(255,255,255,.14);
 body.dark .ccard{box-shadow:0 8px 26px -14px rgba(0,0,0,.5)}
 </style>
 
-<div class="app" data-v="8">
+<div class="app" data-v="9">
   <!-- 左栏 -->
   <aside class="side">
     <div class="brand"><div class="m">H</div><b>Harry App Store</b></div>
@@ -763,12 +845,12 @@ const ROWS={
 /* ═══ 方案 6 · 档位与功能表 —— 逐条抄自官网 index.html #pricing ═══ */
 /* 档位与顺序 = Harry 2026-08-04 手改定稿，以他给的顺序与措辞为准 */
 const COLS6={
- zh:[{n:'内测版',b:'Beta',s:'优先体验最新功能',price:'免费',pu:'',btn:'下载内测版',src:''},
-     {n:'免费版',b:'Free',s:'永久免费',price:'免费',pu:'',btn:'App Store 免费下载',src:''},
-     {n:'Pro 版',b:'一次买断',s:'一次购买 · 永久使用',price:'¥268',pu:'US$39.99',btn:'App Store 购买',src:''}],
- en:[{n:'Early Access',b:'Beta',s:'Get new features first',price:'Free',pu:'',btn:'Download Beta',src:''},
-     {n:'Free',b:'Free',s:'Free forever',price:'Free',pu:'',btn:'Download Free',src:''},
-     {n:'Pro',b:'One-time',s:'Buy once · yours forever',price:'US$39.99',pu:'',btn:'Buy on App Store',src:''}]};
+ zh:[{n:'内测版',b:'Beta',s:'优先体验最新功能',price:'免费',pu:'',btn:'下载',src:''},
+     {n:'免费版',b:'Free',s:'永久免费',price:'免费',pu:'',btn:'下载',src:''},
+     {n:'Pro 版',b:'一次买断',s:'一次购买 · 永久使用',price:'¥268',pu:'US$39.99',btn:'购买',src:''}],
+ en:[{n:'Early Access',b:'Beta',s:'Get new features first',price:'Free',pu:'',btn:'Download',src:''},
+     {n:'Free',b:'Free',s:'Free forever',price:'Free',pu:'',btn:'Download',src:''},
+     {n:'Pro',b:'One-time',s:'Buy once · yours forever',price:'US$39.99',pu:'',btn:'Buy It',src:''}]};
 /* 第 5 个元素 = 按列覆盖文字（Pro / Beta 是「更高精度」，免费版是「高精度」）*/
 const ROWS6={
  zh:[['超级学习引擎 · 越用越懂你',1,0,1,{1:'超级学习引擎（Pro 解锁）'}],
@@ -835,7 +917,7 @@ function sampleHeroBottom(app,h){
 }
 
 function renderCompare(){
-  const V6=app.dataset.v==='6'||app.dataset.v==='7'||app.dataset.v==='8';
+  const V6=app.dataset.v==='6'||app.dataset.v==='7'||app.dataset.v==='8'||app.dataset.v==='9';
   const T=V6?{...CMP[lang],cols:COLS6[lang],
     h:lang==='zh'?'选择版本':'Choose a version',
     p:'',   /* Harry 2026-08-04：只留标题，描述句删掉 */
@@ -888,7 +970,7 @@ const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const app=$('.app');
 
 function render(){
-  const a=APPS[cur],V=app.dataset.v,v45=V==='4'||V==='5'||V==='6'||V==='7'||V==='8';
+  const a=APPS[cur],V=app.dataset.v,v45=V==='4'||V==='5'||V==='6'||V==='7'||V==='8'||V==='9';
   // 方案 4/5 用专属文案（没定义就回落到通用文案）；方案 1/2/3 永远走通用文案
   const x=(v45&&a[lang+'4'])?{...a[lang],...a[lang+'4']}:a[lang];
   app.style.setProperty('--b1',a.b1);app.style.setProperty('--b2',a.b2);app.style.setProperty('--b3',a.b3);
@@ -899,7 +981,7 @@ function render(){
   $('#cta2').textContent=v45?T.hb2:x.c2;
   $('#hm').textContent=T.hm;
   if(V==='4')renderVersions();
-  if(V==='5'||V==='6'||V==='7'||V==='8')renderCompare();
+  if(V==='5'||V==='6'||V==='7'||V==='8'||V==='9')renderCompare();
   const d=DL[lang];$('#dh').textContent=d.h;$('#dp').textContent=d.p;
   $$('.row').forEach((r,i)=>{r.querySelector('.go').textContent=d.g;
     r.querySelector('.nm s').textContent=d.r[i];
@@ -928,12 +1010,12 @@ function render(){
     const cmp=document.querySelector('.cmp'),mn=document.querySelector('main');
     const ok=cmp&&cmp.offsetParent;
     if(V==='6'&&ok){mn.style.backgroundSize='100% '+cmp.offsetTop+'px';app.style.backgroundSize='';app.style.backgroundPosition='';}
-    else if((V==='7'||V==='8')&&ok){mn.style.backgroundSize='';
+    else if((V==='7'||V==='8'||V==='9')&&ok){mn.style.backgroundSize='';
       const h=cmp.getBoundingClientRect().top-app.getBoundingClientRect().top;
-      if(V==='8'){
+      if(V==='8'||V==='9'){
         /* 方案 8：先用 canvas 把 Hero 那两层原样重绘，取底边真实像素做水平色带，
            再让色带从「选择版本」顶部起往下 360px 淡到纯白。Hero 本身零改动。 */
-        app.style.setProperty('--band8',sampleHeroBottom(app,h));
+        app.style.setProperty(V==='9'?'--band9':'--band8',sampleHeroBottom(app,h));
         app.style.backgroundSize='100% '+h+'px,100% '+h+'px,100% 360px,100% 360px,100% 100%';
         app.style.backgroundPosition='0 0,0 0,0 '+h+'px,0 '+h+'px,0 0';
       }else{
