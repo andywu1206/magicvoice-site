@@ -189,13 +189,7 @@ body.dark .hero::before{opacity:1}
 .vsrc .s b{font:500 12px/1 var(--font);color:var(--ink)}
 .vsrc .s .g{height:26px;padding:0 13px;border:none;border-radius:999px;background:var(--btn);
   color:var(--btnink);font:600 12px/1 var(--font);cursor:pointer}
-.vadm{display:none;gap:6px;margin-top:1px}
-body.admin .vadm{display:flex}
-.vadm input{flex:1;height:26px;min-width:0;padding:0 8px;border:1px solid var(--line);
-  border-radius:6px;background:transparent;color:var(--ink2);font:400 11px/1 var(--font)}
-.vadm button{height:26px;padding:0 10px;border:1px solid var(--line);border-radius:6px;
-  background:transparent;color:var(--ink2);font:500 11px/1 var(--font);cursor:pointer}
-.vadm button:hover{background:var(--sel);color:var(--ink)}
+
 
 /* ══════════════════════════════════════════════════════════════
    方案 5 · 价格 → 按钮 → 对比列表（照 Harry 参考图 R002 · 第二张）
@@ -257,35 +251,7 @@ body.dark{--line-soft:rgba(255,255,255,.07)}
 .cbeta .s .g{height:26px;padding:0 13px;border:none;border-radius:999px;
   background:var(--btn);color:var(--btnink);font:600 12px/26px var(--font);
   cursor:pointer;white-space:nowrap}
-/* ── Admin 变更日志（Harry 2026-08-04）· 只在编辑态出现，访客永远看不到 ── */
-.chlog{display:none;position:fixed;right:14px;bottom:74px;width:300px;z-index:59;
-  max-height:min(52vh,440px);flex-direction:column;overflow:hidden;
-  background:rgba(255,255,255,.94);backdrop-filter:saturate(180%) blur(20px);
-  -webkit-backdrop-filter:saturate(180%) blur(20px);border:1px solid var(--line);
-  border-radius:12px;box-shadow:0 10px 34px rgba(0,0,0,.16);
-  font:400 11.5px/1.5 var(--font);color:var(--ink2)}
-body.admin .chlog{display:flex}
-body.dark .chlog{background:rgba(28,28,32,.94);border-color:rgba(255,255,255,.12)}
-.chlog .hd{display:flex;align-items:center;gap:6px;padding:10px 12px;
-  border-bottom:1px solid var(--line)}
-.chlog .hd b{font:600 12px/1 var(--font);color:var(--ink);flex:1}
-.chlog .hd button{height:22px;padding:0 8px;border-radius:6px;border:1px solid var(--line);
-  background:transparent;color:var(--ink2);font:500 10.5px/1 var(--font);cursor:pointer}
-.chlog .hd button:hover{background:var(--sel);color:var(--ink)}
-.chlog .bd{overflow:auto;padding:6px 12px 12px}
-.chlog .en{padding:7px 0;border-bottom:1px solid var(--line-soft)}
-.chlog .en:last-child{border-bottom:none}
-.chlog .mt{display:flex;align-items:center;gap:6px;margin-bottom:2px}
-.chlog .lg{height:15px;padding:0 6px;border-radius:999px;background:var(--sel);
-  font:600 9.5px/15px var(--font);color:var(--ink2)}
-.chlog .fd{color:var(--ink);font-weight:500;font-size:11px}
-.chlog .tm{color:var(--ink3);font-size:10px;margin-left:auto;white-space:nowrap}
-.chlog .df{word-break:break-word}
-.chlog .df s{color:var(--ink3)}
-.chlog .warn{margin:8px 0 2px;padding:8px 10px;border-radius:8px;color:var(--ink);
-  background:color-mix(in srgb,var(--b1) 13%,transparent)}
-.chlog .warn u{display:block;font-weight:600;text-decoration:none;margin-bottom:3px}
-.chlog .empty{color:var(--ink3);padding:12px 0;text-align:center}
+
 .csrc{align-self:center;font:400 11.5px/1 var(--font);color:var(--ink2);text-align:center}
 .csrc b{font-weight:500;color:var(--ink);cursor:pointer}
 .csrc b:hover{text-decoration:underline}
@@ -315,27 +281,7 @@ body.dark .chlog{background:rgba(28,28,32,.94);border-color:rgba(255,255,255,.12
 .about{display:none;padding:16px 56px 22px;border-top:1px solid var(--line);
   font:400 13px/1.65 var(--font);color:var(--ink2)}
 .about.on{display:block}
-.about .admhint{margin-left:10px;font-size:11.5px;color:var(--ink3)}
-.about b{color:var(--ink)}
-.about .adm-entry{margin-top:0;height:30px;padding:0 14px;display:inline-flex;align-items:center;
-  gap:6px;border:1px solid var(--line);border-radius:8px;background:transparent;
-  color:var(--ink2);font:500 12px/1 var(--font);cursor:pointer}
-.about .adm-entry:hover{background:var(--sel);color:var(--ink)}
-/* 登录弹层 */
-.gate{display:none;position:fixed;inset:0;z-index:50;place-items:center;
-  background:rgba(0,0,0,.42);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
-.gate.on{display:grid}
-.gbox{width:380px;padding:28px;border-radius:14px;background:var(--card);
-  box-shadow:0 24px 60px -20px rgba(0,0,0,.5);text-align:center;color:var(--ink)}
-.gbox .gg{width:44px;height:44px;margin:0 auto 14px;border-radius:50%;display:grid;place-items:center;
-  border:1px solid var(--line);font:600 19px/1 var(--font)}
-.gbox h4{font:600 17px/1.3 var(--font);margin-bottom:6px}
-.gbox p{font:400 13px/1.6 var(--font);color:var(--ink2);margin-bottom:18px}
-.gbox .ga{width:100%;height:40px;border:none;border-radius:9px;background:var(--btn);
-  color:var(--btnink);font:600 14px/1 var(--font);cursor:pointer;margin-bottom:9px}
-.gbox .gc{width:100%;height:36px;border:1px solid var(--line);border-radius:9px;background:transparent;
-  color:var(--ink2);font:500 13px/1 var(--font);cursor:pointer}
-.gbox .gn{margin-top:14px;font:400 11.5px/1.5 var(--font);color:var(--ink3)}
+
 
 /* ── 内嵌反馈 / 商务合作表单 ──
    铁律：绝不用 mailto: 拉起本地邮件客户端。很多人根本没配过本机邮件，
@@ -624,45 +570,9 @@ body:has(.app[data-v="9"]){padding:0;background:var(--page)}
 .row .go{height:30px;padding:0 16px;border:none;border-radius:999px;
   background:var(--btn);color:var(--btnink);font:600 13px/1 var(--font);cursor:pointer;transition:.18s}
 .row .go:hover{opacity:.84}
-.adm{display:none;grid-column:1/-1;gap:6px;padding-top:2px}
-body.admin .adm{display:flex}
-.adm button{height:28px;padding:0 12px;border:1px solid var(--line);border-radius:7px;
-  background:transparent;color:var(--ink2);font:500 12px/1 var(--font);cursor:pointer}
-.adm button:hover{background:var(--sel);color:var(--ink)}
-.adm .url{flex:1;height:28px;border:1px solid var(--line);border-radius:7px;background:transparent;
-  color:var(--ink2);font:400 11px/1 var(--font);padding:0 9px;min-width:0}
-.admtag{display:none;margin-bottom:14px;padding:8px 12px;border-radius:8px;
-  background:color-mix(in srgb,var(--b1) 12%,transparent);
-  font:500 12px/1.4 var(--font);color:var(--ink)}
-body.admin .admtag{display:block}
 
-/* ── 内容编辑器（Harry 2026-08-04）· Layout 与样式锁死，只允许改文字 ──
-   浮动条用 position:fixed，不参与文档流 → 不可能影响任何版式。 */
-.editbar{display:none;position:fixed;left:50%;bottom:22px;transform:translateX(-50%);
-  align-items:center;gap:12px;padding:10px 14px;border-radius:12px;z-index:60;
-  background:rgba(255,255,255,.88);backdrop-filter:saturate(180%) blur(20px);
-  -webkit-backdrop-filter:saturate(180%) blur(20px);
-  border:1px solid var(--line);box-shadow:0 10px 34px rgba(0,0,0,.16);
-  font:400 12px/1 var(--font);color:var(--ink2);white-space:nowrap}
-body.admin .editbar{display:flex}
-body.dark .editbar{background:rgba(28,28,32,.88);border-color:rgba(255,255,255,.12)}
-.editbar b{font:600 12px/1 var(--font);color:var(--ink)}
-.editbar .sp{width:6px}
-.editbar button{height:26px;padding:0 11px;border-radius:7px;border:1px solid var(--line);
-  background:transparent;color:var(--ink2);font:500 11.5px/1 var(--font);cursor:pointer}
-.editbar button:hover{background:var(--sel);color:var(--ink)}
-.editbar #btnSave{background:var(--btn);color:var(--btnink);border-color:transparent;font-weight:600}
-.editbar #saveTip{color:var(--b1);font-weight:500;min-width:0}
-.editbar .ebx{width:26px;padding:0;border-radius:999px;font-size:12px;color:var(--ink2)}
-.editbar .ebx:hover{background:var(--sel);color:var(--ink)}
-[data-ed]{position:relative;outline:1px dashed color-mix(in srgb,var(--b1) 60%,transparent);
-  outline-offset:5px;border-radius:3px;cursor:text}
-/* 小笔角标 = 这块可以改（Harry 2026-08-04：虚线不够，要有视觉引导）*/
-[data-ed]::after{content:'\270E';position:absolute;top:-10px;right:-10px;z-index:6;
-  width:16px;height:16px;border-radius:999px;background:var(--b1);color:#fff;
-  font:400 10px/16px var(--font);text-align:center;pointer-events:none;opacity:.92}
-[data-ed]:focus::after{opacity:1;transform:scale(1.12)}
-[data-ed]:focus{outline:1.5px solid var(--b1);outline-offset:5px}
+
+
 
 /* ── 顶栏下拉菜单（Harry 2026-08-04）· 对齐 Apple 菜单规范 ──
    三角本来就在，就该点出菜单而不是直接切换。fixed 定位 + JS 锚定 → 不动任何现有结构。 */
@@ -709,7 +619,7 @@ body.dark .ccard{box-shadow:0 8px 26px -14px rgba(0,0,0,.5)}
     <div class="top">
       <button class="gbtn" id="lang">中文</button>
       <button class="gbtn" id="theme">深色</button>
-      <button class="gbtn" id="admin">管理员</button>
+
     </div>
 
     <section class="hero">
@@ -769,7 +679,7 @@ body.dark .ccard{box-shadow:0 8px 26px -14px rgba(0,0,0,.5)}
     </section>
 
     <!-- Footer · Admin 入口藏在「关于」里 -->
-    <div class="about" id="ab"><button class="adm-entry" id="admEntry">&#9881;&#65038; Admin</button><span class="admhint" id="admHint">仅站主本人可进入</span></div>
+    <div class="about" id="ab"></div>
     <footer class="ft">
       <!-- About 不单独列，入口并进署名：点 Harry Wood 展开（Harry 2026-08-04）-->
       <span>© 2026 Peace &amp; Light · Designed by <a id="aboutLink">Harry Wood</a></span>
@@ -781,17 +691,7 @@ body.dark .ccard{box-shadow:0 8px 26px -14px rgba(0,0,0,.5)}
 </div>
 
 <!-- 管理员授权 -->
-<div class="gate" id="gate">
-  <div class="gbox">
-    <div class="gg">&#128274;</div>
-    <h4 id="gaTitle">登录</h4>
-    <p id="gaDesc">仅限站主本人。</p>
-    <div id="gaBtn"></div>
-    <button class="ga" id="gaOk" hidden>继续</button>
-    <button class="gc" id="gaNo">取消</button>
-    <div class="gn" id="gaNote">正在加载…</div>
-  </div>
-</div>
+
 
 <!-- 内嵌反馈 / 商务合作（站内提交，不拉起本地邮件客户端） -->
 <div class="gate" id="mgate">
@@ -811,25 +711,9 @@ body.dark .ccard{box-shadow:0 8px 26px -14px rgba(0,0,0,.5)}
 <div class="mnu" id="mnuLang"></div>
 <div class="mnu" id="mnuTheme"></div>
 
-<!-- 内容编辑浮动条：只在管理员态出现，fixed 定位，不参与文档流 → 不影响版式 -->
-<div class="editbar" id="editbar">
-  <b id="ebTitle">Content editing</b>
-  <span id="ebHint">Text only &mdash; layout &amp; styling are locked</span>
-  <span class="sp"></span>
-  <span id="saveTip"></span>
-  <button id="btnSave">Save</button>
-  <button id="btnExport">Export JSON</button>
-  <button id="btnReset">Reset</button>
-  <button id="btnClose" class="ebx" title="退出编辑">&#10005;</button>
-</div>
 
-<!-- 变更日志：只在管理员态出现。解决“下一个 AI 不知道 Harry 在网页上改了什么” -->
-<div class="chlog" id="chlog">
-  <div class="hd"><b id="clTitle">本机改动</b>
-    <button id="clCopy">复制给 AI</button>
-    <button id="clClear">清空</button></div>
-  <div class="bd" id="clBody"></div>
-</div>
+
+
 
 <script>
 const APPS={
@@ -994,20 +878,20 @@ function renderCompare(){
       ?`<div class="cbeta">${VER[cur].beta.map((sc,si)=>
           `<a class="s" href="${hrefOf(sc.u)}" target="_blank" rel="noopener"`+
           ` onclick="track('${cur}:beta:${sc.i}')">${ICO[sc.i]||''}`+
-          `<b>${sc.n}</b><span class="g"${si===0?` data-c6="${i}:btn"`:''}>${c.btn}</span></a>`
+          `<b>${sc.n}</b><span class="g"${si===0?``:''}>${c.btn}</span></a>`
         ).join('')}</div>`:'';
     return `<div class="ccard${i===1?' on':''}${beta?' hasbeta':''}">
-      <div class="cname"><span data-c6="${i}:n">${c.n}</span><span class="cbadge" data-c6="${i}:b">${c.b}</span></div>
-      <div class="csub" data-c6="${i}:s">${c.s}</div>
-      <div class="cprice"><span data-c6="${i}:price">${p}</span>${c.pu?`<u data-c6="${i}:pu">${c.pu}</u>`:''}</div>
-      ${beta||`<a class="cbtn" data-c6="${i}:btn" href="${hrefOf(i===1?VER[cur].free:VER[cur].pro)}"`+
+      <div class="cname"><span>${c.n}</span><span class="cbadge">${c.b}</span></div>
+      <div class="csub">${c.s}</div>
+      <div class="cprice"><span>${p}</span>${c.pu?`<u>${c.pu}</u>`:''}</div>
+      ${beta||`<a class="cbtn" href="${hrefOf(i===1?VER[cur].free:VER[cur].pro)}"`+
         ` target="_blank" rel="noopener" onclick="track('${cur}:${i===1?'free':'pro'}')">${c.btn}</a>`}
       <div class="csrc">${c.src?(c.src.includes(' · ')
         ?c.src.split(' · ').map(s=>`<b>${s}</b>`).join(' · '):c.src):''}</div>
       <div class="clist">${R.map((r,ri)=>{const y=r[i+1],ov=!!(r[4]&&r[4][i]),lb=ov?r[4][i]:r[0];
-        return `<div class="li ${y?'y':'n'}"><i>${y?'✓':'—'}</i><span data-r6="${ri}:${i}:${ov?'o':'b'}">${lb}</span></div>`}).join('')}</div>
+        return `<div class="li ${y?'y':'n'}"><i>${y?'✓':'—'}</i><span>${lb}</span></div>`}).join('')}</div>
     </div>`}).join('');
-  if(document.body.classList.contains('admin'))setEd(true);
+
 }
 
 function renderVersions(){
@@ -1069,12 +953,7 @@ function render(){
   // Footer 跟着语言走（之前上面英文下面中文，是错的）
   $('#bizLink').textContent=zh?'商务合作':'Partnerships';
   $('#fbLink').textContent=zh?'问题反馈':'Feedback';
-  $('#admHint').textContent=zh?'仅站主本人可进入':'Owner account only';
-  $('#ebTitle').textContent=zh?'内容编辑':'Content editing';
-  $('#ebHint').textContent=zh?'只改文字，版式与样式已锁死':'Text only — layout & styling are locked';
-  $('#btnSave').textContent=zh?'保存':'Save';
-  $('#btnExport').textContent=zh?'导出 JSON':'Export JSON';
-  $('#btnReset').textContent=zh?'还原':'Reset';
+
   // 渐变底边严格对齐「选择版本」上方那根线：不写死高度，按实际位置算
   /* rAF 在页面不可见（后台标签 / 预览面板）时不会执行，渐变底会整个丢失。
      改成 rAF + setTimeout 双触发，逻辑幂等重复跑无害。（Harry 2026-08-04 上线前修）*/
@@ -1132,65 +1011,13 @@ $('#theme').onclick=e=>{e.stopPropagation();openMenu('theme');};
 document.addEventListener('click',closeMenus);
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenus();});
 addEventListener('resize',closeMenus); addEventListener('scroll',closeMenus,true);
-$('#admin').onclick=e=>{document.body.classList.toggle('admin');
-  e.target.classList.toggle('on',document.body.classList.contains('admin'));};
 
-/* Footer「关于」→ Admin → 登录门 */
-$('#aboutLink').onclick=()=>$('#ab').classList.toggle('on');
-
-/* ══ 内容编辑（Harry 2026-08-04）══
-   铁律：Layout 冻结、样式冻结，只有文字可改。
-   - contenteditable=plaintext-only + 拦 Enter + 拦富文本粘贴 → 结构不可能被改坏
-   - 改动存 localStorage，页面加载时覆盖内置文案
-   - 导出 JSON 供落盘成 content.json（将来站点直接 fetch）           */
-const CKEY='harryAppStore.content.v1';
-const CF={t:'t',l:'l',d:'d',cta:'c',cta2:'c2'};
-function loadOv(){try{return JSON.parse(localStorage.getItem(CKEY)||'{}');}catch(e){return{};}}
-function applyOv(){const o=loadOv();
-  for(const a in o){if(a.slice(0,2)==='__'||!APPS[a])continue;
-    for(const g in o[a]){if(!APPS[a][g])continue;
-      for(const f in o[a][g])APPS[a][g][f]=o[a][g][f];}}
-  /* 版本卡（COLS6）—— 与 App 无关，按语言存 */
-  const c6=o.__cols6||{};
-  for(const lg in c6)for(const i in c6[lg]){
-    if(!COLS6[lg]||!COLS6[lg][i])continue;
-    for(const f in c6[lg][i])COLS6[lg][i][f]=c6[lg][i][f];}
-  /* 功能条目（ROWS6）—— b=共用基础文案，o=某一列的专属覆盖 */
-  const r6=o.__rows6||{};
-  for(const lg in r6)for(const k in r6[lg]){
-    const a=k.split(':'),ri=+a[0],ci=+a[1],kind=a[2],row=ROWS6[lg]&&ROWS6[lg][ri];
-    if(!row)continue;
-    if(kind==='o'){row[4]=row[4]||{};row[4][ci]=r6[lg][k];}else{row[0]=r6[lg][k];}}}
-applyOv();
-function edEls(){const a=[];
-  for(const id in CF){const el=$('#'+id);if(el)a.push(el);}
-  document.querySelectorAll('[data-c6],[data-r6]').forEach(e=>a.push(e));
-  return a;}
-function edKey(el){return el.dataset.c6?('c6:'+el.dataset.c6)
-  :el.dataset.r6?('r6:'+el.dataset.r6):('hero:'+el.id);}
-/* 基准 = 进入编辑态那一刻屏幕上的样子。
-   不能拿数据模型当基准 —— 渲染层和数据层本来就有差异，
-   那样会把「我没碰过的东西」也记成改动（实测确实记了 4 条假账）。*/
-let SNAP={};
-function txt(el){return (el.textContent||'').replace(/\s+/g,' ').trim();}
-function setEd(on){edEls().forEach(el=>{
-  if(on){el.setAttribute('contenteditable','plaintext-only');el.dataset.ed='1';
-    const k=edKey(el);if(!(k in SNAP))SNAP[k]=txt(el);}
-  else{el.removeAttribute('contenteditable');delete el.dataset.ed;}});}
-document.addEventListener('keydown',e=>{
-  const t=e.target;if(t&&t.dataset&&t.dataset.ed&&e.key==='Enter'){e.preventDefault();t.blur();}});
-document.addEventListener('paste',e=>{
-  const t=e.target;if(!(t&&t.dataset&&t.dataset.ed))return;
-  e.preventDefault();
-  const tx=((e.clipboardData||window.clipboardData).getData('text/plain')||'').replace(/\s+/g,' ').trim();
-  document.execCommand('insertText',false,tx);});
-new MutationObserver(()=>setEd(document.body.classList.contains('admin')))
-  .observe(document.body,{attributes:true,attributeFilter:['class']});
 /* ══ 下载点击追踪（Harry 2026-08-04：点了按钮就算一次下载，不用 GitHub 真实下载量）══
    诚实边界：这是纯前端 hook 点，只写本机 localStorage，不是全局共享的公开数字。
    静态站没有后端，做不出"所有人都看到同一个数字"的公开计数器，除非接一个
    计数服务（第三方或 Harry 自己的 Cloudflare Worker）——这条待 Harry 决定，
-   决定前不在页面上展示任何假数字。track() 只是把埋点做好，接口一确定就能直接接上。 */
+   决定前不在页面上展示任何假数字。track() 只是把埋点做好，接口一确定就能直接接上。
+   ⚠️ 不属于 Admin，公网版保留 —— 别再把它包进 ADMIN 哨兵（2026-08-04 踩过一次）。 */
 const TKEY='harryAppStore.clicks.v1';
 function track(k){try{
     const o=JSON.parse(localStorage.getItem(TKEY)||'{}');
@@ -1200,111 +1027,10 @@ function track(k){try{
      不阻塞下载本身开始）：
      fetch('https://count.ariamagicvoice.com/hit?k='+encodeURIComponent(k),{method:'POST'}); */
 }
-function tip(m){const e=$('#saveTip');if(!e)return;e.textContent=m;setTimeout(()=>{e.textContent='';},2400);}
-const FLBL={t:'Hero 标题',l:'Hero 大标语',d:'Hero 描述',cta:'主按钮',cta2:'次按钮'};
-const CLBL={n:'名称',b:'徽章',s:'副标题',price:'价格',pu:'副价格',btn:'按钮'};
-$('#btnSave').onclick=()=>{const o=loadOv(),L=loadLog(),ts=stamp(),zh=lang==='zh';let n=0;
-  const put=(key,label,from,to)=>{n++;
-    L.push({ts:ts,app:cur,lang:lang,key:key,label:label,from:from,to:to});};
-  /* Hero */
-  o[cur]=o[cur]||{};o[cur][lang]=o[cur][lang]||{};
-  for(const id in CF){const el=$('#'+id);if(!el)continue;
-    const v=txt(el),b=SNAP['hero:'+id];
-    o[cur][lang][CF[id]]=v;APPS[cur][lang][CF[id]]=v;
-    if(b!==undefined&&b!==v)put('hero.'+id,FLBL[id]||id,b,v);}
-  /* 版本卡 */
-  const c6=o.__cols6=o.__cols6||{};c6[lang]=c6[lang]||{};
-  document.querySelectorAll('[data-c6]').forEach(el=>{
-    const a=el.dataset.c6.split(':'),i=a[0],f=a[1],col=COLS6[lang]&&COLS6[lang][i];
-    if(!col)return;
-    const v=txt(el),b=SNAP['c6:'+el.dataset.c6];
-    (c6[lang][i]=c6[lang][i]||{})[f]=v;col[f]=v;
-    if(b!==undefined&&b!==v)
-      put('card.'+i+'.'+f,(col.n||('卡片'+i))+' · '+(CLBL[f]||f),b,v);});
-  /* 功能条目：基础文案是三列共用的 —— 必须先收集真正改过的，再统一写回。
-     边写边遍历的话，没改的兄弟列会拿旧文案把改动覆盖回去（实测复现过）。*/
-  const r6=o.__rows6=o.__rows6||{};r6[lang]=r6[lang]||{};
-  const pend={};
-  document.querySelectorAll('[data-r6]').forEach(el=>{
-    const a=el.dataset.r6.split(':'),ri=+a[0],ci=+a[1],kind=a[2];
-    if(!(ROWS6[lang]&&ROWS6[lang][ri]))return;
-    const v=txt(el),b=SNAP['r6:'+el.dataset.r6];
-    if(b===undefined||b===v)return;
-    pend[kind==='o'?(ri+':'+ci+':o'):(ri+':b')]={ri:ri,ci:ci,kind:kind,from:b,to:v};});
-  for(const k in pend){const p=pend[k],row=ROWS6[lang][p.ri];
-    if(p.kind==='o'){row[4]=row[4]||{};row[4][p.ci]=p.to;}else{row[0]=p.to;}
-    r6[lang][p.ri+':'+p.ci+':'+p.kind]=p.to;
-    put('row.'+k,'功能项 · '+(p.kind==='o'
-      ?(((COLS6[lang][p.ci]||{}).n)||p.ci)+' 专属':'三列共用'),p.from,p.to);}
-  localStorage.setItem(CKEY,JSON.stringify(o));
-  if(n)saveLog(L);
-  renderLog();
-  tip(n?(zh?'已保存 '+n+' 处':'Saved '+n+' change'+(n===1?'':'s'))
-       :(zh?'没有改动':'No changes'));
-  setTimeout(exitAdmin,900);};
-$('#btnExport').onclick=()=>{const s=JSON.stringify(loadOv(),null,2);
-  navigator.clipboard.writeText(s).then(()=>tip(lang==='zh'?'JSON 已复制':'JSON copied'),
-    ()=>{const w=window.open('','_blank');w&&w.document.write('<pre>'+s.replace(/</g,'&lt;')+'</pre>');});};
-$('#btnReset').onclick=()=>{
-  if(!confirm(lang==='zh'?'还原为内置文案？本机的修改会被清掉。':'Reset to built-in copy? Local edits will be cleared.'))return;
-  localStorage.removeItem(CKEY);location.reload();};
-function exitAdmin(){document.body.classList.remove('admin');SNAP={};}
-$('#btnClose').onclick=exitAdmin;
 
-/* ══ 变更日志（Harry 2026-08-04）══
-   痛点：文案改在 localStorage，下一个 AI 读仓库根本看不到，
-   更不知道中文改了而英文没改。日志把这件事显式记下来，并能一键复制给 AI。 */
-const LKEY='harryAppStore.log.v1';
-function loadLog(){try{return JSON.parse(localStorage.getItem(LKEY)||'[]');}catch(e){return[];}}
-function saveLog(a){try{localStorage.setItem(LKEY,JSON.stringify(a.slice(-300)));}catch(e){}}
-function stamp(){const d=new Date(),z=v=>String(v).padStart(2,'0');
-  return d.getFullYear()+'-'+z(d.getMonth()+1)+'-'+z(d.getDate())+' '+
-         z(d.getHours())+':'+z(d.getMinutes())+':'+z(d.getSeconds());}
-/* 中英对照：同一个字段，哪一边改得更晚 */
-function parity(L){const last={},out=[];
-  L.forEach(e=>{const k=e.app+'|'+e.key;(last[k]=last[k]||{})[e.lang]=e.ts;
-    (last[k].lbl=last[k].lbl)||(last[k].lbl=e.label);});
-  for(const k in last){const v=last[k];
-    if(v.zh&&!v.en)out.push({k:k,lbl:v.lbl,need:'en'});
-    else if(v.en&&!v.zh)out.push({k:k,lbl:v.lbl,need:'zh'});
-    else if(v.zh&&v.en&&v.zh!==v.en)out.push({k:k,lbl:v.lbl,need:v.zh>v.en?'en':'zh'});}
-  return out;}
-function esc(t){return String(t==null?'':t).replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));}
-function renderLog(){const bd=$('#clBody');if(!bd)return;
-  const zh=lang==='zh',L=loadLog();
-  $('#clTitle').textContent=zh?'本机改动':'Local edits';
-  $('#clCopy').textContent=zh?'复制给 AI':'Copy for AI';
-  $('#clClear').textContent=zh?'清空':'Clear';
-  if(!L.length){bd.innerHTML='<div class="empty">'+
-    (zh?'还没有改动。改完点 Save 就会记在这里。'
-       :'No edits yet. They will show up here after you Save.')+'</div>';return;}
-  const pd=parity(L);
-  let h='';
-  if(pd.length){h+='<div class="warn"><u>'+(zh?'中英未对齐':'Languages out of sync')+'</u>'+
-    pd.map(p=>esc(p.lbl)+' → '+(p.need==='en'?(zh?'英文还是旧的':'EN still old')
-      :(zh?'中文还是旧的':'ZH still old'))).join('<br>')+'</div>';}
-  h+=L.slice().reverse().map(e=>'<div class="en"><div class="mt">'+
-      '<span class="lg">'+(e.lang==='zh'?'中':'EN')+'</span>'+
-      '<span class="fd">'+esc(e.label)+'</span>'+
-      '<span class="tm">'+esc(e.ts.slice(5,16))+'</span></div>'+
-      '<div class="df"><s>'+esc(e.from)+'</s> → '+esc(e.to)+'</div></div>').join('');
-  bd.innerHTML=h;}
-$('#clClear').onclick=()=>{
-  if(!confirm(lang==='zh'?'清空变更日志？（文案不受影响）':'Clear the change log? Copy is not affected.'))return;
-  localStorage.removeItem(LKEY);renderLog();};
-$('#clCopy').onclick=()=>{const L=loadLog(),pd=parity(L);
-  let m='## Harry App Store · 本机文案改动（localStorage · 未进仓库）\n';
-  m+='导出时间：'+stamp()+' CST\n\n';
-  if(!L.length)m+='（无改动）\n';
-  else{m+='| 时间 | 语言 | 位置 | 原文 | 改成 |\n|---|---|---|---|---|\n';
-    L.forEach(e=>{m+='| '+e.ts+' | '+(e.lang==='zh'?'中文':'English')+' | '+e.label+
-      ' | '+String(e.from||'').replace(/\|/g,'\\|')+' | '+String(e.to||'').replace(/\|/g,'\\|')+' |\n';});}
-  if(pd.length){m+='\n### ⚠️ 中英未对齐（需要 AI 补翻译）\n';
-    pd.forEach(p=>{m+='- '+p.lbl+'：'+(p.need==='en'?'中文已改，英文还是旧的':'英文已改，中文还是旧的')+'\n';});}
-  m+='\n> 网站本身没有翻译能力；上面标记的项要由 AI 手动补。\n';
-  navigator.clipboard.writeText(m).then(
-    ()=>tip(lang==='zh'?'已复制，可以直接贴给 AI':'Copied — paste it to your AI'),
-    ()=>{const w=window.open('','_blank');w&&w.document.write('<pre>'+esc(m)+'</pre>');});};
+
+
+
 
 /* 方案 7 侧栏收起 / 展开 */
 $('#sbToggle').onclick=()=>{app.classList.toggle('sbmin');render();};
@@ -1339,68 +1065,6 @@ $('#mYes').onclick=()=>{
   $('#mOk').classList.add('on');
   setTimeout(()=>$('#mgate').classList.remove('on'),1200);
 };
-/* ══ 管理员登录（Harry 2026-08-04 强制绑定）══
-   旧实现是假的：点一下按钮就 add('admin')，没有任何校验。
-   现在走真 Google Identity Services，只接受下面这个邮箱，完全一致才放行。
-   ❗ 诚实边界：静态站点的校验跑在访客自己的浏览器里，拦得住爬虫和普通人，
-   拦不住会开 DevTools 的人。真正的安全边界是“能不能改到线上”——
-   那由 GitHub 仓库的写权限守着，而编辑器只写 localStorage，改不到别人。 */
-/* 邮箱不落明文：页面是公开的，明文写进去等于把站主邮箱送给爬虫。
-   这里只存 SHA-256 —— 挡的是「顺手 curl|grep 刮一把」，
-   不是加密保护：知道邮箱的人自己算一遍哈希一样能比中。
-   真正的边界不在这行，在「编辑器只写 localStorage，改不到线上」。*/
-const ADMIN_EMAIL_SHA256='efaf1e784cc44c4ffd8f9bcbe581c5f39132a862703db85872892cfdf1c5ef86';
-async function sha256hex(t){const b=await crypto.subtle.digest('SHA-256',
-  new TextEncoder().encode(t));return [...new Uint8Array(b)]
-  .map(x=>x.toString(16).padStart(2,'0')).join('');}
-/* ⬇︎ Harry：Google Cloud Console → 凭据 → 创建 OAuth 客户端 ID（Web），
-   已授权 JavaScript 来源填 https://ariamagicvoice.com ，把拿到的 ID 粘到这里。
-   留空 = 线上 Admin 登录直接不可用（宁可用不了，不允许假放行）。 */
-const GOOGLE_CLIENT_ID='';
-let gsiReady=false;
-function gnote(m){const e=$('#gaNote');if(e)e.textContent=m;}
-function enterAdmin(){SNAP={};document.body.classList.add('admin');render();renderLog();}
-function initGoogle(){
-  const zh=lang==='zh';
-  if(!GOOGLE_CLIENT_ID){gnote(zh
-    ?'登录尚未配置。'
-    :'Sign-in not configured yet.');return;}
-  if(gsiReady)return;
-  const go=()=>{try{
-      google.accounts.id.initialize({client_id:GOOGLE_CLIENT_ID,callback:onGoogleCred});
-      google.accounts.id.renderButton($('#gaBtn'),{theme:'outline',size:'large',width:250});
-      gsiReady=true;gnote(zh?'仅站主本人可以进入。':'Only the owner can get in.');
-    }catch(e){gnote((zh?'登录初始化失败：':'Init failed: ')+e.message);}};
-  if(window.google&&window.google.accounts)return go();
-  const sc=document.createElement('script');
-  sc.src='https://accounts.google.com/gsi/client';sc.async=true;sc.defer=true;
-  sc.onload=go;sc.onerror=()=>gnote(zh?'登录组件加载失败。':'Failed to load the sign-in component.');
-  document.head.appendChild(sc);}
-/* 红军 P0-2b：旧实现只在前端 decode JWT payload、不验签名 ——
-   谁都能在 console 里塞一段没签过名的假 JSON 冒充邮箱字段。
-   改用 Google 自己的 tokeninfo 端点验签（Google 是真服务器，
-   我们没有自己的后端也能拿到真验证）。fetch 失败一律拒绝。
-   这仍然挡不住直接在 console 调 enterAdmin()——纯静态站没有
-   任何办法能挡住那个；这里只是让"走登录流程"这条路名副其实。 */
-async function onGoogleCred(resp){const zh=lang==='zh';let p=null;
-  try{const r=await fetch('https://oauth2.googleapis.com/tokeninfo?id_token='+
-      encodeURIComponent(resp.credential));
-    if(!r.ok)throw 0;p=await r.json();
-  }catch(e){gnote(zh?'签名校验失败，未放行。':'Signature check failed.');return;}
-  if(GOOGLE_CLIENT_ID&&p.aud!==GOOGLE_CLIENT_ID){
-    gnote(zh?'客户端不匹配，未放行。':'Client mismatch.');return;}
-  const em=String(p.email||'').toLowerCase().trim();
-  if((await sha256hex(em))!==ADMIN_EMAIL_SHA256||p.email_verified!=='true'){
-    gnote((zh?'账号 ':'Account ')+(em||'?')+(zh?' 无权进入。':' is not allowed.'));return;}
-  $('#gate').classList.remove('on');enterAdmin();}
-$('#admEntry').onclick=()=>{$('#gate').classList.add('on');initGoogle();};
-$('#gaNo').onclick=()=>$('#gate').classList.remove('on');
-/* 本机开发快捷键。红军 P0-1 指出：这行原样部署到线上，
-   任何人打开 ariamagicvoice.com/apps/#local-admin 就绕过登录直接进编辑态。
-   只写 localStorage、改不到线上，但这足以推翻"Admin 门已拆干净"的说法。
-   改成域名门禁：只在 localhost / 127.0.0.1 生效，正式域名下这行永远是死代码。 */
-if(location.hash==='#local-admin'
-   &&(location.hostname==='localhost'||location.hostname==='127.0.0.1'))
-  setTimeout(enterAdmin,0);
+
 render();
 </script>
