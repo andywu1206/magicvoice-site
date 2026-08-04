@@ -1327,7 +1327,14 @@ $('#mYes').onclick=()=>{
    ❗ 诚实边界：静态站点的校验跑在访客自己的浏览器里，拦得住爬虫和普通人，
    拦不住会开 DevTools 的人。真正的安全边界是“能不能改到线上”——
    那由 GitHub 仓库的写权限守着，而编辑器只写 localStorage，改不到别人。 */
-const ADMIN_EMAIL='andywu1206@gmail.com';
+/* 邮箱不落明文：页面是公开的，明文写进去等于把站主邮箱送给爬虫。
+   这里只存 SHA-256 —— 挡的是「顺手 curl|grep 刮一把」，
+   不是加密保护：知道邮箱的人自己算一遍哈希一样能比中。
+   真正的边界不在这行，在「编辑器只写 localStorage，改不到线上」。*/
+const ADMIN_EMAIL_SHA256='efaf1e784cc44c4ffd8f9bcbe581c5f39132a862703db85872892cfdf1c5ef86';
+async function sha256hex(t){const b=await crypto.subtle.digest('SHA-256',
+  new TextEncoder().encode(t));return [...new Uint8Array(b)]
+  .map(x=>x.toString(16).padStart(2,'0')).join('');}
 /* ⬇︎ Harry：Google Cloud Console → 凭据 → 创建 OAuth 客户端 ID（Web），
    已授权 JavaScript 来源填 https://ariamagicvoice.com ，把拿到的 ID 粘到这里。
    留空 = 线上 Admin 登录直接不可用（宁可用不了，不允许假放行）。 */
@@ -1351,13 +1358,13 @@ function initGoogle(){
   sc.src='https://accounts.google.com/gsi/client';sc.async=true;sc.defer=true;
   sc.onload=go;sc.onerror=()=>gnote(zh?'Google 登录组件加载失败。':'Failed to load Google sign-in.');
   document.head.appendChild(sc);}
-function onGoogleCred(resp){const zh=lang==='zh';let p=null;
+async function onGoogleCred(resp){const zh=lang==='zh';let p=null;
   try{const b=resp.credential.split('.')[1].replace(/-/g,'+').replace(/_/g,'/');
     p=JSON.parse(decodeURIComponent(Array.prototype.map.call(atob(b),
       ch=>'%'+('00'+ch.charCodeAt(0).toString(16)).slice(-2)).join('')));
   }catch(e){gnote(zh?'登录凭据解析失败。':'Could not read the credential.');return;}
   const em=String(p.email||'').toLowerCase().trim();
-  if(em!==ADMIN_EMAIL||p.email_verified===false){
+  if((await sha256hex(em))!==ADMIN_EMAIL_SHA256||p.email_verified===false){
     gnote((zh?'账号 ':'Account ')+(em||'?')+(zh?' 无权进入。':' is not allowed.'));return;}
   $('#gate').classList.remove('on');enterAdmin();}
 $('#admEntry').onclick=()=>{$('#gate').classList.add('on');initGoogle();};
