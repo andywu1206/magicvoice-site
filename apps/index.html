@@ -226,6 +226,10 @@ body.dark{--line-soft:rgba(255,255,255,.07)}
 /* 行高锁死 = 按钮必然同一水平线 */
 .ccard{border:1px solid var(--line-soft);border-radius:16px;background:var(--card);padding:24px 22px;
   display:grid;grid-template-rows:32px 34px 52px 44px 20px auto;transition:.2s}
+/* 内测卡装了三个下载源，按钮那一行必须自适应；
+   固定 44px 会让它压到功能列表上（2026-08-04 实测重叠过）*/
+.ccard.hasbeta{grid-template-rows:32px 34px 52px auto 20px auto}
+[data-v="6"] .ccard.hasbeta{grid-template-rows:32px 34px 52px auto 20px auto}
 .ccard:hover{border-color:var(--line)}
 .ccard.on{border-color:color-mix(in srgb,var(--ink) 62%,transparent);
   box-shadow:0 8px 26px -12px rgba(0,0,0,.22)}
@@ -241,6 +245,46 @@ body.dark{--line-soft:rgba(255,255,255,.07)}
 .cbtn{align-self:center;width:100%;height:40px;border:none;border-radius:999px;
   background:var(--btn);color:var(--btnink);font:600 14px/1 var(--font);cursor:pointer;transition:.18s}
 .cbtn:hover{opacity:.84}
+/* 内测版三个下载源 —— 直接沿用方案四 .vsrc 的行式样（Harry 2026-08-04 指定）*/
+.cbeta{display:grid;gap:7px}
+.cbeta .s{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;
+  gap:9px;padding:8px 10px;border:1px solid var(--line);border-radius:9px;transition:.15s;
+  text-decoration:none;background:transparent}
+.cbeta .s:hover{background:var(--sel)}
+.cbeta .s svg{width:16px;height:16px;display:block;color:var(--ink2)}
+.cbeta .s b{font:500 12px/1 var(--font);color:var(--ink);text-align:left}
+.cbeta .s .g{height:26px;padding:0 13px;border:none;border-radius:999px;
+  background:var(--btn);color:var(--btnink);font:600 12px/26px var(--font);
+  cursor:pointer;white-space:nowrap}
+/* ── Admin 变更日志（Harry 2026-08-04）· 只在编辑态出现，访客永远看不到 ── */
+.chlog{display:none;position:fixed;right:14px;bottom:74px;width:300px;z-index:59;
+  max-height:min(52vh,440px);flex-direction:column;overflow:hidden;
+  background:rgba(255,255,255,.94);backdrop-filter:saturate(180%) blur(20px);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);border:1px solid var(--line);
+  border-radius:12px;box-shadow:0 10px 34px rgba(0,0,0,.16);
+  font:400 11.5px/1.5 var(--font);color:var(--ink2)}
+body.admin .chlog{display:flex}
+body.dark .chlog{background:rgba(28,28,32,.94);border-color:rgba(255,255,255,.12)}
+.chlog .hd{display:flex;align-items:center;gap:6px;padding:10px 12px;
+  border-bottom:1px solid var(--line)}
+.chlog .hd b{font:600 12px/1 var(--font);color:var(--ink);flex:1}
+.chlog .hd button{height:22px;padding:0 8px;border-radius:6px;border:1px solid var(--line);
+  background:transparent;color:var(--ink2);font:500 10.5px/1 var(--font);cursor:pointer}
+.chlog .hd button:hover{background:var(--sel);color:var(--ink)}
+.chlog .bd{overflow:auto;padding:6px 12px 12px}
+.chlog .en{padding:7px 0;border-bottom:1px solid var(--line-soft)}
+.chlog .en:last-child{border-bottom:none}
+.chlog .mt{display:flex;align-items:center;gap:6px;margin-bottom:2px}
+.chlog .lg{height:15px;padding:0 6px;border-radius:999px;background:var(--sel);
+  font:600 9.5px/15px var(--font);color:var(--ink2)}
+.chlog .fd{color:var(--ink);font-weight:500;font-size:11px}
+.chlog .tm{color:var(--ink3);font-size:10px;margin-left:auto;white-space:nowrap}
+.chlog .df{word-break:break-word}
+.chlog .df s{color:var(--ink3)}
+.chlog .warn{margin:8px 0 2px;padding:8px 10px;border-radius:8px;color:var(--ink);
+  background:color-mix(in srgb,var(--b1) 13%,transparent)}
+.chlog .warn u{display:block;font-weight:600;text-decoration:none;margin-bottom:3px}
+.chlog .empty{color:var(--ink3);padding:12px 0;text-align:center}
 .csrc{align-self:center;font:400 11.5px/1 var(--font);color:var(--ink2);text-align:center}
 .csrc b{font-weight:500;color:var(--ink);cursor:pointer}
 .csrc b:hover{text-decoration:underline}
@@ -606,10 +650,17 @@ body.dark .editbar{background:rgba(28,28,32,.88);border-color:rgba(255,255,255,.
 .editbar button{height:26px;padding:0 11px;border-radius:7px;border:1px solid var(--line);
   background:transparent;color:var(--ink2);font:500 11.5px/1 var(--font);cursor:pointer}
 .editbar button:hover{background:var(--sel);color:var(--ink)}
-.editbar #btnSave{background:var(--ink);color:var(--bg);border-color:transparent}
+.editbar #btnSave{background:var(--btn);color:var(--btnink);border-color:transparent;font-weight:600}
 .editbar #saveTip{color:var(--b1);font-weight:500;min-width:0}
-[data-ed]{outline:1px dashed color-mix(in srgb,var(--b1) 60%,transparent);
+.editbar .ebx{width:26px;padding:0;border-radius:999px;font-size:12px;color:var(--ink2)}
+.editbar .ebx:hover{background:var(--sel);color:var(--ink)}
+[data-ed]{position:relative;outline:1px dashed color-mix(in srgb,var(--b1) 60%,transparent);
   outline-offset:5px;border-radius:3px;cursor:text}
+/* 小笔角标 = 这块可以改（Harry 2026-08-04：虚线不够，要有视觉引导）*/
+[data-ed]::after{content:'\270E';position:absolute;top:-10px;right:-10px;z-index:6;
+  width:16px;height:16px;border-radius:999px;background:var(--b1);color:#fff;
+  font:400 10px/16px var(--font);text-align:center;pointer-events:none;opacity:.92}
+[data-ed]:focus::after{opacity:1;transform:scale(1.12)}
 [data-ed]:focus{outline:1.5px solid var(--b1);outline-offset:5px}
 
 /* ── 顶栏下拉菜单（Harry 2026-08-04）· 对齐 Apple 菜单规范 ──
@@ -717,7 +768,7 @@ body.dark .ccard{box-shadow:0 8px 26px -14px rgba(0,0,0,.5)}
     </section>
 
     <!-- Footer · Admin 入口藏在「关于」里 -->
-    <div class="about" id="ab"><button class="adm-entry" id="admEntry">&#9881;&#65038; Admin</button><span class="admhint" id="admHint">需要 Google 账号授权，非授权账号无法进入</span></div>
+    <div class="about" id="ab"><button class="adm-entry" id="admEntry">&#9881;&#65038; Admin</button><span class="admhint" id="admHint">仅站主本人的 Google 账号可进入</span></div>
     <footer class="ft">
       <!-- About 不单独列，入口并进署名：点 Harry Wood 展开（Harry 2026-08-04）-->
       <span>© 2026 Peace &amp; Light · Designed by <a id="aboutLink">Harry Wood</a></span>
@@ -733,10 +784,11 @@ body.dark .ccard{box-shadow:0 8px 26px -14px rgba(0,0,0,.5)}
   <div class="gbox">
     <div class="gg">G</div>
     <h4>用 Google 账号登录</h4>
-    <p>只有白名单内的邮箱可以进入编辑后台。<br>密码由 Google 保管，本站不保存任何密码。</p>
-    <button class="ga" id="gaOk">使用 Google 账号继续</button>
+    <p id="gaDesc">仅限站主本人的 Google 账号。密码由 Google 保管，本站不接触密码。</p>
+    <div id="gaBtn"></div>
+    <button class="ga" id="gaOk" hidden>使用 Google 账号继续</button>
     <button class="gc" id="gaNo">取消</button>
-    <div class="gn">未授权的账号无法进入。</div>
+    <div class="gn" id="gaNote">正在加载 Google 登录…</div>
   </div>
 </div>
 
@@ -767,6 +819,15 @@ body.dark .ccard{box-shadow:0 8px 26px -14px rgba(0,0,0,.5)}
   <button id="btnSave">Save</button>
   <button id="btnExport">Export JSON</button>
   <button id="btnReset">Reset</button>
+  <button id="btnClose" class="ebx" title="退出编辑">&#10005;</button>
+</div>
+
+<!-- 变更日志：只在管理员态出现。解决“下一个 AI 不知道 Harry 在网页上改了什么” -->
+<div class="chlog" id="chlog">
+  <div class="hd"><b id="clTitle">本机改动</b>
+    <button id="clCopy">复制给 AI</button>
+    <button id="clClear">清空</button></div>
+  <div class="bd" id="clBody"></div>
 </div>
 
 <script>
@@ -926,16 +987,23 @@ function renderCompare(){
   $('#ch').textContent=T.h;$('#cp').textContent=T.p;$('#cn').textContent=T.note;
   $('#cg').innerHTML=T.cols.map((c,i)=>{
     const p=c.price||price;
-    return `<div class="ccard${i===1?' on':''}">
-      <div class="cname">${c.n}<span class="cbadge">${c.b}</span></div>
-      <div class="csub">${c.s}</div>
-      <div class="cprice">${p}${c.pu?`<u>${c.pu}</u>`:''}</div>
-      <button class="cbtn">${c.btn}</button>
+    /* 第 0 列 = 内测版：照搬方案四的三个下载源，竖排（Harry 2026-08-04 指定「就搬过来」）*/
+    const beta=(i===0&&VER[cur]&&VER[cur].beta&&VER[cur].beta.length)
+      ?`<div class="cbeta">${VER[cur].beta.map((sc,si)=>
+          `<a class="s" href="#" data-dl="${sc.n}" onclick="return false">${ICO[sc.i]||''}`+
+          `<b>${sc.n}</b><span class="g"${si===0?` data-c6="${i}:btn"`:''}>${c.btn}</span></a>`
+        ).join('')}</div>`:'';
+    return `<div class="ccard${i===1?' on':''}${beta?' hasbeta':''}">
+      <div class="cname"><span data-c6="${i}:n">${c.n}</span><span class="cbadge" data-c6="${i}:b">${c.b}</span></div>
+      <div class="csub" data-c6="${i}:s">${c.s}</div>
+      <div class="cprice"><span data-c6="${i}:price">${p}</span>${c.pu?`<u data-c6="${i}:pu">${c.pu}</u>`:''}</div>
+      ${beta||`<button class="cbtn" data-c6="${i}:btn">${c.btn}</button>`}
       <div class="csrc">${c.src?(c.src.includes(' · ')
         ?c.src.split(' · ').map(s=>`<b>${s}</b>`).join(' · '):c.src):''}</div>
-      <div class="clist">${R.map(r=>{const y=r[i+1],lb=(r[4]&&r[4][i])?r[4][i]:r[0];
-        return `<div class="li ${y?'y':'n'}"><i>${y?'✓':'—'}</i><span>${lb}</span></div>`}).join('')}</div>
+      <div class="clist">${R.map((r,ri)=>{const y=r[i+1],ov=!!(r[4]&&r[4][i]),lb=ov?r[4][i]:r[0];
+        return `<div class="li ${y?'y':'n'}"><i>${y?'✓':'—'}</i><span data-r6="${ri}:${i}:${ov?'o':'b'}">${lb}</span></div>`}).join('')}</div>
     </div>`}).join('');
+  if(document.body.classList.contains('admin'))setEd(true);
 }
 
 function renderVersions(){
@@ -997,7 +1065,7 @@ function render(){
   // Footer 跟着语言走（之前上面英文下面中文，是错的）
   $('#bizLink').textContent=zh?'商务合作':'Partnerships';
   $('#fbLink').textContent=zh?'问题反馈':'Feedback';
-  $('#admHint').textContent=zh?'需要 Google 账号授权，非授权账号无法进入':'Google account required — unauthorized accounts cannot get in';
+  $('#admHint').textContent=zh?'仅站主本人的 Google 账号可进入':'Owner account only';
   $('#ebTitle').textContent=zh?'内容编辑':'Content editing';
   $('#ebHint').textContent=zh?'只改文字，版式与样式已锁死':'Text only — layout & styling are locked';
   $('#btnSave').textContent=zh?'保存':'Save';
@@ -1075,13 +1143,36 @@ const CKEY='harryAppStore.content.v1';
 const CF={t:'t',l:'l',d:'d',cta:'c',cta2:'c2'};
 function loadOv(){try{return JSON.parse(localStorage.getItem(CKEY)||'{}');}catch(e){return{};}}
 function applyOv(){const o=loadOv();
-  for(const a in o){if(!APPS[a])continue;
+  for(const a in o){if(a.slice(0,2)==='__'||!APPS[a])continue;
     for(const g in o[a]){if(!APPS[a][g])continue;
-      for(const f in o[a][g])APPS[a][g][f]=o[a][g][f];}}}
+      for(const f in o[a][g])APPS[a][g][f]=o[a][g][f];}}
+  /* 版本卡（COLS6）—— 与 App 无关，按语言存 */
+  const c6=o.__cols6||{};
+  for(const lg in c6)for(const i in c6[lg]){
+    if(!COLS6[lg]||!COLS6[lg][i])continue;
+    for(const f in c6[lg][i])COLS6[lg][i][f]=c6[lg][i][f];}
+  /* 功能条目（ROWS6）—— b=共用基础文案，o=某一列的专属覆盖 */
+  const r6=o.__rows6||{};
+  for(const lg in r6)for(const k in r6[lg]){
+    const a=k.split(':'),ri=+a[0],ci=+a[1],kind=a[2],row=ROWS6[lg]&&ROWS6[lg][ri];
+    if(!row)continue;
+    if(kind==='o'){row[4]=row[4]||{};row[4][ci]=r6[lg][k];}else{row[0]=r6[lg][k];}}}
 applyOv();
-function setEd(on){for(const id in CF){const el=$('#'+id);if(!el)continue;
-  if(on){el.setAttribute('contenteditable','plaintext-only');el.dataset.ed='1';}
-  else{el.removeAttribute('contenteditable');delete el.dataset.ed;}}}
+function edEls(){const a=[];
+  for(const id in CF){const el=$('#'+id);if(el)a.push(el);}
+  document.querySelectorAll('[data-c6],[data-r6]').forEach(e=>a.push(e));
+  return a;}
+function edKey(el){return el.dataset.c6?('c6:'+el.dataset.c6)
+  :el.dataset.r6?('r6:'+el.dataset.r6):('hero:'+el.id);}
+/* 基准 = 进入编辑态那一刻屏幕上的样子。
+   不能拿数据模型当基准 —— 渲染层和数据层本来就有差异，
+   那样会把「我没碰过的东西」也记成改动（实测确实记了 4 条假账）。*/
+let SNAP={};
+function txt(el){return (el.textContent||'').replace(/\s+/g,' ').trim();}
+function setEd(on){edEls().forEach(el=>{
+  if(on){el.setAttribute('contenteditable','plaintext-only');el.dataset.ed='1';
+    const k=edKey(el);if(!(k in SNAP))SNAP[k]=txt(el);}
+  else{el.removeAttribute('contenteditable');delete el.dataset.ed;}});}
 document.addEventListener('keydown',e=>{
   const t=e.target;if(t&&t.dataset&&t.dataset.ed&&e.key==='Enter'){e.preventDefault();t.blur();}});
 document.addEventListener('paste',e=>{
@@ -1092,19 +1183,110 @@ document.addEventListener('paste',e=>{
 new MutationObserver(()=>setEd(document.body.classList.contains('admin')))
   .observe(document.body,{attributes:true,attributeFilter:['class']});
 function tip(m){const e=$('#saveTip');if(!e)return;e.textContent=m;setTimeout(()=>{e.textContent='';},2400);}
-$('#btnSave').onclick=()=>{const o=loadOv();
+const FLBL={t:'Hero 标题',l:'Hero 大标语',d:'Hero 描述',cta:'主按钮',cta2:'次按钮'};
+const CLBL={n:'名称',b:'徽章',s:'副标题',price:'价格',pu:'副价格',btn:'按钮'};
+$('#btnSave').onclick=()=>{const o=loadOv(),L=loadLog(),ts=stamp(),zh=lang==='zh';let n=0;
+  const put=(key,label,from,to)=>{n++;
+    L.push({ts:ts,app:cur,lang:lang,key:key,label:label,from:from,to:to});};
+  /* Hero */
   o[cur]=o[cur]||{};o[cur][lang]=o[cur][lang]||{};
   for(const id in CF){const el=$('#'+id);if(!el)continue;
-    const v=(el.textContent||'').replace(/\s+/g,' ').trim();
-    o[cur][lang][CF[id]]=v;APPS[cur][lang][CF[id]]=v;}
+    const v=txt(el),b=SNAP['hero:'+id];
+    o[cur][lang][CF[id]]=v;APPS[cur][lang][CF[id]]=v;
+    if(b!==undefined&&b!==v)put('hero.'+id,FLBL[id]||id,b,v);}
+  /* 版本卡 */
+  const c6=o.__cols6=o.__cols6||{};c6[lang]=c6[lang]||{};
+  document.querySelectorAll('[data-c6]').forEach(el=>{
+    const a=el.dataset.c6.split(':'),i=a[0],f=a[1],col=COLS6[lang]&&COLS6[lang][i];
+    if(!col)return;
+    const v=txt(el),b=SNAP['c6:'+el.dataset.c6];
+    (c6[lang][i]=c6[lang][i]||{})[f]=v;col[f]=v;
+    if(b!==undefined&&b!==v)
+      put('card.'+i+'.'+f,(col.n||('卡片'+i))+' · '+(CLBL[f]||f),b,v);});
+  /* 功能条目：基础文案是三列共用的 —— 必须先收集真正改过的，再统一写回。
+     边写边遍历的话，没改的兄弟列会拿旧文案把改动覆盖回去（实测复现过）。*/
+  const r6=o.__rows6=o.__rows6||{};r6[lang]=r6[lang]||{};
+  const pend={};
+  document.querySelectorAll('[data-r6]').forEach(el=>{
+    const a=el.dataset.r6.split(':'),ri=+a[0],ci=+a[1],kind=a[2];
+    if(!(ROWS6[lang]&&ROWS6[lang][ri]))return;
+    const v=txt(el),b=SNAP['r6:'+el.dataset.r6];
+    if(b===undefined||b===v)return;
+    pend[kind==='o'?(ri+':'+ci+':o'):(ri+':b')]={ri:ri,ci:ci,kind:kind,from:b,to:v};});
+  for(const k in pend){const p=pend[k],row=ROWS6[lang][p.ri];
+    if(p.kind==='o'){row[4]=row[4]||{};row[4][p.ci]=p.to;}else{row[0]=p.to;}
+    r6[lang][p.ri+':'+p.ci+':'+p.kind]=p.to;
+    put('row.'+k,'功能项 · '+(p.kind==='o'
+      ?(((COLS6[lang][p.ci]||{}).n)||p.ci)+' 专属':'三列共用'),p.from,p.to);}
   localStorage.setItem(CKEY,JSON.stringify(o));
-  tip(lang==='zh'?'已保存到本机':'Saved on this Mac');};
+  if(n)saveLog(L);
+  renderLog();
+  tip(n?(zh?'已保存 '+n+' 处':'Saved '+n+' change'+(n===1?'':'s'))
+       :(zh?'没有改动':'No changes'));
+  setTimeout(exitAdmin,900);};
 $('#btnExport').onclick=()=>{const s=JSON.stringify(loadOv(),null,2);
   navigator.clipboard.writeText(s).then(()=>tip(lang==='zh'?'JSON 已复制':'JSON copied'),
     ()=>{const w=window.open('','_blank');w&&w.document.write('<pre>'+s.replace(/</g,'&lt;')+'</pre>');});};
 $('#btnReset').onclick=()=>{
   if(!confirm(lang==='zh'?'还原为内置文案？本机的修改会被清掉。':'Reset to built-in copy? Local edits will be cleared.'))return;
   localStorage.removeItem(CKEY);location.reload();};
+function exitAdmin(){document.body.classList.remove('admin');SNAP={};}
+$('#btnClose').onclick=exitAdmin;
+
+/* ══ 变更日志（Harry 2026-08-04）══
+   痛点：文案改在 localStorage，下一个 AI 读仓库根本看不到，
+   更不知道中文改了而英文没改。日志把这件事显式记下来，并能一键复制给 AI。 */
+const LKEY='harryAppStore.log.v1';
+function loadLog(){try{return JSON.parse(localStorage.getItem(LKEY)||'[]');}catch(e){return[];}}
+function saveLog(a){try{localStorage.setItem(LKEY,JSON.stringify(a.slice(-300)));}catch(e){}}
+function stamp(){const d=new Date(),z=v=>String(v).padStart(2,'0');
+  return d.getFullYear()+'-'+z(d.getMonth()+1)+'-'+z(d.getDate())+' '+
+         z(d.getHours())+':'+z(d.getMinutes())+':'+z(d.getSeconds());}
+/* 中英对照：同一个字段，哪一边改得更晚 */
+function parity(L){const last={},out=[];
+  L.forEach(e=>{const k=e.app+'|'+e.key;(last[k]=last[k]||{})[e.lang]=e.ts;
+    (last[k].lbl=last[k].lbl)||(last[k].lbl=e.label);});
+  for(const k in last){const v=last[k];
+    if(v.zh&&!v.en)out.push({k:k,lbl:v.lbl,need:'en'});
+    else if(v.en&&!v.zh)out.push({k:k,lbl:v.lbl,need:'zh'});
+    else if(v.zh&&v.en&&v.zh!==v.en)out.push({k:k,lbl:v.lbl,need:v.zh>v.en?'en':'zh'});}
+  return out;}
+function esc(t){return String(t==null?'':t).replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));}
+function renderLog(){const bd=$('#clBody');if(!bd)return;
+  const zh=lang==='zh',L=loadLog();
+  $('#clTitle').textContent=zh?'本机改动':'Local edits';
+  $('#clCopy').textContent=zh?'复制给 AI':'Copy for AI';
+  $('#clClear').textContent=zh?'清空':'Clear';
+  if(!L.length){bd.innerHTML='<div class="empty">'+
+    (zh?'还没有改动。改完点 Save 就会记在这里。'
+       :'No edits yet. They will show up here after you Save.')+'</div>';return;}
+  const pd=parity(L);
+  let h='';
+  if(pd.length){h+='<div class="warn"><u>'+(zh?'中英未对齐':'Languages out of sync')+'</u>'+
+    pd.map(p=>esc(p.lbl)+' → '+(p.need==='en'?(zh?'英文还是旧的':'EN still old')
+      :(zh?'中文还是旧的':'ZH still old'))).join('<br>')+'</div>';}
+  h+=L.slice().reverse().map(e=>'<div class="en"><div class="mt">'+
+      '<span class="lg">'+(e.lang==='zh'?'中':'EN')+'</span>'+
+      '<span class="fd">'+esc(e.label)+'</span>'+
+      '<span class="tm">'+esc(e.ts.slice(5,16))+'</span></div>'+
+      '<div class="df"><s>'+esc(e.from)+'</s> → '+esc(e.to)+'</div></div>').join('');
+  bd.innerHTML=h;}
+$('#clClear').onclick=()=>{
+  if(!confirm(lang==='zh'?'清空变更日志？（文案不受影响）':'Clear the change log? Copy is not affected.'))return;
+  localStorage.removeItem(LKEY);renderLog();};
+$('#clCopy').onclick=()=>{const L=loadLog(),pd=parity(L);
+  let m='## Harry App Store · 本机文案改动（localStorage · 未进仓库）\n';
+  m+='导出时间：'+stamp()+' CST\n\n';
+  if(!L.length)m+='（无改动）\n';
+  else{m+='| 时间 | 语言 | 位置 | 原文 | 改成 |\n|---|---|---|---|---|\n';
+    L.forEach(e=>{m+='| '+e.ts+' | '+(e.lang==='zh'?'中文':'English')+' | '+e.label+
+      ' | '+String(e.from||'').replace(/\|/g,'\\|')+' | '+String(e.to||'').replace(/\|/g,'\\|')+' |\n';});}
+  if(pd.length){m+='\n### ⚠️ 中英未对齐（需要 AI 补翻译）\n';
+    pd.forEach(p=>{m+='- '+p.lbl+'：'+(p.need==='en'?'中文已改，英文还是旧的':'英文已改，中文还是旧的')+'\n';});}
+  m+='\n> 网站本身没有翻译能力；上面标记的项要由 AI 手动补。\n';
+  navigator.clipboard.writeText(m).then(
+    ()=>tip(lang==='zh'?'已复制，可以直接贴给 AI':'Copied — paste it to your AI'),
+    ()=>{const w=window.open('','_blank');w&&w.document.write('<pre>'+esc(m)+'</pre>');});};
 
 /* 方案 7 侧栏收起 / 展开 */
 $('#sbToggle').onclick=()=>{app.classList.toggle('sbmin');render();};
@@ -1139,15 +1321,49 @@ $('#mYes').onclick=()=>{
   $('#mOk').classList.add('on');
   setTimeout(()=>$('#mgate').classList.remove('on'),1200);
 };
-$('#admEntry').onclick=()=>$('#gate').classList.add('on');
+/* ══ 管理员登录（Harry 2026-08-04 强制绑定）══
+   旧实现是假的：点一下按钮就 add('admin')，没有任何校验。
+   现在走真 Google Identity Services，只接受下面这个邮箱，完全一致才放行。
+   ❗ 诚实边界：静态站点的校验跑在访客自己的浏览器里，拦得住爬虫和普通人，
+   拦不住会开 DevTools 的人。真正的安全边界是“能不能改到线上”——
+   那由 GitHub 仓库的写权限守着，而编辑器只写 localStorage，改不到别人。 */
+const ADMIN_EMAIL='andywu1206@gmail.com';
+/* ⬇︎ Harry：Google Cloud Console → 凭据 → 创建 OAuth 客户端 ID（Web），
+   已授权 JavaScript 来源填 https://ariamagicvoice.com ，把拿到的 ID 粘到这里。
+   留空 = 线上 Admin 登录直接不可用（宁可用不了，不允许假放行）。 */
+const GOOGLE_CLIENT_ID='';
+let gsiReady=false;
+function gnote(m){const e=$('#gaNote');if(e)e.textContent=m;}
+function enterAdmin(){SNAP={};document.body.classList.add('admin');render();renderLog();}
+function initGoogle(){
+  const zh=lang==='zh';
+  if(!GOOGLE_CLIENT_ID){gnote(zh
+    ?'尚未配置 Google 客户端 ID —— 线上 Admin 登录暂不可用。'
+    :'Google client ID not configured — admin sign-in is unavailable.');return;}
+  if(gsiReady)return;
+  const go=()=>{try{
+      google.accounts.id.initialize({client_id:GOOGLE_CLIENT_ID,callback:onGoogleCred});
+      google.accounts.id.renderButton($('#gaBtn'),{theme:'outline',size:'large',width:250});
+      gsiReady=true;gnote(zh?'仅站主本人的账号可以进入。':'Only the owner account can get in.');
+    }catch(e){gnote((zh?'Google 登录初始化失败：':'Init failed: ')+e.message);}};
+  if(window.google&&window.google.accounts)return go();
+  const sc=document.createElement('script');
+  sc.src='https://accounts.google.com/gsi/client';sc.async=true;sc.defer=true;
+  sc.onload=go;sc.onerror=()=>gnote(zh?'Google 登录组件加载失败。':'Failed to load Google sign-in.');
+  document.head.appendChild(sc);}
+function onGoogleCred(resp){const zh=lang==='zh';let p=null;
+  try{const b=resp.credential.split('.')[1].replace(/-/g,'+').replace(/_/g,'/');
+    p=JSON.parse(decodeURIComponent(Array.prototype.map.call(atob(b),
+      ch=>'%'+('00'+ch.charCodeAt(0).toString(16)).slice(-2)).join('')));
+  }catch(e){gnote(zh?'登录凭据解析失败。':'Could not read the credential.');return;}
+  const em=String(p.email||'').toLowerCase().trim();
+  if(em!==ADMIN_EMAIL||p.email_verified===false){
+    gnote((zh?'账号 ':'Account ')+(em||'?')+(zh?' 无权进入。':' is not allowed.'));return;}
+  $('#gate').classList.remove('on');enterAdmin();}
+$('#admEntry').onclick=()=>{$('#gate').classList.add('on');initGoogle();};
 $('#gaNo').onclick=()=>$('#gate').classList.remove('on');
-$('#gaOk').onclick=()=>{
-  $('#gate').classList.remove('on');
-  document.body.classList.add('admin');
-  // 授权通过后才切到有编辑能力的视图（方案 4 有编辑 UI）
-  /* 方案 7 为定版：授权通过后就地进入编辑态，不再跳去方案 4（Harry 2026-08-04）
-     原切换逻辑在 Mini Site 里会因切换器已移除而 t4=null 抛 TypeError */
-  render();
-};
+/* 本机模式：不在页面上暴露，爬虫扫不到。这不是安全边界，
+   只是让“改动只存在这台电脑”这件事在未配 Client ID 前仍然可用。 */
+if(location.hash==='#local-admin')setTimeout(enterAdmin,0);
 render();
 </script>
