@@ -243,7 +243,8 @@ body.dark{--line-soft:rgba(255,255,255,.07)}
   display:flex;align-items:baseline;gap:5px}
 .cprice u{font:400 13px/1 var(--font);color:var(--ink2);text-decoration:none}
 .cbtn{align-self:center;width:100%;height:40px;border:none;border-radius:999px;
-  background:var(--btn);color:var(--btnink);font:600 14px/1 var(--font);cursor:pointer;transition:.18s}
+  background:var(--btn);color:var(--btnink);font:600 14px/1 var(--font);cursor:pointer;transition:.18s;
+  display:flex;align-items:center;justify-content:center;text-decoration:none;box-sizing:border-box}
 .cbtn:hover{opacity:.84}
 /* 内测版三个下载源 —— 直接沿用方案四 .vsrc 的行式样（Harry 2026-08-04 指定）*/
 .cbeta{display:grid;gap:7px}
@@ -861,8 +862,8 @@ const VER={
   aria:{beta:[{n:'GitHub',u:'github.com/…/releases',i:'gh'},
               {n:'Google Drive',u:'drive.google.com/…',i:'dr'},
               {n:'百度网盘',u:'pan.baidu.com/s/…',i:'bd'}],
-        free:'apps.apple.com/app/aria-magic-voice',
-        pro:'apps.apple.com/app/aria-magic-voice',price:'$39.9'},
+        free:'apps.apple.com/cn/app/aria-magic-voice/id6776485989',
+        pro:'apps.apple.com/cn/app/aria-magic-voice/id6776485989',price:'$39.9'},
   rm:{beta:[{n:'TestFlight',u:'testflight.apple.com/join/…',i:'tf'}],
       free:'apps.apple.com/app/remember-me',
       pro:'apps.apple.com/app/remember-me',price:'—'}};
@@ -988,16 +989,19 @@ function renderCompare(){
   $('#cg').innerHTML=T.cols.map((c,i)=>{
     const p=c.price||price;
     /* 第 0 列 = 内测版：照搬方案四的三个下载源，竖排（Harry 2026-08-04 指定「就搬过来」）*/
+    const hrefOf=u=>u&&!/^https?:\/\//.test(u)?'https://'+u:(u||'#');
     const beta=(i===0&&VER[cur]&&VER[cur].beta&&VER[cur].beta.length)
       ?`<div class="cbeta">${VER[cur].beta.map((sc,si)=>
-          `<a class="s" href="#" data-dl="${sc.n}" onclick="return false">${ICO[sc.i]||''}`+
+          `<a class="s" href="${hrefOf(sc.u)}" target="_blank" rel="noopener"`+
+          ` onclick="track('${cur}:beta:${sc.i}')">${ICO[sc.i]||''}`+
           `<b>${sc.n}</b><span class="g"${si===0?` data-c6="${i}:btn"`:''}>${c.btn}</span></a>`
         ).join('')}</div>`:'';
     return `<div class="ccard${i===1?' on':''}${beta?' hasbeta':''}">
       <div class="cname"><span data-c6="${i}:n">${c.n}</span><span class="cbadge" data-c6="${i}:b">${c.b}</span></div>
       <div class="csub" data-c6="${i}:s">${c.s}</div>
       <div class="cprice"><span data-c6="${i}:price">${p}</span>${c.pu?`<u data-c6="${i}:pu">${c.pu}</u>`:''}</div>
-      ${beta||`<button class="cbtn" data-c6="${i}:btn">${c.btn}</button>`}
+      ${beta||`<a class="cbtn" data-c6="${i}:btn" href="${hrefOf(i===1?VER[cur].free:VER[cur].pro)}"`+
+        ` target="_blank" rel="noopener" onclick="track('${cur}:${i===1?'free':'pro'}')">${c.btn}</a>`}
       <div class="csrc">${c.src?(c.src.includes(' · ')
         ?c.src.split(' · ').map(s=>`<b>${s}</b>`).join(' · '):c.src):''}</div>
       <div class="clist">${R.map((r,ri)=>{const y=r[i+1],ov=!!(r[4]&&r[4][i]),lb=ov?r[4][i]:r[0];
@@ -1182,6 +1186,20 @@ document.addEventListener('paste',e=>{
   document.execCommand('insertText',false,tx);});
 new MutationObserver(()=>setEd(document.body.classList.contains('admin')))
   .observe(document.body,{attributes:true,attributeFilter:['class']});
+/* ══ 下载点击追踪（Harry 2026-08-04：点了按钮就算一次下载，不用 GitHub 真实下载量）══
+   诚实边界：这是纯前端 hook 点，只写本机 localStorage，不是全局共享的公开数字。
+   静态站没有后端，做不出"所有人都看到同一个数字"的公开计数器，除非接一个
+   计数服务（第三方或 Harry 自己的 Cloudflare Worker）——这条待 Harry 决定，
+   决定前不在页面上展示任何假数字。track() 只是把埋点做好，接口一确定就能直接接上。 */
+const TKEY='harryAppStore.clicks.v1';
+function track(k){try{
+    const o=JSON.parse(localStorage.getItem(TKEY)||'{}');
+    o[k]=(o[k]||0)+1;localStorage.setItem(TKEY,JSON.stringify(o));
+  }catch(e){}
+  /* ⬇︎ 后端接好后，把真实计数请求加在这里（fire-and-forget，不 preventDefault，
+     不阻塞下载本身开始）：
+     fetch('https://count.ariamagicvoice.com/hit?k='+encodeURIComponent(k),{method:'POST'}); */
+}
 function tip(m){const e=$('#saveTip');if(!e)return;e.textContent=m;setTimeout(()=>{e.textContent='';},2400);}
 const FLBL={t:'Hero 标题',l:'Hero 大标语',d:'Hero 描述',cta:'主按钮',cta2:'次按钮'};
 const CLBL={n:'名称',b:'徽章',s:'副标题',price:'价格',pu:'副价格',btn:'按钮'};
