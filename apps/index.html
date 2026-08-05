@@ -1181,7 +1181,7 @@ $('#mNo').onclick=()=>$('#mgate').classList.remove('on');
    那个 Worker 还不存在，需要 Harry 的 Cloudflare 账号才能部署。
    在它建起来之前，宁可诚实降级：把内容复制到剪贴板 + 明说还没接通自动发送，
    也绝不再显示一个假的「已发送」。禁 mailto: 的铁律继续守。            */
-const MAIL_ENDPOINT='';   /* Worker 建好后填这里，下面自动切回真发送 */
+const MAIL_ENDPOINT='https://harry-app-store-feedback.andywu1206.workers.dev/';   /* Cloudflare Worker + KV：2026-08-05 Codex E2E 已写入并回读 */
 $('#mYes').onclick=async()=>{
   const t=$('#mText').value.trim();
   if(!t){$('#mText').focus();return;}
