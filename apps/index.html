@@ -306,6 +306,7 @@ body.dark{--line-soft:rgba(255,255,255,.07)}
 .mrow .no:hover{background:var(--sel);color:var(--ink)}
 .mrow .yes{border:none;background:var(--btn);color:var(--btnink)}
 .mrow .yes:hover{opacity:.85}
+.mrow .yes:disabled{opacity:.45;cursor:not-allowed}
 .mok{margin-top:12px;font:500 13px/1.5 var(--font);color:var(--ink);display:none}
 .mok.on{display:block}
 
@@ -1162,6 +1163,37 @@ let FORM_KIND='fb';   /* 当前开的是哪张表（fb 问题反馈 / biz 商务
                          Worker 建好后要靠它区分收件标题，别再丢掉这个信息 */
 const FEEDBACK_SOURCE='Harry App Store';
 const FEEDBACK_KIND_LABEL={fb:'Feedback',biz:'Partnership'};
+const FORM_CLOSE_SECONDS=15;
+let formCloseTimer=null,formCloseTick=null;
+function clearFormCloseTimers(){
+  if(formCloseTimer)clearTimeout(formCloseTimer);
+  if(formCloseTick)clearInterval(formCloseTick);
+  formCloseTimer=null;formCloseTick=null;
+}
+function closeForm(){
+  clearFormCloseTimers();
+  $('#mgate').classList.remove('on');
+}
+function formButtonLabels(){
+  $('#mNo').textContent=lang==='zh'?'取消':'Cancel';
+  $('#mYes').textContent=lang==='zh'?'发送':'Send';
+}
+function showSentCountdown(){
+  clearFormCloseTimers();
+  let left=FORM_CLOSE_SECONDS;
+  const zh=lang==='zh',ok=$('#mOk');
+  $('#mYes').disabled=true;
+  $('#mNo').textContent=zh?'关闭':'Close';
+  const render=()=>{
+    ok.textContent=zh
+      ?`✓ 已发送，谢谢！这个窗口将在 ${left} 秒后关闭，也可以点「关闭」。`
+      :`✓ Sent. This window will close in ${left} seconds. You can also click Close.`;
+  };
+  render();
+  ok.classList.add('on');
+  formCloseTick=setInterval(()=>{left=Math.max(0,left-1);render();},1000);
+  formCloseTimer=setTimeout(closeForm,FORM_CLOSE_SECONDS*1000);
+}
 function feedbackProductName(){
   const a=APPS[cur]||{};
   return (a[lang]&&a[lang].t)||(a.en&&a.en.t)||(a.zh&&a.zh.t)||cur;
@@ -1170,15 +1202,17 @@ function feedbackPage(){
   return location.protocol==='file:'?'local-file-preview':location.href.slice(0,500);
 }
 function openForm(k){
+  clearFormCloseTimers();
   FORM_KIND=k;
   const f=FORMS[k][lang];
   $('#mTitle').textContent=f.t;$('#mDesc').innerHTML=f.d;
   const ta=$('#mText');ta.placeholder=f.ph;ta.value='';
+  $('#mYes').disabled=false;formButtonLabels();
   $('#mOk').classList.remove('on');$('#mgate').classList.add('on');setTimeout(()=>ta.focus(),60);
 }
 $('#fbLink').onclick=()=>openForm('fb');
 $('#bizLink').onclick=()=>openForm('biz');
-$('#mNo').onclick=()=>$('#mgate').classList.remove('on');
+$('#mNo').onclick=closeForm;
 /* 🔴 2026-08-05：这里原本是「假发送」—— 只有一行注释写着「真实实现：POST 到
    自己的 Worker 端点」，然后直接弹「✓ 已发送，谢谢！我会尽快回复。」
    一个网络请求都没有。用户写完点发送，看到已发送，内容哪儿都没去，
@@ -1210,8 +1244,7 @@ $('#mYes').onclick=async()=>{
           page:feedbackPage()
         })});
       if(!r.ok)throw new Error('HTTP '+r.status);
-      $('#mOk').classList.add('on');
-      setTimeout(()=>$('#mgate').classList.remove('on'),1200);
+      showSentCountdown();
     }catch(e){
       alert(zh?'发送失败了（网络或服务端问题）。\n\n内容还在框里，没有丢。'
              :'Sending failed (network or server).\n\nYour text is still in the box.');
