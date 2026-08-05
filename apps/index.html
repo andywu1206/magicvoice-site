@@ -495,15 +495,36 @@ body.dark [data-v="8"] .ccard{border-color:rgba(255,255,255,.095)}
 /* 侧栏 = 悬浮玻璃卡 —— 高度由内容决定，不通栏到底（Harry 2026-08-04）*/
 [data-v="9"] .side{align-self:start;min-height:352px;
   margin:118px 0 14px 14px;padding:16px 12px 18px;border-right:none;border-radius:16px;
-  background:rgba(255,255,255,.60);
-  -webkit-backdrop-filter:blur(26px) saturate(180%);backdrop-filter:blur(26px) saturate(180%);
-  border:1px solid rgba(255,255,255,.55);
-  box-shadow:0 14px 36px -14px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.6);
+  /* 玻璃 = 方案 10 · Regular Liquid Glass（Harry 2026-08-05 15:30 选定）
+     只换玻璃配方，结构（尺寸/间距/圆角/定位）一行未动。
+     HIG：sidebar 文字多 → 用 regular 变体，靠 blur + 调整背景亮度保可读性。
+     .60→.30 不透明度 · 26px→12px 模糊 · brightness 提亮 · 双边缘厚度 · 138° specular。
+     依据：原理是 lensing（弯曲光）不是 scatter（散射）—— 散射就是磨砂。*/
+  background:rgba(255,255,255,.30);
+  -webkit-backdrop-filter:blur(12px) saturate(190%) brightness(1.05);
+  backdrop-filter:blur(12px) saturate(190%) brightness(1.05);
+  border:1px solid rgba(255,255,255,.42);
+  box-shadow:
+    0 18px 42px -16px rgba(0,0,0,.30),
+    0 1px 2px rgba(0,0,0,.05),
+    inset 0 1px 0 rgba(255,255,255,.92),
+    inset 0 -1px 0 rgba(255,255,255,.22),
+    inset 1px 0 0 rgba(255,255,255,.45),
+    inset -1px 0 0 rgba(255,255,255,.18);
   overflow:hidden}
-body.dark [data-v="9"] .side{background:rgba(22,22,26,.55);border-color:rgba(255,255,255,.12);
-  box-shadow:0 14px 36px -14px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.14)}
-[data-v="9"] .item:hover,[data-v="9"] .item.on{background:rgba(255,255,255,.62)}
-body.dark [data-v="9"] .item:hover,body.dark [data-v="9"] .item.on{background:rgba(255,255,255,.10)}
+[data-v="9"] .side::before{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
+  border-radius:inherit;
+  background:linear-gradient(138deg,rgba(255,255,255,.58) 0%,rgba(255,255,255,.10) 34%,
+    transparent 56%)}
+body.dark [data-v="9"] .side{background:rgba(30,30,36,.32);border-color:rgba(255,255,255,.16);
+  -webkit-backdrop-filter:blur(12px) saturate(180%) brightness(1.12);
+  backdrop-filter:blur(12px) saturate(180%) brightness(1.12);
+  box-shadow:0 18px 42px -16px rgba(0,0,0,.6),
+    inset 0 1px 0 rgba(255,255,255,.30),inset 0 -1px 0 rgba(255,255,255,.06)}
+body.dark [data-v="9"] .side::before{
+  background:linear-gradient(138deg,rgba(255,255,255,.16) 0%,transparent 52%)}
+[data-v="9"] .item:hover,[data-v="9"] .item.on{background:rgba(255,255,255,.46)}
+body.dark [data-v="9"] .item:hover,body.dark [data-v="9"] .item.on{background:rgba(255,255,255,.12)}
 
 /* 收起态：只留图标 */
 /* 收起态：卡片接近正方形，不做成上窄下长的细条（Harry 2026-08-04）*/
@@ -942,7 +963,7 @@ function renderCompare(){
             gz=`<span class="g"${si===0?``:''}>${
               ph?soon(lang==='zh'):E(c.btn)}</span>`;
           return `<${ph?'span':'a'} class="s${ph?' soon':''}"${ph?'':` href="${E(hrefOf(sc.u))}"`+
-            ` target="_blank" rel="noopener" onclick="track('${cur}:beta:${E(sc.i)}')"`}`+
+            ` target="_blank" rel="noopener" data-track="${E(cur+':beta:'+sc.i)}"`}`+
             `>${ICO[sc.i]||''}`+
             `<b>${E(sc.n)}</b>${gz}</${ph?'span':'a'}>`;}
         ).join('')}</div>`:'';
@@ -953,7 +974,7 @@ function renderCompare(){
       <div class="cprice"><span>${E(p)}</span>${c.pu?`<u>${E(c.pu)}</u>`:''}</div>
       ${beta||`<${mainPh?'span':'a'} class="cbtn${mainPh?' soon':''}"`+
         `${mainPh?'':` href="${E(hrefOf(mainU))}"`+
-        ` target="_blank" rel="noopener" onclick="track('${cur}:${i===1?'free':'pro'}')"`}>${
+        ` target="_blank" rel="noopener" data-track="${E(cur+':'+(i===1?'free':'pro'))}"`}>${
         mainPh?soon(lang==='zh'):E(c.btn)}</${mainPh?'span':'a'}>`}
       <div class="csrc">${c.src?(c.src.includes(' · ')
         ?c.src.split(' · ').map(s=>`<b>${E(s)}</b>`).join(' · '):E(c.src)):''}</div>
@@ -1098,6 +1119,20 @@ function track(k){try{
      不阻塞下载本身开始）：
      fetch('https://count.ariamagicvoice.com/hit?k='+encodeURIComponent(k),{method:'POST'}); */
 }
+/* 🔴 蓝军 P1-2（2026-08-05）：这里原先是内联 onclick="track('...${E(sc.i)}')"。
+   E() 在那个位置**不成立** —— 浏览器先把属性值做 HTML 解码、再当 JS 源码解析，
+   E() 把 ' 转成 &#39;，解码后又变回 '，等于没转。蓝军浏览器实证：
+     payload   = x'); window.__blueXSS=1; ('
+     属性实际值 = track('aria:beta:x'); window.__blueXSS=1; ('')
+     注入执行   = true
+   对照：同一个 payload 放进 href 和文本节点都**不执行** —— E() 在那两处是够的，
+   只有事件处理器属性不够。当时 sc.i 还到不了 overlay 所以没被利用，但链接编辑器
+   已经在编辑它隔壁的 sc.u，属于「哪天 .i 可编辑就当天变成真 XSS」。
+   改成 data-track 属性（普通属性上下文，E() 在这里是成立的）+ 事件委托：
+   dataset 读值不经过 JS 解析器，从机制上关掉这个上下文。 */
+document.addEventListener('click',e=>{
+  const t=e.target&&e.target.closest&&e.target.closest('[data-track]');
+  if(t)track(t.getAttribute('data-track'));});
 
 
 
