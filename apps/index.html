@@ -251,6 +251,10 @@ body.dark{--line-soft:rgba(255,255,255,.07)}
 .cbeta .s .g{height:26px;padding:0 13px;border:none;border-radius:999px;
   background:var(--btn);color:var(--btnink);font:600 12px/26px var(--font);
   cursor:pointer;white-space:nowrap}
+/* 占位符链接的不可点态（蓝军 P1-3）：地址没定之前公网不给可点的坏链接。
+   同一套版式只降透明度；链条角标要能穿透它（本机编辑态里还得靠它填真地址）。 */
+.cbtn.soon,.cbeta .s.soon{opacity:.45;cursor:default;pointer-events:none}
+
 
 .csrc{align-self:center;font:400 11.5px/1 var(--font);color:var(--ink2);text-align:center}
 .csrc b{font-weight:500;color:var(--ink);cursor:pointer}
@@ -879,6 +883,16 @@ function sampleHeroBottom(app,h){
 
    合并顺序：BAKED 先（已发布的真相）→ localStorage 后（本机还没发布的草稿）。
    所以本机永远看得到自己最新的草稿，公网只看得到已发布的。                */
+/* 🔴 E() = 可编辑文本进 innerHTML 前的唯一通道（Codex 蓝军 P0-1 · 2026-08-05）。
+   教训：只测「脚本标签不提前闭合」不够 —— 那是烤入阶段的边界；
+   运行时字符串从 BAKED/localStorage 进数据模型后再拼进 innerHTML，
+   浏览器把它当 HTML 解析。蓝军实测 <img onerror> 真的执行了（window.__xss=1）。
+   转五个字符（含引号：value="${u}" 这类属性上下文靠它防逃逸）。
+   ICO 里的内置 SVG 是可信 raw，不过 E() —— 但绝不许把用户文本混进 ICO。 */
+function E(t){return String(t==null?'':t).replace(/[&<>"']/g,
+  m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+/* 占位符判定：链接还没定（含 … 或空）。公网不给用户可点的坏链接（蓝军 P1-3）。*/
+function isPlaceholder(u){return !u||u.indexOf('…')>=0;}
 function mergeContent(o){
   if(!o)return;
   for(const a in o){if(a.slice(0,2)==='__'||!APPS[a])continue;
@@ -917,22 +931,32 @@ function renderCompare(){
     const p=c.price||price;
     /* 第 0 列 = 内测版：照搬方案四的三个下载源，竖排（Harry 2026-08-04 指定「就搬过来」）*/
     const hrefOf=u=>u&&!/^https?:\/\//.test(u)?'https://'+u:(u||'#');
+    /* soon = 占位符链接的不可点态（蓝军 P1-3：公网不给用户可点的坏链接）。
+       同一套按钮样式 + 降透明度，版式零变化；真地址一填自动恢复成 <a>。 */
+    const soon=zh=>zh?'即将开放':'Coming soon';
     const beta=(i===0&&VER[cur]&&VER[cur].beta&&VER[cur].beta.length)
-      ?`<div class="cbeta">${VER[cur].beta.map((sc,si)=>
-          `<a class="s" href="${hrefOf(sc.u)}" target="_blank" rel="noopener"`+
-          ` onclick="track('${cur}:beta:${sc.i}')">${ICO[sc.i]||''}`+
-          `<b>${sc.n}</b><span class="g"${si===0?``:''}>${c.btn}</span></a>`
+      ?`<div class="cbeta">${VER[cur].beta.map((sc,si)=>{
+          const ph=isPlaceholder(sc.u),
+            gz=`<span class="g"${si===0?``:''}>${
+              ph?soon(lang==='zh'):E(c.btn)}</span>`;
+          return `<${ph?'span':'a'} class="s${ph?' soon':''}"${ph?'':` href="${E(hrefOf(sc.u))}"`+
+            ` target="_blank" rel="noopener" onclick="track('${cur}:beta:${E(sc.i)}')"`}`+
+            `>${ICO[sc.i]||''}`+
+            `<b>${E(sc.n)}</b>${gz}</${ph?'span':'a'}>`;}
         ).join('')}</div>`:'';
+    const mainU=i===1?VER[cur].free:VER[cur].pro,mainPh=isPlaceholder(mainU);
     return `<div class="ccard${i===1?' on':''}${beta?' hasbeta':''}">
-      <div class="cname"><span>${c.n}</span><span class="cbadge">${c.b}</span></div>
-      <div class="csub">${c.s}</div>
-      <div class="cprice"><span>${p}</span>${c.pu?`<u>${c.pu}</u>`:''}</div>
-      ${beta||`<a class="cbtn" href="${hrefOf(i===1?VER[cur].free:VER[cur].pro)}"`+
-        ` target="_blank" rel="noopener" onclick="track('${cur}:${i===1?'free':'pro'}')">${c.btn}</a>`}
+      <div class="cname"><span>${E(c.n)}</span><span class="cbadge">${E(c.b)}</span></div>
+      <div class="csub">${E(c.s)}</div>
+      <div class="cprice"><span>${E(p)}</span>${c.pu?`<u>${E(c.pu)}</u>`:''}</div>
+      ${beta||`<${mainPh?'span':'a'} class="cbtn${mainPh?' soon':''}"`+
+        `${mainPh?'':` href="${E(hrefOf(mainU))}"`+
+        ` target="_blank" rel="noopener" onclick="track('${cur}:${i===1?'free':'pro'}')"`}>${
+        mainPh?soon(lang==='zh'):E(c.btn)}</${mainPh?'span':'a'}>`}
       <div class="csrc">${c.src?(c.src.includes(' · ')
-        ?c.src.split(' · ').map(s=>`<b>${s}</b>`).join(' · '):c.src):''}</div>
+        ?c.src.split(' · ').map(s=>`<b>${E(s)}</b>`).join(' · '):E(c.src)):''}</div>
       <div class="clist">${R.map((r,ri)=>{const y=r[i+1],ov=!!(r[4]&&r[4][i]),lb=ov?r[4][i]:r[0];
-        return `<div class="li ${y?'y':'n'}"><i>${y?'✓':'—'}</i><span>${lb}</span></div>`}).join('')}</div>
+        return `<div class="li ${y?'y':'n'}"><i>${y?'✓':'—'}</i><span>${E(lb)}</span></div>`}).join('')}</div>
     </div>`}).join('');
 
 }
@@ -940,28 +964,30 @@ function renderCompare(){
 function renderVersions(){
   const d=VER[cur],T=VT[lang];
   $('#vh').textContent=T.h;$('#vp').textContent=T.p;
+  /* E()：s.n / s.u / d.* 来自 VER，__links 可改 —— value="${…}" 是属性上下文，
+     引号逃逸就在这种地方发生（蓝军 P0-1）。VT 是内置文案，一并包上不吃亏。 */
   const src=d.beta.map(s=>`<div>
-      <div class="s">${ICO[s.i]}<b>${s.n}</b><button class="g">${T.g}</button></div>
-      <div class="vadm"><input value="${s.u}"><button>${T.e}</button><button>${T.c}</button></div>
+      <div class="s">${ICO[s.i]}<b>${E(s.n)}</b><button class="g">${E(T.g)}</button></div>
+      <div class="vadm"><input value="${E(s.u)}"><button>${E(T.e)}</button><button>${E(T.c)}</button></div>
     </div>`).join('');
   $('#vg').innerHTML=`
     <div class="vcard">
-      <div class="vtop"><b>${T.bn}</b><span class="vtag">${T.bt}</span></div>
-      <p class="vdesc">${T.bd}</p>
+      <div class="vtop"><b>${E(T.bn)}</b><span class="vtag">${E(T.bt)}</span></div>
+      <p class="vdesc">${E(T.bd)}</p>
       <div class="vsrc">${src}</div>
     </div>
     <div class="vcard hi">
-      <div class="vtop"><b>${T.fn}</b><span class="vtag b">${T.ft}</span></div>
-      <p class="vdesc">${T.fd}</p>
-      <button class="vbtn">${T.as}</button>
-      <div class="vadm"><input value="${d.free}"><button>${T.e}</button><button>${T.c}</button></div>
+      <div class="vtop"><b>${E(T.fn)}</b><span class="vtag b">${E(T.ft)}</span></div>
+      <p class="vdesc">${E(T.fd)}</p>
+      <button class="vbtn">${E(T.as)}</button>
+      <div class="vadm"><input value="${E(d.free)}"><button>${E(T.e)}</button><button>${E(T.c)}</button></div>
     </div>
     <div class="vcard">
-      <div class="vtop"><b>${T.pn}</b><span class="vtag">${T.pt}</span></div>
-      <p class="vdesc">${T.pd}</p>
-      <div class="vprice">${d.price}</div>
-      <button class="vbtn">${T.ap}</button>
-      <div class="vadm"><input value="${d.pro}"><button>${T.e}</button><button>${T.c}</button></div>
+      <div class="vtop"><b>${E(T.pn)}</b><span class="vtag">${E(T.pt)}</span></div>
+      <p class="vdesc">${E(T.pd)}</p>
+      <div class="vprice">${E(d.price)}</div>
+      <button class="vbtn">${E(T.ap)}</button>
+      <div class="vadm"><input value="${E(d.pro)}"><button>${E(T.e)}</button><button>${E(T.c)}</button></div>
     </div>`;
 }
 let cur='aria',lang='en';   /* 默认英文 —— 任何国家地区进来先看英文（Harry 2026-08-04） */
