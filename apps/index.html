@@ -1160,6 +1160,15 @@ const FORMS={
         ph:'e.g. We would like to explore a co-marketing campaign…'}}};
 let FORM_KIND='fb';   /* 当前开的是哪张表（fb 问题反馈 / biz 商务合作）——
                          Worker 建好后要靠它区分收件标题，别再丢掉这个信息 */
+const FEEDBACK_SOURCE='Harry App Store';
+const FEEDBACK_KIND_LABEL={fb:'Feedback',biz:'Partnership'};
+function feedbackProductName(){
+  const a=APPS[cur]||{};
+  return (a[lang]&&a[lang].t)||(a.en&&a.en.t)||(a.zh&&a.zh.t)||cur;
+}
+function feedbackPage(){
+  return location.protocol==='file:'?'local-file-preview':location.href.slice(0,500);
+}
 function openForm(k){
   FORM_KIND=k;
   const f=FORMS[k][lang];
@@ -1190,7 +1199,16 @@ $('#mYes').onclick=async()=>{
     try{
       const r=await fetch(MAIL_ENDPOINT,{method:'POST',
         headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({kind:FORM_KIND,lang:lang,text:t})});
+        body:JSON.stringify({
+          kind:FORM_KIND,
+          lang:lang,
+          text:t,
+          source:FEEDBACK_SOURCE,
+          productId:cur,
+          product:feedbackProductName(),
+          category:FEEDBACK_KIND_LABEL[FORM_KIND]||FORM_KIND,
+          page:feedbackPage()
+        })});
       if(!r.ok)throw new Error('HTTP '+r.status);
       $('#mOk').classList.add('on');
       setTimeout(()=>$('#mgate').classList.remove('on'),1200);
