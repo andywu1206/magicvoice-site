@@ -930,7 +930,9 @@ function renderCompare(){
   $('#cg').innerHTML=T.cols.map((c,i)=>{
     const p=c.price||price;
     /* 第 0 列 = 内测版：照搬方案四的三个下载源，竖排（Harry 2026-08-04 指定「就搬过来」）*/
-    const hrefOf=u=>u&&!/^https?:\/\//.test(u)?'https://'+u:(u||'#');
+    /* 红军 P1-2：服务端校验带 re.I，这里原先不带 i —— HTTPS://x.com 服务端
+       放行、客户端当相对地址再拼一次 https:// → 死链上线且两道构建校验查不出。 */
+    const hrefOf=u=>u&&!/^https?:\/\//i.test(u)?'https://'+u:(u||'#');
     /* soon = 占位符链接的不可点态（蓝军 P1-3：公网不给用户可点的坏链接）。
        同一套按钮样式 + 降透明度，版式零变化；真地址一填自动恢复成 <a>。 */
     const soon=zh=>zh?'即将开放':'Coming soon';
