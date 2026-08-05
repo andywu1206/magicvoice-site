@@ -1121,7 +1121,10 @@ const FORMS={
       en:{t:'Business enquiry',
         d:`Tell me briefly what you have in mind — partnership, distribution, investment, integration. It goes straight to <code>${MAIL}</code>.`,
         ph:'e.g. We would like to explore a co-marketing campaign…'}}};
+let FORM_KIND='fb';   /* 当前开的是哪张表（fb 问题反馈 / biz 商务合作）——
+                         Worker 建好后要靠它区分收件标题，别再丢掉这个信息 */
 function openForm(k){
+  FORM_KIND=k;
   const f=FORMS[k][lang];
   $('#mTitle').textContent=f.t;$('#mDesc').innerHTML=f.d;
   const ta=$('#mText');ta.placeholder=f.ph;ta.value='';
@@ -1130,11 +1133,46 @@ function openForm(k){
 $('#fbLink').onclick=()=>openForm('fb');
 $('#bizLink').onclick=()=>openForm('biz');
 $('#mNo').onclick=()=>$('#mgate').classList.remove('on');
-$('#mYes').onclick=()=>{
-  if(!$('#mText').value.trim()){$('#mText').focus();return;}
-  // 真实实现：POST 到自己的 Worker 端点，由服务端转发邮件。
-  $('#mOk').classList.add('on');
-  setTimeout(()=>$('#mgate').classList.remove('on'),1200);
+/* 🔴 2026-08-05：这里原本是「假发送」—— 只有一行注释写着「真实实现：POST 到
+   自己的 Worker 端点」，然后直接弹「✓ 已发送，谢谢！我会尽快回复。」
+   一个网络请求都没有。用户写完点发送，看到已发送，内容哪儿都没去，
+   Harry 后台永远收不到。这比按钮点不动更糟：按钮坏了用户会换条路找你，
+   假成功让用户以为反馈过了，就再也不来了。Guide 当时还把它记成
+   「✅ 已按规范实现，实测通过」—— 那是假账，一并已更正。
+
+   规范（NO_MAILTO_USE_INAPP_FORM_V1）要求 Web 端 POST 到自有 Worker。
+   那个 Worker 还不存在，需要 Harry 的 Cloudflare 账号才能部署。
+   在它建起来之前，宁可诚实降级：把内容复制到剪贴板 + 明说还没接通自动发送，
+   也绝不再显示一个假的「已发送」。禁 mailto: 的铁律继续守。            */
+const MAIL_ENDPOINT='';   /* Worker 建好后填这里，下面自动切回真发送 */
+$('#mYes').onclick=async()=>{
+  const t=$('#mText').value.trim();
+  if(!t){$('#mText').focus();return;}
+  const zh=lang==='zh';
+  if(MAIL_ENDPOINT){
+    try{
+      const r=await fetch(MAIL_ENDPOINT,{method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({kind:FORM_KIND,lang:lang,text:t})});
+      if(!r.ok)throw new Error('HTTP '+r.status);
+      $('#mOk').classList.add('on');
+      setTimeout(()=>$('#mgate').classList.remove('on'),1200);
+    }catch(e){
+      alert(zh?'发送失败了（网络或服务端问题）。\n\n内容还在框里，没有丢。'
+             :'Sending failed (network or server).\n\nYour text is still in the box.');
+    }
+    return;
+  }
+  /* 没有端点 —— 诚实降级，绝不假装已送达 */
+  let copied=false;
+  try{await navigator.clipboard.writeText(t);copied=true;}catch(e){}
+  alert((zh
+    ?'自动发送还没接通，这条内容没有被送出。\n\n'
+     +(copied?'内容已复制到剪贴板，':'请手动复制文本框里的内容，')
+     +'麻烦发到：\n'+MAIL+'\n\n抱歉，这是我的问题，不是你的。'
+    :'Automatic sending is not wired up yet — this message was NOT sent.\n\n'
+     +(copied?'Your text has been copied to the clipboard. ':'Please copy the text from the box. ')
+     +'Please email it to:\n'+MAIL+'\n\nSorry — this one is on me.'));
 };
 
 render();
