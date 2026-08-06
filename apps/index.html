@@ -281,6 +281,13 @@ body.dark{--line-soft:rgba(255,255,255,.07)}
 .ft a{color:var(--ink3);text-decoration:none;cursor:pointer}
 .ft a:hover{color:var(--ink2);text-decoration:underline}
 /* 署名里的 About 入口：平时和正文同色，hover 才提示可点 */
+/* Footer 版本号（Harry 2026-08-06：「我就希望在 Footer 看到一个版本号」）
+   刻意比署名再淡一档 + 等宽数字：它是给你自己核对「线上到底是哪一版」用的，
+   不是给访客读的，所以不能抢署名的视觉权重。
+   ⚠️ 改门户内容时必须同步 bump #ftVer —— 一个不更新的版本号比没有更糟，
+      会让人以为线上是新的。（同源教训：烂掉的基线比没有基线更糟。） */
+.ft .ver{color:var(--ink3,var(--ink2));opacity:.72;
+  font-variant-numeric:tabular-nums;letter-spacing:.01em}
 .ft span a#aboutLink{color:inherit;text-decoration:none;cursor:pointer}
 .ft span a#aboutLink:hover{color:var(--ink);text-decoration:underline}
 .about{display:none;padding:16px 56px 22px;border-top:1px solid var(--line);
@@ -350,7 +357,7 @@ body.dark [data-v="6"] .ccard{border-color:rgba(255,255,255,.095)}
    参考 R003–R007（CustoHub / SnowUI / 1Edge 等）：侧栏是一张独立圆角卡，
    四周留白，浮在背景渐变上，不通栏到底。带收起 / 展开两态。
    ⚠️ 关键取舍：侧栏仍占 grid 列（视觉悬浮但不 absolute），
-      所以**不会挡住右侧任何内容** —— 这是 
+      所以**不会挡住右侧任何内容** —— 这是
    ══════════════════════════════════════════════════════════════ */
 .sbtoggle{display:none}
 /* 收缩按钮放在卡片底部留白里 —— 视觉重心平衡，也不会挤到条目（Harry 2026-08-04）*/
@@ -580,6 +587,18 @@ body:has(.app[data-v="9"]){padding:0;background:var(--page)}
 /* 侧栏钉在原地：页面上下滚它都不跟着走，产品切换随时可点（Harry 2026-08-04）*/
 [data-v="9"] .side{position:sticky;top:14px;align-self:start;overflow:visible}
 
+/* ── 公开反馈 / 商务合作弹窗（契约 PUBLIC_FEEDBACK_MODAL_OWN_CLASS_FGATE_V1）──
+   🔴 必须留在公开 CSS 区，不得移进 ADMIN 哨兵块。
+   历史事故（2026-08-06 线上）：这个弹窗原本复用 admin 登录弹层的 .gate，
+   而 .gate 的 CSS 定义在 ADMIN 哨兵块里 → 发布时被整段剥掉 →
+   公开页面上「没有 display:none」= 弹窗永久悬挂，「没有 .on 规则」= 点 Cancel 毫无反应。
+   一个原因两个症状，三道构建校验一道都没响（它们只查 JS，不查 CSS）。
+   → 因此独立成 .fgate，与 admin 的 .gate 彻底解耦：
+     以后谁调 admin 登录弹层的 .gate（z-index / backdrop / 遮罩色），都不会再静默改到公开弹窗。 */
+.fgate{display:none;position:fixed;inset:0;z-index:50;place-items:center;
+  background:rgba(0,0,0,.42);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+.fgate.on{display:grid}
+
 /* ── 下载来源 ── */
 .dl{padding:32px 56px 40px;border-top:1px solid var(--line)}
 .dl h2{font:600 15px/1 var(--font);color:var(--ink);letter-spacing:0;margin-bottom:4px}
@@ -664,7 +683,7 @@ body.dark .ccard{box-shadow:0 8px 26px -14px rgba(0,0,0,.5)}
     </section>
 
     <section class="dl">
-      <div class="admtag">管理员模式已开启 —— 下面的编辑 / 复制只有你能看到，普通访客只会看到「下载」。</div>
+
       <h2 id="dh">下载来源</h2>
       <p id="dp">三个渠道内容相同，就近选择即可。</p>
       <div class="rows">
@@ -672,26 +691,26 @@ body.dark .ccard{box-shadow:0 8px 26px -14px rgba(0,0,0,.5)}
           <div class="ic"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg></div>
           <div class="nm"><b>GitHub</b><s>全球</s></div>
           <button class="go">下载</button>
-          <div class="adm"><input class="url" value="github.com/…/releases"><button>编辑</button><button>复制</button></div>
+
         </div>
         <div class="row">
           <div class="ic"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linejoin="round"><path d="M1.9 4.4a1.3 1.3 0 0 1 1.3-1.3h2.8l1.5 1.7h5.3a1.3 1.3 0 0 1 1.3 1.3v5.5a1.3 1.3 0 0 1-1.3 1.3H3.2a1.3 1.3 0 0 1-1.3-1.3V4.4Z"/></svg></div>
           <div class="nm"><b>Google Drive</b><s>全球</s></div>
           <button class="go">下载</button>
-          <div class="adm"><input class="url" value="drive.google.com/…"><button>编辑</button><button>复制</button></div>
+
         </div>
         <div class="row">
           <div class="ic"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"><path d="M4.4 11.9A2.9 2.9 0 0 1 4.2 6.2a4 4 0 0 1 7.7-1 3.1 3.1 0 0 1-.4 6.7"/><path d="M8 8.1v4.6M6.3 11l1.7 1.7L9.7 11"/></svg></div>
           <div class="nm"><b>百度网盘</b><s>中国大陆</s></div>
           <button class="go">下载</button>
-          <div class="adm"><input class="url" value="pan.baidu.com/s/…"><button>编辑</button><button>复制</button></div>
+
         </div>
       </div>
     </section>
 
     <!-- 方案 4 专用：按版本分档，不按下载渠道分 -->
     <section class="vers">
-      <div class="admtag">管理员模式已开启 —— 下面的编辑 / 复制只有你能看到，普通访客只会看到「下载」。</div>
+
       <h2 id="vh">选择版本</h2>
       <p id="vp">三个版本内容不同，按需要选一个。</p>
       <div class="vgrid" id="vg"></div>
@@ -709,7 +728,7 @@ body.dark .ccard{box-shadow:0 8px 26px -14px rgba(0,0,0,.5)}
     <div class="about" id="ab"></div>
     <footer class="ft">
       <!-- About 不单独列，入口并进署名：点 Harry Wood 展开（Harry 2026-08-04）-->
-      <span>© 2026 Peace &amp; Light · Designed by <a id="aboutLink">Harry Wood</a></span>
+      <span>© 2026 Peace &amp; Light · Designed by <a id="aboutLink">Harry Wood</a> · <span class="ver" id="ftVer">v1.0.1</span></span>
       <span class="sp"></span>
       <a id="bizLink">Partnerships</a>
       <a id="fbLink">Feedback</a>
@@ -721,7 +740,9 @@ body.dark .ccard{box-shadow:0 8px 26px -14px rgba(0,0,0,.5)}
 
 
 <!-- 内嵌反馈 / 商务合作（站内提交，不拉起本地邮件客户端） -->
-<div class="gate" id="mgate">
+<!-- 🔴 class 必须是 fgate 不是 gate —— .gate 定义在 ADMIN 块内，发布时会被剥掉，
+     导致这个公开弹窗常驻页面且 Cancel 失效（2026-08-06 线上事故）。见公开 CSS 区 .fgate 注释。 -->
+<div class="fgate" id="mgate">
   <div class="mbox">
     <h4 id="mTitle">遇到什么问题？</h4>
     <p id="mDesc"></p>
