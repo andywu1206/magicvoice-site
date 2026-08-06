@@ -789,13 +789,13 @@ const VT={zh:{h:'选择版本',p:'三个版本内容不同，按需要选一个�
   fn:'免费版',ft:'App Store',fd:'审核上架的稳定版本，核心功能免费用。',
   pn:'完整版',pt:'一次买断',pd:'解锁全部能力，付一次长期使用。',
   g:'下载',as:'App Store 下载',ap:'App Store 购买',e:'编辑',c:'复制',
-  hb:'前往官网',hb2:'直接选版本 ↓',hm:'官网有完整介绍和最新动态 · 也可以直接在下面挑版本 ↓'},
+  hb:'前往官网',hb2:'直接选版本 ↓',hm:'支持 英文语音输入 · 中文语音输入 · 粤语语音输入 · 中英混合语音输入 · 英文键盘输入法 · 拼音输入法'},
   en:{h:'Choose a version',p:'Three different builds. Pick the one you need.',
   bn:'Beta',bt:'Beta',bd:'Newest features first, may be unstable. For people willing to help test.',
   fn:'Free',ft:'App Store',fd:'The reviewed, stable build. Core features are free.',
   pn:'Full',pt:'One-time',pd:'Unlocks everything. Pay once, keep it.',
   g:'Download',as:'Get on App Store',ap:'Buy on App Store',e:'Edit',c:'Copy',
-  hb:'Visit Website',hb2:'Pick a version ↓',hm:'The website has the full story and latest news · or pick a version below ↓'}};
+  hb:'Visit Website',hb2:'Pick a version ↓',hm:'English speech · Chinese speech · Cantonese speech · Mixed CN-EN speech · English keyboard · Pinyin'}};
 
 /* ═══ 方案 5 · 对比列表数据 ═══ */
 const CMP={
@@ -939,7 +939,7 @@ function mergeContent(o){
     if(!ap)continue;
     if(a[1]==='beta'){const b=ap.beta&&ap.beta[+a[2]];if(b)b.u=lk[k];}
     else if(a[1]==='free'||a[1]==='pro')ap[a[1]]=lk[k];}}
-/*BAKED-START*/const BAKED={"__links":{"aria:beta:0":"https:\u002f\u002fgithub.com\u002f","aria:beta:1":"https:\u002f\u002fdrive.google.com\u002f","aria:beta:2":"https:\u002f\u002fpan.baidu.com\u002f"}};/*BAKED-END*/
+/*BAKED-START*/const BAKED={};/*BAKED-END*/
 mergeContent(BAKED);
 
 function renderCompare(){
