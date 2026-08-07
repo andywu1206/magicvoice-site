@@ -249,6 +249,9 @@ body.dark{--line-soft:rgba(255,255,255,.07)}
 .cbeta .s:hover{background:var(--sel)}
 .cbeta .s svg{width:16px;height:16px;display:block;color:var(--ink2)}
 .cbeta .s b{font:500 12px/1 var(--font);color:var(--ink);text-align:left}
+.cbeta .s.with-code{grid-template-rows:auto auto}
+.cbeta .s .hint{grid-column:2/4;margin-top:-2px;font:500 10.5px/1 var(--font);
+  color:var(--ink3);font-style:normal;text-align:left}
 .cbeta .s .g{height:26px;padding:0 13px;border:none;border-radius:999px;
   background:var(--btn);color:var(--btnink);font:600 12px/26px var(--font);
   cursor:pointer;white-space:nowrap}
@@ -728,7 +731,7 @@ body.dark .ccard{box-shadow:0 8px 26px -14px rgba(0,0,0,.5)}
     <div class="about" id="ab"></div>
     <footer class="ft">
       <!-- About 不单独列，入口并进署名：点 Harry Wood 展开（Harry 2026-08-04）-->
-      <span>© 2026 Peace &amp; Light · Designed by <a id="aboutLink">Harry Wood</a> · <span class="ver" id="ftVer">v1.0.1</span></span>
+      <span>© 2026 Peace &amp; Light · Designed by Harry Wood · <span class="ver" id="ftVer">v1.0.1</span></span>
       <span class="sp"></span>
       <a id="bizLink">Partnerships</a>
       <a id="fbLink">Feedback</a>
@@ -797,9 +800,9 @@ const ICO={
  bd:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"><path d="M4.4 11.9A2.9 2.9 0 0 1 4.2 6.2a4 4 0 0 1 7.7-1 3.1 3.1 0 0 1-.4 6.7"/><path d="M8 8.1v4.6M6.3 11l1.7 1.7L9.7 11"/></svg>',
  tf:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1.8 13.6 12a1 1 0 0 1-.9 1.5H3.3a1 1 0 0 1-.9-1.5L8 1.8Z"/><path d="M8 6.2v3.1M8 11.3h.01"/></svg>'};
 const VER={
-  aria:{beta:[{n:'GitHub',u:'github.com/…/releases',i:'gh'},
-              {n:'Google Drive',u:'drive.google.com/…',i:'dr'},
-              {n:'百度网盘',u:'pan.baidu.com/s/…',i:'bd'}],
+  aria:{beta:[{n:'GitHub',u:'github.com/andywu1206/aria-magic-voice-download/releases/download/v90.601/AriaMagicVoice_Pro_Website_v90.601.dmg',i:'gh'},
+              {n:'Google Drive',u:'drive.google.com/file/d/1Lc5TidHLHGjvkaJN4bZ5LwacDLF6EJLD/view?usp=drive_link',i:'dr'},
+              {n:'百度网盘',u:'pan.baidu.com/s/1_PGz6YFHfHsAVa-pMp8efA?pwd=1234',i:'bd',code:'1234'}],
         free:'apps.apple.com/cn/app/aria-magic-voice/id6776485989',
         pro:'apps.apple.com/cn/app/aria-magic-voice/id6776485989',price:'$39.9'},
   rm:{beta:[{n:'TestFlight',u:'testflight.apple.com/join/…',i:'tf'}],
@@ -960,9 +963,14 @@ function mergeContent(o){
     if(!ap)continue;
     if(a[1]==='beta'){const b=ap.beta&&ap.beta[+a[2]];if(b)b.u=lk[k];}
     else if(a[1]==='free'||a[1]==='pro')ap[a[1]]=lk[k];}}
-/*BAKED-START*/const BAKED={};/*BAKED-END*/
+/*BAKED-START*/const BAKED={"__cols6":{"en":{"0":{"b":"Beta","btn":"Download","n":"Early Access","price":"Free","s":"Get new features first"},"1":{"b":"Free","btn":"Download","n":"Free","price":"Free","s":"Free forever"},"2":{"b":"One-time","btn":"Buy It","n":"Pro","price":"US$39.99","s":"Buy once · yours forever"}}},"__links":{"aria:beta:0":"github.com\u002fandywu1206\u002faria-magic-voice-download\u002freleases\u002fdownload\u002fv90.601\u002fAriaMagicVoice_Pro_Website_v90.601.dmg","aria:beta:1":"drive.google.com\u002ffile\u002fd\u002f1Lc5TidHLHGjvkaJN4bZ5LwacDLF6EJLD\u002fview?usp=drive_link","aria:beta:2":"pan.baidu.com\u002fs\u002f1_PGz6YFHfHsAVa-pMp8efA?pwd=1234"},"__rows6":{"en":{}},"aria":{"en":{"c":"Visit Website","c2":"Pick a version ↓","d":"Your raw transcripts never touch the cloud — locked on your own Mac. The Super Learning engine understands you better, and gets more accurate, the longer you use it.","l":"Top Accuracy \u0026 Privacy.","t":"Aria Magic Voice"}}};/*BAKED-END*/
 mergeContent(BAKED);
 
+function linkCode(sc,u){
+  const m=String(u||'').match(/[?&]pwd=([^&#]+)/i);
+  if(m){try{return decodeURIComponent(m[1]);}catch(e){return m[1];}}
+  return sc&&sc.code?String(sc.code):'';
+}
 function renderCompare(){
   const V6=app.dataset.v==='6'||app.dataset.v==='7'||app.dataset.v==='8'||app.dataset.v==='9';
   const T=V6?{...CMP[lang],cols:COLS6[lang],
@@ -983,12 +991,13 @@ function renderCompare(){
     const beta=(i===0&&VER[cur]&&VER[cur].beta&&VER[cur].beta.length)
       ?`<div class="cbeta">${VER[cur].beta.map((sc,si)=>{
           const ph=isPlaceholder(sc.u),
+            code=linkCode(sc,sc.u),
             gz=`<span class="g"${si===0?``:''}>${
               ph?soon(lang==='zh'):E(c.btn)}</span>`;
-          return `<${ph?'span':'a'} class="s${ph?' soon':''}"${ph?'':` href="${E(hrefOf(sc.u))}"`+
+          return `<${ph?'span':'a'} class="s${ph?' soon':''}${code?' with-code':''}"${ph?'':` href="${E(hrefOf(sc.u))}"`+
             ` target="_blank" rel="noopener" data-track="${E(cur+':beta:'+sc.i)}"`}`+
             `>${ICO[sc.i]||''}`+
-            `<b>${E(sc.n)}</b>${gz}</${ph?'span':'a'}>`;}
+            `<b>${E(sc.n)}</b>${gz}${code?`<em class="hint">${E(lang==='zh'?'码 ':'Code ')}${E(code)}</em>`:''}</${ph?'span':'a'}>`;}
         ).join('')}</div>`:'';
     const mainU=i===1?VER[cur].free:VER[cur].pro,mainPh=isPlaceholder(mainU);
     return `<div class="ccard${i===1?' on':''}${beta?' hasbeta':''}">
