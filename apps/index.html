@@ -479,7 +479,9 @@ body.dark [data-v="7"] .ccard{border-color:rgba(255,255,255,.095)}
        band8 = JS 用离屏 canvas 原样重绘 Hero 渐变后，取其【底边那一行】的真实像素做成的水平色带
        fade8 = 盖在色带上的垂直淡出，把色带从上往下化到纯白 */
     var(--fade8,linear-gradient(180deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.62) 46%,#fff 90%)),
-    var(--band8,transparent),
+    /* 同 v9：fallback 用 none，不能用 transparent（颜色不是合法 <bg-image>，
+       会让整条 background 简写作废 → 整页白）。2026-08-08 白页事故同源修复。 */
+    var(--band8,none),
     var(--page);
   background-size:100% 620px,100% 620px,100% 360px,100% 360px,100% 100%;
   background-position:0 0,0 0,0 620px,0 620px,0 0;background-repeat:no-repeat;
@@ -543,7 +545,11 @@ body.dark [data-v="8"] .ccard{border-color:rgba(255,255,255,.095)}
        band8 = JS 用离屏 canvas 原样重绘 Hero 渐变后，取其【底边那一行】的真实像素做成的水平色带
        fade8 = 盖在色带上的垂直淡出，把色带从上往下化到纯白 */
     var(--fade9,linear-gradient(180deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.62) 46%,#fff 90%)),
-    var(--band9,transparent),
+    /* fallback 必须是 none，不能是 transparent —— transparent 是颜色，不是合法的
+       <bg-image>。JS 没来得及设 --band9 时，var() 会替换出 transparent，整条
+       background 简写变成 invalid-at-computed-value-time，**五层全部丢弃**、整页白。
+       改成 none：装饰层缺席就只是这一层为空，主渐变照常显示。（2026-08-08 白页事故）*/
+    var(--band9,none),
     var(--page);
   background-size:100% 620px,100% 620px,100% 360px,100% 360px,100% 100%;
   background-position:0 0,0 0,0 620px,0 620px,0 0;background-repeat:no-repeat;
@@ -1314,7 +1320,8 @@ function render(){
   const d=DL[lang];$('#dh').textContent=d.h;$('#dp').textContent=d.p;
   $$('.row').forEach((r,i)=>{r.querySelector('.go').textContent=d.g;
     r.querySelector('.nm s').textContent=d.r[i];
-    const b=r.querySelectorAll('.adm button');b[0].textContent=d.e;b[1].textContent=d.c;});
+
+  });
   $('#lang').textContent=lang==='zh'?'中文':'English';
   $('#theme').textContent=document.body.classList.contains('dark')
     ?(lang==='zh'?'浅色':'Light'):(lang==='zh'?'深色':'Dark');
