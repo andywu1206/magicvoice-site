@@ -1,4 +1,5 @@
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Harry App Store</title>
 <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect x="6" y="6" width="52" height="52" rx="16" fill="%235B6CFF"/><text x="32" y="44" font-family="Helvetica,Arial,sans-serif" font-size="36" font-weight="700" fill="white" text-anchor="middle">H</text></svg>'>
 <style>
@@ -218,6 +219,33 @@ body.dark{--line-soft:rgba(255,255,255,.07)}
 /* 三卡上下都对齐：stretch 让它们等高，底边严格平齐*/
 .cgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:20px;
   align-items:stretch}
+/* Remember Me 只有 Free / Pro 两档（没有 Early Access），两张卡时收成两列，
+   不留第三格空位 —— Harry 2026-08-08 明令「它比较特殊，Early Access 直接移掉」*/
+.cgrid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+/* ═══ 跑马灯（Harry 2026-08-08 立）· 每个 App 三条卖点，点点点切换 ═══
+   放在「Choose a version」上面。纯静态内容，不进 BAKED / localStorage ——
+   发布器的 validate_overlay 只认识已知 key，新增可编辑字段会被它拒绝，
+   所以这里刻意做成母版里的固定文案，改文案 = 改这个文件。 */
+.mq{margin:0 0 22px;border:1px solid var(--line-soft);border-radius:16px;background:var(--card);
+  padding:18px 24px 14px;overflow:hidden}
+.mqv{position:relative;min-height:60px}
+/* 出场比入场快、入场再晚一点点：两句话同时半透明地叠在一起会糊成一片
+   （2026-08-08 实测截到过重影），错开之后视觉上是干净的接力。 */
+.mqs{position:absolute;inset:0;opacity:0;transform:translateY(6px);pointer-events:none;
+  transition:opacity .16s ease,transform .16s ease}
+.mqs.on{opacity:1;transform:none;pointer-events:auto;position:relative;
+  transition:opacity .34s ease .14s,transform .34s ease .14s}
+.mqs b{display:block;font:600 19px/1.35 var(--font);color:var(--ink);letter-spacing:-.01em}
+/* max-width 原本 62ch —— 中文只够 30 来个字，第二条到「你自己」就被顶到第二行
+   （Harry 2026-08-08：「完全没有必要折行，可以去到后面」）。放宽到 104ch，
+   一句中文描述能一行走完；英文长句仍会在可读宽度内换行，不至于拉成一条线。 */
+.mqs p{margin:6px 0 0;font:400 14px/1.6 var(--font);color:var(--ink2);max-width:104ch}
+.mqd{display:flex;gap:7px;margin-top:11px}
+.mqd i{width:22px;height:4px;border-radius:3px;background:var(--line);cursor:pointer;
+  transition:background .25s,width .25s}
+.mqd i.on{width:34px;background:var(--ink)}
+@media(prefers-reduced-motion:reduce){.mqs{transition:none}}
+@media(max-width:720px){.mq{padding:18px 18px 14px}.mqs b{font-size:17px}.mqv{min-height:104px}}
 /* 行高锁死 = 按钮必然同一水平线 */
 .ccard{border:1px solid var(--line-soft);border-radius:16px;background:var(--card);padding:24px 22px;
   display:grid;grid-template-rows:32px 34px 52px 44px 20px auto;transition:.2s}
@@ -239,25 +267,41 @@ body.dark{--line-soft:rgba(255,255,255,.07)}
 .cprice u{font:400 13px/1 var(--font);color:var(--ink2);text-decoration:none}
 .cbtn{align-self:center;width:100%;height:40px;border:none;border-radius:999px;
   background:var(--btn);color:var(--btnink);font:600 14px/1 var(--font);cursor:pointer;transition:.18s;
-  display:flex;align-items:center;justify-content:center;text-decoration:none;box-sizing:border-box}
+  display:flex;align-items:center;justify-content:center;text-decoration:none;box-sizing:border-box;
+  position:relative}
 .cbtn:hover{opacity:.84}
 /* 内测版三个下载源 —— 直接沿用方案四 .vsrc 的行式样（Harry 2026-08-04 指定）*/
 .cbeta{display:grid;gap:7px}
 .cbeta .s{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;
   gap:9px;padding:8px 10px;border:1px solid var(--line);border-radius:9px;transition:.15s;
-  text-decoration:none;background:transparent}
+  text-decoration:none;background:transparent;position:relative}
 .cbeta .s:hover{background:var(--sel)}
 .cbeta .s svg{width:16px;height:16px;display:block;color:var(--ink2)}
 .cbeta .s b{font:500 12px/1 var(--font);color:var(--ink);text-align:left}
-.cbeta .s.with-code{grid-template-rows:auto auto}
-.cbeta .s .hint{grid-column:2/4;margin-top:-2px;font:500 10.5px/1 var(--font);
+.cbeta .code{margin:2px 0 0 35px;font:500 10.5px/1 var(--font);
   color:var(--ink3);font-style:normal;text-align:left}
 .cbeta .s .g{height:26px;padding:0 13px;border:none;border-radius:999px;
   background:var(--btn);color:var(--btnink);font:600 12px/26px var(--font);
-  cursor:pointer;white-space:nowrap}
+  cursor:pointer;white-space:nowrap;position:relative}
 /* 占位符链接的不可点态（蓝军 P1-3）：地址没定之前公网不给可点的坏链接。
    同一套版式只降透明度；链条角标要能穿透它（本机编辑态里还得靠它填真地址）。 */
 .cbtn.soon,.cbeta .s.soon{opacity:.45;cursor:default;pointer-events:none}
+.cbtn.unavailable,.cbeta .s.unavailable{opacity:.72;cursor:default;pointer-events:none}
+.cbtn.unavailable{background:#aeb2bb;color:#fff}
+.cbeta .s.unavailable{border-color:rgba(0,0,0,.13);background:rgba(255,212,59,.045)}
+body.dark .cbeta .s.unavailable{border-color:rgba(255,255,255,.16);background:rgba(255,212,59,.075)}
+.cbeta .s.unavailable .g{background:#aeb2bb;color:#fff}
+.cbeta .s.unavailable b{color:var(--ink2)}
+.cbtn.unavailable:hover,.cbeta .s.unavailable:hover{opacity:.72}
+.warnmark{position:absolute;left:50%;top:50%;width:29px;height:29px;
+  transform:translate(-50%,-50%);display:none;align-items:center;justify-content:center;
+  pointer-events:none;z-index:3}
+.warnmark svg,.cbtn .warnmark svg,.cbeta .s .warnmark svg,.ft .warnmark svg{position:absolute;inset:0;width:100%;height:100%;display:block;color:#ffd21f;
+  filter:drop-shadow(0 8px 18px rgba(0,0,0,.18))}
+.warnmark svg path{fill:currentColor}
+.warnmark span{position:relative;z-index:1;width:auto;height:auto;background:transparent;color:#020202;
+  display:flex;align-items:center;justify-content:center;font:900 15px/1 var(--font);
+  transform:translateY(2px)}
 
 
 .csrc{align-self:center;font:400 11.5px/1 var(--font);color:var(--ink2);text-align:center}
@@ -281,14 +325,18 @@ body.dark{--line-soft:rgba(255,255,255,.07)}
   padding:18px 56px 26px;border-top:1px solid var(--line);
   font:400 12px/1 var(--font);color:var(--ink3)}
 .ft .sp{flex:1}
-.ft a{color:var(--ink3);text-decoration:none;cursor:pointer}
+.ft a{color:var(--ink3);text-decoration:none;cursor:pointer;position:relative}
 .ft a:hover{color:var(--ink2);text-decoration:underline}
+.ft a.unavailable{opacity:.72;pointer-events:none}
 /* 署名里的 About 入口：平时和正文同色，hover 才提示可点 */
 /* Footer 版本号（Harry 2026-08-06：「我就希望在 Footer 看到一个版本号」）
    刻意比署名再淡一档 + 等宽数字：它是给你自己核对「线上到底是哪一版」用的，
    不是给访客读的，所以不能抢署名的视觉权重。
-   ⚠️ 改门户内容时必须同步 bump #ftVer —— 一个不更新的版本号比没有更糟，
-      会让人以为线上是新的。（同源教训：烂掉的基线比没有基线更糟。） */
+   ⚠️ 2026-08-08 起改成机器盖章，别再手改这个数字：
+      发布器每次发布时把它重写成 v1.0.N（N = 第几次发布，见 publish_server
+      的 stamp_footer_version）。原来那条「改内容时必须同步 bump」靠人记 ——
+      11 次发布一次都没 bump 过，正应了它自己那句「一个不更新的版本号比没有更糟」。
+      母版里这个数字只是占位，以线上产物为准。 */
 .ft .ver{color:var(--ink3,var(--ink2));opacity:.72;
   font-variant-numeric:tabular-nums;letter-spacing:.01em}
 .ft span a#aboutLink{color:inherit;text-decoration:none;cursor:pointer}
@@ -499,14 +547,16 @@ body.dark [data-v="8"] .ccard{border-color:rgba(255,255,255,.095)}
     var(--page);
   background-size:100% 620px,100% 620px,100% 360px,100% 360px,100% 100%;
   background-position:0 0,0 0,0 620px,0 620px,0 0;background-repeat:no-repeat;
-  transition:grid-template-columns .32s var(--ease,cubic-bezier(.25,.1,.25,1))}
-[data-v="9"] main{background:transparent}
+  transition:background .3s}
+[data-v="9"] main{background:transparent;padding-left:0}
 [data-v="9"] .top{border-bottom:none;background:transparent}
 [data-v="9"] .hero::before{opacity:0}
 
-/* 侧栏 = 悬浮玻璃卡 —— 高度由内容决定，不通栏到底（Harry 2026-08-04）*/
-[data-v="9"] .side{align-self:start;min-height:352px;
-  margin:118px 0 14px 14px;padding:16px 12px 18px;border-right:none;border-radius:16px;
+/* 侧栏 = 固定浮层玻璃卡 —— 浮在 body 上，不参与正文排版 */
+[data-v="9"] .side{position:fixed;z-index:30;
+  left:max(14px,calc((100vw - 1280px)/2 + 14px));top:118px;width:236px;height:352px;min-height:352px;
+  max-height:calc(100svh - 132px);
+  margin:0;padding:16px 12px 18px;border-right:none;border-radius:16px;
   /* 玻璃 = 方案 10 · Regular Liquid Glass（Harry 2026-08-05 15:30 选定）
      只换玻璃配方，结构（尺寸/间距/圆角/定位）一行未动。
      HIG：sidebar 文字多 → 用 regular 变体，靠 blur + 调整背景亮度保可读性。
@@ -528,6 +578,7 @@ body.dark [data-v="8"] .ccard{border-color:rgba(255,255,255,.095)}
   border-radius:inherit;
   background:linear-gradient(138deg,rgba(255,255,255,.58) 0%,rgba(255,255,255,.10) 34%,
     transparent 56%)}
+[data-v="9"] .side>*{position:relative;z-index:1}
 body.dark [data-v="9"] .side{background:rgba(30,30,36,.32);border-color:rgba(255,255,255,.16);
   -webkit-backdrop-filter:blur(12px) saturate(180%) brightness(1.12);
   backdrop-filter:blur(12px) saturate(180%) brightness(1.12);
@@ -538,21 +589,27 @@ body.dark [data-v="9"] .side::before{
 [data-v="9"] .item:hover,[data-v="9"] .item.on{background:rgba(255,255,255,.46)}
 body.dark [data-v="9"] .item:hover,body.dark [data-v="9"] .item.on{background:rgba(255,255,255,.12)}
 
+[data-v="9"] .sbtoggle{display:grid;place-items:center;width:26px;height:26px;margin:0 auto;
+  border:1px solid var(--line);border-radius:50%;background:rgba(255,255,255,.42);color:var(--ink2);
+  font:600 14px/1 var(--font);cursor:pointer;transition:.18s;flex:0 0 auto}
+[data-v="9"] .sbtoggle:hover{background:rgba(255,255,255,.70);color:var(--ink)}
+body.dark [data-v="9"] .sbtoggle{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.16)}
+
 /* 收起态：只留图标 */
 /* 收起态：卡片接近正方形，不做成上窄下长的细条（Harry 2026-08-04）*/
-[data-v="9"].sbmin{grid-template-columns:110px minmax(0,1fr)}
-[data-v="9"].sbmin .side{padding:14px 12px 14px;min-height:0;width:96px}
+[data-v="9"].sbmin{grid-template-columns:minmax(0,1fr)}
+[data-v="9"].sbmin .side{padding:14px 12px;height:352px;min-height:352px;width:96px}
 /* 高亮块缩小，不再顶到上一个图标底部（Harry 2026-08-04）*/
 [data-v="9"].sbmin .item{justify-content:center;padding:0;height:46px;width:46px;margin:0 auto 6px;
   border-radius:11px}
 [data-v="9"].sbmin .item .tx,[data-v="9"].sbmin .brand b,[data-v="9"].sbmin .slab{display:none}
 [data-v="9"].sbmin .brand{justify-content:center;padding:0 0 10px;margin-bottom:6px;
   border-bottom:1px solid var(--line)}
-[data-v="9"].sbmin .side .sp{flex:0;height:6px}
+[data-v="9"].sbmin .side .sp{flex:1;min-height:6px}
 
 /* Hero / 版本区沿用方案 6 */
 [data-v="9"] .hero{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;
-  gap:32px;padding:76px 0 76px 48px;min-height:494px}
+  gap:32px;padding:76px 48px 76px 312px;min-height:494px}
 [data-v="9"] .copy{display:grid;gap:18px;justify-items:start;max-width:600px;padding-bottom:10px}
 [data-v="9"] .acts{margin-top:8px}
 [data-v="9"] .logo{width:270px;height:270px;margin-right:-58px}
@@ -560,12 +617,12 @@ body.dark [data-v="9"] .item:hover,body.dark [data-v="9"] .item.on{background:rg
 [data-v="9"] .dl{display:none}
 [data-v="9"] #admin{display:none}
 /* 分隔线已去掉，「选择版本」整体上提：空白减为原来的一半（120px → 62px · Harry 2026-08-04）*/
-[data-v="9"] .cmp{display:block;padding:14px 48px 40px;border-top:0;background:transparent}
+[data-v="9"] .cmp{display:block;padding:14px 48px 40px 312px;border-top:0;background:transparent}
 [data-v="9"] .hero{padding-bottom:38px}
 body.dark [data-v="9"]{--fade9:linear-gradient(180deg,rgba(11,11,13,0) 0%,rgba(11,11,13,.62) 46%,#0B0B0D 90%)}
 [data-v="9"] .ccard{border-color:rgba(0,0,0,.075)}
 body.dark [data-v="9"] .ccard{border-color:rgba(255,255,255,.095)}
-[data-v="9"] .ft,[data-v="9"] .about{padding-left:48px;padding-right:48px}
+[data-v="9"] .ft,[data-v="9"] .about{padding-left:312px;padding-right:48px}
 
 
 /* ══ 方案 8 · 只改「选择版本」这一段的底 ══
@@ -577,8 +634,8 @@ body.dark [data-v="9"] .ccard{border-color:rgba(255,255,255,.095)}
    之前 logo 故意出血到右缘，是因为那时右边有硬边界、截断是设计的一部分；
    现在两边都铺开了，同一处截断就变成了 bug —— 所以 logo 缩 10% 并回到内容区内完整显示。 */
 body:has(.app[data-v="9"]){padding:0;background:var(--page)}
-[data-v="9"]{max-width:none;border-radius:0;box-shadow:none;min-height:100vh;
-  overflow:visible;   /* sticky 的死穴：祖先 overflow 非 visible 就整个失效 */
+[data-v="9"]{display:block;max-width:none;border-radius:0;box-shadow:none;min-height:100vh;
+  overflow:visible;
   /* 背景铺满整幅，内容仍守 1280px 居中 —— 像被两条看不见的线框住 */
   padding-left:max(0px,calc((100% - 1280px)/2));
   padding-right:max(0px,calc((100% - 1280px)/2))}
@@ -587,8 +644,56 @@ body:has(.app[data-v="9"]){padding:0;background:var(--page)}
 /* hero 原本 overflow:hidden 是为了裁掉出血的 logo；方案 9 的 logo 不出血了，
    继续裁只会把它的投影切出一条硬边 —— 放开 */
 [data-v="9"] .hero{overflow:visible}
-/* 侧栏钉在原地：页面上下滚它都不跟着走，产品切换随时可点（Harry 2026-08-04）*/
-[data-v="9"] .side{position:sticky;top:14px;align-self:start;overflow:visible}
+/* 侧栏固定浮在 body 上：页面上下滚动时保持可点，不参与正文布局 */
+[data-v="9"] .side{overflow:hidden}
+
+@media (max-width:1100px){
+  [data-v="9"]{padding-left:0;padding-right:0}
+  [data-v="9"] main{padding-left:0}
+  [data-v="9"] .side{left:14px;top:112px;width:200px;height:352px}
+  [data-v="9"].sbmin .side{width:86px}
+  [data-v="9"].sbmin .item{width:42px;height:42px}
+  [data-v="9"] .hero{grid-template-columns:minmax(0,1fr) minmax(176px,220px);gap:22px;padding:72px 24px 48px 246px;min-height:420px}
+  [data-v="9"] .copy{max-width:480px}
+  [data-v="9"] .h1{font-size:52px;line-height:1.03}
+  [data-v="9"] .lead{font-size:21px;line-height:1.35}
+  [data-v="9"] .desc{font-size:14px;max-width:390px}
+  [data-v="9"] .logo{width:210px;height:210px;margin-right:0}
+  [data-v="9"] .cmp{padding:12px 32px 40px 246px}
+  [data-v="9"] .cgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+  [data-v="9"] .ft,[data-v="9"] .about{padding-left:246px;padding-right:32px}
+}
+@media (max-width:760px){
+  [data-v="9"] main{padding-left:0}
+  [data-v="9"] .side{left:10px;top:92px;width:208px;height:338px;min-height:338px;max-height:calc(100svh - 112px);border-radius:14px}
+  [data-v="9"].sbmin .side{width:44px;height:338px;min-height:338px;padding:10px 8px}
+  [data-v="9"].sbmin .brand .m{width:28px;height:28px}
+  [data-v="9"].sbmin .item{width:32px;height:32px;margin-bottom:8px;border-radius:9px}
+  [data-v="9"].sbmin .item img{width:28px;height:28px;border-radius:7px}
+  [data-v="9"] .sbtoggle{width:24px;height:24px;font-size:13px}
+  [data-v="9"] .hero{grid-template-columns:1fr;gap:20px;padding:86px 18px 42px 68px;min-height:auto}
+  [data-v="9"] .copy{max-width:none;gap:14px}
+  [data-v="9"] .h1{font-size:38px;line-height:1.05}
+  [data-v="9"] .lead{font-size:19px;line-height:1.35}
+  [data-v="9"] .desc{font-size:14px;max-width:100%}
+  [data-v="9"] .logo{width:156px;height:156px;margin:0;justify-self:end}
+  [data-v="9"] .acts{gap:8px}
+  [data-v="9"] .pbtn,[data-v="9"] .sbtn{height:40px;padding:0 14px;font-size:13px;border-radius:9px}
+  [data-v="9"] .hmeta{font-size:12px;line-height:1.45}
+  [data-v="9"] .cmp{padding:10px 18px 36px 68px}
+  [data-v="9"] .cmp h2{font-size:24px}
+  [data-v="9"] .cgrid{grid-template-columns:1fr;gap:14px;margin-top:16px}
+  [data-v="9"] .ccard{padding:20px 18px;grid-template-rows:30px 32px 48px 42px 18px auto;border-radius:14px}
+  [data-v="9"] .ccard.hasbeta{grid-template-rows:30px 32px 48px auto 18px auto}
+  [data-v="9"] .cname{font-size:22px}
+  [data-v="9"] .cprice{font-size:38px}
+  [data-v="9"] .cbeta .s{grid-template-columns:18px minmax(0,1fr) auto;padding:8px 9px;gap:8px}
+  [data-v="9"] .cbeta .s b{font-size:12px;white-space:normal;line-height:1.18;word-break:keep-all}
+  [data-v="9"] .cbeta .s .g{height:26px;padding:0 12px;font-size:11.5px}
+  [data-v="9"] .cbeta .code{margin-left:35px;font-size:10.5px}
+  [data-v="9"] .clist .li{font-size:12.5px;gap:8px}
+  [data-v="9"] .ft,[data-v="9"] .about{padding-left:68px;padding-right:18px;flex-wrap:wrap;line-height:1.35}
+}
 
 /* ── 公开反馈 / 商务合作弹窗（契约 PUBLIC_FEEDBACK_MODAL_OWN_CLASS_FGATE_V1）──
    🔴 必须留在公开 CSS 区，不得移进 ADMIN 哨兵块。
@@ -660,7 +765,7 @@ body.dark .ccard{box-shadow:0 8px 26px -14px rgba(0,0,0,.5)}
       <span class="tx"><b>Remember Me</b><s></s></span>
     </button>
     <div class="sp"></div>
-    <button class="sbtoggle" id="sbToggle" title="收起 / 展开">‹</button>
+    <button class="sbtoggle" id="sbToggle" title="收起侧栏" aria-label="收起侧栏">‹</button>
   </aside>
 
   <!-- 右侧 -->
@@ -721,6 +826,8 @@ body.dark .ccard{box-shadow:0 8px 26px -14px rgba(0,0,0,.5)}
 
     <!-- 方案 5 专用：价格 → 按钮 → 对比列表（按钮严格同一水平线） -->
     <section class="cmp">
+      <!-- 跑马灯：每个 App 三条卖点轮播（Harry 2026-08-08 指定放在「选择版本」上面） -->
+      <div class="mq" id="mq"><div class="mqv" id="mqv"></div><div class="mqd" id="mqd"></div></div>
       <h2 id="ch">选择版本</h2>
       <p id="cp">三个版本能力不同，勾表示有，横线表示没有。</p>
       <div class="cgrid" id="cg"></div>
@@ -800,14 +907,26 @@ const ICO={
  bd:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"><path d="M4.4 11.9A2.9 2.9 0 0 1 4.2 6.2a4 4 0 0 1 7.7-1 3.1 3.1 0 0 1-.4 6.7"/><path d="M8 8.1v4.6M6.3 11l1.7 1.7L9.7 11"/></svg>',
  tf:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1.8 13.6 12a1 1 0 0 1-.9 1.5H3.3a1 1 0 0 1-.9-1.5L8 1.8Z"/><path d="M8 6.2v3.1M8 11.3h.01"/></svg>'};
 const VER={
-  aria:{beta:[{n:'GitHub',u:'github.com/…/releases',i:'gh'},
-              {n:'Google Drive',u:'drive.google.com/…',i:'dr'},
-              {n:'百度网盘',u:'pan.baidu.com/s/…',i:'bd'}],
-        free:'apps.apple.com/cn/app/aria-magic-voice/id6776485989',
-        pro:'apps.apple.com/cn/app/aria-magic-voice/id6776485989',price:'$39.9'},
+  /* GitHub 这条 2026-08-08 实测 404，且该仓库 releases 数为 0 —— 包根本没发上去。
+     留空 = 页面渲染成「即将开放」的不可点态，而不是给用户一个死链。
+     350 号出包后，把 dmg 直链填回下面这个 u 就恢复了（Drive / 百度盘两条仍活着）。 */
+  aria:{beta:[{n:'GitHub',u:'',i:'gh'},
+              {n:'Google Drive',u:'drive.google.com/file/d/1Lc5TidHLHGjvkaJN4bZ5LwacDLF6EJLD/view?usp=drive_link',i:'dr'},
+              {n:'百度网盘',u:'pan.baidu.com/s/1_PGz6YFHfHsAVa-pMp8efA?pwd=1234',i:'bd',code:'1234'}],
+        /* ⚠️ 这里曾经填过 App Store 的 id6776485989（Harry 2026-08-08 当场纠正）。
+           那个上架物是 87.x 的 App，本页现在卖的是 90.x 的「Aria 输入法」——
+           两件不同的产品，不能互相代称。输入法的 Free / Pro 包都还没出，
+           内测包还在 350 号话题打，出包前这两条只能是空的。 */
+        free:'',
+        pro:'',price:'$39.9'},
   rm:{beta:[{n:'TestFlight',u:'testflight.apple.com/join/…',i:'tf'}],
-      free:'apps.apple.com/app/remember-me',
-      pro:'apps.apple.com/app/remember-me',price:'—'}};
+      /* Remember Me 是唯一确定的。Pro 是这个 listing 里的内购，所以两档同址。
+         ⚠️ 别再换回 apps.apple.com/app/id… 这种不带地区的写法：
+            Harry 2026-08-08 实测点进去是空白页、还要他手打「Remember Me」去搜
+            （我之前 curl 就看到它跳去 /cn/iphone/today，却按「浏览器里应该没事」
+             放行了 —— 猜错了）。这里用他从地址栏给的完整链接，直达 App 详情页。 */
+      free:'apps.apple.com/cn/app/remember-me-%E8%AE%B0%E4%BD%8F%E6%88%91/id6781578277',
+      pro:'apps.apple.com/cn/app/remember-me-%E8%AE%B0%E4%BD%8F%E6%88%91/id6781578277',price:'—'}};
 const VT={zh:{h:'选择版本',p:'三个版本内容不同，按需要选一个。',
   bn:'内测版',bt:'Beta',bd:'最新功能优先，可能不稳定。适合愿意帮我一起试的人。',
   fn:'免费版',ft:'App Store',fd:'审核上架的稳定版本，核心功能免费用。',
@@ -925,7 +1044,7 @@ function sampleHeroBottom(app,h){
    「发布」= 把 localStorage 里的内容烤进下面这个常量 → 改动进了文件、进了
    git、也就进了公网版。这是 localStorage 与公网之间唯一的桥。
 
-   🔴 BAKED-START / BAKED-END 之间由 scripts/publish_server.py 整段重写。
+   🔴 BAKED-START / BAKED-END 之间由本机发布器整段重写。
       手改这里不会出错，但下次发布会被覆盖。要改内容请用编辑器改完点发布。
 
    合并顺序：BAKED 先（已发布的真相）→ localStorage 后（本机还没发布的草稿）。
@@ -939,6 +1058,32 @@ function sampleHeroBottom(app,h){
 function E(t){return String(t==null?'':t).replace(/[&<>"']/g,
   m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
 /* 占位符判定：链接还没定（含 … 或空）。公网不给用户可点的坏链接（蓝军 P1-3）。*/
+/* ═══ 跑马灯文案（Harry 2026-08-08 立）══════════════════════════════
+   每个 App 三条，中英各一套。只写已证明的能力：
+   · Aria = App Store 实测 id6776485989 / v2.2.1 / Free，六项能力口径同 Hero
+   · Remember Me = App Store 实测 id6781578277 / v1.0.11 / Free
+   不写价格、不写「限时」、不写未证明的功能 —— 卖点不是承诺书。 */
+const MKT={
+ /* zh 三条 = Harry 2026-08-08 10:29 亲手定稿（从他 Save 后自动落盘的
+    drafts/overlay_draft_current.json 里逐字取的，不是我拟的）。
+    en 三条 = 按他这版中文重写，不是旧稿留着，也不是机翻：
+      · 他把「隐私第一」写进了第 1 条标题，英文也让 privacy first 落在标题里
+      · 「越说越懂你」比「越用越准」更强调"说"，英文用 the more you speak
+      · 「商务场景想说就说」是场景不是功能，英文保留 business meeting 这个具体画面 */
+ aria:{
+  en:[{t:'Nothing you say is ever uploaded or sent anywhere — it stays locked on your own Mac. Privacy first',d:'Recognition happens entirely inside your own computer. No audio uploaded, no transcript uploaded — and it still works with the network off.'},
+      {t:'The Super Learning engine — the more you speak, the better it knows you',d:'The Super Learning engine gradually picks up your wording, the names you say often and your accent. Everything it learns stays on your own computer.'},
+      {t:'Mix Chinese and English — even in a business meeting, just say it',d:'Chinese, English and Cantonese in one breath, and it keeps up. An English keyboard and Pinyin input come along too.'}],
+  zh:[{t:'你说的每一句话都绝不上传绝不外发，所有数据锁在你自己的电脑，隐私第一',d:'识别全在你自己的电脑内部完成。录音不上传，原文不上传 —— 断了网照样能用。'},
+      {t:'超级学习引擎，越说越懂你',d:'超级学习引擎会慢慢摸清你的用词、你常提的名字和你的口音。学到的东西全留在你自己电脑里。'},
+      {t:'中英混说，商务场景想说就说',d:'中文、英文、粤语混着说也跟得上。还顺带给你英文键盘和拼音输入法。'}]},
+ rm:{
+  en:[{t:'Keep your family close.',d:'Portraits, names and the stories behind them — kept together in one quiet place instead of scattered across your phone.'},
+      {t:'A tree that holds every generation.',d:'Ancestors above, generations branching below. See how everyone connects, in one view.'},
+      {t:'It stays on your own device.',d:'Your family photos and stories are not somebody else’s training data. They live on your device, quietly.'}],
+  zh:[{t:'把家人留在身边。',d:'照片、名字，还有名字背后的故事 —— 集中安放在一处，而不是散落在手机各个角落。'},
+      {t:'一棵装得下每一代人的树。',d:'先祖在上，后代向下延展。谁和谁怎么连着，一眼看完。'},
+      {t:'它安静地留在你自己的设备里。',d:'你的家族照片和故事，不是别人的训练素材。它们就待在你自己的设备上。'}]}};
 function isPlaceholder(u){return !u||u.indexOf('…')>=0;}
 function mergeContent(o){
   if(!o)return;
@@ -956,6 +1101,13 @@ function mergeContent(o){
     const a=k.split(':'),ri=+a[0],ci=+a[1],kind=a[2],row=ROWS6[lg]&&ROWS6[lg][ri];
     if(!row)continue;
     if(kind==='o'){row[4]=row[4]||{};row[4][ci]=r6[lg][k];}else{row[0]=r6[lg][k];}}
+  /* 跑马灯文案 —— 键形如 __mq.aria.zh["0:t"]。MKT 特意定义在本函数上面：
+     它是 const，放到下面的话这里就落进 TDZ，连 typeof 都会抛。 */
+  const mo=o.__mq||{};
+  for(const ap in mo){if(!MKT[ap])continue;
+    for(const lg in mo[ap]){if(!MKT[ap][lg])continue;
+      for(const k in mo[ap][lg]){const a=k.split(':'),s=MKT[ap][lg][+a[0]];
+        if(s&&(a[1]==='t'||a[1]==='d'))s[a[1]]=mo[ap][lg][k];}}}
   /* 下载链接（VER）—— 与语言无关，键形如 aria:beta:0 / aria:free / rm:pro。
      文案改的是「按钮上写什么字」，这里改的是「点下去去哪」，两件事分开存。 */
   const lk=o.__links||{};
@@ -963,7 +1115,7 @@ function mergeContent(o){
     if(!ap)continue;
     if(a[1]==='beta'){const b=ap.beta&&ap.beta[+a[2]];if(b)b.u=lk[k];}
     else if(a[1]==='free'||a[1]==='pro')ap[a[1]]=lk[k];}}
-/*BAKED-START*/const BAKED={"__cols6":{"en":{"0":{"b":"Beta","btn":"Download","n":"Early Access","price":"Free","s":"Get new features first"},"1":{"b":"Free","btn":"Download","n":"Free","price":"Free","s":"Free forever"},"2":{"b":"One-time","btn":"Buy It","n":"Pro","price":"US$39.99","s":"Buy once · yours forever"}}},"__links":{"aria:beta:0":"github.com/…/releases","aria:beta:1":"drive.google.com/…","aria:beta:2":"pan.baidu.com/s/…"},"__rows6":{"en":{}},"aria":{"en":{"c":"Visit Website","c2":"Pick a version ↓","d":"Your raw transcripts never touch the cloud — locked on your own Mac. The Super Learning engine understands you better, and gets more accurate, the longer you use it.","l":"Top Accuracy \u0026 Privacy.","t":"Aria Magic Voice"}}};/*BAKED-END*/
+/*BAKED-START*/const BAKED={"__cols6":{"en":{"0":{"b":"Beta","btn":"Download","n":"Early Access","price":"Free","s":"Get new features first"},"1":{"b":"Free","btn":"Download","n":"Free","price":"Free","s":"Free forever"},"2":{"b":"One-time","btn":"Buy It","n":"Pro","price":"US$39.99","s":"Buy once · yours forever"}},"zh":{"0":{"b":"Beta","btn":"下载","n":"内测版","price":"免费","s":"优先体验最新功能"},"1":{"b":"Free","btn":"下载","n":"免费版","price":"免费","s":"永久免费"},"2":{"b":"一次买断","btn":"购买","n":"Pro 版","price":"¥268","pu":"US$39.99","s":"一次购买 · 永久使用"}}},"__links":{"aria:beta:1":"drive.google.com\u002ffile\u002fd\u002f1Lc5TidHLHGjvkaJN4bZ5LwacDLF6EJLD\u002fview?usp=drive_link","aria:beta:2":"pan.baidu.com\u002fs\u002f1_PGz6YFHfHsAVa-pMp8efA?pwd=1234"},"__mq":{"aria":{"zh":{"0:d":"识别全在你自己的电脑内部完成。录音不上传，原文不上传 —— 断了网照样能用。","0:t":"你说的每一句话都绝不上传绝不外发，所有数据锁在你自己的电脑，隐私第一","1:d":"超级学习引擎会慢慢摸清你的用词、你常提的名字和你的口音。学到的东西全留在你自己电脑里。","1:t":"超级学习引擎，越说越懂你","2:d":"中文、英文、粤语混着说也跟得上。还顺带给你英文键盘和拼音输入法。","2:t":"中英混说，商务场景想说就说"}}},"__rows6":{"en":{},"zh":{"0:1:o":"超级学习引擎（Pro 解锁）","0:2:b":"超级学习引擎 · 越用越懂你","1:0:b":"AI 自动润色 · 口语直接变书面语","1:1:o":"AI 自动润色（Pro 解锁，可选开启）","1:2:o":"AI 自动润色 · 可选开启","2:1:o":"更高精度的本地语音识别（Pro 解锁）","2:2:b":"更高精度的本地语音识别","3:2:b":"口水词过滤与词表纠错","4:2:b":"中英混说 · 一句话里换语言，不用切输入法","5:2:b":"全局语音唤起","6:2:b":"原始语音与聊天原文 100% 留在本机，绝不上传云端","7:2:b":"简体转繁體输出","8:2:b":"界面语言 English US \u002f English UK \u002f 简体中文 \u002f 繁體中文"}},"aria":{"en":{"c":"Visit Website","c2":"Pick a version ↓","d":"Your raw transcripts never touch the cloud — locked on your own Mac. The Super Learning engine understands you better, and gets more accurate, the longer you use it.","l":"Top Accuracy \u0026 Privacy.","t":"Aria Magic Voice"},"zh":{"c":"前往官网","c2":"直接选版本 ↓","d":"你的原始聊天记录绝对不上传云端，锁定在你自己的 Mac 中，隐私保障拉满。超级学习引擎让输入法越用越懂你，越用越准确。","l":"打造最准确的输入法。","t":"Aria 输入法"}}};/*BAKED-END*/
 mergeContent(BAKED);
 
 function linkCode(sc,u){
@@ -971,6 +1123,74 @@ function linkCode(sc,u){
   if(m){try{return decodeURIComponent(m[1]);}catch(e){return m[1];}}
   return sc&&sc.code?String(sc.code):'';
 }
+/* 这张表是「不管链接填得对不对，都强行标成不可用」的硬闸。
+   2026-08-08 口径（Harry 当场确认）：
+     · Aria 输入法 Free / Pro —— 包还没出来，内测包在 350 号话题打，两条都留在闸里。
+       ⚠️ 别再拿 App Store 上的 id6776485989 来填：那是 87.x 的 App，
+          跟本页卖的 90.x 输入法不是同一件产品。
+     · Remember Me Free / Pro —— 唯一确定的两条，已解闸，见 VER.rm。 */
+const LINK_BLOCKED={
+  'aria:free':{
+    zh:'输入法的 Free 包还没出（内测包正在打）',
+    en:'The Free build of the input method is not out yet'
+  },
+  'aria:pro':{
+    zh:'输入法的 Pro 包还没出（内测包正在打）',
+    en:'The Pro build of the input method is not out yet'
+  }
+};
+function linkProblem(key,u){
+  const forced=LINK_BLOCKED[key];
+  if(forced)return forced[lang==='zh'?'zh':'en'];
+  if(isPlaceholder(u))return lang==='zh'?'链接还未配置':'Link is not configured';
+  const s=String(u||'').trim();
+  if(!s)return lang==='zh'?'链接为空':'Link is empty';
+  if(/^javascript:/i.test(s))return lang==='zh'?'禁止 javascript 链接':'javascript links are blocked';
+  if(/^\/\//.test(s)||/^\//.test(s))return lang==='zh'?'不能使用相对地址':'Relative links are blocked';
+  if(/[\s\u0000-\u001f\u007f]/.test(s))return lang==='zh'?'链接里有空白':'Link contains whitespace';
+  const noProto=s.replace(/^https?:\/\//i,'');
+  if(/^0\.0\./.test(noProto))return lang==='zh'?'占位 IP，不可用':'Placeholder IP is unavailable';
+  if(!/^[A-Za-z0-9][A-Za-z0-9.-]*\.[A-Za-z]/.test(noProto))
+    return lang==='zh'?'不像有效域名':'Not a valid domain';
+  return '';
+}
+function warnMark(txt){
+  if(!document.body||!document.body.classList.contains('admin'))return '';
+  return `<span class="warnmark" aria-label="${E(txt)}" title="${E(txt)}"><svg viewBox="0 0 58 58" aria-hidden="true" focusable="false"><path d="M29 4.5c1.7 0 3.2.9 4.1 2.4l23 40.5c.9 1.6.9 3.6 0 5.2-.9 1.7-2.7 2.7-4.6 2.7H6.5c-1.9 0-3.7-1-4.6-2.7-.9-1.6-.9-3.6 0-5.2l23-40.5c.9-1.5 2.4-2.4 4.1-2.4z"/></svg><span>!</span></span>`;
+}
+let mqIdx=0,mqTimer=null;
+function renderMq(){
+  const list=(MKT[cur]&&MKT[cur][lang])||[];
+  const v=$('#mqv'),dots=$('#mqd');
+  if(!v||!dots)return;
+  if(!list.length){$('#mq').style.display='none';return;}
+  $('#mq').style.display='';
+  mqIdx=0;
+  /* data-mq="序号:t|d" = 可编辑标记，跟版本卡同一套机制（Harry 2026-08-08 要求能自己改中文）。
+     圆点用 data-mqi，不能也叫 data-mq —— 编辑器是按属性名收元素的，同名会把圆点也变成可编辑格子。 */
+  v.innerHTML=list.map((s,i)=>`<div class="mqs${i===0?' on':''}"><b data-mq="${i}:t">${E(s.t)}</b><p data-mq="${i}:d">${E(s.d)}</p></div>`).join('');
+  dots.innerHTML=list.map((s,i)=>`<i class="${i===0?'on':''}" data-mqi="${i}" role="button" tabindex="0" aria-label="${E(s.t)}"></i>`).join('');
+  const go=n=>{mqIdx=(n+list.length)%list.length;
+    v.querySelectorAll('.mqs').forEach((el,i)=>el.classList.toggle('on',i===mqIdx));
+    dots.querySelectorAll('i').forEach((el,i)=>el.classList.toggle('on',i===mqIdx));};
+  dots.querySelectorAll('i').forEach(d=>{
+    const jump=()=>{go(+d.dataset.mqi);restart();};
+    d.addEventListener('click',jump);
+    d.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();jump();}});});
+  /* 自动轮播；鼠标停在上面就暂停 —— 正在读的时候被切走最烦人。
+     编辑态（admin）下彻底不自动切：Harry 2026-08-08「我没编辑完它就切换了」，
+     字打到一半整条被换走 = 白打。编辑时只认手动点圆点。 */
+  const reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  function restart(){clearInterval(mqTimer);
+    if(reduce||list.length<2||document.body.classList.contains('admin'))return;
+    mqTimer=setInterval(()=>go(mqIdx+1),5200);}
+  const mq=$('#mq');
+  mq.onmouseenter=()=>clearInterval(mqTimer);
+  mq.onmouseleave=restart;
+  restart();
+
+}
+
 function renderCompare(){
   const V6=app.dataset.v==='6'||app.dataset.v==='7'||app.dataset.v==='8'||app.dataset.v==='9';
   const T=V6?{...CMP[lang],cols:COLS6[lang],
@@ -979,7 +1199,15 @@ function renderCompare(){
     note:''}:CMP[lang];
   const R=V6?ROWS6[lang]:ROWS[cur][lang],price=cur==='aria'?'$39.9':'—';
   $('#ch').textContent=T.h;$('#cp').textContent=T.p;$('#cn').textContent=T.note;
-  $('#cg').innerHTML=T.cols.map((c,i)=>{
+  /* Remember Me 没有 Early Access 这一档（Harry 2026-08-08：「它比较特殊，直接移掉」）。
+     这里只过滤「显示哪几列」，i 仍然是原始列号 —— ROWS6 的打勾位 r[i+1]、
+     还有编辑器那几个按列号编址的属性，全都按原列号对齐，不能重新编号，
+     否则 Free 会去读 Beta 的勾。
+     ⚠️ 这段注释刻意不写出那个属性的完整字面名：build_public 的 Admin 清零校验
+        是「数字面串出现次数」，注释里写全了会把计数顶爆、整个构建当场失败。 */
+  const COLIDX=cur==='rm'?[1,2]:[0,1,2];
+  $('#cg').classList.toggle('two',COLIDX.length===2);
+  $('#cg').innerHTML=COLIDX.map(i=>{const c=T.cols[i];
     const p=c.price||price;
     /* 第 0 列 = 内测版：照搬方案四的三个下载源，竖排（Harry 2026-08-04 指定「就搬过来」）*/
     /* 红军 P1-2：服务端校验带 re.I，这里原先不带 i —— HTTPS://x.com 服务端
@@ -990,24 +1218,36 @@ function renderCompare(){
     const soon=zh=>zh?'即将开放':'Coming soon';
     const beta=(i===0&&VER[cur]&&VER[cur].beta&&VER[cur].beta.length)
       ?`<div class="cbeta">${VER[cur].beta.map((sc,si)=>{
-          const ph=isPlaceholder(sc.u),
-            code=linkCode(sc,sc.u),
+          const key=`${cur}:beta:${si}`,
+            problem=linkProblem(key,sc.u),
+            ph=isPlaceholder(sc.u),
+            bad=!!problem,
+            off=ph||bad,
             gz=`<span class="g"${si===0?``:''}>${
-              ph?soon(lang==='zh'):E(c.btn)}</span>`;
-          return `<${ph?'span':'a'} class="s${ph?' soon':''}${code?' with-code':''}"${ph?'':` href="${E(hrefOf(sc.u))}"`+
+              bad?E(c.btn):(ph?soon(lang==='zh'):E(c.btn))}</span>`;
+          return `<${off?'span':'a'} class="s${ph?' soon':''}${bad?' unavailable':''}"${off?'':` href="${E(hrefOf(sc.u))}"`+
             ` target="_blank" rel="noopener" data-track="${E(cur+':beta:'+sc.i)}"`}`+
             `>${ICO[sc.i]||''}`+
-            `<b>${E(sc.n)}</b>${gz}${code?`<em class="hint">${E(lang==='zh'?'码 ':'Code ')}${E(code)}</em>`:''}</${ph?'span':'a'}>`;}
-        ).join('')}</div>`:'';
-    const mainU=i===1?VER[cur].free:VER[cur].pro,mainPh=isPlaceholder(mainU);
+            `<b>${E(sc.n)}</b>${gz}${bad?warnMark(problem):''}</${off?'span':'a'}>`;}
+        ).join('')}${VER[cur].beta.map(sc=>{
+          const code=linkCode(sc,sc.u);
+          return code?`<em class="code">${E(`${sc.n} Code：${code}`)}</em>`:'';
+        }).join('')}</div>`:'';
+    const mainKind=i===1?'free':'pro',
+      mainU=i===1?VER[cur].free:VER[cur].pro,
+      mainKey=`${cur}:${mainKind}`,
+      mainProblem=linkProblem(mainKey,mainU),
+      mainPh=isPlaceholder(mainU),
+      mainBad=!!mainProblem,
+      mainOff=mainPh||mainBad;
     return `<div class="ccard${i===1?' on':''}${beta?' hasbeta':''}">
       <div class="cname"><span>${E(c.n)}</span><span class="cbadge">${E(c.b)}</span></div>
       <div class="csub">${E(c.s)}</div>
       <div class="cprice"><span>${E(p)}</span>${c.pu?`<u>${E(c.pu)}</u>`:''}</div>
-      ${beta||`<${mainPh?'span':'a'} class="cbtn${mainPh?' soon':''}"`+
-        `${mainPh?'':` href="${E(hrefOf(mainU))}"`+
-        ` target="_blank" rel="noopener" data-track="${E(cur+':'+(i===1?'free':'pro'))}"`}>${
-        mainPh?soon(lang==='zh'):E(c.btn)}</${mainPh?'span':'a'}>`}
+      ${beta||`<${mainOff?'span':'a'} class="cbtn${mainPh?' soon':''}${mainBad?' unavailable':''}"`+
+        `${mainOff?'':` href="${E(hrefOf(mainU))}"`+
+        ` target="_blank" rel="noopener" data-track="${E(cur+':'+mainKind)}"`}>${
+        mainBad?E(c.btn):(mainPh?soon(lang==='zh'):E(c.btn))}${mainBad?warnMark(mainProblem):''}</${mainOff?'span':'a'}>`}
       <div class="csrc">${c.src?(c.src.includes(' · ')
         ?c.src.split(' · ').map(s=>`<b>${E(s)}</b>`).join(' · '):E(c.src)):''}</div>
       <div class="clist">${R.map((r,ri)=>{const y=r[i+1],ov=!!(r[4]&&r[4][i]),lb=ov?r[4][i]:r[0];
@@ -1061,7 +1301,7 @@ function render(){
   $('#cta2').textContent=v45?T.hb2:x.c2;
   $('#hm').textContent=T.hm;
   if(V==='4')renderVersions();
-  if(V==='5'||V==='6'||V==='7'||V==='8'||V==='9')renderCompare();
+  if(V==='5'||V==='6'||V==='7'||V==='8'||V==='9'){renderCompare();renderMq();}
   const d=DL[lang];$('#dh').textContent=d.h;$('#dp').textContent=d.p;
   $$('.row').forEach((r,i)=>{r.querySelector('.go').textContent=d.g;
     r.querySelector('.nm s').textContent=d.r[i];
@@ -1077,6 +1317,7 @@ function render(){
   // Footer 跟着语言走（之前上面英文下面中文，是错的）
   $('#bizLink').textContent=zh?'商务合作':'Partnerships';
   $('#fbLink').textContent=zh?'问题反馈':'Feedback';
+  auditActionLinks();
 
   // 渐变底边严格对齐「选择版本」上方那根线：不写死高度，按实际位置算
   /* rAF 在页面不可见（后台标签 / 预览面板）时不会执行，渐变底会整个丢失。
@@ -1100,6 +1341,7 @@ function render(){
     else{mn.style.backgroundSize='';app.style.backgroundSize='';app.style.backgroundPosition='';}
   };
   requestAnimationFrame(__applyBg); setTimeout(__applyBg,80); setTimeout(__applyBg,400);
+  syncSidebarToggle();
 }
 $$('.item[data-app]').forEach(b=>b.onclick=()=>{
   $$('.item').forEach(i=>i.classList.remove('on'));b.classList.add('on');cur=b.dataset.app;render();});
@@ -1172,8 +1414,25 @@ document.addEventListener('click',e=>{
 
 
 
-/* 方案 7 侧栏收起 / 展开 */
-$('#sbToggle').onclick=()=>{app.classList.toggle('sbmin');render();};
+/* 方案 9/10 侧栏收起 / 展开：固定浮在 body 上，不参与正文排版 */
+function syncSidebarToggle(){
+  const b=$('#sbToggle');
+  if(!b)return;
+  const closed=app.classList.contains('sbmin');
+  b.textContent=closed?'›':'‹';
+  const label=closed?(lang==='zh'?'展开侧栏':'Expand sidebar'):(lang==='zh'?'收起侧栏':'Collapse sidebar');
+  b.title=label;
+  b.setAttribute('aria-label',label);
+}
+const sideMq=window.matchMedia?window.matchMedia('(max-width:760px)'):null;
+if(sideMq&&sideMq.matches)app.classList.add('sbmin');
+if(sideMq){
+  const sideAuto=e=>{if(e.matches)app.classList.add('sbmin');else app.classList.remove('sbmin');syncSidebarToggle();};
+  if(sideMq.addEventListener)sideMq.addEventListener('change',sideAuto);
+  else sideMq.addListener(sideAuto);
+}
+syncSidebarToggle();
+$('#sbToggle').onclick=()=>{app.classList.toggle('sbmin');syncSidebarToggle();render();};
 
 /* 商务合作 / 问题反馈 —— 站内内嵌表单，绝不 mailto 拉起本地邮件客户端 */
 const MAIL='magicvoice.team@outlook.com';
@@ -1241,8 +1500,27 @@ function openForm(k){
   $('#mYes').disabled=false;formButtonLabels();
   $('#mOk').classList.remove('on');$('#mgate').classList.add('on');setTimeout(()=>ta.focus(),60);
 }
+function actionLinkProblem(){
+  const missing=['mgate','mText','mYes','mNo'].filter(id=>!$('#'+id));
+  if(missing.length)return lang==='zh'
+    ?`表单接线缺失：${missing.join(', ')}`
+    :`Form wiring missing: ${missing.join(', ')}`;
+  return '';
+}
+function setActionLinkHealth(id,problem){
+  const el=$('#'+id); if(!el)return;
+  el.classList.toggle('unavailable',!!problem);
+  const old=el.querySelector('.warnmark'); if(old)old.remove();
+  if(problem)el.insertAdjacentHTML('beforeend',warnMark(problem));
+}
+function auditActionLinks(){
+  const problem=actionLinkProblem();
+  setActionLinkHealth('fbLink',problem);
+  setActionLinkHealth('bizLink',problem);
+}
 $('#fbLink').onclick=()=>openForm('fb');
 $('#bizLink').onclick=()=>openForm('biz');
+auditActionLinks();
 $('#mNo').onclick=closeForm;
 /* 🔴 2026-08-05：这里原本是「假发送」—— 只有一行注释写着「真实实现：POST 到
    自己的 Worker 端点」，然后直接弹「✓ 已发送，谢谢！我会尽快回复。」
