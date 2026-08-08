@@ -918,11 +918,12 @@ const ICO={
  bd:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"><path d="M4.4 11.9A2.9 2.9 0 0 1 4.2 6.2a4 4 0 0 1 7.7-1 3.1 3.1 0 0 1-.4 6.7"/><path d="M8 8.1v4.6M6.3 11l1.7 1.7L9.7 11"/></svg>',
  tf:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1.8 13.6 12a1 1 0 0 1-.9 1.5H3.3a1 1 0 0 1-.9-1.5L8 1.8Z"/><path d="M8 6.2v3.1M8 11.3h.01"/></svg>'};
 const VER={
-  /* Aria 90.609 beta public mirrors. GitHub release is on the public site repo
-     so testers can download only this DMG asset, not the private Project4 repo. */
-  aria:{beta:[{n:'GitHub',u:'https://github.com/andywu1206/magicvoice-site/releases/download/aria-magic-voice-v90.609-pro-website/AriaMagicVoice_Pro_Website_v90.609.dmg',i:'gh'},
-              {n:'Google Drive',u:'https://drive.google.com/file/d/1xIALHQocikZP79tr2Jt7__gNYVErteaW/view?usp=sharing',i:'dr'},
-              {n:'百度网盘',u:'https://pan.baidu.com/s/1zHWChsBN95VmEaVVmHl4yA?pwd=1234',i:'bd',code:'1234'}],
+  /* GitHub 这条 2026-08-08 实测 404，且该仓库 releases 数为 0 —— 包根本没发上去。
+     留空 = 页面渲染成「即将开放」的不可点态，而不是给用户一个死链。
+     350 号出包后，把 dmg 直链填回下面这个 u 就恢复了（Drive / 百度盘两条仍活着）。 */
+  aria:{beta:[{n:'GitHub',u:'',i:'gh'},
+              {n:'Google Drive',u:'drive.google.com/file/d/1Lc5TidHLHGjvkaJN4bZ5LwacDLF6EJLD/view?usp=drive_link',i:'dr'},
+              {n:'百度网盘',u:'pan.baidu.com/s/1_PGz6YFHfHsAVa-pMp8efA?pwd=1234',i:'bd',code:'1234'}],
         /* ⚠️ 这里曾经填过 App Store 的 id6776485989（Harry 2026-08-08 当场纠正）。
            那个上架物是 87.x 的 App，本页现在卖的是 90.x 的「Aria 输入法」——
            两件不同的产品，不能互相代称。输入法的 Free / Pro 包都还没出，
@@ -1129,7 +1130,7 @@ function mergeContent(o){
     if(!ap)continue;
     if(a[1]==='beta'){const b=ap.beta&&ap.beta[+a[2]];if(b)b.u=lk[k];}
     else if(a[1]==='free'||a[1]==='pro')ap[a[1]]=lk[k];}}
-/*BAKED-START*/const BAKED={"__cols6":{"en":{"0":{"b":"Beta","btn":"Download","n":"Early Access","price":"Free","s":"Get new features first"},"1":{"b":"Free","btn":"Download","n":"Free","price":"Free","s":"Free forever"},"2":{"b":"One-time","btn":"Buy It","n":"Pro","price":"US$39.99","s":"Buy once · yours forever"}},"zh":{"0":{"b":"Beta","btn":"下载","n":"内测版","price":"免费","s":"优先体验最新功能"},"1":{"b":"Free","btn":"下载","n":"免费版","price":"免费","s":"永久免费"},"2":{"b":"一次买断","btn":"购买","n":"Pro 版","price":"¥268","pu":"US$39.99","s":"一次购买 · 永久使用"}}},"__links":{"aria:beta:0":"https:\u002f\u002fgithub.com\u002fandywu1206\u002fmagicvoice-site\u002freleases\u002fdownload\u002faria-magic-voice-v90.609-pro-website\u002fAriaMagicVoice_Pro_Website_v90.609.dmg","aria:beta:1":"https:\u002f\u002fdrive.google.com\u002ffile\u002fd\u002f1xIALHQocikZP79tr2Jt7__gNYVErteaW\u002fview?usp=sharing","aria:beta:2":"https:\u002f\u002fpan.baidu.com\u002fs\u002f1zHWChsBN95VmEaVVmHl4yA?pwd=1234"},"__mq":{"aria":{"en":{"0:d":"Recognition happens entirely inside your own computer. No audio uploaded, no transcript uploaded — and it still works with the network off.","0:t":"Nothing you say is ever uploaded or sent anywhere — it stays locked on your own Mac. Privacy first","1:d":"The Super Learning engine gradually picks up your wording, the names you say often and your accent. Everything it learns stays on your own computer.","1:t":"The Super Learning engine — the more you speak, the better it knows you","2:d":"Chinese, English and Cantonese in one breath, and it keeps up. An English keyboard and Pinyin input come along too.","2:t":"Mix Chinese and English — even in a business meeting, just say it"},"zh":{"0:d":"识别全在你自己的电脑内部完成。录音不上传，原文不上传 —— 断了网照样能用。","0:t":"你说的每一句话都绝不上传绝不外发，所有数据锁在你自己的电脑，隐私第一","1:d":"超级学习引擎会慢慢摸清你的用词、你常提的名字和你的口音。学到的东西全留在你自己电脑里。","1:t":"超级学习引擎，越说越懂你","2:d":"中文、英文、粤语混着说也跟得上。还顺带给你英文键盘和拼音输入法。","2:t":"中英混说，商务场景想说就说"}},"rm":{"zh":{"0:d":"照片、名字，还有名字背后的故事 —— 集中安放在一处，而不是散落在手机各个角落。","0:t":"让思念的家人有一个安静的港湾","1:d":"先祖在上，保佑血脉后代平安与健康。","1:t":"族谱，承载着家族的记忆","2:d":"从未远去 从未忘记","2:t":"让思念的家人静静的留在您身边"}}},"__rows6":{"en":{},"zh":{"0:1:o":"超级学习引擎（Pro 解锁）","0:2:b":"超级学习引擎 · 越用越懂你","1:0:b":"AI 自动润色 · 口语直接变书面语","1:1:o":"AI 自动润色（Pro 解锁，可选开启）","1:2:o":"AI 自动润色 · 可选开启","2:1:o":"更高精度的本地语音识别（Pro 解锁）","2:2:b":"更高精度的本地语音识别","3:2:b":"口水词过滤与词表纠错","4:2:b":"中英混说 · 一句话里换语言，不用切输入法","5:2:b":"全局语音唤起","6:2:b":"原始语音与聊天原文 100% 留在本机，绝不上传云端","7:2:b":"简体转繁體输出","8:2:b":"界面语言 English US \u002f English UK \u002f 简体中文 \u002f 繁體中文"}},"aria":{"en":{"c":"Visit Website","c2":"Pick a version ↓","d":"Your raw transcripts never touch the cloud — locked on your own Mac. The Super Learning engine understands you better, and gets more accurate, the longer you use it.","l":"Top Accuracy \u0026 Privacy.","t":"Aria Magic Voice"},"zh":{"c":"前往官网","c2":"直接选版本 ↓","d":"你的原始聊天记录绝对不上传云端，锁定在你自己的 Mac 中，隐私保障拉满。超级学习引擎让输入法越用越懂你，越用越准确。","l":"打造最准确的输入法。","t":"Aria 输入法"}},"rm":{"zh":{"c":"前往官网","c2":"直接选版本 ↓","d":"思念、血脉与家族关联，在这里得到承载与延续记忆","l":"让思念的家人静静的留在您身边。","t":"Remember Me"}}};/*BAKED-END*/
+/*BAKED-START*/const BAKED={"__cols6":{"en":{"0":{"b":"Beta","btn":"Download","n":"Early Access","price":"Free","s":"Get new features first"},"1":{"b":"Free","btn":"Download","n":"Free","price":"Free","s":"Free forever"},"2":{"b":"One-time","btn":"Buy It","n":"Pro","price":"US$39.99","s":"Buy once · yours forever"}},"zh":{"0":{"b":"Beta","btn":"下载","n":"内测版","price":"免费","s":"优先体验最新功能"},"1":{"b":"Free","btn":"下载","n":"免费版","price":"免费","s":"永久免费"},"2":{"b":"一次买断","btn":"购买","n":"Pro 版","price":"¥268","pu":"US$39.99","s":"一次购买 · 永久使用"}}},"__links":{"aria:beta:1":"drive.google.com\u002ffile\u002fd\u002f1Lc5TidHLHGjvkaJN4bZ5LwacDLF6EJLD\u002fview?usp=drive_link","aria:beta:2":"pan.baidu.com\u002fs\u002f1_PGz6YFHfHsAVa-pMp8efA?pwd=1234"},"__mq":{"aria":{"en":{"0:d":"Recognition happens entirely inside your own computer. No audio uploaded, no transcript uploaded — and it still works with the network off.","0:t":"Nothing you say is ever uploaded or sent anywhere — it stays locked on your own Mac. Privacy first","1:d":"The Super Learning engine gradually picks up your wording, the names you say often and your accent. Everything it learns stays on your own computer.","1:t":"The Super Learning engine — the more you speak, the better it knows you","2:d":"Chinese, English and Cantonese in one breath, and it keeps up. An English keyboard and Pinyin input come along too.","2:t":"Mix Chinese and English — even in a business meeting, just say it"},"zh":{"0:d":"识别全在你自己的电脑内部完成。录音不上传，原文不上传 —— 断了网照样能用。","0:t":"你说的每一句话都绝不上传绝不外发，所有数据锁在你自己的电脑，隐私第一","1:d":"超级学习引擎会慢慢摸清你的用词、你常提的名字和你的口音。学到的东西全留在你自己电脑里。","1:t":"超级学习引擎，越说越懂你","2:d":"中文、英文、粤语混着说也跟得上。还顺带给你英文键盘和拼音输入法。","2:t":"中英混说，商务场景想说就说"}},"rm":{"zh":{"0:d":"照片、名字，还有名字背后的故事 —— 集中安放在一处，而不是散落在手机各个角落。","0:t":"让思念的家人有一个安静的港湾","1:d":"先祖在上，保佑血脉后代平安与健康。","1:t":"族谱，承载着家族的记忆","2:d":"从未远去 从未忘记","2:t":"让思念的家人静静的留在您身边"}}},"__rows6":{"en":{},"zh":{"0:1:o":"超级学习引擎（Pro 解锁）","0:2:b":"超级学习引擎 · 越用越懂你","1:0:b":"AI 自动润色 · 口语直接变书面语","1:1:o":"AI 自动润色（Pro 解锁，可选开启）","1:2:o":"AI 自动润色 · 可选开启","2:1:o":"更高精度的本地语音识别（Pro 解锁）","2:2:b":"更高精度的本地语音识别","3:2:b":"口水词过滤与词表纠错","4:2:b":"中英混说 · 一句话里换语言，不用切输入法","5:2:b":"全局语音唤起","6:2:b":"原始语音与聊天原文 100% 留在本机，绝不上传云端","7:2:b":"简体转繁體输出","8:2:b":"界面语言 English US \u002f English UK \u002f 简体中文 \u002f 繁體中文"}},"aria":{"en":{"c":"Visit Website","c2":"Pick a version ↓","d":"Your raw transcripts never touch the cloud — locked on your own Mac. The Super Learning engine understands you better, and gets more accurate, the longer you use it.","l":"Top Accuracy \u0026 Privacy.","t":"Aria Magic Voice"},"zh":{"c":"前往官网","c2":"直接选版本 ↓","d":"你的原始聊天记录绝对不上传云端，锁定在你自己的 Mac 中，隐私保障拉满。超级学习引擎让输入法越用越懂你，越用越准确。","l":"打造最准确的输入法。","t":"Aria 输入法"}},"rm":{"zh":{"c":"前往官网","c2":"直接选版本 ↓","d":"思念、血脉与家族关联，在这里得到承载与延续记忆","l":"让思念的家人静静的留在您身边。","t":"Remember Me"}}};/*BAKED-END*/
 mergeContent(BAKED);
 
 function linkCode(sc,u){
@@ -1400,13 +1401,34 @@ addEventListener('resize',closeMenus); addEventListener('scroll',closeMenus,true
    决定前不在页面上展示任何假数字。track() 只是把埋点做好，接口一确定就能直接接上。
    ⚠️ 不属于 Admin，公网版保留 —— 别再把它包进 ADMIN 哨兵（2026-08-04 踩过一次）。 */
 const TKEY='harryAppStore.clicks.v1';
+/* 计数端点。公网版也要保留 —— 数字是在公网被点出来的。
+   ⚠️ 这里只「写」，读取（/stats）是 admin-only，另在 ADMIN 块里。
+   放在 track() **前面**：const 有 TDZ，放后面万一将来有人在初始化期调 track 就炸
+   （这个坑跑马灯的 MKT 已经踩过一次）。 */
+const DLHIT='https://harry-app-store-feedback.andywu1206.workers.dev/dl';
 function track(k){try{
     const o=JSON.parse(localStorage.getItem(TKEY)||'{}');
     o[k]=(o[k]||0)+1;localStorage.setItem(TKEY,JSON.stringify(o));
   }catch(e){}
-  /* ⬇︎ 后端接好后，把真实计数请求加在这里（fire-and-forget，不 preventDefault，
-     不阻塞下载本身开始）：
-     fetch('https://count.ariamagicvoice.com/hit?k='+encodeURIComponent(k),{method:'POST'}); */
+  /* ── 全局计数（契约 DOWNLOAD_CLICK_COUNT_APPEND_ONLY_V1 · 2026-08-08 接上）──
+     用 sendBeacon 而不是 302 重定向：重定向要把目标 URL 交给 Worker，
+     写死在 Worker 里 = 链接两个真源迟早对不上；由前端传 = 开放重定向漏洞。
+     beacon 拿到的数字完全一样，而且 **href 保持原样**（右键复制链接仍可用、
+     用户看得见去哪），Worker 挂了也不影响下载 —— 同样收益，风险小一个数量级。
+     fire-and-forget：绝不 await、绝不 preventDefault，不挡下载开始。 */
+  try{
+    const a=String(k||'').split(':');
+    // aria:beta:gh → 三段；aria:free / aria:pro → 两段，源记成 as（App Store）
+    const body=JSON.stringify(a.length>=3
+      ? {app:a[0],tier:a[1],src:a[2]}
+      : {app:a[0],tier:a[1],src:'as'});
+    // text/plain 是 sendBeacon 的默认类型，不触发 CORS 预检；Worker 那边不挑 content-type
+    const blob=new Blob([body],{type:'text/plain;charset=UTF-8'});
+    if(!(navigator.sendBeacon&&navigator.sendBeacon(DLHIT,blob))){
+      // sendBeacon 被拒（少数浏览器/隐私模式）→ 退到 keepalive fetch，同样不等结果
+      fetch(DLHIT,{method:'POST',body,keepalive:true,mode:'cors'}).catch(()=>{});
+    }
+  }catch(e){}
 }
 /* 🔴 蓝军 P1-2（2026-08-05）：这里原先是内联 onclick="track('...${E(sc.i)}')"。
    E() 在那个位置**不成立** —— 浏览器先把属性值做 HTML 解码、再当 JS 源码解析，
@@ -1422,6 +1444,8 @@ function track(k){try{
 document.addEventListener('click',e=>{
   const t=e.target&&e.target.closest&&e.target.closest('[data-track]');
   if(t)track(t.getAttribute('data-track'));});
+
+
 
 
 
