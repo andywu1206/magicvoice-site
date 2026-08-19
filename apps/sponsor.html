@@ -867,14 +867,14 @@ body.dark .sp-card{box-shadow:0 8px 26px -14px rgba(0,0,0,.5)}
               <div class="sp-cap" id="alic">支付宝扫一扫 &middot; 金额随意，一分也是心意</div>
             </div>
             <div id="sp-intl" style="display:none">
-              <div class="sp-tiers">
+              <div class="sp-tiers" style="display:none">
                 <div class="sp-tier on" onclick="spPick(this,3)"><div class="e">&#9749;</div><div class="a">$3</div><div class="l">Coffee</div></div>
                 <div class="sp-tier" onclick="spPick(this,5)"><div class="e">&#9749;&#9749;</div><div class="a">$5</div><div class="l">Supporter</div></div>
                 <div class="sp-tier" onclick="spPick(this,10)"><div class="e">&#9749;&#9749;&#9749;</div><div class="a">$10</div><div class="l">Backer</div></div>
               </div>
-              <div class="sp-custom"><span>$</span><input placeholder="Or enter any amount" inputmode="decimal" id="spAmt" oninput="spChk()"></div>
-              <button class="pbtn sp-pay" id="spPay" onclick="spSoon()">Support &middot; $3</button>
-              <div class="sp-soon" id="spSoon">International payments coming soon &mdash; Paddle checkout is being set up.<br>We are not charging anyone yet.</div>
+              <div class="sp-custom" style="display:none"><span>$</span><input placeholder="Or enter any amount" inputmode="decimal" id="spAmt" oninput="spChk()"></div>
+              <button class="pbtn sp-pay" id="spPay" onclick="spSoon()" style="display:none">Support &middot; $3</button>
+              <div class="sp-soon on" id="spSoon">International support is being verified. Paddle is not used for pure sponsorship.<br>We are not charging anyone yet.</div>
             </div>
           </div>
         </div>
