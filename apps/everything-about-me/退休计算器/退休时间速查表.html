@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>i人洞府 · 退休时间速查表</title>
+<style>
+
+  /* ===== 产品 tokens：深色（定稿值） ===== */
+  body{margin:0;min-height:100vh;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC","Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased;font-size:14px;line-height:1.55;
+    --bg:linear-gradient(180deg,#20201e 0%,#1b1b19 100%);--card:#282826;--card2:#30302d;--line:rgba(255,255,255,.08);--grid:rgba(255,255,255,.14);
+    --t1:#dfdedb;--t2:#969692;--t3:#6e6e69;--cell:#c9c8c4;--pill:#3a3a37;--on:#deded9;--onT:#252522;--hl:rgba(95,178,102,.14);--green:#7ec97e;--shadow:0 14px 36px rgba(0,0,0,.26);--logo:linear-gradient(145deg,#f6cf62,#e7b72a);--logoT:#171715;
+    background:var(--bg);color:var(--t2);}
+  /* ===== 浅色：同一套结构，只换 token ===== */
+  body.light{--bg:linear-gradient(180deg,#f4f3ef 0%,#ebeae5 100%);--card:#ffffff;--card2:#f3f2ee;--line:rgba(0,0,0,.08);--grid:rgba(0,0,0,.12);
+    --t1:#1d1d1b;--t2:#5d5d58;--t3:#8a8a84;--cell:#2b2b28;--pill:#e4e3de;--on:#2a2a27;--onT:#f4f3ef;--hl:rgba(95,178,102,.18);--green:#3f8f47;--shadow:0 10px 30px rgba(0,0,0,.08);}
+  *{scrollbar-width:thin;scrollbar-color:rgba(128,128,128,.35) transparent;}
+  ::-webkit-scrollbar{width:8px;height:8px;background:transparent;}
+  ::-webkit-scrollbar-track{background:transparent;}
+  ::-webkit-scrollbar-thumb{background:rgba(128,128,128,.35);border-radius:999px;}
+  a{color:var(--t1);text-decoration:none;}
+
+  html{background:#1b1b19;} html:has(body.light){background:#ebeae5;}
+  .wrap{max-width:840px;margin:0 auto;padding:36px 28px 80px;}
+  header{display:flex;align-items:center;gap:14px;}
+  .logo{width:42px;height:42px;border-radius:12px;background:var(--logo);color:var(--logoT);display:grid;place-items:center;font-weight:850;font-size:16px;}
+  h1{margin:0;color:var(--t1);font-size:22px;font-weight:760;}
+  .sub{margin:2px 0 0;font-size:12.5px;color:var(--t3);}
+  .sub a{border-bottom:1px solid var(--line);}
+  .card{margin-top:22px;border:1px solid var(--line);border-radius:24px;padding:26px;background:var(--card);box-shadow:var(--shadow);}
+  .card h2{margin:0;color:var(--t1);font-size:16px;font-weight:790;}
+  .desc{margin:6px 0 14px;font-size:12.5px;color:var(--t3);line-height:1.6;}
+  .tabs{display:flex;gap:2px;padding:4px;border-radius:999px;background:var(--pill);width:fit-content;max-width:100%;margin:0 auto 10px;}
+  .tabs button{border:none;cursor:pointer;font-family:inherit;font-size:13px;font-weight:700;white-space:nowrap;border-radius:999px;padding:7px 18px;background:transparent;color:var(--t2);}
+  .tabs button:hover{filter:brightness(1.3);}
+  .tabs button.on{background:var(--on);color:var(--onT);}
+  .tabnote{margin:0 0 10px;font-size:12.5px;color:var(--t2);text-align:center;}
+
+  /* 表格：独立页 = 不再内滚，整表平铺，页面只有一条滚动条 */
+  .tbl{display:grid;grid-template-columns:minmax(200px,1.3fr) minmax(120px,1fr) minmax(180px,1.3fr);gap:1px;background:var(--grid);border:1px solid var(--grid);border-radius:12px;overflow:clip;}
+  .tbl .th{background:var(--card2);padding:8px 14px;color:var(--t1);font-size:12.5px;font-weight:760;position:sticky;top:44px;z-index:5;}
+  .tbl .td{background:var(--card);color:var(--cell);font-size:12px;font-variant-numeric:tabular-nums;
+    /* 定稿 9px 14px / 1.5 → 行高压到 70% ：padding 6px、line-height 1.35 */
+    padding:4.5px 14px;line-height:1.35;}
+  .tbl .td.hl{background:var(--hl);}
+  /* 翻页条：表格上方一条（sticky，滚到哪都在）、下方一条 */
+  .pager{display:flex;align-items:center;justify-content:center;gap:6px;margin:0 0 10px;font-size:12.5px;color:var(--t2);}
+  #pagerTop{position:sticky;top:0;z-index:6;background:var(--card);padding:6px 0;margin:0 0 6px;}
+  #pagerBot{margin:10px 0 0;}
+  .pager button{border:1px solid var(--line);background:transparent;color:var(--t2);border-radius:999px;padding:5px 12px;cursor:pointer;font:inherit;font-size:12.5px;}
+  .pager button:hover{filter:brightness(1.3);}
+  .pager button.on{background:var(--on);color:var(--onT);border-color:transparent;font-weight:700;}
+  .pager button:disabled{opacity:.35;cursor:default;}
+  .pager .rng{margin:0 6px;color:var(--t3);font-variant-numeric:tabular-nums;}
+  .foot{margin:12px 0 0;font-size:12px;color:var(--t3);}
+  .jump{display:inline-flex;gap:8px;align-items:center;margin-top:10px;font-size:12.5px;color:var(--t2);}
+  .jump code{background:var(--card2);padding:2px 8px;border-radius:8px;color:var(--t1);font-size:12px;}
+  .cmp{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;}
+  .cmp .box{border:1px solid var(--line);border-radius:16px;padding:14px;background:var(--card2);}
+  .cmp b{color:var(--t1);display:block;margin-bottom:6px;font-size:13px;}
+  .cmp p{margin:0;font-size:12.5px;color:var(--t2);line-height:1.6;}
+  .hint{margin:18px 4px 0;font-size:12px;color:var(--t3);line-height:1.7;}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="logo">i</div>
+    <div>
+      <h1>i人洞府 · 退休时间速查表</h1>
+      <p class="sub">Web 轻量版 · <a href="./退休金计算器.html">← 退休金计算器</a> · 完整功能在 Mac App</p>
+    </div>
+  </header>
+
+  <section class="card">
+    <h2>渐进式延迟法定退休年龄对照表</h2>
+    <p class="desc">2025 年起实施。依据《全国人大常委会关于实施渐进式延迟法定退休年龄的决定》（2024-09-13），官方只分三类：男职工 / 原 55 岁女职工 / 原 50 岁女职工。「干部 / 工人」是 1978 年的老叫法（国发〔1978〕104 号），现在企业按退休时所在岗位判定。<br>下面按<b>身份</b>给 4 个入口方便你对号入座；其中<b>男干部与男职工是同一张表</b>（官方对男性不分干部 / 工人，规则完全相同）。</p>
+    <div class="tabs" id="tabs">
+      <button data-k="m_cadre" class="on">男干部</button>
+      <button data-k="m_worker">男职工</button>
+      <button data-k="f_cadre">女干部</button>
+      <button data-k="f_worker">女职工</button>
+    </div>
+    <p class="tabnote" id="tabnote"></p>
+    <div class="pager" id="pagerTop"></div>
+    <div class="tbl" id="tbl"></div>
+    <div class="pager" id="pagerBot"></div>
+    <p class="foot" id="foot"></p>
+  </section>
+
+
+  <p class="hint">模拟估算，非官方结果。公式内置本地、计算不联网；各地计发基数每年更新一次，由 App 联网拉取参数（仅参数，不上传任何个人输入）。</p>
+</div>
+
+<script>
+(function(){
+  const CFG={ m60:[720,1965,4,36], f55:[660,1970,4,36], f50:[600,1975,2,60] };
+  // 身份入口 → 官方口径。Harry 2026-08-22 明批：两边都用 4 类身份入口，
+  // 「一边3类一边4类，别人会以为你的网页出错了」。
+  // 男干部 / 男职工都落到 m60 —— 官方对男性不分干部/工人，同一张表。
+  const TAB2KIND={ m_cadre:'m60', m_worker:'m60', f_cadre:'f55', f_worker:'f50' };
+  const NOTE={
+    m_cadre:"机关 / 企事业单位管理技术岗男性。原 60 岁 → 逐步延迟到 63 岁（与男职工规则相同）。",
+    m_worker:"企业 / 工人岗男性。原 60 岁 → 逐步延迟到 63 岁（官方对男性不分干部 / 工人，同一张表）。",
+    f_cadre:"官方口径「女职工 · 原法定退休年龄 55 周岁」（管理技术岗 / 有编制）。55 岁 → 逐步延迟到 58 岁。",
+    f_worker:"官方口径「女职工 · 原法定退休年龄 50 周岁」（工人岗 / 普通职工）。50 岁 → 逐步延迟到 55 岁。" };
+  const birth={y:1975,m:6}; // 默认与计算器一致（Harry 2026-08-22：第一次打开都是 1975-06-06）
+  const PAGES=3;            // 每类拆 3 页
+  let curK='m60', curPage=0;
+  const ageStr=am=>{const y=Math.floor(am/12),m=am%12;return y+"岁"+(m?m+"个月":"");};
+  function buildRows(k){
+    const [baseAge,startY,per,cap]=CFG[TAB2KIND[k]];
+    const ym=i=>{const y=startY+Math.floor(i/12),m=i%12+1;return y+"年"+m+"月";};
+    const rows=[[startY-1+"年12月及以前",ageStr(baseAge),"已按原法定年龄退休"]];
+    for(let n=1;n<=cap;n++){const a=(n-1)*per,b=n*per-1;rows.push([ym(a)+" – "+ym(b),ageStr(baseAge+n),ym(a+baseAge+n)+" – "+ym(b+baseAge+n)]);}
+    rows.push([ym(cap*per)+"及以后",ageStr(baseAge+cap),"出生年月 + "+ageStr(baseAge+cap)]);
+    const bi=(birth.y-startY)*12+(birth.m-1);
+    const hl=bi<0?0:Math.min(cap+1,Math.floor(bi/per)+1);
+    return {rows,hl};
+  }
+  function yearOf(s){const m=s.match(/^(\d{4})年/);return m?m[1]:'';}
+  function render(k,scroll,page){
+    curK=k;
+    const {rows,hl}=buildRows(k);
+    const per=Math.ceil(rows.length/PAGES);
+    if(page===undefined)page=Math.floor(hl/per);       // 默认翻到绿行所在页
+    curPage=Math.max(0,Math.min(PAGES-1,page));
+    const s=curPage*per,e=Math.min(rows.length,s+per);
+    let h='<span class="th">出生时间</span><span class="th">改革后退休年龄</span><span class="th">退休时间</span>';
+    rows.slice(s,e).forEach((r,j)=>{const i=s+j;r.forEach(t=>{h+='<span class="td'+(i===hl?' hl':'')+'">'+t+'</span>';});});
+    document.getElementById('tbl').innerHTML=h;
+    // 翻页条：‹ 上一页 · 第 N 页按钮（标出生年份段）· 下一页 ›
+    const seg=p=>{const a=rows[p*per],b=rows[Math.min(rows.length-1,(p+1)*per-1)];return (yearOf(a[0])||'…')+'–'+(yearOf(b[0])||'…');};
+    let ph='<button data-p="'+(curPage-1)+'"'+(curPage===0?' disabled':'')+'>‹ 上一页</button>';
+    for(let p=0;p<PAGES;p++)ph+='<button data-p="'+p+'" class="'+(p===curPage?'on':'')+'">第 '+(p+1)+' 页 <span class="rng">'+seg(p)+'</span></button>';
+    ph+='<button data-p="'+(curPage+1)+'"'+(curPage===PAGES-1?' disabled':'')+'>下一页 ›</button>';
+    ['pagerTop','pagerBot'].forEach(id=>{const el=document.getElementById(id);el.innerHTML=ph;el.querySelectorAll('button').forEach(b=>b.onclick=()=>{render(curK,false,+b.dataset.p);document.getElementById('tbl').scrollIntoView({block:'start',behavior:'smooth'});});});
+    document.getElementById('tabnote').textContent=NOTE[k];
+    document.getElementById('foot').textContent=(k==='f50'?"每晚出生 2 个月，退休延迟 1 个月，封顶 55 岁。":"每晚出生 4 个月，退休延迟 1 个月，封顶 "+(k==='f55'?"58":"63")+" 岁。")+" 绿色行 = 计算器里选的出生年月（已自动翻到它所在页）。";
+    if(scroll)setTimeout(()=>{const el=document.querySelector('.td.hl');if(el)el.scrollIntoView({block:'center',behavior:'smooth'});},50);
+  }
+  document.querySelectorAll('#tabs button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#tabs button').forEach(x=>x.classList.remove('on'));b.classList.add('on');render(b.dataset.k,true);});
+
+  // URL 参数：?b=1992-06&k=m60|f55|f50 ；#light 浅色
+  const q=new URLSearchParams(location.search);
+  const bm=(q.get('b')||'').match(/^(\d{4})-(\d{1,2})$/); if(bm){birth.y=+bm[1];birth.m=+bm[2];}
+  // 计算器身份档 → 速查表口径。官方对男性不分干部/工人（同一规则 60→63），
+  // 所以 m_cadre / m_worker 都落到 m60；女性才真的分两张表（原55 / 原50）。
+  let kSaved=null;
+  try{
+    const st=JSON.parse(localStorage.getItem('me.retire.calc.v1')||'{}');
+    if(!bm && st.y){birth.y=st.y;birth.m=st.m||1;}
+    if(st.tab && NOTE[st.tab]) kSaved=st.tab;
+  }catch(e){}
+  // ?k= 支持两种写法：新的身份 id（m_cadre…）和旧的口径（m60/f55/f50，老链接不能断）
+  const LEGACY={ m60:'m_worker', f55:'f_cadre', f50:'f_worker' };
+  const kq=q.get('k');
+  const kUrl = NOTE[kq] ? kq : (LEGACY[kq] || null);
+  // 优先级：URL 显式 > 计算器里选的身份 > 默认男干部（与计算器默认一致）
+  const k0 = kUrl || kSaved || 'm_cadre';
+  document.querySelectorAll('#tabs button').forEach(x=>x.classList.toggle('on',x.dataset.k===k0));
+  render(k0,!!bm);
+  if(location.hash==='#light')document.body.classList.add('light');
+})();
+</script>
+</body>
+</html>

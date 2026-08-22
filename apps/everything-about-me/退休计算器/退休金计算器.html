@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <style>
+    body{margin:0;background:linear-gradient(180deg,#20201e 0%,#1b1b19 100%);color:#969692;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC","Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased;font-size:14px;line-height:1.55;min-height:100vh;}
+    a{color:#dfdedb;text-decoration:none;}
+    a:hover{color:#ffffff;}
+    ::selection{background:rgba(243,191,55,.25);}
+    *{scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.22) transparent;}
+    ::-webkit-scrollbar{width:8px;height:8px;background:transparent;}
+    ::-webkit-scrollbar-track{background:transparent;}
+    ::-webkit-scrollbar-thumb{background:rgba(255,255,255,.22);border-radius:999px;}
+    ::-webkit-scrollbar-corner{background:transparent;}
+  </style>
+</helmet>
+<div data-screen-label="i人洞府 Web 退休计算器" style="max-width: 840px; margin: 0 auto; padding: 40px 28px 80px;">
+  <header style="display: flex; align-items: center; gap: 14px;">
+    <div style="width: 42px; height: 42px; border-radius: 12px; background: linear-gradient(145deg, #f6cf62, #e7b72a); color: #171715; display: grid; place-items: center; font-weight: 850; font-size: 16px;">i</div>
+    <div>
+      <h1 style="margin: 0; color: #dfdedb; font-size: 22px; font-weight: 760;">i人洞府 · 退休金计算器</h1>
+      <p style="margin: 2px 0 0; font-size: 12.5px; color: #6e6e69;">Web 轻量版 · 完整功能在 Mac App · <a href="./退休时间速查表.html">退休时间速查表 →</a></p>
+    </div>
+  </header>
+
+  <section style="margin-top: 24px; border: 1px solid rgba(255,255,255,.08); border-radius: 24px; padding: 26px; background: #282826; box-shadow: 0 14px 36px rgba(0,0,0,.26); display: flex; flex-direction: column; gap: 22px;">
+    <div>
+      <div style="color: #dfdedb; font-size: 13px; font-weight: 760; margin-bottom: 10px;">参保地区</div>
+      <div style="display: flex; gap: 8px; align-items: center; flex-wrap: nowrap; overflow-x: auto;">
+        <sc-for list="{{ majorChips }}" as="c" hint-placeholder-count="7">
+          <button onClick="{{ c.onClick }}" style="{{ c.style }}" style-hover="filter: brightness(1.3);">{{ c.label }}</button>
+        </sc-for>
+        <span style="color: #6e6e69; font-size: 12.5px; white-space: nowrap; margin-left: 6px;">或按省份</span>
+        <sc-for list="{{ regionSpins }}" as="s" hint-placeholder-count="2">
+          <div style="position: relative;" data-dd="region">
+            <button onClick="{{ s.onToggle }}" onWheel="{{ s.onWheel }}" style="{{ s.btnStyle }}" style-hover="border-color: rgba(255,255,255,.3);">{{ s.value }}<span style="color: #6e6e69; font-size: 26px; line-height: 0.4;">▾</span></button>
+            <sc-if value="{{ s.open }}" hint-placeholder-val="{{ false }}">
+              <div style="position: absolute; top: calc(100% + 4px); left: 0; min-width: 100%; max-height: 230px; overflow: auto; z-index: 40; background: #34342f; border: 1px solid rgba(255,255,255,.16); border-radius: 14px; padding: 5px; box-shadow: 0 14px 32px rgba(0,0,0,.5); display: flex; flex-direction: column;">
+                <sc-for list="{{ s.opts }}" as="o" hint-placeholder-count="6">
+                  <button onClick="{{ o.onClick }}" style="{{ o.style }}" style-hover="background: rgba(255,255,255,.08);">{{ o.label }}</button>
+                </sc-for>
+              </div>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <div>
+      <div style="color: #dfdedb; font-size: 13px; font-weight: 760; margin-bottom: 10px;">出生年月日</div>
+      <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <sc-for list="{{ birthSpins }}" as="s" hint-placeholder-count="3">
+          <div style="position: relative;" data-dd="birth">
+            <button onClick="{{ s.onToggle }}" onWheel="{{ s.onWheel }}" style="{{ s.btnStyle }}" style-hover="border-color: rgba(255,255,255,.3);">{{ s.value }}<span style="color: #6e6e69; font-size: 26px; line-height: 0.4;">▾</span></button>
+            <sc-if value="{{ s.open }}" hint-placeholder-val="{{ false }}">
+              <div style="position: absolute; top: calc(100% + 4px); left: 0; min-width: 100%; max-height: 230px; overflow: auto; z-index: 40; background: #34342f; border: 1px solid rgba(255,255,255,.16); border-radius: 14px; padding: 5px; box-shadow: 0 14px 32px rgba(0,0,0,.5); display: flex; flex-direction: column;">
+                <sc-for list="{{ s.opts }}" as="o" hint-placeholder-count="6">
+                  <button onClick="{{ o.onClick }}" style="{{ o.style }}" style-hover="background: rgba(255,255,255,.08);">{{ o.label }}</button>
+                </sc-for>
+              </div>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="display: flex; gap: 26px; flex-wrap: wrap;" data-note="money">
+      <div>
+        <div style="color: #dfdedb; font-size: 13px; font-weight: 760; margin-bottom: 10px;">当前税前月薪</div>
+        <div style="position: relative;" data-dd="sal">
+          <div style="{{ salaryBoxStyle }}" style-hover="border-color: rgba(255,255,255,.3);">
+            <span style="color: #6e6e69; font-size: 14px;">¥</span>
+            <input value="{{ salaryText }}" onInput="{{ onSalaryInput }}" onBlur="{{ onSalaryBlur }}" onKeyDown="{{ onSalaryKey }}" onWheel="{{ onSalaryWheel }}" inputmode="numeric" placeholder="自己输入" style="width: 96px; border: none; outline: none; background: transparent; color: #dfdedb; font: inherit; font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums; padding: 0;">
+            <button aria-label="选择月薪" onClick="{{ onSalaryToggle }}" style="border: none; background: transparent; color: #6e6e69; font-size: 26px; line-height: 0.4; cursor: pointer; padding: 0 2px;">▾</button>
+          </div>
+          <sc-if value="{{ salaryOpen }}" hint-placeholder-val="{{ false }}">
+            <div style="position: absolute; top: calc(100% + 4px); left: 0; min-width: 100%; max-height: 230px; overflow: auto; z-index: 40; background: #34342f; border: 1px solid rgba(255,255,255,.16); border-radius: 14px; padding: 5px; box-shadow: 0 14px 32px rgba(0,0,0,.5); display: flex; flex-direction: column;">
+              <sc-for list="{{ salaryOpts }}" as="o" hint-placeholder-count="6">
+                <button onClick="{{ o.onClick }}" style="{{ o.style }}" style-hover="background: rgba(255,255,255,.08);">{{ o.label }}</button>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+      <sc-for list="{{ moneySpins }}" as="s" hint-placeholder-count="2">
+        <div>
+          <div style="color: #dfdedb; font-size: 13px; font-weight: 760; margin-bottom: 10px;">{{ s.label }}</div>
+          <div style="position: relative;" data-dd="money">
+            <button onClick="{{ s.onToggle }}" onWheel="{{ s.onWheel }}" style="{{ s.btnStyle }}" style-hover="border-color: rgba(255,255,255,.3);">{{ s.value }}<span style="color: #6e6e69; font-size: 26px; line-height: 0.4;">▾</span></button>
+            <sc-if value="{{ s.open }}" hint-placeholder-val="{{ false }}">
+              <div style="position: absolute; top: calc(100% + 4px); left: 0; min-width: 100%; max-height: 230px; overflow: auto; z-index: 40; background: #34342f; border: 1px solid rgba(255,255,255,.16); border-radius: 14px; padding: 5px; box-shadow: 0 14px 32px rgba(0,0,0,.5); display: flex; flex-direction: column;">
+                <sc-for list="{{ s.opts }}" as="o" hint-placeholder-count="6">
+                  <button onClick="{{ o.onClick }}" style="{{ o.style }}" style-hover="background: rgba(255,255,255,.08);">{{ o.label }}</button>
+                </sc-for>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="border-top: 1px solid rgba(255,255,255,.08); padding-top: 20px;">
+      <p style="margin: 0; font-size: 13px; color: #969692;">你现在 <b style="color: #dfdedb;">{{ age }}</b> 岁 · 预计 <b style="color: #dfdedb;">{{ retireYear }}</b> 年退休（{{ retireAge }} 岁）· 届时累计缴费约 {{ totalYears }} 年 · <a href="{{ lookupHref }}" style="border-bottom: 1px solid rgba(255,255,255,.2);">查我的退休时间 →</a></p>
+      <div style="display: flex; gap: 40px; margin-top: 14px; flex-wrap: wrap;">
+        <div>
+          <div style="font-size: 12px; color: #6e6e69;">预计每月养老金</div>
+          <div style="font-size: 38px; font-weight: 800; color: #7ec97e; font-variant-numeric: tabular-nums; letter-spacing: -0.01em;">¥{{ monthly }}</div>
+        </div>
+        <div>
+          <div style="font-size: 12px; color: #6e6e69;">每年合计</div>
+          <div style="font-size: 38px; font-weight: 800; color: #dfdedb; font-variant-numeric: tabular-nums; letter-spacing: -0.01em;">¥{{ yearly }}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="margin-top: 20px; border: 1px solid rgba(255,255,255,.08); border-radius: 24px; padding: 26px; background: #282826; box-shadow: 0 14px 36px rgba(0,0,0,.26);">
+    <h2 style="margin: 0; color: #dfdedb; font-size: 16px; font-weight: 790;">退休时间速查表</h2>
+    <p style="margin: 6px 0 14px; font-size: 12.5px; color: #6e6e69; line-height: 1.6; text-wrap: pretty;">官方名称「渐进式延迟法定退休年龄对照表」（2025 年起实施）。官方口径统一称「职工」，不叫群众：男职工不分干部 / 工人，规则相同；女性分「原 55 岁（管理技术岗，即女干部）」和「原 50 岁（工人岗）」两张表。</p>
+    <div style="display: flex; gap: 2px; padding: 4px; border-radius: 999px; background: #3a3a37; width: fit-content; max-width: 100%; overflow: auto; margin: 0 auto 14px;">
+      <sc-for list="{{ lookupTabs }}" as="t" hint-placeholder-count="4">
+        <button onClick="{{ t.onClick }}" style="{{ t.style }}" style-hover="filter: brightness(1.3);">{{ t.label }}</button>
+      </sc-for>
+    </div>
+    <p style="margin: 0 0 10px; font-size: 12.5px; color: #969692; text-align: center;">{{ lookupNote }}</p>
+    <div style="max-height: 480px; overflow: auto; border-radius: 12px;">
+      <div style="display: grid; grid-template-columns: minmax(200px, 1.3fr) minmax(120px, 1fr) minmax(180px, 1.3fr); gap: 1px; background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.14); min-width: 560px;">
+        <span style="background: #30302d; padding: 10px 14px; color: #dfdedb; font-size: 12.5px; font-weight: 760; position: sticky; top: 0; z-index: 5;">出生时间</span>
+        <span style="background: #30302d; padding: 10px 14px; color: #dfdedb; font-size: 12.5px; font-weight: 760; position: sticky; top: 0; z-index: 5;">改革后退休年龄</span>
+        <span style="background: #30302d; padding: 10px 14px; color: #dfdedb; font-size: 12.5px; font-weight: 760; position: sticky; top: 0; z-index: 5;">退休时间</span>
+        <sc-for list="{{ lookupCells }}" as="c" hint-placeholder-count="12">
+          <span style="{{ c.style }}">{{ c.text }}</span>
+        </sc-for>
+      </div>
+    </div>
+    <p style="margin: 12px 0 0; font-size: 12px; color: #6e6e69;">{{ lookupFoot }}</p>
+  </section>
+
+  <p style="margin: 18px 4px 0; font-size: 12px; color: #6e6e69; line-height: 1.7; text-wrap: pretty;">模拟估算，非官方结果。公式内置本地、计算不联网；各地计发基数每年更新一次，由 App 联网拉取参数（仅参数，不上传任何个人输入）。医保 / 社保明细为 Mac App 完整版功能。</p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:940}}">
+class Component extends DCLogic {
+  // 持久化：上次选的出生年月 / 地区 / 月薪 / 社保都记在本机（localStorage，只存在用户自己的浏览器里，不上传）
+  STORE_KEY = "me.retire.calc.v1";
+  PERSIST = ["y","m","d","region","prov","salary","py","pmn","tab"];
+  state = (() => {
+    const base = { y: 1975, m: 6, d: 6, region: "北京", prov: null, salary: 10000, py: null, pmn: null, open: null, tab: "m_cadre", salaryText: null };
+    try { const saved = JSON.parse(localStorage.getItem("me.retire.calc.v1") || "{}"); for (const k of ["y","m","d","region","prov","salary","py","pmn","tab"]) if (saved[k] !== undefined) base[k] = saved[k]; } catch (e) {}
+    return base;
+  })();
+  setState(update, cb) {
+    super.setState(update, () => {
+      try { const o = {}; for (const k of this.PERSIST) o[k] = this.state[k]; localStorage.setItem(this.STORE_KEY, JSON.stringify(o)); } catch (e) {}
+      cb && cb();
+    });
+  }
+  // 点空白处收起任何下拉
+  componentDidMount() {
+    this._outside = (e) => { if (this.state.open && !e.target.closest("[data-dd]")) this.setState({ open: null }); };
+    document.addEventListener("mousedown", this._outside);
+  }
+  componentWillUnmount() { document.removeEventListener("mousedown", this._outside); }
+  majors = { "北京": 11761, "上海": 12307, "广州": 9500, "深圳": 11000, "杭州": 8800, "重庆": 7857, "天津": 8672 };
+  provs = {
+    "广东": { "珠海": 8500, "东莞": 7800, "佛山": 8000, "中山": 7600 },
+    "浙江": { "宁波": 8400, "温州": 7600, "嘉兴": 7800, "绍兴": 7700 },
+    "江苏": { "南京": 8700, "苏州": 8600, "无锡": 8300, "常州": 8000 },
+    "四川": { "成都": 8079, "绵阳": 6800 },
+    "湖北": { "武汉": 8500, "宜昌": 6900 },
+    "湖南": { "长沙": 7200, "株洲": 6500 },
+    "山东": { "济南": 7400, "青岛": 7500, "烟台": 7000 },
+    "福建": { "福州": 7300, "厦门": 8300, "泉州": 7000 },
+    "河南": { "郑州": 7100, "洛阳": 6400 },
+    "陕西": { "西安": 7500 },
+    "辽宁": { "沈阳": 7000, "大连": 7300 },
+    "安徽": { "合肥": 7900, "芜湖": 6800 }
+  };
+  optStyle = (on) => ({ border: "none", background: "transparent", textAlign: "left", padding: "6px 14px", borderRadius: "8px",
+    color: on ? "#dfdedb" : "#969692", fontWeight: on ? 760 : 600, fontSize: "13px", cursor: "pointer", fontFamily: "inherit", whiteSpace: "nowrap", flexShrink: 0 });
+  btnStyle = { display: "inline-flex", alignItems: "center", gap: "9px", background: "#30302d", border: "1px solid rgba(255,255,255,.14)",
+    borderRadius: "12px", color: "#dfdedb", fontSize: "15px", fontWeight: 700, padding: "10px 14px", fontFamily: "inherit", cursor: "pointer",
+    fontVariantNumeric: "tabular-nums", whiteSpace: "nowrap" };
+
+  spin(id, display, list, current, pick, delta) {
+    const open = this.state.open === id;
+    return {
+      value: display, open, btnStyle: this.btnStyle,
+      onToggle: () => this.setState(s => ({ open: s.open === id ? null : id })),
+      onWheel: (e) => { if (e.cancelable) e.preventDefault(); delta(e.deltaY > 0 ? 1 : -1); },
+      opts: list.map(v => ({ label: String(v),
+        onClick: () => { pick(v); this.setState({ open: null }); },
+        style: this.optStyle(v === current) }))
+    };
+  }
+  range(a, b) { const r = []; for (let i = a; i <= b; i++) r.push(i); return r; }
+
+  retireInfo(y, m, kind) {
+    const cfg = { m60: [720, 1965, 4, 36], f55: [660, 1970, 4, 36], f50: [600, 1975, 2, 60] }[kind];
+    const [baseAge, startY, per, cap] = cfg;
+    const idx = (y - startY) * 12 + (m - 1);
+    const delay = idx < 0 ? 0 : Math.min(cap, Math.floor(idx / per) + 1);
+    const ageM = baseAge + delay;
+    const total = y * 12 + (m - 1) + ageM;
+    return { ageM, ry: Math.floor(total / 12) };
+  }
+  ageStr(am) { const y = Math.floor(am / 12), m = am % 12; return y + "岁" + (m ? m + "个月" : ""); }
+  lookupCell(y, kind) {
+    const a = this.retireInfo(y, 1, kind), b = this.retireInfo(y, 12, kind);
+    const age = a.ageM === b.ageM ? this.ageStr(a.ageM) : this.ageStr(a.ageM) + "–" + this.ageStr(b.ageM);
+    const yr = a.ry === b.ry ? String(a.ry) : a.ry + "–" + b.ry;
+    return age + " · " + yr + " 年";
+  }
+  clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+
+  renderVals() {
+    const S = this.state;
+    const fmt = (n) => n.toLocaleString("en-US");
+    const step = (key, dir, min, max, stepN) => this.setState(s => ({ [key]: this.clamp((s[key] ?? min) + dir * (stepN || 1), min, max) }));
+
+    const birthSpins = [
+      this.spin("y", S.y + " 年", this.range(1900, 3000), S.y, v => this.setState({ y: v }), d => step("y", d, 1900, 3000)),
+      this.spin("m", S.m + " 月", this.range(1, 12), S.m, v => this.setState({ m: v }), d => step("m", d, 1, 12)),
+      this.spin("d", S.d + " 日", this.range(1, 31), S.d, v => this.setState({ d: v }), d => step("d", d, 1, 31))
+    ];
+
+    const majorChips = Object.keys(this.majors).map(name => {
+      const on = S.prov === null && S.region === name;
+      return { label: name,
+        onClick: () => this.setState({ region: name, prov: null }),
+        style: { border: "1px solid " + (on ? "transparent" : "rgba(255,255,255,.14)"), cursor: "pointer",
+          fontFamily: "inherit", fontSize: "13px", fontWeight: 700, borderRadius: "999px", padding: "7px 16px",
+          background: on ? "#deded9" : "transparent", color: on ? "#252522" : "#969692" } };
+    });
+
+    const provList = Object.keys(this.provs);
+    const cityList = S.prov ? Object.keys(this.provs[S.prov]) : [];
+    const regionSpins = [
+      this.spin("prov", S.prov || "省份", provList, S.prov,
+        v => this.setState({ prov: v, region: Object.keys(this.provs[v])[0] }),
+        d => { const i = this.clamp((S.prov ? provList.indexOf(S.prov) : 0) + d, 0, provList.length - 1);
+          const p = provList[i]; this.setState({ prov: p, region: Object.keys(this.provs[p])[0] }); }),
+      this.spin("city", S.prov ? S.region : "城市", cityList, S.region,
+        v => this.setState({ region: v }),
+        d => { if (!S.prov) return; const i = this.clamp(cityList.indexOf(S.region) + d, 0, cityList.length - 1);
+          this.setState({ region: cityList[i] }); })
+    ];
+
+    const dash = "先不选";
+    const yearsOpts = [dash].concat(this.range(0, 100));
+    const monthsOpts = [dash].concat(this.range(0, 100));
+    // 月薪 = 输入框 + 下拉（高薪可自填；下拉打开时自动滚到当前值附近）
+    const salaryOpen = S.open === "sal";
+    const salaryText = S.salaryText !== null ? S.salaryText : fmt(S.salary);
+    const parseSal = (t) => parseInt(String(t ?? "").replace(/[^\d]/g, ""), 10);
+    const onSalaryInput = (e) => { const t = e.target.value, n = parseSal(t); this.setState(n > 0 ? { salaryText: t, salary: n, open: null } : { salaryText: t }); };
+    const onSalaryBlur = () => this.setState({ salaryText: null });
+    const onSalaryKey = (e) => { if (e.key === "Enter" || e.key === "Escape") { e.target.blur(); this.setState({ salaryText: null, open: null }); } };
+    const onSalaryWheel = (e) => { if (e.cancelable) e.preventDefault(); step("salary", e.deltaY > 0 ? 1 : -1, 1000, 1000000, 1000); };
+    const onSalaryToggle = () => this.setState(s => ({ open: s.open === "sal" ? null : "sal" }), () => {
+      if (this.state.open !== "sal") return;
+      const want = "¥ " + fmt(this.state.salary);
+      const on = [...document.querySelectorAll('[data-dd="sal"] button')].find(b => b.textContent.trim() === want);
+      if (on) on.scrollIntoView({ block: "center" });
+    });
+    const salaryOpts = this.range(1, 100).map(n => n * 1000).map(v => ({ label: "¥ " + fmt(v),
+      onClick: () => this.setState({ salary: v, salaryText: null, open: null }),
+      style: this.optStyle(v === S.salary) }));
+    const salaryBoxStyle = { display: "inline-flex", alignItems: "center", gap: "6px", background: "#30302d", border: "1px solid rgba(255,255,255,.14)",
+      borderRadius: "12px", padding: "8px 10px 8px 14px", minWidth: "120px" };
+
+    const moneySpins = [
+      { ...this.spin("py", S.py === null ? dash : S.py + " 年", yearsOpts, S.py === null ? dash : S.py,
+          v => this.setState({ py: v === dash ? null : v }), d => step("py", d, 0, 100)), label: "已缴社保 · 年" },
+      { ...this.spin("pmn", S.pmn === null ? dash : S.pmn + " 月", monthsOpts, S.pmn === null ? dash : S.pmn,
+          v => this.setState({ pmn: v === dash ? null : v }), d => step("pmn", d, 0, 100)), label: "已缴社保 · 月" }
+    ].map(s => ({ ...s, btnStyle: { ...this.btnStyle, minWidth: "120px", justifyContent: "space-between" } }));
+
+    const base = S.prov ? this.provs[S.prov][S.region] : this.majors[S.region];
+    const retireAge = 63, now = 2026;
+    const age = Math.max(0, now - S.y);
+    const paid = (S.py ?? 0) + (S.pmn ?? 0) / 12;
+    const totalYears = Math.round(Math.min(45, paid + Math.max(0, retireAge - age)) * 10) / 10;
+    const idx = Math.min(3, Math.max(0.6, S.salary / base));
+    const basic = Math.round((base + base * idx) / 2 * totalYears * 0.01);
+    const personal = Math.round(S.salary * 0.08 * 12 * totalYears / 139);
+    const monthly = basic + personal;
+
+    const tabs = {
+      m_cadre: { label: "男干部", kind: "m60", note: "机关 / 企事业单位管理技术岗男性。原 60 岁 → 逐步延迟到 63 岁（与男职工规则相同）。" },
+      m_worker: { label: "男职工", kind: "m60", note: "企业 / 工人岗男性。原 60 岁 → 逐步延迟到 63 岁（官方对男性不分干部 / 工人，同一张表）。" },
+      f_cadre: { label: "女干部", kind: "f55", note: "官方口径「女职工 · 原法定退休年龄 55 周岁」（管理技术岗 / 有编制）。55 岁 → 逐步延迟到 58 岁。" },
+      f_worker: { label: "女职工", kind: "f50", note: "官方口径「女职工 · 原法定退休年龄 50 周岁」（工人岗 / 普通职工）。50 岁 → 逐步延迟到 55 岁。" }
+    };
+    const curTab = tabs[S.tab];
+    const lookupTabs = Object.entries(tabs).map(([id, t]) => ({ label: t.label,
+      onClick: () => this.setState({ tab: id }),
+      style: { border: "none", cursor: "pointer", fontFamily: "inherit", fontSize: "13px", fontWeight: 700, whiteSpace: "nowrap",
+        borderRadius: "999px", padding: "7px 18px", flexShrink: 0,
+        background: S.tab === id ? "#deded9" : "transparent", color: S.tab === id ? "#252522" : "#969692" } }));
+    const cfg = { m60: [720, 1965, 4, 36], f55: [660, 1970, 4, 36], f50: [600, 1975, 2, 60] }[curTab.kind];
+    const [baseAgeM, startY, per, cap] = cfg;
+    const ym = (idx) => { const y = startY + Math.floor(idx / 12), m = idx % 12 + 1; return y + "年" + m + "月"; };
+    const ymAdd = (idx, add) => ym(idx + add - 0);
+    const cellStyle = (hl) => ({ background: hl ? "rgba(95,178,102,.14)" : "#282826", padding: "9px 14px",
+      color: "#c9c8c4", fontSize: "12.5px", fontVariantNumeric: "tabular-nums", lineHeight: 1.5 });
+    const rows = [];
+    rows.push([startY - 1 + "年12月及以前", this.ageStr(baseAgeM), "已按原法定年龄退休"]);
+    for (let k = 1; k <= cap; k++) {
+      const a = (k - 1) * per, b = k * per - 1;
+      rows.push([ym(a) + " – " + ym(b), this.ageStr(baseAgeM + k), ymAdd(a, baseAgeM + k) + " – " + ymAdd(b, baseAgeM + k)]);
+    }
+    const lastIdx = cap * per;
+    rows.push([ym(lastIdx) + "及以后", this.ageStr(baseAgeM + cap), "出生年月 + " + this.ageStr(baseAgeM + cap)]);
+    const birthIdx = (S.y - startY) * 12 + (S.m - 1);
+    const rowOf = birthIdx < 0 ? 0 : Math.min(cap + 1, Math.floor(birthIdx / per) + 1);
+    const lookupCells = rows.flatMap((r, i) => r.map(text => ({ text, style: cellStyle(i === rowOf) })));
+
+    return {
+      lookupTabs, lookupCells, lookupNote: curTab.note,
+      lookupFoot: curTab.kind === "f50" ? "每晚出生 2 个月，退休延迟 1 个月，封顶 55 岁。绿色行 = 你在计算器里选的出生年月。"
+        : "每晚出生 4 个月，退休延迟 1 个月，封顶 " + (curTab.kind === "m60" ? "63" : "58") + " 岁。绿色行 = 你在计算器里选的出生年月。",
+      birthSpins, majorChips, regionSpins, moneySpins,
+      salaryOpen, salaryText, salaryOpts, salaryBoxStyle, onSalaryInput, onSalaryBlur, onSalaryKey, onSalaryWheel, onSalaryToggle,
+      age, retireAge, retireYear: S.y + retireAge, totalYears,
+      /* 传身份 id（m_cadre…）而不是口径（m60…）—— 两边现在都是 4 类身份入口，说同一种话。
+         速查表仍兼容旧的 ?k=m60 老链接。 */
+      lookupHref: "./退休时间速查表.html?b=" + S.y + "-" + S.m + "&k=" + S.tab,
+      regionName: (S.prov ? S.prov + " · " : "") + S.region, base: fmt(base),
+      basic: fmt(basic), personal: fmt(personal), monthly: fmt(monthly), yearly: fmt(monthly * 12)
+    };
+  }
+}
+</script>
+
+<script>
+/* 下拉弹开时自动滚到当前选中项 —— Harry 2026-08-22：
+   「每一次下拉，它都是从 1900 年开始选起，选到我很累」
+   选择本身早就记在 localStorage 了，缺的只是「弹开时把它滚进视野」。
+   选中项由 optStyle 的 fontWeight 760（未选 600）区分，用计算样式定位，
+   不改 DC 模板（模板里只绑了 style/label，加不了标记属性）。 */
+(function () {
+  function centerSelected(panel) {
+    var opts = panel.children, i, w;
+    for (i = 0; i < opts.length; i++) {
+      if (opts[i].tagName !== 'BUTTON') continue;
+      w = parseInt(getComputedStyle(opts[i]).fontWeight, 10) || 0;
+      if (w >= 700) {
+        /* 只滚面板自己，绝不动整页（scrollIntoView 会带着页面一起跳） */
+        panel.scrollTop = Math.max(0,
+          opts[i].offsetTop - panel.clientHeight / 2 + opts[i].offsetHeight / 2);
+        return true;
+      }
+    }
+    return false;
+  }
+  function isOptionPanel(el) {
+    if (!el || el.nodeType !== 1 || el.__centered) return false;
+    if (el.scrollHeight <= el.clientHeight + 4) return false;   /* 不可滚 = 不是长列表 */
+    var n = 0, c = el.children;
+    for (var i = 0; i < c.length; i++) { if (c[i].tagName !== 'BUTTON') return false; n++; }
+    return n >= 5;   /* 只认「全是按钮且够长」的面板，避开表格滚动容器 */
+  }
+  var timer = null;
+  new MutationObserver(function () {
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      var all = document.querySelectorAll('div');
+      for (var i = 0; i < all.length; i++) {
+        if (isOptionPanel(all[i]) && centerSelected(all[i])) all[i].__centered = true;
+      }
+    }, 30);
+  }).observe(document.body, { childList: true, subtree: true });
+})();
+</script>
+</body>
+</html>
