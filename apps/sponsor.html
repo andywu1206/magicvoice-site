@@ -77,6 +77,7 @@ body.dark .tabs .note{color:#9A9AA0}
 .item:hover{background:var(--sel)}
 .item.on{background:var(--sel)}
 .item img{width:34px;height:34px;border-radius:8px;flex:0 0 auto;display:block}
+.item>svg{width:34px;height:34px;border-radius:8px;flex:0 0 auto;display:block}
 .item .tx{min-width:0;display:grid;gap:2px}
 .item .tx b{font:590 13px/1.25 var(--font);color:var(--ink);letter-spacing:-.005em;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -827,6 +828,7 @@ body.dark .sp-card{box-shadow:0 8px 26px -14px rgba(0,0,0,.5)}
     </button>
     <div class="slab">支持 · Support</div>
     <a class="item" href="sponsor.html" id="spNav">
+      <svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#EF4444"/><path d="M0 8a8 8 0 0 1 8-8h18a8 8 0 0 1 8 8v9H0z" fill="#fff" opacity=".08"/><path d="M17 26.5s-8.5-5.2-8.5-11.2A4.7 4.7 0 0 1 17 12.6a4.7 4.7 0 0 1 8.5 2.7c0 6-8.5 11.2-8.5 11.2z" fill="#fff"/></svg>
       <span class="tx"><b>赞助 · Sponsor</b></span>
     </a>
     <div class="sp"></div>
@@ -851,7 +853,10 @@ body.dark .sp-card{box-shadow:0 8px 26px -14px rgba(0,0,0,.5)}
           <div class="sp-seg">
             <button class="on" id="bwx" onclick="spSw('wx')">微信支付</button>
             <button id="bali" onclick="spSw('ali')">支付宝</button>
-            <button id="bin" onclick="spSw('intl')">&#127758; <span id="bint">International</span></button>
+            <!-- International 暂时隐藏（Harry 2026-08-22）：海外通道尚未开通，挂着反而怪。
+     ⚠️ 整段代码与 id 一律保留（U25 不删）：#bin / #sp-intl / #spSoon / spSw / spPick / spChk / spUpd 都还在，
+     恢复只需删掉本行的 style="display:none"。完整存档见 history/sponsor_INTERNATIONAL_TAB_ACTIVE_*。 -->
+            <button id="bin" onclick="spSw('intl')" style="display:none">&#127758; <span id="bint">International</span></button>
           </div>
           <div class="sp-body">
             <div id="sp-wx">
