@@ -793,6 +793,7 @@ body.dark .ccard{box-shadow:0 8px 26px -14px rgba(0,0,0,.5)}
   color:var(--p8-t2); font-size:14px; line-height:1.55;
 }
 body.dark .p8-scope{--p8-green:#7EC97E; --p8-shadow:0 8px 26px -14px rgba(0,0,0,.5)}
+body.dark .p8-scope .p8-toast{background:#20242E!important;border-color:#414B63!important;color:#E6E9F0!important}  /* Dark = 项目4 Toast 系统原色 V3.3.0 */
 /* ── Light = 阅读型暖纸色 · Paper（Harry 2026-08-23：「像电子杂志一样」· 纯白+纯黑对比太强）
    值取 Anthropic 官方品牌色（claude.ai 观感）：#faf9f5 纸白 / #e8e6dc 浅灰 / #b0aea5 中灰 / #141413 墨黑 /
    点缀 #d97757 橙 · #6a9bcc 蓝 · #788c5d 绿。派生值（ink2 / card2 / line2）标在 Design Guide 颜色页。
@@ -842,9 +843,20 @@ body:not(.dark) .p8-scope .p8-card{border-color:var(--p8-line)}
 .p8-scope .p8-tracks button{appearance:none;cursor:pointer;font-family:inherit;font-size:12px;font-weight:640;color:var(--p8-t2);background:var(--p8-card);border:1px solid var(--p8-line);border-radius:999px;padding:5px 13px;}
 .p8-scope .p8-tracks button:hover{color:var(--p8-t1);border-color:var(--p8-line2);}
 .p8-scope .p8-tracks button[aria-pressed="true"]{background:var(--p8-on);color:var(--p8-onT);border-color:transparent;}
+/* ── 网页版 Toast（Harry 自家广告位）· 视觉承项目4 Toast 系统 V3.3.0：单行 · Go 正方形方钮 28×28 r8 · 左右 16 内距 · 最小高 40 · r10
+   网页版差异（Harry 2026-08-23 定）：常驻无 ✕ · 每条 10s 自动轮播 · 中文界面中文/英文界面英文 · 颜色跟 Light/Dark 主题走（不固定深色） */
+.p8-scope .p8-toast{display:flex;width:100%;align-items:center;gap:10px;min-height:40px;padding:9px 16px;margin:18px 0 22px;border-radius:10px;  /* Banner 容器 100% 全宽固定（Harry 2026-08-23：长长短短变来变去看着很烦）· Go 贴文字尾不靠右框（去到最右边用户根本不会留意）· 规范源 = Design Guide 广告 › Toast/Banner 投放 */
+  background:var(--p8-card2);border:1px solid var(--p8-line2);color:var(--p8-t1);font-size:14px;font-weight:500;line-height:1.3;white-space:nowrap;max-width:100%;overflow:hidden;box-shadow:var(--p8-shadow)}
+.p8-scope .p8-toast-t{flex:0 1 auto;overflow:hidden;text-overflow:ellipsis;transition:opacity .25s}
+.p8-scope .p8-toast.sw .p8-toast-t{opacity:0}
+.p8-scope .p8-toast-go{flex:0 0 28px;width:28px;height:28px;border-radius:8px;display:grid;place-items:center;font-size:13px;font-weight:600;text-decoration:none;
+  color:var(--p8-onT);background:var(--p8-on);border:1px solid color-mix(in srgb,var(--p8-on) 70%,#000 0%);transition:filter .15s}
+.p8-scope .p8-toast-go:hover{filter:brightness(.92)}
+.p8-scope body.dark .p8-toast{background:#20242E;border-color:#414B63;color:#E6E9F0}
+/* Dark = 项目4 Toast 原色 */
 .p8-scope .p8-tl{margin-top:14px;border-left:2px solid var(--p8-line);padding-left:0;}
 .p8-scope .p8-yr{margin:22px 0 10px;padding-left:18px;color:var(--p8-t3);font-size:12px;font-weight:700;letter-spacing:.04em;position:relative;}
-.p8-scope .p8-yr::before{content:"";position:absolute;left:-5px;top:5px;width:8px;height:8px;border-radius:50%;background:var(--p8-pill);border:2px solid #1b1b19;}
+.p8-scope .p8-yr::before{content:"";position:absolute;left:-2.5px;top:6px;width:7px;height:7px;border-radius:50%;background:var(--p8-on,var(--b1));box-shadow:0 0 0 3px color-mix(in srgb,var(--p8-on,var(--b1)) 16%,transparent);}
 .p8-scope .p8-pi{position:relative;margin:0 0 12px 18px;border:1px solid var(--p8-line);border-radius:16px;padding:15px 17px;background:var(--p8-card);box-shadow:var(--p8-shadow);}
 .p8-scope .p8-pi::before{content:"";position:absolute;left:-23px;top:19px;width:7px;height:7px;border-radius:50%;background:var(--p8-t3);}
 .p8-scope .p8-pi .p8-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:11.5px;color:var(--p8-t3);}
@@ -952,6 +964,12 @@ body:not(.dark) .p8-scope .p8-card{border-color:var(--p8-line)}
   </div>
   <div class="p8-toolstage">
     <iframe id="toolFrame" title="退休工具" src="./退休计算器/退休时间速查表.html" scrolling="no"></iframe>
+  </div>
+
+  <!-- 网页版 Toast · Harry 自家广告位 · 常驻不可关 · 10s 轮播 · 跟界面语言 · 规范见 Design Guide「项目4 › Toast 系统 › 网页版」 -->
+  <div class="p8-toast" id="p8Toast" role="status" aria-live="polite">
+    <span class="p8-toast-t" id="p8ToastT"></span>
+    <a class="p8-toast-go" id="p8ToastGo" href="#" target="_blank" rel="noopener">Go</a>
   </div>
 
   <h3 class="p8-sec">政策动态 <span id="polCount"></span></h3>
@@ -1506,6 +1524,8 @@ function render(){
   $('#t').textContent=x.t;$('#l').textContent=x.l;$('#d').textContent=x.d;$('#lg').src=a.logo;
   // 方案 4：按钮不再说含糊的「立即下载」，明确说清下的是哪一档
   const T=VT[lang];
+  /* 左栏 i人洞府 跟界面语言（Harry 2026-08-23）：English → Everything About Me · 中文 → i人洞府。其余三项是固定双语名，不动。 */
+  { const pb=document.querySelector('#p8Nav .tx b'); if(pb) pb.textContent=(lang==='zh'?'i人洞府':'Everything About Me'); }
   $('#cta').textContent=v45?T.hb:x.c;
   $('#cta2').textContent=v45?T.hb2:x.c2;
   $('#hm').textContent=T.hm;
@@ -2231,6 +2251,42 @@ const POLICY=[
 })();
 /*P8-SCRIPT-END*/
 
+/* ── 网页版 Toast 轮播 · 文案真源 = Design Guide「广告 › Toast 投放」（Harry 2026-08-06 定稿 3 条 RM + 2026-08-19 赞助条）
+   中文忌讳铁律：中文文案禁「逝去/死去/遗像/祭扫/亡」，用 Harry 亲给的「思念的家人 / 安静的港湾」。 */
+(function(){
+  var POOL={
+    en:[
+      {t:'Remember Me — a quiet place for the people you miss.', go:'https://apps.apple.com/app/id6781578277'},
+      {t:'One photo becomes a portrait that stays with you. Free.', go:'https://apps.apple.com/app/id6781578277'},
+      {t:'Aria Magic Voice — voice input that learns how you speak, 100% on-device.', go:'https://www.ariamagicvoice.com/'},
+      {t:'Buy me a Coffee — Life is not Easy, Buy me a Coffee', go:'https://www.ariamagicvoice.com/apps/sponsor.html'}
+    ],
+    zh:[
+      {t:'Remember Me 记住我 — 给思念的家人，一处安静的港湾。', go:'https://apps.apple.com/cn/app/id6781578277'},
+      {t:'Aria Magic Voice 输入法 — 越用越懂你，数据永不出机。', go:'https://www.ariamagicvoice.com/'},
+      {t:'赞助 · Buy me a Coffee — 生活不易，请我喝杯咖啡', go:'https://www.ariamagicvoice.com/apps/sponsor.html'}
+    ]
+  };
+  var box=document.getElementById('p8Toast'),tt=document.getElementById('p8ToastT'),go=document.getElementById('p8ToastGo');
+  if(!box) return;
+  var idx=0, timer=null;
+  function lang(){ try{ if(typeof window.__p8Lang==='function') return window.__p8Lang(); }catch(e){} return (document.documentElement.lang||'en').slice(0,2)==='zh'?'zh':'en'; }
+  function show(i){
+    var L=lang(), list=POOL[L]||POOL.en; idx=i%list.length;
+    box.classList.add('sw');
+    setTimeout(function(){ tt.textContent=list[idx].t; go.href=list[idx].go; box.classList.remove('sw'); },250);
+  }
+  function start(){ clearInterval(timer); show(idx); timer=setInterval(function(){ show(idx+1); },10000); }  /* 每条 10s（Harry 2026-08-23） */
+  window.__p8ToastRefresh=function(){ idx=0; start(); };   /* 语言切换时由门户调用 */
+  setTimeout(start,300);   /* 等门户首轮 render() 把语言变量就位再读 */
+  /* 语言变化兜底：菜单点击事件可能被门户 stopPropagation 吞掉，所以每 500ms 轻量比对一次 lang；变了就重启轮播 */
+  var lastL=null; setInterval(function(){ var L=lang(); if(lastL!==null && L!==lastL){ idx=0; start(); } lastL=L; },500);
+})();
+
+
+/* 网页版 Toast 跟门户语言：门户的 lang 变量是闭包内的 let，这里通过 #lang 控件反推；切换时重启轮播 */
+window.__p8Lang=function(){ try{ if(typeof lang==='string') return lang==='zh'?'zh':'en'; }catch(e){} try{ var el=document.getElementById('lang'); var v=(el&&el.textContent||'').trim(); /* 实测：按钮显示的是「当前」语言（English=en / 中文=zh），不是目标语言 */ if(/中/.test(v)) return 'zh'; }catch(e){} return 'en'; };
+(function(){ /* #lang 只是开菜单；真正选语言的是 #mnuLang 里的两个按钮 */ var mn=document.getElementById('mnuLang'); if(!mn) return; mn.addEventListener('click',function(){ setTimeout(function(){ if(window.__p8ToastRefresh) window.__p8ToastRefresh(); },80); }); })();
 
 /* ── i人洞府 页（everything-about-me/）专用 ──
    ① 左栏 Aria / Remember Me 在母版里是页内 data-app 切换 —— 本页那些内容被 .p8-hidden 藏着，
@@ -2256,7 +2312,7 @@ const POLICY=[
      映射表 light 侧取 Anthropic 官方品牌色 + Design Guide 派生值；切回 Dark 用反向表还原。 */
   var LIGHT_MAP=[
     ['#282826','#fffefc'],['#30302d','#f4f3ee'],['#34342f','#efede6'],['#3a3a37','#e8e6dc'],
-    ['#dfdedb','#141413'],['#969692','#5f5e59'],['#6e6e69','#8a8985'],['#c9c8c4','#2b2a26'],
+    ['#dfdedb','#141413'],['#969692','#5f5e59'],['#6e6e69','#2b2a26'],['#c9c8c4','#2b2a26'],
     ['#deded9','#d97757'],['#252522','#faf9f5'],['#7ec97e','#788c5d'],
     ['rgba(255,255,255,.08)','rgba(20,20,19,.08)'],['rgba(255,255,255,.14)','rgba(20,20,19,.12)'],
     ['rgba(255,255,255,.16)','rgba(20,20,19,.14)'],['rgba(255,255,255,.22)','rgba(20,20,19,.2)'],
@@ -2265,10 +2321,42 @@ const POLICY=[
   ];
   var PAPER_LIGHT_VARS='body.light{--bg:transparent;--card:#ffffff;--card2:#f4f3ee;--line:#e8e6dc;--grid:rgba(20,20,19,.12);'
     +'--t1:#141413;--t2:#5f5e59;--t3:#b0aea5;--cell:#2b2a26;--pill:#e8e6dc;--on:#d97757;--onT:#ffffff;'
-    +'--hl:rgba(120,140,93,.18);--green:#788c5d;--shadow:0 10px 30px rgba(20,20,19,.08)}';
+    +'--hl:rgba(120,140,93,.18);--green:#788c5d;--shadow:0 10px 30px rgba(20,20,19,.08)}'
+    +'.wrap{padding-bottom:48px!important}'; /* 嵌入时署名底距与计算器统一 48px（Harry：两边取中间值） */
   var _norm=document.createElement('i');
   function normColor(c){ _norm.style.color=''; _norm.style.color=c; return _norm.style.color||c; }
   var MAP_N=LIGHT_MAP.map(function(m){ return [normColor(m[0]),normColor(m[1])]; });
+  /* 计算器两处与主题无关的常驻处理（都不改 DC 文件本体）：
+     ① 下拉列表加高：DC 把 max-height:230px 写死在每个下拉的 inline style 上，
+        样式表压不过 inline → 用 !important 压过去。230 → 460（Harry：延长 100%，不然还要滚）。
+        真正让人要滚的根因是年份范围 range(1900,3000) 共 1101 项，那个要动 DC 文件，未改，已报 Harry。
+     ② 底部署名：别人只截中间内容也带着出处（Harry：不然他直接把我的截掉，那不就变成他自己的了）。 */
+  /* Footer 与速查表完全同一套（Harry：以速查表为准，横线颜色/宽度/间距都抄它；用同一个 DIV 类 .p8ft）。
+     速查表里这段 CSS 在它自己文件里；计算器是 DC 产物不能改文件 → 运行时注入同一份。两处改要一起改。 */
+  var P8FT_CSS='.p8ft{margin:26px 0 0;padding:18px 12px 0;border-top:1px solid #e8e6dc;text-align:center;font-family:inherit}'
+    +'.p8ft .p8ft-n{font-size:13.5px;font-weight:700;color:#141413;letter-spacing:.01em}'
+    +'.p8ft .p8ft-n em{font-style:normal;font-weight:600;color:#5f5e59}'
+    +'.p8ft .p8ft-s{margin-top:5px;font-size:12px;color:#5f5e59;line-height:1.65}'
+    +'.p8ft .p8ft-u{margin-top:7px;font-size:11.5px;color:#5f5e59;font-variant-numeric:tabular-nums;letter-spacing:.02em}'
+    +'body.__dk .p8ft{border-top-color:#3a3a37}body.__dk .p8ft .p8ft-n{color:#dfdedb}body.__dk .p8ft .p8ft-n em,body.__dk .p8ft .p8ft-s,body.__dk .p8ft .p8ft-u{color:#969692}';
+  var P8FT_HTML='<div class="p8ft-n">i人洞府 <em>· Everything About Me</em></div>'
+    +'<div class="p8ft-s">i人自己的洞府 · 无需打电话咨询 · 无需求人帮助 · 你的资料你做主</div>'
+    +'<div class="p8ft-u">www.ariamagicvoice.com</div>';
+  var CALC_EXTRA_CSS='[style*="max-height: 230px"]{max-height:460px!important}'+P8FT_CSS;
+  function ensureCalcExtras(d,light){
+    var mine=false;
+    if(!d.getElementById('__p8bmkCss')){
+      var c=d.createElement('style'); c.id='__p8bmkCss'; c.textContent=CALC_EXTRA_CSS;
+      (d.head||d.documentElement).appendChild(c); mine=true;
+    }
+    /* 挂进 840 宽的内容容器（data-screen-label 那个），不挂 body：否则比速查表宽 54px、横线对不齐 */
+    var host=d.querySelector('[data-screen-label]')||d.body;
+    var b=d.getElementById('p8ft');
+    if(!b){ b=d.createElement('div'); b.id='p8ft'; b.className='p8ft'; b.innerHTML=P8FT_HTML; host.appendChild(b); mine=true; }
+    else if(b!==host.lastElementChild){ host.appendChild(b); mine=true; } /* DC 重渲染后挪回末尾 */
+    d.body.classList.toggle('__dk',!light);
+    return mine;
+  }
   var frameState={applying:false,obs:null,doc:null};
   function rewriteInline(d,toLight){
     frameState.applying=true;
@@ -2296,13 +2384,14 @@ const POLICY=[
     var st=d.getElementById('__portalLight');
     if(light){ if(!st){ st=d.createElement('style'); st.id='__portalLight'; st.textContent='a{color:#141413!important}a:hover{color:#d97757!important}'; (d.head||d.documentElement).appendChild(st); } }
     else if(st) st.remove();
+    frameState.applying=true; ensureCalcExtras(d,light); frameState.applying=false;
     rewriteInline(d,light);
     if(frameState.doc!==d){
       if(frameState.obs) frameState.obs.disconnect();
       frameState.doc=d; var tm=null;
       frameState.obs=new MutationObserver(function(){
         if(frameState.applying) return;
-        clearTimeout(tm); tm=setTimeout(function(){ if(!document.body.classList.contains('dark')) rewriteInline(d,true); },40);
+        clearTimeout(tm); tm=setTimeout(function(){ var lt=!document.body.classList.contains('dark'); frameState.applying=true; ensureCalcExtras(d,lt); frameState.applying=false; if(lt) rewriteInline(d,true); },40);
       });
       frameState.obs.observe(d.body,{subtree:true,childList:true,attributes:true,attributeFilter:['style']});
     }

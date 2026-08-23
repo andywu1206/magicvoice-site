@@ -29,7 +29,7 @@
   .sub a{border-bottom:1px solid var(--line);}
   .card{margin-top:22px;border:1px solid var(--line);border-radius:24px;padding:26px;background:var(--card);box-shadow:var(--shadow);}
   .card h2{margin:0;color:var(--t1);font-size:16px;font-weight:790;}
-  .desc{margin:6px 0 14px;font-size:12.5px;color:var(--t3);line-height:1.6;}
+  .desc{margin:6px 0 14px;font-size:12.5px;color:var(--cell);line-height:1.6;}
   .tabs{display:flex;gap:2px;padding:4px;border-radius:999px;background:var(--pill);width:fit-content;max-width:100%;margin:0 auto 10px;}
   .tabs button{border:none;cursor:pointer;font-family:inherit;font-size:13px;font-weight:700;white-space:nowrap;border-radius:999px;padding:7px 18px;background:transparent;color:var(--t2);}
   .tabs button:hover{filter:brightness(1.3);}
@@ -51,7 +51,7 @@
   .pager button.on{background:var(--on);color:var(--onT);border-color:transparent;font-weight:700;}
   .pager button:disabled{opacity:.35;cursor:default;}
   .pager .rng{margin:0 6px;color:var(--t3);font-variant-numeric:tabular-nums;}
-  .notes{list-style:none;margin:18px 0 0;padding:0;font-size:12px;color:var(--t3);line-height:1.7;}
+  .notes{list-style:none;margin:18px 0 0;padding:0;font-size:12px;color:var(--cell);line-height:1.7;}
   .notes li::before{content:'· ';}
   .jump{display:inline-flex;gap:8px;align-items:center;margin-top:10px;font-size:12.5px;color:var(--t2);}
   .jump code{background:var(--card2);padding:2px 8px;border-radius:8px;color:var(--t1);font-size:12px;}
@@ -59,7 +59,13 @@
   .cmp .box{border:1px solid var(--line);border-radius:16px;padding:14px;background:var(--card2);}
   .cmp b{color:var(--t1);display:block;margin-bottom:6px;font-size:13px;}
   .cmp p{margin:0;font-size:12.5px;color:var(--t2);line-height:1.6;}
-  .hint{margin:18px 4px 0;font-size:12px;color:var(--t3);line-height:1.7;}
+  .hint{margin:18px 4px 0;font-size:12px;color:var(--cell);line-height:1.7;}
+  /* 底部署名 · 防截图盗用（Harry：两边用同一个 Footer DIV，以速查表这套为准，计算器运行时注入同一份 CSS） */
+  .p8ft{margin:26px 0 0;padding:18px 12px 0;border-top:1px solid var(--line,#e8e6dc);text-align:center;}
+  .p8ft .p8ft-n{font-size:13.5px;font-weight:700;color:var(--t1,#141413);letter-spacing:.01em;}
+  .p8ft .p8ft-n em{font-style:normal;font-weight:600;color:var(--t2,#5f5e59);}
+  .p8ft .p8ft-s{margin-top:5px;font-size:12px;color:var(--t2,#5f5e59);line-height:1.65;}
+  .p8ft .p8ft-u{margin-top:7px;font-size:11.5px;color:var(--t2,#5f5e59);font-variant-numeric:tabular-nums;letter-spacing:.02em;}
 </style>
 </head>
 <body>
@@ -89,6 +95,11 @@
       <li id="foot"></li>
       <li>模拟估算，非官方结果。公式内置本地、计算不联网；各地计发基数每年更新一次，由 App 联网拉取参数（仅参数，不上传任何个人输入）。</li>
     </ul>
+    <div class="p8ft" id="p8ft">
+      <div class="p8ft-n">i人洞府 <em>· Everything About Me</em></div>
+      <div class="p8ft-s">i人自己的洞府 · 无需打电话咨询 · 无需求人帮助 · 你的资料你做主</div>
+      <div class="p8ft-u">www.ariamagicvoice.com</div>
+    </div>
   </section>
 </div>
 
@@ -104,42 +115,61 @@
     m_worker:"企业 / 工人岗男性。原 60 岁 → 逐步延迟到 63 岁（官方对男性不分干部 / 工人，同一张表）。",
     f_cadre:"官方口径「女职工 · 原法定退休年龄 55 周岁」（管理技术岗 / 有编制）。55 岁 → 逐步延迟到 58 岁。",
     f_worker:"官方口径「女职工 · 原法定退休年龄 50 周岁」（工人岗 / 普通职工）。50 岁 → 逐步延迟到 55 岁。" };
-  const birth={y:1975,m:6}; // 默认与计算器一致（Harry 2026-08-22：第一次打开都是 1975-06-06）
+  const birth={y:1987,m:7}; // 默认与计算器一致（Harry 2026-08-23：改为 1985-06-06）
   let PAGES=3;              // 页数按每页容量算出来（Harry 2026-08-23：少翻页，每页至少 19 行 ≈ 原 13 行 +46%）
   let curK='m60', curPage=0;
+  const PAGE_KEY='me.retire.table.page.v3'; // 翻页位置（只存在本机浏览器，不上传）
   const ageStr=am=>{const y=Math.floor(am/12),m=am%12;return y+"岁"+(m?m+"个月":"");};
+  const END_Y=2030; // 封顶后仍逐年列到 2030 年出生（80/90/00/10/20 后都查得到具体退休年份）
   function buildRows(k){
     const [baseAge,startY,per,cap]=CFG[TAB2KIND[k]];
     const ym=i=>{const y=startY+Math.floor(i/12),m=i%12+1;return y+"年"+m+"月";};
     const rows=[[startY-1+"年12月及以前",ageStr(baseAge),"已按原法定年龄退休"]];
     for(let n=1;n<=cap;n++){const a=(n-1)*per,b=n*per-1;rows.push([ym(a)+" – "+ym(b),ageStr(baseAge+n),ym(a+baseAge+n)+" – "+ym(b+baseAge+n)]);}
-    rows.push([ym(cap*per)+"及以后",ageStr(baseAge+cap),"出生年月 + "+ageStr(baseAge+cap)]);
+    // 封顶之后年龄恒定，但退休年份仍逐年不同 → 一年一行列到 END_Y，别让用户自己算
+    const capA=baseAge+cap, capY0=startY+Math.floor(cap*per/12);
+    for(let y=capY0;y<=END_Y;y++){
+      const a=(y-startY)*12,b=a+11;
+      rows.push([ym(a)+" – "+ym(b),ageStr(capA),ym(a+capA)+" – "+ym(b+capA)]);
+    }
+    rows.push([(END_Y+1)+"年1月及以后",ageStr(capA),"出生年月 + "+ageStr(capA)]);
     const bi=(birth.y-startY)*12+(birth.m-1);
-    const hl=bi<0?0:Math.min(cap+1,Math.floor(bi/per)+1);
+    let hl;
+    if(bi<0) hl=0;
+    else if(bi<cap*per) hl=Math.floor(bi/per)+1;
+    else if(birth.y<=END_Y) hl=cap+1+(birth.y-capY0);
+    else hl=rows.length-1;
     return {rows,hl};
   }
   function yearOf(s){const m=s.match(/^(\d{4})年/);return m?m[1]:'';}
   function render(k,scroll,page){
     curK=k;
     const {rows,hl}=buildRows(k);
-    const per=Math.max(19,Math.ceil(rows.length/3)); PAGES=Math.ceil(rows.length/per);
-    if(page===undefined)page=Math.floor(hl/per);       // 默认翻到绿行所在页
-    curPage=Math.max(0,Math.min(PAGES-1,page));
-    const s=curPage*per,e=Math.min(rows.length,s+per);
+    const per=21; PAGES=Math.ceil(rows.length/per);   // Harry 2026-08-23：每页固定 21 行（1975→1995 一屏），剩下翻下一页
+    if(page===undefined){
+      // Harry 2026-08-23：记住用户自己翻到的页；没翻过才按出生年月定位
+      var saved=null;
+      try{ var pc=JSON.parse(localStorage.getItem(PAGE_KEY)||'{}'); if(pc.k===k && typeof pc.s==='number') saved=pc.s; }catch(e){}
+      page = saved!==null ? saved : ((hl||0) - Math.floor(per/2));
+    }
+    // Harry 2026-08-24：page 语义改为「起始行号」，默认让出生年那一行落在整页正中间
+    const maxS=Math.max(0,rows.length-per);
+    const s=Math.max(0,Math.min(maxS,page)),e=Math.min(rows.length,s+per);
+    curPage=Math.floor(s/per);
     let h='<span class="th">出生时间</span><span class="th">改革后退休年龄</span><span class="th">退休时间</span>';
     rows.slice(s,e).forEach((r,j)=>{const i=s+j;r.forEach(t=>{h+='<span class="td">'+t+'</span>';});});
     document.getElementById('tbl').innerHTML=h;
     // 翻页条：‹ 上一页 · 第 N 页按钮（标出生年份段）· 下一页 ›
     const seg=p=>{const a=rows[p*per],b=rows[Math.min(rows.length-1,(p+1)*per-1)];return (yearOf(a[0])||'…')+'–'+(yearOf(b[0])||'…');};
     // Harry 2026-08-23：只要 上一页 / 下一页 两个按钮；中间不放第 N 页按钮，只放一段淡灰年份范围当位置提示
-    let ph='<button data-p="'+(curPage-1)+'"'+(curPage===0?' disabled':'')+'>‹ 上一页</button>'
+    let ph='<button data-p="'+(s-per)+'"'+(s<=0?' disabled':'')+'>‹ 上一页</button>'
           +'<span class="rng">'+(curPage+1)+'/'+PAGES+'</span>'   /* Harry 2026-08-23：只留页码，不要年份段 */
-          +'<button data-p="'+(curPage+1)+'"'+(curPage===PAGES-1?' disabled':'')+'>下一页 ›</button>';
-    ['pagerBot'].forEach(id=>{const el=document.getElementById(id);el.innerHTML=ph;el.querySelectorAll('button').forEach(b=>b.onclick=()=>{render(curK,false,+b.dataset.p);document.getElementById('tbl').scrollIntoView({block:'start',behavior:'smooth'});});});
+          +'<button data-p="'+(s+per)+'"'+(s>=maxS?' disabled':'')+'>下一页 ›</button>';
+    ['pagerBot'].forEach(id=>{const el=document.getElementById(id);el.innerHTML=ph;el.querySelectorAll('button').forEach(b=>b.onclick=()=>{try{localStorage.setItem(PAGE_KEY,JSON.stringify({k:curK,s:+b.dataset.p}));}catch(e){} render(curK,false,+b.dataset.p);document.getElementById('tbl').scrollIntoView({block:'start',behavior:'smooth'});});});
     document.getElementById('tabnote').textContent=NOTE[k];
     document.getElementById('foot').textContent=(k==='f50'?"每晚出生 2 个月，退休延迟 1 个月，封顶 55 岁。":"每晚出生 4 个月，退休延迟 1 个月，封顶 "+(k==='f55'?"58":"63")+" 岁。");
   }
-  document.querySelectorAll('#tabs button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#tabs button').forEach(x=>x.classList.remove('on'));b.classList.add('on');render(b.dataset.k,true);});
+  document.querySelectorAll('#tabs button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#tabs button').forEach(x=>x.classList.remove('on'));b.classList.add('on');try{localStorage.removeItem(PAGE_KEY);}catch(e){} render(b.dataset.k,true);});
 
   // URL 参数：?b=1992-06&k=m60|f55|f50 ；#light 浅色
   const q=new URLSearchParams(location.search);

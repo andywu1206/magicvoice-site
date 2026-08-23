@@ -151,7 +151,7 @@ class Component extends DCLogic {
   STORE_KEY = "me.retire.calc.v1";
   PERSIST = ["y","m","d","region","prov","salary","py","pmn","tab"];
   state = (() => {
-    const base = { y: 1975, m: 6, d: 6, region: "北京", prov: null, salary: 10000, py: null, pmn: null, open: null, tab: "m_cadre", salaryText: null };
+    const base = { y: 1987, m: 7, d: 7, region: "北京", prov: null, salary: 10000, py: null, pmn: null, open: null, tab: "m_cadre", salaryText: null };
     try { const saved = JSON.parse(localStorage.getItem("me.retire.calc.v1") || "{}"); for (const k of ["y","m","d","region","prov","salary","py","pmn","tab"]) if (saved[k] !== undefined) base[k] = saved[k]; } catch (e) {}
     return base;
   })();
