@@ -123,8 +123,15 @@
   const END_Y=2030; // 封顶后仍逐年列到 2030 年出生（80/90/00/10/20 后都查得到具体退休年份）
   function buildRows(k){
     const [baseAge,startY,per,cap]=CFG[TAB2KIND[k]];
-    const ym=i=>{const y=startY+Math.floor(i/12),m=i%12+1;return y+"年"+m+"月";};
-    const rows=[[startY-1+"年12月及以前",ageStr(baseAge),"已按原法定年龄退休"]];
+    const ym=i=>{const y=startY+Math.floor(i/12),m=((i%12)+12)%12+1;return y+"年"+m+"月";}; // 负索引（改革前年份）也要正确取月
+    // Harry 2026-08-24：表从 1930 年起逐年列到 2030（横跨 100 年），改革前按原法定年龄，不再用一行兜底
+    const START_Y=1930;
+    const rows=[];
+    for(let y=START_Y;y<startY;y++){
+      const a=(y-startY)*12,b=a+11;
+      rows.push([ym(a)+" – "+ym(b),ageStr(baseAge),ym(a+baseAge)+" – "+ym(b+baseAge)]);
+    }
+    const PRE=rows.length; // 改革前行数，后面高亮定位要加这个偏移
     for(let n=1;n<=cap;n++){const a=(n-1)*per,b=n*per-1;rows.push([ym(a)+" – "+ym(b),ageStr(baseAge+n),ym(a+baseAge+n)+" – "+ym(b+baseAge+n)]);}
     // 封顶之后年龄恒定，但退休年份仍逐年不同 → 一年一行列到 END_Y，别让用户自己算
     const capA=baseAge+cap, capY0=startY+Math.floor(cap*per/12);
@@ -135,9 +142,9 @@
     rows.push([(END_Y+1)+"年1月及以后",ageStr(capA),"出生年月 + "+ageStr(capA)]);
     const bi=(birth.y-startY)*12+(birth.m-1);
     let hl;
-    if(bi<0) hl=0;
-    else if(bi<cap*per) hl=Math.floor(bi/per)+1;
-    else if(birth.y<=END_Y) hl=cap+1+(birth.y-capY0);
+    if(bi<0) hl=Math.max(0,birth.y-START_Y);
+    else if(bi<cap*per) hl=PRE+Math.floor(bi/per);
+    else if(birth.y<=END_Y) hl=PRE+cap+(birth.y-capY0);
     else hl=rows.length-1;
     return {rows,hl};
   }
@@ -165,7 +172,7 @@
     let ph='<button data-p="'+(s-per)+'"'+(s<=0?' disabled':'')+'>‹ 上一页</button>'
           +'<span class="rng">'+(curPage+1)+'/'+PAGES+'</span>'   /* Harry 2026-08-23：只留页码，不要年份段 */
           +'<button data-p="'+(s+per)+'"'+(s>=maxS?' disabled':'')+'>下一页 ›</button>';
-    ['pagerBot'].forEach(id=>{const el=document.getElementById(id);el.innerHTML=ph;el.querySelectorAll('button').forEach(b=>b.onclick=()=>{try{localStorage.setItem(PAGE_KEY,JSON.stringify({k:curK,s:+b.dataset.p}));}catch(e){} render(curK,false,+b.dataset.p);document.getElementById('tbl').scrollIntoView({block:'start',behavior:'smooth'});});});
+    ['pagerBot'].forEach(id=>{const el=document.getElementById(id);el.innerHTML=ph;el.querySelectorAll('button').forEach(b=>b.onclick=()=>{try{localStorage.setItem(PAGE_KEY,JSON.stringify({k:curK,s:Math.max(0,Math.min(maxS,+b.dataset.p))}));}catch(e){} render(curK,false,+b.dataset.p);document.getElementById('tbl').scrollIntoView({block:'start',behavior:'smooth'});});});
     document.getElementById('tabnote').textContent=NOTE[k];
     document.getElementById('foot').textContent=(k==='f50'?"每晚出生 2 个月，退休延迟 1 个月，封顶 55 岁。":"每晚出生 4 个月，退休延迟 1 个月，封顶 "+(k==='f55'?"58":"63")+" 岁。");
   }

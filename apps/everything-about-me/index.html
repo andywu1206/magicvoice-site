@@ -805,7 +805,10 @@ body:not(.dark) .p8-scope{
   --p8-green:#788c5d; --p8-shadow:0 8px 26px -14px rgba(20,20,19,.14);
 }
 /* 顶部留给门户 hero 渐变（母版 620px 带），往下渐入纸白；不盖 Harry 喜欢的那段渐变 */
-body:not(.dark) .p8-hero{background:linear-gradient(180deg,rgba(250,249,245,0) 0,rgba(250,249,245,0) 400px,#faf9f5 600px)!important}
+/* Harry 2026-08-24 选 2：浅黄找回来，但严格止于分隔线 —— 壳的 hero 渐变铺到 620px（.app background-size 100% 620px），
+   纸白层从 620px 才开始（0→620px 完全透明），一个像素都不伸进上面的渐变区。下面 #faf9f5 纸白不变。
+   注：.p8-hero 的 top 在 .app 里偏移 56px（顶栏），所以这里用 564px = 620 - 56 对齐壳的分隔线。 */
+body:not(.dark) .p8-hero{background:linear-gradient(180deg,rgba(250,249,245,0) 0,rgba(250,249,245,0) 564px,#faf9f5 564px)!important}
 body:not(.dark) .p8-scope .p8-card{border-color:var(--p8-line)}
 /* p8 原来自己管整页宽度，进壳后宽度归 .hero 管 */
 .p8-scope .p8-wrap{max-width:none!important;margin:0!important;padding:0!important}
