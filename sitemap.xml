@@ -7,43 +7,49 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://ariamagicvoice.com/about.html</loc>
+    <loc>https://ariamagicvoice.com/aria/</loc>
+    <lastmod>2026-08-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ariamagicvoice.com/aria/about.html</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ariamagicvoice.com/compatibility.html</loc>
+    <loc>https://ariamagicvoice.com/aria/compatibility.html</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ariamagicvoice.com/privacy.html</loc>
+    <loc>https://ariamagicvoice.com/aria/privacy.html</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://ariamagicvoice.com/terms.html</loc>
+    <loc>https://ariamagicvoice.com/aria/terms.html</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://ariamagicvoice.com/refund.html</loc>
+    <loc>https://ariamagicvoice.com/aria/refund.html</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://ariamagicvoice.com/recovery.html</loc>
+    <loc>https://ariamagicvoice.com/aria/recovery.html</loc>
     <lastmod>2026-04-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://ariamagicvoice.com/guide.html</loc>
+    <loc>https://ariamagicvoice.com/aria/guide.html</loc>
     <lastmod>2026-04-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
