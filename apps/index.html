@@ -75,7 +75,7 @@ body.dark .tabs .note{color:#9A9AA0}
 .brand b{font:600 14px/1 var(--font);letter-spacing:-.01em}
 .slab{padding:0 8px;margin:28px 0 6px;font:600 11px/1 var(--font);
   letter-spacing:.06em;text-transform:uppercase;color:var(--ink3)}
-.item{width:100%;height:52px;display:flex;align-items:center;gap:10px;padding:0 8px;
+.item{width:100%;height:52px;flex-shrink:0;display:flex;align-items:center;gap:10px;padding:0 8px;
   text-decoration:none;color:inherit;font:inherit;
   border:none;border-radius:8px;background:transparent;cursor:pointer;text-align:left;
   transition:background .15s}
@@ -83,6 +83,9 @@ body.dark .tabs .note{color:#9A9AA0}
 .item.on{background:var(--sel)}
 .item img{width:34px;height:34px;border-radius:8px;flex:0 0 auto;display:block}
 .item>svg{width:34px;height:34px;border-radius:8px;flex:0 0 auto;display:block}
+/* Harry 2026-08-28：i人洞府 PNG 自带内边距，同尺寸下视觉偏小 → 放大补偿，占位仍 34px */
+#p8Nav img{width:38px;height:38px;margin:0 -2px}
+.sbmin #p8Nav img{width:32px;height:32px;margin:0 -2px}
 .item .tx{min-width:0;display:grid;gap:2px}
 .item .tx b{font:590 13px/1.25 var(--font);color:var(--ink);letter-spacing:-.005em;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -238,6 +241,24 @@ body.dark{--line-soft:rgba(255,255,255,.07)}
 .cmp{display:none}
 [data-v="5"] .cmp{display:block;padding:34px 56px 44px;border-top:1px solid var(--line)}
 /* 三卡上下都对齐：stretch 让它们等高，底边严格平齐*/
+/* ═══ 平台 Tab（Harry 2026-08-30 · 方案 1）═══ */
+.pf{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 0}
+.pf .pfb{display:flex;align-items:center;gap:8px;height:44px;padding:0 16px;
+  border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);
+  font:600 13.5px/1 var(--font);cursor:pointer;transition:.16s}
+.pf .pfb:hover{border-color:var(--ink3)}
+.pf .pfb.on{border-color:var(--ink);box-shadow:0 0 0 1px var(--ink) inset}
+.pf .pfb svg{width:17px;height:17px;flex:0 0 auto}
+.pf .pst{font:500 11px/1 var(--font);padding:3px 7px;border-radius:5px}
+.pf .pst.live{background:color-mix(in srgb,#30A46C 16%,transparent);color:#1F7A4D}
+.pf .pst.soon{background:var(--sel);color:var(--ink3)}
+.pfd{margin:6px 0 0;font:400 12.5px/1.5 var(--font);color:var(--ink3)}
+/* 未上线平台：整块占位，不给可点按钮（同 soon 的处理原则——公网不给坏链接）*/
+/* 占位卡必须横跨整行 —— #cg 是三列网格，不写 grid-column 会被塞进一格只占 1/3 宽 */
+.pfsoon{grid-column:1/-1;border:1px solid var(--line);border-radius:16px;background:var(--card);
+  padding:34px 26px;text-align:center;box-shadow:var(--shadow);margin-top:20px}
+.pfsoon b{display:block;font:700 20px/1.3 var(--font);letter-spacing:-.015em}
+.pfsoon p{margin:7px 0 0;font:400 13.5px/1.6 var(--font);color:var(--ink2)}
 .cgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:20px;
   align-items:stretch}
 /* Remember Me 只有 Free / Pro 两档（没有 Early Access），两张卡时收成两列，
@@ -580,8 +601,13 @@ body.dark [data-v="8"] .ccard{border-color:rgba(255,255,255,.095)}
 [data-v="9"] .hero::before{opacity:0}
 
 /* 侧栏 = 固定浮层玻璃卡 —— 浮在 body 上，不参与正文排版 */
+/* 侧栏高度必须自适应，不能写死。Harry 2026-08-30 指出「底部间距不够，要参考顶部」——
+   实测根因不是间距设小了：内容需要 525px 而卡片写死 480px，超出 45px，
+   flex spacer 被压成 0、折叠圆钮被挤出卡片外，再被 overflow:hidden 裁掉，
+   所以底部看起来「贴住了」。写死高度还有个隐患：以后侧栏多一个导航项就会再炸一次。
+   改成 height:auto + min-height 保底 + max-height 兜顶，长几项都不会溢出。 */
 [data-v="9"] .side{position:fixed;z-index:30;
-  left:max(14px,calc((100vw - 1280px)/2 + 14px));top:118px;width:236px;height:352px;min-height:352px;
+  left:max(14px,calc((100vw - 1280px)/2 + 14px));top:118px;width:236px;height:auto;min-height:480px;
   max-height:calc(100svh - 132px);
   margin:0;padding:16px 12px 18px;border-right:none;border-radius:16px;
   /* 玻璃 = 方案 10 · Regular Liquid Glass（Harry 2026-08-05 15:30 选定）
@@ -625,7 +651,7 @@ body.dark [data-v="9"] .sbtoggle{background:rgba(255,255,255,.08);border-color:r
 /* 收起态：只留图标 */
 /* 收起态：卡片接近正方形，不做成上窄下长的细条（Harry 2026-08-04）*/
 [data-v="9"].sbmin{grid-template-columns:minmax(0,1fr)}
-[data-v="9"].sbmin .side{padding:14px 12px;height:352px;min-height:352px;width:96px}
+[data-v="9"].sbmin .side{padding:14px 12px;height:456px;min-height:456px;width:96px}
 /* 高亮块缩小，不再顶到上一个图标底部（Harry 2026-08-04）*/
 [data-v="9"].sbmin .item{justify-content:center;padding:0;height:46px;width:46px;margin:0 auto 6px;
   border-radius:11px}
@@ -677,7 +703,7 @@ body:has(.app[data-v="9"]){padding:0;background:var(--page)}
 @media (max-width:1100px){
   [data-v="9"]{padding-left:0;padding-right:0}
   [data-v="9"] main{padding-left:0}
-  [data-v="9"] .side{left:14px;top:112px;width:200px;height:352px}
+  [data-v="9"] .side{left:14px;top:112px;width:200px;height:auto;min-height:480px}
   [data-v="9"].sbmin .side{width:86px}
   [data-v="9"].sbmin .item{width:42px;height:42px}
   [data-v="9"] .hero{grid-template-columns:minmax(0,1fr) minmax(176px,220px);gap:22px;padding:72px 24px 48px 246px;min-height:420px}
@@ -692,8 +718,8 @@ body:has(.app[data-v="9"]){padding:0;background:var(--page)}
 }
 @media (max-width:760px){
   [data-v="9"] main{padding-left:0}
-  [data-v="9"] .side{left:10px;top:92px;width:208px;height:338px;min-height:338px;max-height:calc(100svh - 112px);border-radius:14px}
-  [data-v="9"].sbmin .side{width:44px;height:338px;min-height:338px;padding:10px 8px}
+  [data-v="9"] .side{left:10px;top:92px;width:208px;height:auto;min-height:480px;max-height:calc(100svh - 112px);border-radius:14px}
+  [data-v="9"].sbmin .side{width:44px;height:418px;min-height:418px;padding:10px 8px}
   [data-v="9"].sbmin .brand .m{width:28px;height:28px}
   [data-v="9"].sbmin .item{width:32px;height:32px;margin-bottom:8px;border-radius:9px}
   [data-v="9"].sbmin .item img{width:28px;height:28px;border-radius:7px}
@@ -802,9 +828,25 @@ body.dark .ccard{box-shadow:0 8px 26px -14px rgba(0,0,0,.5)}
       <span class="tx"><b>i人洞府</b></span>
     </a>
     <div class="slab">支持 · Support</div>
+    <!-- Harry 2026-08-28：SUPPORT 区顺序 = 商务合作 → 用户反馈 → 赞助。
+         前两条复用站内表单 openForm('biz'/'fb')（PUBLIC_FEEDBACK_MODAL），不 mailto。 -->
+    <a class="item" href="#" id="bizNav" role="button">
+      <svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#141418"/><path d="M0 8a8 8 0 0 1 8-8h18a8 8 0 0 1 8 8v9H0z" fill="#fff" opacity=".08"/><g transform="translate(7.82,7.82) scale(1.1475)" fill="#fff"><path d="M12.17 9.53c2.307-2.592 3.278-4.684 3.641-6.218.21-.887.214-1.58.16-2.065a3.6 3.6 0 0 0-.108-.563 2 2 0 0 0-.078-.23V.453c-.073-.164-.168-.234-.352-.295a2 2 0 0 0-.16-.045 4 4 0 0 0-.57-.093c-.49-.044-1.19-.03-2.08.188-1.536.374-3.618 1.343-6.161 3.604l-2.4.238h-.006a2.55 2.55 0 0 0-1.524.734L.15 7.17a.512.512 0 0 0 .433.868l1.896-.271c.28-.04.592.013.955.132.232.076.437.16.655.248l.203.083c.196.816.66 1.58 1.275 2.195.613.614 1.376 1.08 2.191 1.277l.082.202c.089.218.173.424.249.657.118.363.172.676.132.956l-.271 1.9a.512.512 0 0 0 .867.433l2.382-2.386c.41-.41.668-.949.732-1.526zm.11-3.699c-.797.8-1.93.961-2.528.362-.598-.6-.436-1.733.361-2.532.798-.799 1.93-.96 2.528-.361s.437 1.732-.36 2.531Z"/>
+  <path d="M5.205 10.787a7.6 7.6 0 0 0 1.804 1.352c-1.118 1.007-4.929 2.028-5.054 1.903-.126-.127.737-4.189 1.839-5.18.346.69.837 1.35 1.411 1.925"/></g></svg>
+      <span class="tx"><b id="bizNavTx">商务合作</b></span>
+    </a>
+    <a class="item" href="#" id="fbNav" role="button">
+      <svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#141418"/><path d="M0 8a8 8 0 0 1 8-8h18a8 8 0 0 1 8 8v9H0z" fill="#fff" opacity=".08"/><g transform="translate(7.82,7.82) scale(1.1475)" fill="#fff"><path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16M7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5M4.285 9.567a.5.5 0 0 1 .683.183A3.5 3.5 0 0 0 8 11.5a3.5 3.5 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683M10 8c-.552 0-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5S10.552 8 10 8"/></g></svg>
+      <span class="tx"><b id="fbNavTx">用户反馈</b></span>
+    </a>
     <a class="item" href="sponsor.html" id="spNav">
       <svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#EF4444"/><path d="M0 8a8 8 0 0 1 8-8h18a8 8 0 0 1 8 8v9H0z" fill="#fff" opacity=".08"/><path d="M17 26.5s-8.5-5.2-8.5-11.2A4.7 4.7 0 0 1 17 12.6a4.7 4.7 0 0 1 8.5 2.7c0 6-8.5 11.2-8.5 11.2z" fill="#fff"/></svg>
       <span class="tx"><b>赞助 · Sponsor</b></span>
+    </a>
+    <a class="item" href="follow.html" id="fmNav">
+      <svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#141418"/><path d="M0 8a8 8 0 0 1 8-8h18a8 8 0 0 1 8 8v9H0z" fill="#fff" opacity=".08"/><g transform="translate(7.82,7.82) scale(1.1475)" fill="#fff"><path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/></g></svg>
+      <span class="tx"><b>关注我 · Follow Me</b></span>
     </a>
     <div class="sp"></div>
     <button class="sbtoggle" id="sbToggle" title="收起侧栏" aria-label="收起侧栏">‹</button>
@@ -872,6 +914,10 @@ body.dark .ccard{box-shadow:0 8px 26px -14px rgba(0,0,0,.5)}
       <div class="mq" id="mq"><div class="mqv" id="mqv"></div><div class="mqd" id="mqd"></div></div>
       <h2 id="ch">选择版本</h2>
       <p id="cp">三个版本能力不同，勾表示有，横线表示没有。</p>
+      <!-- 顺序 = Harry 2026-08-30 亲定：标题 → 描述 → 平台选择器 → 版本卡。
+           原先按钮排在标题上面，标题被夹在中间，按钮读起来像悬空在段落外。 -->
+      <p class="pfd" id="pfd6"></p>
+      <div class="pf" id="pf6"></div>
       <div class="cgrid" id="cg"></div>
       <p class="cnote" id="cn"></p>
     </section>
@@ -1007,6 +1053,46 @@ const ROWS={
          ['云同步与备份',1,0,1],['抢先体验新功能',1,0,0],['App Store 审核的稳定版',0,1,1]],
      en:[['Family members and photos',1,1,1],['Family tree view',1,1,1],['Unlimited members',1,0,1],
          ['Cloud sync and backup',1,0,1],['Early access to new features',1,0,0],['Reviewed on the App Store',0,1,1]]}};
+
+/* ═══ 平台档（Harry 2026-08-30 定 · 方案 1：平台 Tab 在最上，版本卡不动）═══
+   st: live=已上线可下载 · soon=即将上线（按钮不可点）
+   未公开的平台档包在 INTERNAL 哨兵里 —— 对外构建物理剥离，产物里根本不存在。
+   为什么不用 display:none：藏的是像素不是信息，F12 一开就看到，
+   等于明着告诉别人在做什么路线，比不藏更糟。Harry 2026-08-30 明令。
+   ⚠️ 本注释刻意不写出被藏平台的名字 —— 注释会原样进对外产物，
+      写了就等于自己把要藏的东西说出来（2026-08-30 首次构建当场踩到）。 */
+const PLATS6={
+  aria:[{k:'mac',zh:'Mac',en:'Mac',st:'live',dzh:'macOS 13 或更新 · Apple Silicon',den:'macOS 13 or later · Apple Silicon'},
+        {k:'and',zh:'Android',en:'Android',st:'soon',dzh:'Android 10 或更新',den:'Android 10 or later'}
+       ],
+  rm:[{k:'ios',zh:'iPhone',en:'iPhone',st:'live',dzh:'iOS 16 或更新',den:'iOS 16 or later'}]
+};
+let curPlat='mac';
+const PLATICO={
+ mac:'<svg viewBox="0 0 16 16" fill="currentColor"><path d="M11.18 0c.06.79-.25 1.56-.72 2.12-.48.56-1.26 1-2.03.94-.07-.77.3-1.57.75-2.07C9.65.42 10.48.03 11.18 0M13.6 5.6c-.9.55-1.45 1.5-1.45 2.55 0 1.19.7 2.26 1.78 2.72-.21.68-.5 1.33-.87 1.94-.57.92-1.17 1.83-2.12 1.85-.92.02-1.22-.55-2.28-.55s-1.39.53-2.26.57c-.91.03-1.6-.99-2.18-1.9C3.05 10.91 2.15 7.5 3.4 5.2c.62-1.14 1.73-1.86 2.94-1.88.89-.02 1.73.6 2.28.6s1.57-.74 2.64-.63c.45.02 1.71.18 2.52 1.37-.06.04-1.5.88-1.18 2.94"/></svg>',
+ and:'<svg viewBox="0 0 16 16" fill="currentColor"><path d="M11.1 5.3a.55.55 0 1 1 0-1.1.55.55 0 0 1 0 1.1m-6.2 0a.55.55 0 1 1 0-1.1.55.55 0 0 1 0 1.1m6.4-2.9 1.1-1.9a.23.23 0 0 0-.4-.23l-1.11 1.93A6.9 6.9 0 0 0 8 1.6c-1 0-1.96.19-2.82.53L4.05.24a.23.23 0 1 0-.4.23l1.1 1.93C2.8 3.4 1.55 5.15 1.4 7.2h13.2c-.15-2.05-1.4-3.8-3.3-4.8M1.4 8v4.6c0 .77.63 1.4 1.4 1.4h.6v2.2a1.1 1.1 0 0 0 2.2 0V14h4.8v2.2a1.1 1.1 0 0 0 2.2 0V14h.6c.77 0 1.4-.63 1.4-1.4V8z"/></svg>',
+ ios:'<svg viewBox="0 0 16 16" fill="currentColor"><path d="M4.7 0h6.6A2.7 2.7 0 0 1 14 2.7v10.6A2.7 2.7 0 0 1 11.3 16H4.7A2.7 2.7 0 0 1 2 13.3V2.7A2.7 2.7 0 0 1 4.7 0m0 1.2c-.83 0-1.5.67-1.5 1.5v10.6c0 .83.67 1.5 1.5 1.5h6.6c.83 0 1.5-.67 1.5-1.5V2.7c0-.83-.67-1.5-1.5-1.5zM6.6 12.6h2.8a.6.6 0 0 1 0 1.2H6.6a.6.6 0 0 1 0-1.2"/></svg>',
+ win:'<svg viewBox="0 0 16 16" fill="currentColor"><path d="M0 2.27 6.53 1.4v6.3H0zM7.32 1.29 15.99 0v7.62H7.32zM0 8.48h6.53v6.32L0 13.9zM7.32 8.48h8.67V16l-8.67-1.2z"/></svg>'
+};
+function platsOf(a){ return PLATS6[a]||[]; }
+function renderPlatforms(){
+  const box=document.getElementById('pf6'); if(!box) return;
+  const list=platsOf(cur);
+  if(list.length<2){ box.innerHTML=''; box.style.display='none'; return; }
+  box.style.display='';
+  if(!list.some(p=>p.k===curPlat)) curPlat=list[0].k;
+  box.innerHTML=list.map(p=>{
+    const on=p.k===curPlat?' on':'';
+    const stx=p.st==='live'?(lang==='zh'?'已上线':'Available')
+                           :(lang==='zh'?'即将上线':'Coming Soon');
+    return '<button type="button" class="pfb'+on+'" data-plat="'+p.k+'">'+
+      (PLATICO[p.k]||'')+'<span>'+(lang==='zh'?p.zh:p.en)+'</span>'+
+      '<span class="pst '+p.st+'">'+stx+'</span></button>';
+  }).join('');
+  box.querySelectorAll('button[data-plat]').forEach(b=>{
+    b.onclick=()=>{ curPlat=b.dataset.plat; renderCompare(); };
+  });
+}
 
 /* ═══ 方案 6 · 档位与功能表 —— 逐条抄自官网 index.html #pricing ═══ */
 /* 档位与顺序 = Harry 2026-08-04 手改定稿，以他给的顺序与措辞为准 */
@@ -1253,6 +1339,23 @@ function renderCompare(){
      否则 Free 会去读 Beta 的勾。
      ⚠️ 这段注释刻意不写出那个属性的完整字面名：build_public 的 Admin 清零校验
         是「数字面串出现次数」，注释里写全了会把计数顶爆、整个构建当场失败。 */
+  /* 平台 Tab（方案 1）：先画平台，再决定要不要画版本卡。
+     未上线的平台不给可点按钮 —— 跟 soon() 同一条原则：公网不放坏链接。 */
+  renderPlatforms();
+  const _pl=platsOf(cur), _pc=_pl.find(p=>p.k===curPlat)||_pl[0];
+  const _pd=document.getElementById('pfd6');
+  if(_pd) _pd.textContent=(_pl.length>1&&_pc)?(lang==='zh'?_pc.dzh:_pc.den):'';
+  if(_pl.length>1&&_pc&&_pc.st!=='live'){
+    $('#cg').classList.remove('two');
+    $('#cg').innerHTML='<div class="pfsoon"><b>'+
+      (lang==='zh'?'即将上线':'Coming Soon')+'</b><p>'+
+      (lang==='zh'
+        ? (_pc.zh+' 版正在收尾，很快就能下载。')
+        : ('The '+_pc.en+' version is almost ready.'))+
+      '</p></div>';
+    $('#cn').textContent='';
+    return;
+  }
   const COLIDX=cur==='rm'?[1,2]:[0,1,2];
   $('#cg').classList.toggle('two',COLIDX.length===2);
   $('#cg').innerHTML=COLIDX.map(i=>{const c=T.cols[i];
@@ -1364,6 +1467,8 @@ function render(){
   const zh=lang==='zh';
   // Footer 跟着语言走（之前上面英文下面中文，是错的）
   $('#bizLink').textContent=zh?'商务合作':'Partnerships';
+  { const b=$('#bizNavTx'); if(b) b.textContent=zh?'商务合作':'Partnerships'; }
+  { const f=$('#fbNavTx'); if(f) f.textContent=zh?'用户反馈':'Feedback'; }
   $('#fbLink').textContent=zh?'问题反馈':'Feedback';
   auditActionLinks();
 
@@ -1592,6 +1697,8 @@ function auditActionLinks(){
   setActionLinkHealth('bizLink',problem);
 }
 $('#fbLink').onclick=()=>openForm('fb');
+{ const bn=$('#bizNav'); if(bn) bn.onclick=e=>{e.preventDefault();openForm('biz');}; }
+{ const fn=$('#fbNav'); if(fn) fn.onclick=e=>{e.preventDefault();openForm('fb');}; }
 $('#bizLink').onclick=()=>openForm('biz');
 auditActionLinks();
 $('#mNo').onclick=closeForm;
