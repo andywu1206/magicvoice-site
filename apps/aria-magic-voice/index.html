@@ -50,6 +50,23 @@ p{font-size:18px;color:#4f5158;max-width:760px}
 .card{border:1px solid rgba(16,16,20,.1);border-radius:12px;padding:18px;background:#fff}
 .card b{display:block;color:#101014;margin-bottom:6px}
 footer{border-top:1px solid rgba(16,16,20,.12);margin-top:56px;padding-top:20px;color:#777b84;font-size:14px}
+
+/* ── 深色模式（2026-08-31 补）──
+   这两个 SEO 落地页原来把颜色全写死成浅色，系统开深色时整页还是刺眼的白，
+   和门户完全两套观感（Harry 反馈「深色模式很奇怪」）。
+   它们没有主题切换按钮，所以跟随系统 prefers-color-scheme 即可，
+   不引入 JS、不动结构，SEO 内容一个字未改。 */
+@media (prefers-color-scheme: dark){
+  body{background:#0B0B0C;color:#F2F2F5}
+  a{color:#7FB4FF}
+  p{color:rgba(235,235,245,.68)}
+  h1,h2,.card b{color:#FFFFFF}
+  .note{color:#EDEDF2;background:rgba(251,90,31,.14);border-left-color:#FB5A1F}
+  .card{background:#1A1A1C;border-color:rgba(255,255,255,.12)}
+  .btn{background:#FFFFFF;color:#0A0A0B}
+  .btn.secondary{background:transparent;color:#F2F2F5;border-color:rgba(255,255,255,.22)}
+  footer{color:rgba(235,235,245,.48);border-top-color:rgba(255,255,255,.14)}
+}
 </style>
 </head>
 <body>
