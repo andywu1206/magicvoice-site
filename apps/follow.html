@@ -77,11 +77,9 @@ body.dark .tabs .note{color:#9A9AA0}
 .item:hover{background:var(--sel)}
 .item.on{background:var(--sel)}
 .item img{width:34px;height:34px;border-radius:8px;flex:0 0 auto;display:block}
-.item.item-sub{height:42px;padding-left:22px}
-.item.item-sub img{width:24px;height:24px;border-radius:6px}
-.item.item-sub .tx b{font-weight:500}
-.item.item-sub .tx s{display:block;text-decoration:none;font-size:10px;
-  color:var(--ink3);margin-top:1px}
+/* Harry 2026-08-31 看截图指出：图标要跟其它一样大、文字要对齐。
+   所以不再做缩进小图标 —— 位置仍在洞府下面（隶属关系靠顺序表达），
+   但尺寸与对齐跟其它产品完全一致。 */
 /* 2026-08-31：哈哈新闻是 i人洞府下的内容模块（8-26 立项），
    所以做成缩进子项而不是第 4 个产品 —— 层级一眼就看得出来。 */
 /* i人洞府图标自带 18.8% 透明边（104/128 实测）：框 34px 时图案只有 27.6px，
@@ -946,12 +944,12 @@ body.dark .fm-qr.wait{background:repeating-linear-gradient(45deg,#26272c 0 7px,#
       <span class="tx"><b>i人洞府</b></span>
     </a>
     <!-- 2026-08-31 Harry：哈哈新闻进 App Store，但按 8-26 立项「隶属 i人洞府」，
-         挂在洞府下面做子项，不占独立产品位。中文=哈哈新闻 / 英文=Haha News（他当晚定的）。
+         挂在洞府下面做子项，不占独立产品位。对外中文=哈哈资讯（红线：对外不叫「新闻」）/ 对内=哈哈新闻 / 英文=Haha News（他当晚定的）。
          图标 = Design Guide 已登记的「单字哈 · 暖橙 #F0821E · squircle rx=23」。
          对外视图还没构建（NOT_BUILT），所以先落到洞府页，标「即将上线」不装作能用。 -->
-    <a class="item item-sub" href="everything-about-me/" id="hahaNav">
+    <a class="item" href="everything-about-me/" id="hahaNav">
       <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='23' fill='%23F0821E'/><text x='50' y='50' font-family='PingFang SC,-apple-system,sans-serif' font-size='58' font-weight='600' fill='%23fff' text-anchor='middle' dominant-baseline='central'>哈</text></svg>" alt="" aria-hidden="true">
-      <span class="tx"><b id="hahaNavTx">哈哈新闻</b> <s id="hahaNavSoon">即将上线</s></span>
+      <span class="tx"><b id="hahaNavTx">哈哈资讯</b></span>
     </a>
     <div class="slab" id="supportSlab">Support</div>
     <a class="item" href="#" id="bizNav" role="button">
