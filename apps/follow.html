@@ -824,9 +824,16 @@ body.dark .sp-card{box-shadow:0 8px 26px -14px rgba(0,0,0,.5)}
   font-size:13px;color:var(--ink2);text-align:center;line-height:1.6}
 .fm-tip b{color:var(--ink);font-weight:600}
 
-/* Harry 2026-08-31：两段左边没对齐 —— .sp-wrap 是 flex 居中，区块按内容宽度收缩（国内6卡=639 / 国际5卡=568）。
-   框进 .fm-all 一个大 DIV + width:100% 拉满，上下左右一次对齐。*/
-.fm-all{display:block}
+/* Harry 2026-08-31 第三轮 · 两段「同左同宽」且整排必须避开左侧固定侧栏 —— 前两版都翻在这
+   ❌ 版本一 auto-fill+minmax(164px,1fr) 放在 shrink-to-fit 容器里：repeat 数按「不定尺寸」算 → 塌成 1 列
+   ❌ 版本二 两段 width:100% 拉满：6 张卡那排铺进侧栏底下 → 公众号整张被盖住，扫不出来
+   ✅ 现在：容器给死宽度并居中 + 列数写死 → 两段左边/宽度天然一致，且整排宽度 ≤ 侧栏净空
+   侧栏净空推导（data-v=9 · viewport ≥ 1280 时为常数，与窗口宽无关）：
+     侧栏 right   = (100vw-1280)/2 + 14 + 236 = (100vw-1280)/2 + 250
+     .sp-wrap left = 48 + ((100vw-15) - 96 - 1184)/2 = (100vw-1295)/2 + 48
+     两者之差恒 = 209.5px；.sp-wrap 宽 1184 → 居中内容宽 W 需 (1184-W)/2 ≥ 209.5 → W ≤ 765
+   取 744，留 ~20px 余量。*/
+.fm-all{display:block;width:100%;max-width:744px;margin-left:auto;margin-right:auto}
 .fm-sec{margin-top:36px}
 .fm-sec-t{text-align:left}
 .fm-sec-t{font:600 15px/1 -apple-system,"PingFang SC",system-ui;letter-spacing:-.01em;
@@ -834,7 +841,7 @@ body.dark .sp-card{box-shadow:0 8px 26px -14px rgba(0,0,0,.5)}
 .fm-tag{font:600 9px/1 ui-monospace,Menlo;letter-spacing:1px;color:var(--ink2);
   border:1px solid var(--line);border-radius:5px;padding:3px 6px}
 
-.fm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(164px,1fr));gap:15px}
+.fm-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
 
 /* 卡片：外壳形状学 Apple App Clip 的圆角矩形 */
 .fm-card{background:#F7F3F3;border-radius:22px;padding:14px;
@@ -874,6 +881,15 @@ body.dark .fm-btn{background:#f2f2f7;color:#1d1d1f}
 body.dark .fm-qr{background:#fff}
 body.dark .fm-qr.wait{background:repeating-linear-gradient(45deg,#26272c 0 7px,#1f2025 7px 14px)}
 
+/* 窄屏：侧栏变成 left:14/width:200（right=214），.sp-wrap 也跟着窄 —— 按视口现算净空 */
+@media(max-width:1100px){
+  .fm-all{max-width:min(744px,calc(100vw - 443px))}
+  .fm-grid{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:760px){
+  .fm-all{max-width:none}
+  .fm-grid{grid-template-columns:repeat(3,1fr);gap:12px}
+}
 @media(max-width:520px){
   .fm-grid{grid-template-columns:repeat(2,1fr);gap:12px}
   .fm-card{min-height:var(--fmCardHm,222px)}
@@ -947,7 +963,7 @@ body.dark .fm-qr.wait{background:repeating-linear-gradient(45deg,#26272c 0 7px,#
         <div class="fm-all">
         <div class="fm-sec"><div class="fm-sec-t">关注我 · 国内 <span class="fm-tag">CN</span></div>
         <div class="fm-grid">
-          <div class="fm-card"><div class="fm-qr"><img src="img/qr/01_wechat_mp.svg" alt="微信公众号 二维码" loading="lazy"></div><div class="fm-name">微信公众号</div><a class="fm-btn" href="http://weixin.qq.com/r/mp/ai7p8UbE-RuCrQKS93t4" target="_blank" rel="noopener">关注</a></div>
+          <div class="fm-card"><div class="fm-qr"><img src="img/qr/01_wechat_mp_official.png" alt="微信公众号 购买宝 二维码" loading="lazy"></div><div class="fm-name">微信公众号</div><div class="fm-id">购买宝</div><a class="fm-btn" href="img/qr/01_wechat_mp_official.png" target="_blank" rel="noopener">扫码关注</a></div>
           <div class="fm-card"><div class="fm-qr"><img src="img/qr/02_xiaohongshu.svg" alt="小红书 二维码" loading="lazy"></div><div class="fm-name">小红书</div><div class="fm-id">小红书号 970474894</div><a class="fm-btn" href="https://xhslink.cn/m/TUEiatRggZ" target="_blank" rel="noopener">关注</a></div>
           <div class="fm-card"><div class="fm-qr"><img src="img/qr/03_weibo.svg" alt="微博 二维码" loading="lazy"></div><div class="fm-name">微博</div><div class="fm-id">@Harry维哥</div><a class="fm-btn" href="http://weibo.cn/qr/userinfo?featurecode=profile_qrcode&uid=8210429593" target="_blank" rel="noopener">关注</a></div>
           <div class="fm-card"><div class="fm-qr"><img src="img/qr/04_douyin.svg" alt="抖音 二维码" loading="lazy"></div><div class="fm-name">抖音</div><div class="fm-id">抖音号 734466330</div><a class="fm-btn" href="https://www.douyin.com/user/MS4wLjABAAAAApV2FDZAY0110gIn7JSm8-2xpV83uXz_1gQU6tMDvmM" target="_blank" rel="noopener">关注</a></div>
