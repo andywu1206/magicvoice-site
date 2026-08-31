@@ -950,7 +950,7 @@ body.dark .fm-qr.wait{background:repeating-linear-gradient(45deg,#26272c 0 7px,#
         <!-- 🔴 必须绝对路径。相对写法在【洞府页自己】上会翻倍成
          /apps/everything-about-me/everything-about-me/ → 404（Harry 2026-09-01 点出来）。
          同页的 #p8Nav 早就有个运行时 setAttribute 补丁在打同一个洞，这里直接写死绝对。 -->
-    <a class="item" href="/apps/everything-about-me/" id="hahaNav">
+    <a class="item" href="/apps/haha.html" id="hahaNav">
       <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='23' fill='%23F0821E'/><text x='50' y='50' font-family='PingFang SC,-apple-system,sans-serif' font-size='58' font-weight='600' fill='%23fff' text-anchor='middle' dominant-baseline='central'>哈</text></svg>" alt="" aria-hidden="true">
       <span class="tx"><b id="hahaNavTx">哈哈资讯</b></span>
     </a>
@@ -1487,19 +1487,28 @@ function render(){
   // 方案 4/5 用专属文案（没定义就回落到通用文案）；方案 1/2/3 永远走通用文案
   const x=(v45&&a[lang+'4'])?{...a[lang],...a[lang+'4']}:a[lang];
   app.style.setProperty('--b1',a.b1);app.style.setProperty('--b2',a.b2);app.style.setProperty('--b3',a.b3);
-  $('#t').textContent=x.t;$('#l').textContent=x.l;$('#d').textContent=x.d;$('#lg').src=a.logo;
-  // 方案 4：按钮不再说含糊的「立即下载」，明确说清下的是哪一档
-  const T=VT[lang];
-  $('#cta').textContent=v45?T.hb:x.c;
-  $('#cta2').textContent=v45?T.hb2:x.c2;
-  $('#hm').textContent=T.hm;
-  if(V==='4')renderVersions();
-  if(V==='5'||V==='6'||V==='7'||V==='8'||V==='9'){renderCompare();renderMq();}
-  const d=DL[lang];$('#dh').textContent=d.h;$('#dp').textContent=d.p;
-  $$('.row').forEach((r,i)=>{r.querySelector('.go').textContent=d.g;
-    r.querySelector('.nm s').textContent=d.r[i];
-
-  });
+  /* 🔴 2026-09-01 修：这一整段是主页 Hero + 版本区 + 下载行的文案刷新，
+     用到 #t #l #d #lg #cta #cta2 #hm #dh #dp —— 这几个元素【本页一个都没有】
+     （实测：index/sponsor/洞府 三页都有，只有 follow 没有）。
+     以前没有守卫，第一行 $('#t').textContent 就抛 TypeError，render() 当场中断，
+     后面所有侧栏/页脚的语言切换全都跑不到 → Harry 看到的「切了中英只翻一半」。
+     整段用一个 if 包住，而不是逐个加 13 个守卫：这几行本来就是同一件事，
+     要么这页有 Hero 要么没有，没有就整段跳过。T / d 两个 const 只在段内用，
+     不会影响后面。 */
+  if($('#t')){
+    $('#t').textContent=x.t;$('#l').textContent=x.l;$('#d').textContent=x.d;$('#lg').src=a.logo;
+    // 方案 4：按钮不再说含糊的「立即下载」，明确说清下的是哪一档
+    const T=VT[lang];
+    $('#cta').textContent=v45?T.hb:x.c;
+    $('#cta2').textContent=v45?T.hb2:x.c2;
+    $('#hm').textContent=T.hm;
+    if(V==='4')renderVersions();
+    if(V==='5'||V==='6'||V==='7'||V==='8'||V==='9'){renderCompare();renderMq();}
+    const d=DL[lang];$('#dh').textContent=d.h;$('#dp').textContent=d.p;
+    $$('.row').forEach((r,i)=>{r.querySelector('.go').textContent=d.g;
+      r.querySelector('.nm s').textContent=d.r[i];
+    });
+  }
   $('#lang').textContent=lang==='zh'?'中文':'English';
   $('#theme').textContent=document.body.classList.contains('dark')
     ?(lang==='zh'?'浅色':'Light'):(lang==='zh'?'深色':'Dark');
