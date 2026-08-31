@@ -841,7 +841,7 @@ body.dark .sp-card{box-shadow:0 8px 26px -14px rgba(0,0,0,.5)}
 .fm-tag{font:600 9px/1 ui-monospace,Menlo;letter-spacing:1px;color:var(--ink2);
   border:1px solid var(--line);border-radius:5px;padding:3px 6px}
 
-.fm-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
+.fm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
 
 /* 卡片：外壳形状学 Apple App Clip 的圆角矩形 */
 .fm-card{background:#F7F3F3;border-radius:22px;padding:14px;
@@ -884,11 +884,10 @@ body.dark .fm-qr.wait{background:repeating-linear-gradient(45deg,#26272c 0 7px,#
 /* 窄屏：侧栏变成 left:14/width:200（right=214），.sp-wrap 也跟着窄 —— 按视口现算净空 */
 @media(max-width:1100px){
   .fm-all{max-width:min(744px,calc(100vw - 443px))}
-  .fm-grid{grid-template-columns:repeat(3,1fr)}
 }
 @media(max-width:760px){
   .fm-all{max-width:none}
-  .fm-grid{grid-template-columns:repeat(3,1fr);gap:12px}
+  .fm-grid{gap:12px}
 }
 @media(max-width:520px){
   .fm-grid{grid-template-columns:repeat(2,1fr);gap:12px}
