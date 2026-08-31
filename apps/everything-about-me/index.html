@@ -951,7 +951,7 @@ body:not(.dark) .p8-scope .p8-card{border-color:var(--p8-line)}
         <!-- 🔴 必须绝对路径。相对写法在【洞府页自己】上会翻倍成
          /apps/everything-about-me/everything-about-me/ → 404（Harry 2026-09-01 点出来）。
          同页的 #p8Nav 早就有个运行时 setAttribute 补丁在打同一个洞，这里直接写死绝对。 -->
-    <a class="item" href="/apps/haha.html" id="hahaNav">
+    <a class="item" href="haha.html" id="hahaNav">
       <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='23' fill='%23F0821E'/><text x='50' y='50' font-family='PingFang SC,-apple-system,sans-serif' font-size='58' font-weight='600' fill='%23fff' text-anchor='middle' dominant-baseline='central'>哈</text></svg>" alt="" aria-hidden="true">
       <span class="tx"><b id="hahaNavTx">哈哈资讯</b></span>
     </a>
@@ -2398,6 +2398,9 @@ window.__p8Lang=function(){ try{ if(typeof lang==='string') return lang==='zh'?'
   });
   var sp=document.getElementById('spNav'); if(sp) sp.setAttribute('href','/apps/sponsor.html');
   var p8=document.getElementById('p8Nav'); if(p8) p8.setAttribute('href','/apps/everything-about-me/');
+  /* 洞府页比其它页深一层，相对 haha.html 会解析成 /apps/everything-about-me/haha.html → 404。
+     沿用本页 p8Nav/spNav 已有的同款运行时改写，别写死绝对 —— 写死会让 MiniSite/中台预览那边 404。 */
+  var hz=document.getElementById('hahaNav'); if(hz) hz.setAttribute('href','/apps/haha.html');
   var br=document.querySelector('.brand'); if(br) br.setAttribute('href','/apps/');
 
   /* ③ 两个工具 iframe 跟随门户 Light/Dark。
