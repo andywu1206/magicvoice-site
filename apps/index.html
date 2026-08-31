@@ -834,7 +834,10 @@ body.dark .ccard{box-shadow:0 8px 26px -14px rgba(0,0,0,.5)}
     </a>
     <!-- 2026-08-31 Harry：哈哈新闻进 App Store，按 8-26 立项「隶属 i人洞府」做子项。
          对外中文=哈哈资讯（红线：对外不叫「新闻」）/ 对内=哈哈新闻 / 英文=Haha News。对外视图 NOT_BUILT，所以标「即将上线」。 -->
-    <a class="item" href="everything-about-me/" id="hahaNav">
+        <!-- 🔴 必须绝对路径。相对写法在【洞府页自己】上会翻倍成
+         /apps/everything-about-me/everything-about-me/ → 404（Harry 2026-09-01 点出来）。
+         同页的 #p8Nav 早就有个运行时 setAttribute 补丁在打同一个洞，这里直接写死绝对。 -->
+    <a class="item" href="/apps/everything-about-me/" id="hahaNav">
       <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='23' fill='%23F0821E'/><text x='50' y='50' font-family='PingFang SC,-apple-system,sans-serif' font-size='58' font-weight='600' fill='%23fff' text-anchor='middle' dominant-baseline='central'>哈</text></svg>" alt="" aria-hidden="true">
       <span class="tx"><b id="hahaNavTx">哈哈资讯</b></span>
     </a>

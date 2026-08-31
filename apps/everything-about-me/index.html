@@ -948,7 +948,10 @@ body:not(.dark) .p8-scope .p8-card{border-color:var(--p8-line)}
     </a>
     <!-- 2026-08-31 Harry：哈哈新闻进 App Store，按 8-26 立项「隶属 i人洞府」做子项。
          对外中文=哈哈资讯（红线：对外不叫「新闻」）/ 对内=哈哈新闻 / 英文=Haha News。对外视图 NOT_BUILT，所以标「即将上线」。 -->
-    <a class="item" href="everything-about-me/" id="hahaNav">
+        <!-- 🔴 必须绝对路径。相对写法在【洞府页自己】上会翻倍成
+         /apps/everything-about-me/everything-about-me/ → 404（Harry 2026-09-01 点出来）。
+         同页的 #p8Nav 早就有个运行时 setAttribute 补丁在打同一个洞，这里直接写死绝对。 -->
+    <a class="item" href="/apps/everything-about-me/" id="hahaNav">
       <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='23' fill='%23F0821E'/><text x='50' y='50' font-family='PingFang SC,-apple-system,sans-serif' font-size='58' font-weight='600' fill='%23fff' text-anchor='middle' dominant-baseline='central'>哈</text></svg>" alt="" aria-hidden="true">
       <span class="tx"><b id="hahaNavTx">哈哈资讯</b></span>
     </a>
@@ -968,7 +971,9 @@ body:not(.dark) .p8-scope .p8-card{border-color:var(--p8-line)}
       <svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#EF4444"/><path d="M0 8a8 8 0 0 1 8-8h18a8 8 0 0 1 8 8v9H0z" fill="#fff" opacity=".08"/><path d="M17 26.5s-8.5-5.2-8.5-11.2A4.7 4.7 0 0 1 17 12.6a4.7 4.7 0 0 1 8.5 2.7c0 6-8.5 11.2-8.5 11.2z" fill="#fff"/></svg>
       <span class="tx"><b id="spNavTx">Sponsor</b></span>
     </a>
-    <a class="item" href="follow.html" id="fmNav">
+    <!-- 🔴 2026-09-01 修：这条以前是相对路径且【没有】运行时补丁（p8Nav/spNav 都有，就它漏了），
+         在洞府页上解析成 /apps/everything-about-me/follow.html → 404（实测）。直接写死绝对。 -->
+    <a class="item" href="/apps/follow.html" id="fmNav">
       <svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#141418"/><path d="M0 8a8 8 0 0 1 8-8h18a8 8 0 0 1 8 8v9H0z" fill="#fff" opacity=".08"/><g transform="translate(7.82,7.82) scale(1.1475)" fill="#fff"><path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
   <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/></g></svg>
       <span class="tx"><b id="fmNavTx">Follow Me</b></span>
