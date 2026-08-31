@@ -77,7 +77,9 @@ body.dark .tabs .note{color:#9A9AA0}
 .item:hover{background:var(--sel)}
 .item.on{background:var(--sel)}
 .item img{width:34px;height:34px;border-radius:8px;flex:0 0 auto;display:block}
-.item>svg{width:34px;height:34px;border-radius:8px;flex:0 0 auto;display:block}
+.item>svg{width:34px;height:34px;border-radius:8px;flex:0 0 auto;display:block;overflow:visible}
+/* Android WebView 不继承 <g fill>，glyph 会整颗消失，只剩空底。路径自己带白。 */
+.item>svg g,.item>svg g path{fill:#fff}
 .item .tx{min-width:0;display:grid;gap:2px}
 .item .tx b{font:590 13px/1.25 var(--font);color:var(--ink);letter-spacing:-.005em;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -691,7 +693,8 @@ body:has(.app[data-v="9"]){padding:0;background:var(--page)}
   [data-v="9"].sbmin .side{width:44px;height:418px;min-height:418px;padding:10px 8px}
   [data-v="9"].sbmin .brand .m{width:28px;height:28px}
   [data-v="9"].sbmin .item{width:32px;height:32px;margin-bottom:8px;border-radius:9px}
-  [data-v="9"].sbmin .item img{width:28px;height:28px;border-radius:7px}
+  [data-v="9"].sbmin .item img,
+  [data-v="9"].sbmin .item>svg{width:28px;height:28px;border-radius:7px;flex:0 0 auto}
   [data-v="9"] .sbtoggle{width:24px;height:24px;font-size:13px}
   [data-v="9"] .hero{grid-template-columns:1fr;gap:20px;padding:86px 18px 42px 68px;min-height:auto}
   [data-v="9"] .copy{max-width:none;gap:14px}
@@ -834,6 +837,19 @@ body.dark .sp-card{box-shadow:0 8px 26px -14px rgba(0,0,0,.5)}
      两者之差恒 = 209.5px；.sp-wrap 宽 1184 → 居中内容宽 W 需 (1184-W)/2 ≥ 209.5 → W ≤ 765
    取 744，留 ~20px 余量。*/
 .fm-all{display:block;width:100%;max-width:744px;margin-left:auto;margin-right:auto}
+/* Harry 2026-08-31 15:14:00 周一 北京时间 (CST) · cursor-composer
+   标题「关注我」到国内 + International 看成一整块，离左侧菜单远一点。
+   位移 = 2 × 卡片间距（.fm-grid gap 15px）= 30px。
+   窄屏侧栏变浮层，不位移，避免把内容挤出右缘。 */
+@media (min-width:761px){
+  .fm-block{transform:translateX(calc(2 * 15px))}
+}
+/* 关注页没有「选择版本」锚点。母版 620px 截断在深色模式会切出一条黑带。渐变铺满整页。 */
+.app[data-v="9"]:has(.fm-block){
+  background-size:100% 100%,100% 100%,0 0,0 0,100% 100% !important;
+  background-position:0 0,0 0,0 0,0 0,0 0 !important;
+}
+body.dark .app[data-v="9"]:has(.fm-block){--fade9:none}
 .fm-sec{margin-top:36px}
 .fm-sec-t{text-align:left}
 .fm-sec-t{font:600 15px/1 -apple-system,"PingFang SC",system-ui;letter-spacing:-.01em;
@@ -919,12 +935,12 @@ body.dark .fm-qr.wait{background:repeating-linear-gradient(45deg,#26272c 0 7px,#
     </a>
     <div class="slab">支持 · Support</div>
     <a class="item" href="#" id="bizNav" role="button">
-      <svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#141418"/><path d="M0 8a8 8 0 0 1 8-8h18a8 8 0 0 1 8 8v9H0z" fill="#fff" opacity=".08"/><g transform="translate(7.82,7.82) scale(1.1475)" fill="#fff"><path d="M12.17 9.53c2.307-2.592 3.278-4.684 3.641-6.218.21-.887.214-1.58.16-2.065a3.6 3.6 0 0 0-.108-.563 2 2 0 0 0-.078-.23V.453c-.073-.164-.168-.234-.352-.295a2 2 0 0 0-.16-.045 4 4 0 0 0-.57-.093c-.49-.044-1.19-.03-2.08.188-1.536.374-3.618 1.343-6.161 3.604l-2.4.238h-.006a2.55 2.55 0 0 0-1.524.734L.15 7.17a.512.512 0 0 0 .433.868l1.896-.271c.28-.04.592.013.955.132.232.076.437.16.655.248l.203.083c.196.816.66 1.58 1.275 2.195.613.614 1.376 1.08 2.191 1.277l.082.202c.089.218.173.424.249.657.118.363.172.676.132.956l-.271 1.9a.512.512 0 0 0 .867.433l2.382-2.386c.41-.41.668-.949.732-1.526zm.11-3.699c-.797.8-1.93.961-2.528.362-.598-.6-.436-1.733.361-2.532.798-.799 1.93-.96 2.528-.361s.437 1.732-.36 2.531Z"/>
-  <path d="M5.205 10.787a7.6 7.6 0 0 0 1.804 1.352c-1.118 1.007-4.929 2.028-5.054 1.903-.126-.127.737-4.189 1.839-5.18.346.69.837 1.35 1.411 1.925"/></g></svg>
+      <svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#141418"/><path d="M0 8a8 8 0 0 1 8-8h18a8 8 0 0 1 8 8v9H0z" fill="#fff" opacity=".08"/><g transform="translate(7.82,7.82) scale(1.1475)" fill="#fff"><path fill="#fff" d="M12.17 9.53c2.307-2.592 3.278-4.684 3.641-6.218.21-.887.214-1.58.16-2.065a3.6 3.6 0 0 0-.108-.563 2 2 0 0 0-.078-.23V.453c-.073-.164-.168-.234-.352-.295a2 2 0 0 0-.16-.045 4 4 0 0 0-.57-.093c-.49-.044-1.19-.03-2.08.188-1.536.374-3.618 1.343-6.161 3.604l-2.4.238h-.006a2.55 2.55 0 0 0-1.524.734L.15 7.17a.512.512 0 0 0 .433.868l1.896-.271c.28-.04.592.013.955.132.232.076.437.16.655.248l.203.083c.196.816.66 1.58 1.275 2.195.613.614 1.376 1.08 2.191 1.277l.082.202c.089.218.173.424.249.657.118.363.172.676.132.956l-.271 1.9a.512.512 0 0 0 .867.433l2.382-2.386c.41-.41.668-.949.732-1.526zm.11-3.699c-.797.8-1.93.961-2.528.362-.598-.6-.436-1.733.361-2.532.798-.799 1.93-.96 2.528-.361s.437 1.732-.36 2.531Z"/>
+  <path fill="#fff" d="M5.205 10.787a7.6 7.6 0 0 0 1.804 1.352c-1.118 1.007-4.929 2.028-5.054 1.903-.126-.127.737-4.189 1.839-5.18.346.69.837 1.35 1.411 1.925"/></g></svg>
       <span class="tx"><b id="bizNavTx">商务合作</b></span>
     </a>
     <a class="item" href="#" id="fbNav" role="button">
-      <svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#141418"/><path d="M0 8a8 8 0 0 1 8-8h18a8 8 0 0 1 8 8v9H0z" fill="#fff" opacity=".08"/><g transform="translate(7.82,7.82) scale(1.1475)" fill="#fff"><path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16M7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5M4.285 9.567a.5.5 0 0 1 .683.183A3.5 3.5 0 0 0 8 11.5a3.5 3.5 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683M10 8c-.552 0-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5S10.552 8 10 8"/></g></svg>
+      <svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#141418"/><path d="M0 8a8 8 0 0 1 8-8h18a8 8 0 0 1 8 8v9H0z" fill="#fff" opacity=".08"/><g transform="translate(7.82,7.82) scale(1.1475)" fill="#fff"><path fill="#fff" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16M7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5M4.285 9.567a.5.5 0 0 1 .683.183A3.5 3.5 0 0 0 8 11.5a3.5 3.5 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683M10 8c-.552 0-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5S10.552 8 10 8"/></g></svg>
       <span class="tx"><b id="fbNavTx">用户反馈</b></span>
     </a>
     <a class="item" href="sponsor.html" id="spNav">
@@ -932,8 +948,8 @@ body.dark .fm-qr.wait{background:repeating-linear-gradient(45deg,#26272c 0 7px,#
       <span class="tx"><b>赞助 · Sponsor</b></span>
     </a>
     <a class="item" href="follow.html" id="fmNav">
-      <svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#141418"/><path d="M0 8a8 8 0 0 1 8-8h18a8 8 0 0 1 8 8v9H0z" fill="#fff" opacity=".08"/><g transform="translate(7.82,7.82) scale(1.1475)" fill="#fff"><path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
-  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/></g></svg>
+      <svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#141418"/><path d="M0 8a8 8 0 0 1 8-8h18a8 8 0 0 1 8 8v9H0z" fill="#fff" opacity=".08"/><g transform="translate(7.82,7.82) scale(1.1475)" fill="#fff"><path fill="#fff" d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+  <path fill="#fff" fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/></g></svg>
       <span class="tx"><b>关注我 · Follow Me</b></span>
     </a>
     <div class="sp"></div>
@@ -953,7 +969,7 @@ body.dark .fm-qr.wait{background:repeating-linear-gradient(45deg,#26272c 0 7px,#
          壳/渐变/左栏/footer 全部沿用母版与 sponsor.html 同款。两个途径都通：
          电脑前扫码 · 手机上看这页的人直接点「关注」（不能假设人人两台设备）。 -->
     <section class="hero sponsor-hero">
-      <div class="sp-wrap">
+      <div class="sp-wrap fm-block">
         <h1 class="h1 sp-h1" id="spH1">关注我 · Follow Me</h1>
         <p class="lead sp-en">Scan the code on desktop — or tap through on mobile.</p>
 
@@ -1477,6 +1493,8 @@ function render(){
   /* rAF 在页面不可见（后台标签 / 预览面板）时不会执行，渐变底会整个丢失。
      改成 rAF + setTimeout 双触发，逻辑幂等重复跑无害。（Harry 2026-08-04 上线前修）*/
   const __applyBg=()=>{
+    /* 关注页没有 .cmp，沿用 620px 会在深色模式切出黑带。背景交给 :has(.fm-block) CSS。 */
+    if(document.querySelector('.fm-block'))return;
     const cmp=document.querySelector('.cmp'),mn=document.querySelector('main');
     const ok=cmp&&cmp.offsetParent;
     if(V==='6'&&ok){mn.style.backgroundSize='100% '+cmp.offsetTop+'px';app.style.backgroundSize='';app.style.backgroundPosition='';}
@@ -1749,35 +1767,4 @@ $('#mYes').onclick=async()=>{
 };
 
 render();
-</script>
-
-<script>
-/* 赞助页交互 · 独立于母版 JS（母版一行未改）
-   注意：母版没有 
-<script>
-/* 关注我页交互 · 内测版：正式渠道链接待 Harry 提供（fmLinks 表填 URL 即通） */
-const fmLinks = {};
-function fmToast(el, name){
-  const url = fmLinks[name];
-  if (url){ window.open(url, "_blank"); return; }
-  const old = el.textContent;
-  el.textContent = "内测版 · 正式链接待接入";
-  setTimeout(()=>{ el.textContent = old; }, 1500);
-}
-</script>
-</body> 闭合标签，所以这段必须追加在文件末尾，
-   不能用 replace('</body>') —— 那会静默失败（2026-08-19 实际踩过）。 */
-var SP_AMT=3;
-function spSw(m){var ids=['sp-wx','sp-ali','sp-intl'],bs={'sp-wx':'bwx','sp-ali':'bali','sp-intl':'bin'};
- for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);
-  if(el)el.style.display=(ids[i]==='sp-'+m)?'':'none';
-  var b=document.getElementById(bs[ids[i]]); if(b)b.classList.toggle('on',ids[i]==='sp-'+m);}}
-function spPick(el,v){var p=el.parentNode.querySelectorAll('.sp-tier');
- for(var i=0;i<p.length;i++)p[i].classList.remove('on');
- el.classList.add('on');SP_AMT=v;document.getElementById('spAmt').value='';spUpd();}
-function spChk(){var v=parseFloat(document.getElementById('spAmt').value);
- if(!isNaN(v)&&v>0){SP_AMT=v;var p=document.querySelectorAll('.sp-tier');
- for(var i=0;i<p.length;i++)p[i].classList.remove('on');}spUpd();}
-function spUpd(){document.getElementById('spPay').textContent='Support · $'+SP_AMT;}
-function spSoon(){document.getElementById('spSoon').classList.add('on');}
 </script>
