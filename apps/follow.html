@@ -815,48 +815,69 @@ body.dark .sp-card{box-shadow:0 8px 26px -14px rgba(0,0,0,.5)}
 .sp-soon.on{display:block}
 @media(max-width:760px){.sponsor-hero{padding:24px 18px 60px!important}}
 
-/* ── 关注我页专用（follow.html）· 只增不改 ── */
-.fm-tip{max-width:560px;margin:18px auto 0;background:rgba(10,132,255,.07);border:1px solid rgba(10,132,255,.25);
-  border-radius:14px;padding:12px 15px;font:400 12.5px/1.7 var(--font);color:var(--ink2);text-align:center}
-.fm-tip b{color:var(--ink)}
-.fm-sec{max-width:560px;margin:26px auto 0}
-.fm-sec-t{font:700 15px/1 var(--font);color:var(--ink);margin-bottom:11px;display:flex;align-items:center;gap:8px}
-.fm-tag{font:600 9px/1 ui-monospace,Menlo;letter-spacing:1px;color:var(--ink2);border:1px solid var(--line);border-radius:5px;padding:2.5px 6px}
-/* 公众号主卡：圆角矩形大码（苹果风 · 非四四方方） */
-.fm-hero{display:flex;gap:18px;align-items:center;background:var(--card);border:1px solid var(--line);
-  border-radius:20px;padding:18px;box-shadow:0 8px 26px -14px rgba(0,0,0,.16)}
-.fm-qr-sq{flex-shrink:0}
-.fm-code{position:relative;background:#fff;border:2.5px solid #14151a;overflow:hidden}
-.fm-sq{width:150px;height:150px;border-radius:26px;
-  background-image:radial-gradient(circle,#14151a 2.4px,transparent 3px);background-size:11px 11px;background-position:4px 4px}
-.fm-eye{position:absolute;width:26px;height:26px;border-radius:9px;background:#14151a}
-.fm-eye::after{content:"";position:absolute;inset:7px;border-radius:5px;background:#fff}
-.fm-eye.tl{top:8px;left:8px}.fm-eye.tr{top:8px;right:8px}.fm-eye.bl{bottom:8px;left:8px}
-.fm-dot{position:absolute;left:50%;top:50%;width:34px;height:34px;border-radius:50%;
-  transform:translate(-50%,-50%);background:linear-gradient(135deg,#FF8A3D,#FF5D1F);border:4px solid #fff}
-/* 圆形码（纯圆 · 苹果圆点矩阵） */
-.fm-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:12px}
-.fm-grid:has(.fm-card.off){grid-template-columns:repeat(2,1fr)}
-.fm-card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px 12px 14px;
-  text-align:center;display:flex;flex-direction:column;align-items:center;transition:.16s}
-.fm-card:hover{transform:translateY(-2px);box-shadow:0 10px 24px -14px rgba(0,0,0,.2)}
-.fm-card .fm-qr{margin-bottom:9px}
-.fm-code.fm-rd{width:100px;height:100px;border-radius:24px;border-width:2.5px;
-  background-image:radial-gradient(circle,#14151a 2px,transparent 2.7px);background-size:9.5px 9.5px;background-position:4px 4px}
-.fm-rd .fm-eye{width:20px;height:20px;border-radius:7px}
-.fm-rd .fm-eye::after{inset:5.5px;border-radius:3.5px}
-.fm-rd .fm-eye.tl{top:7px;left:7px}.fm-rd .fm-eye.tr{top:7px;right:7px}.fm-rd .fm-eye.bl{bottom:7px;left:7px}
-.fm-card .fm-dot{width:26px;height:26px;border-width:3px}
-.fm-name{font:700 13.5px/1.2 var(--font);color:var(--ink);margin-top:10px}
-.fm-old{font:600 10px/1 var(--font);color:var(--ink2)}
-.fm-sub{font:400 10.5px/1.5 var(--font);color:var(--ink2);margin:3px 0 9px}
-.fm-btn{margin-top:12px;border:1px solid var(--line);cursor:pointer;font:600 12.5px/1 var(--font);color:var(--ink2);
-  background:transparent;border-radius:99px;padding:10px 16px;transition:.15s;width:100%}
-.fm-btn:hover{background:var(--sel);color:var(--ink)}
-.fm-card.off{opacity:.5;pointer-events:auto}
-.fm-card.off .fm-btn{color:var(--ink3);cursor:default;background:transparent;border-color:var(--line)}
-.fm-card.off:hover{transform:none;box-shadow:none}
-body.dark .fm-code{background:#fff;border-color:#14151a}
+/* ── 关注我页专用（follow.html）· Harry 2026-08-31 调色台亲调 ──
+   外壳 #F7F3F3 / 圆角 22px / 码色 #8E8E93 / 点 0.42 / logo 22%
+   实扫验证：SVG 文件 6/6 通过（大尺寸 + 180px 小卡片尺寸都过）
+   🔴 定位眼直角不可改成圆角：实测 R≥0.8 全部扫不出，苹果自己的灰码也是直角 */
+.fm-tip{max-width:620px;margin:18px auto 0;background:rgba(10,132,255,.07);
+  border:1px solid rgba(10,132,255,.22);border-radius:13px;padding:11px 16px;
+  font-size:13px;color:var(--ink2);text-align:center;line-height:1.6}
+.fm-tip b{color:var(--ink);font-weight:600}
+
+/* Harry 2026-08-31：两段左边没对齐 —— .sp-wrap 是 flex 居中，区块按内容宽度收缩（国内6卡=639 / 国际5卡=568）。
+   框进 .fm-all 一个大 DIV + width:100% 拉满，上下左右一次对齐。*/
+.fm-all{width:100%;display:block}
+.fm-sec{margin-top:36px;width:100%;align-self:stretch}
+.fm-sec-t{text-align:left}
+.fm-sec-t{font:600 15px/1 -apple-system,"PingFang SC",system-ui;letter-spacing:-.01em;
+  margin-bottom:14px;display:flex;align-items:center;gap:9px}
+.fm-tag{font:600 9px/1 ui-monospace,Menlo;letter-spacing:1px;color:var(--ink2);
+  border:1px solid var(--line);border-radius:5px;padding:3px 6px}
+
+.fm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(164px,1fr));gap:15px}
+
+/* 卡片：外壳形状学 Apple App Clip 的圆角矩形 */
+.fm-card{background:#F7F3F3;border-radius:22px;padding:14px;
+  min-height:var(--fmCardH,246px);
+  display:flex;flex-direction:column;align-items:center;gap:9px;
+  box-shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px -16px rgba(0,0,0,.16);
+  transition:transform .18s cubic-bezier(.4,0,.2,1),box-shadow .18s}
+.fm-card:hover{transform:translateY(-2px);box-shadow:0 2px 6px rgba(0,0,0,.06),0 16px 34px -18px rgba(0,0,0,.22)}
+
+.fm-qr{width:100%;aspect-ratio:1;background:#FFFFFF;border-radius:11px;
+  overflow:hidden;display:grid;place-items:center}
+.fm-qr img{width:100%;height:100%;display:block}
+
+/* 还没拿到官方码的渠道：诚实占位，不装成有码 */
+.fm-qr.wait{background:repeating-linear-gradient(45deg,#fafafa 0 7px,#f2f2f4 7px 14px);
+  color:var(--ink2);font-size:11px;text-align:center;padding:12px;line-height:1.5}
+
+.fm-name{font:600 13.5px/1.25 -apple-system,"PingFang SC",system-ui;
+  color:#1D1D1F;text-align:center;margin-top:1px}
+.fm-id{font:500 10.5px/1 ui-monospace,Menlo;color:var(--ink2);opacity:.75;
+  text-align:center;margin-top:-4px;word-break:break-all}
+
+/* 按钮：实心深色，一眼就知道能点（旧版浅描边被 Harry 指出「看起来像不能点」） */
+.fm-btn{margin-top:auto;width:100%;padding:9px 12px;border-radius:11px;border:0;
+  background:#1D1D1F;color:#fff;cursor:pointer;text-decoration:none;
+  font:600 12.5px/1 -apple-system,"PingFang SC",system-ui;text-align:center;
+  display:block;transition:opacity .15s,transform .15s}
+.fm-btn:hover{opacity:.86;transform:scale(1.015)}
+.fm-btn:active{transform:scale(.985)}
+.fm-btn.wait{background:transparent;color:var(--ink2);
+  box-shadow:inset 0 0 0 1px var(--line);cursor:not-allowed;pointer-events:none}
+
+body.dark .fm-card{background:#1c1d21;
+  box-shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px -16px rgba(0,0,0,.6)}
+body.dark .fm-name{color:#f2f2f7}
+body.dark .fm-btn{background:#f2f2f7;color:#1d1d1f}
+body.dark .fm-qr{background:#fff}
+body.dark .fm-qr.wait{background:repeating-linear-gradient(45deg,#26272c 0 7px,#1f2025 7px 14px)}
+
+@media(max-width:520px){
+  .fm-grid{grid-template-columns:repeat(2,1fr);gap:12px}
+  .fm-card{min-height:var(--fmCardHm,222px)}
+}
 
 </style>
 
@@ -912,7 +933,8 @@ body.dark .fm-code{background:#fff;border-color:#14151a}
 
     </div>
 
-    <!-- 关注我（Harry 2026-08-30 令 · 内部测试版 · 二维码为模拟占位，正式码待 Harry 提供）
+    <!-- 关注我 · Follow Me（二维码来自 Harry 官方原件：公众号/微博由原图扫码解出链接后按统一配色重绘；
+         小红书/抖音为平台美化码，直接裁官方原图；其余由公开主页链接生成，均实扫通过）
          壳/渐变/左栏/footer 全部沿用母版与 sponsor.html 同款。两个途径都通：
          电脑前扫码 · 手机上看这页的人直接点「关注」（不能假设人人两台设备）。 -->
     <section class="hero sponsor-hero">
@@ -920,36 +942,31 @@ body.dark .fm-code{background:#fff;border-color:#14151a}
         <h1 class="h1 sp-h1" id="spH1">关注我 · Follow Me</h1>
         <p class="lead sp-en">Scan the code on desktop — or tap through on mobile.</p>
 
-        <div class="fm-tip">正在<b>电脑</b>前 → 用手机<b>扫二维码</b>；正在<b>手机</b>上看这页 → 直接点「关注」，不用扫码。</div>
+        <div class="fm-tip">正在<b>电脑</b>前 → 用手机<b>扫二维码</b>；正在<b>手机</b>上看这页 → 直接点按钮，不用扫码。</div>
 
-        <!-- 国内 -->
+        <div class="fm-all">
         <div class="fm-sec"><div class="fm-sec-t">关注我 · 国内 <span class="fm-tag">CN</span></div>
         <div class="fm-grid">
-          <div class="fm-card"><div class="fm-qr"><div class="fm-code fm-rd"><div class="fm-eye tl"></div><div class="fm-eye tr"></div><div class="fm-eye bl"></div><span class="fm-dot"></span></div></div><div class="fm-name">公众号</div><button class="fm-btn" onclick="fmToast(this,'微信公众号')">关注</button></div>
-          <div class="fm-card"><div class="fm-qr"><div class="fm-code fm-rd"><div class="fm-eye tl"></div><div class="fm-eye tr"></div><div class="fm-eye bl"></div><span class="fm-dot"></span></div></div><div class="fm-name">小红书</div><button class="fm-btn" onclick="fmToast(this,'小红书')">关注</button></div>
-          <div class="fm-card"><div class="fm-qr"><div class="fm-code fm-rd"><div class="fm-eye tl"></div><div class="fm-eye tr"></div><div class="fm-eye bl"></div><span class="fm-dot"></span></div></div><div class="fm-name">微博</div><button class="fm-btn" onclick="fmToast(this,'微博')">关注</button></div>
-          <div class="fm-card"><div class="fm-qr"><div class="fm-code fm-rd"><div class="fm-eye tl"></div><div class="fm-eye tr"></div><div class="fm-eye bl"></div><span class="fm-dot"></span></div></div><div class="fm-name">抖音</div><button class="fm-btn" onclick="fmToast(this,'抖音')">关注</button></div>
+          <div class="fm-card"><div class="fm-qr"><img src="img/qr/01_wechat_mp.svg" alt="微信公众号 二维码" loading="lazy"></div><div class="fm-name">微信公众号</div><a class="fm-btn" href="http://weixin.qq.com/r/mp/ai7p8UbE-RuCrQKS93t4" target="_blank" rel="noopener">关注</a></div>
+          <div class="fm-card"><div class="fm-qr"><img src="img/qr/02_xiaohongshu.png" alt="小红书 二维码" loading="lazy"></div><div class="fm-name">小红书</div><div class="fm-id">小红书号 970474894</div><a class="fm-btn" href="https://www.xiaohongshu.com/search_result?keyword=970474894" target="_blank" rel="noopener" title="该渠道未提供主页短链，此按钮打开平台内搜索">关注</a></div>
+          <div class="fm-card"><div class="fm-qr"><img src="img/qr/03_weibo.svg" alt="微博 二维码" loading="lazy"></div><div class="fm-name">微博</div><div class="fm-id">@Harry维哥</div><a class="fm-btn" href="http://weibo.cn/qr/userinfo?featurecode=profile_qrcode&uid=8210429593" target="_blank" rel="noopener">关注</a></div>
+          <div class="fm-card"><div class="fm-qr"><img src="img/qr/04_douyin.png" alt="抖音 二维码" loading="lazy"></div><div class="fm-name">抖音</div><div class="fm-id">抖音号 734466330</div><a class="fm-btn" href="https://www.douyin.com/search/734466330" target="_blank" rel="noopener" title="该渠道未提供主页短链，此按钮打开平台内搜索">关注</a></div>
+          <div class="fm-card"><div class="fm-qr wait">平台无<br>二维码</div><div class="fm-name">今日头条</div><div class="fm-id">用户名 Harry141659901</div><a class="fm-btn" href="https://www.toutiao.com/search/?keyword=Harry141659901" target="_blank" rel="noopener" title="该渠道未提供主页短链，此按钮打开平台内搜索">关注</a></div>
+          <div class="fm-card"><div class="fm-qr"><img src="img/qr/06_bilibili.svg" alt="哔哩哔哩二维码" loading="lazy"></div><div class="fm-name">哔哩哔哩</div><div class="fm-id">UID 416966639</div><a class="fm-btn" href="https://space.bilibili.com/416966639" target="_blank" rel="noopener noreferrer">关注</a></div>
         </div>
         </div>
 
-        <!-- International -->
-        <div class="fm-sec"><div class="fm-sec-t">关注我 · International <span class="fm-tag">GLOBAL</span></div>
+        <div class="fm-sec"><div class="fm-sec-t">Follow Me · International <span class="fm-tag">GLOBAL</span></div>
         <div class="fm-grid">
-          <div class="fm-card"><div class="fm-qr"><div class="fm-code fm-rd"><div class="fm-eye tl"></div><div class="fm-eye tr"></div><div class="fm-eye bl"></div><span class="fm-dot"></span></div></div><div class="fm-name">X <span class="fm-old">(Twitter)</span></div><button class="fm-btn" onclick="fmToast(this,'X')">Follow</button></div>
-          <div class="fm-card"><div class="fm-qr"><div class="fm-code fm-rd"><div class="fm-eye tl"></div><div class="fm-eye tr"></div><div class="fm-eye bl"></div><span class="fm-dot"></span></div></div><div class="fm-name">Instagram</div><button class="fm-btn" onclick="fmToast(this,'Instagram')">Follow</button></div>
-          <div class="fm-card"><div class="fm-qr"><div class="fm-code fm-rd"><div class="fm-eye tl"></div><div class="fm-eye tr"></div><div class="fm-eye bl"></div><span class="fm-dot"></span></div></div><div class="fm-name">Facebook</div><button class="fm-btn" onclick="fmToast(this,'Facebook')">Follow</button></div>
-          <div class="fm-card"><div class="fm-qr"><div class="fm-code fm-rd"><div class="fm-eye tl"></div><div class="fm-eye tr"></div><div class="fm-eye bl"></div><span class="fm-dot"></span></div></div><div class="fm-name">Threads</div><button class="fm-btn" onclick="fmToast(this,'Threads')">Follow</button></div>
-        </div>
-        </div>
-
-        <!-- 暂未开通（入口保留 · 置灰） -->
-        <div class="fm-sec"><div class="fm-sec-t">即将上线 <span class="fm-tag">SOON</span></div>
-        <div class="fm-grid">
-          <div class="fm-card off"><div class="fm-qr"><div class="fm-code fm-rd"><div class="fm-eye tl"></div><div class="fm-eye tr"></div><div class="fm-eye bl"></div><span class="fm-dot"></span></div></div><div class="fm-name">Bilibili 哔哩哔哩</div><button class="fm-btn off">即将上线</button></div>
-          <div class="fm-card off"><div class="fm-qr"><div class="fm-code fm-rd"><div class="fm-eye tl"></div><div class="fm-eye tr"></div><div class="fm-eye bl"></div><span class="fm-dot"></span></div></div><div class="fm-name">YouTube</div><button class="fm-btn off">Coming soon</button></div>
+          <div class="fm-card"><div class="fm-qr"><img src="img/qr/07_x_twitter.svg" alt="X（推特）二维码" loading="lazy"></div><div class="fm-name">X（推特）</div><div class="fm-id">@andywu1206</div><a class="fm-btn" href="https://x.com/intent/follow?screen_name=andywu1206" target="_blank" rel="noopener noreferrer">Follow</a></div>
+          <div class="fm-card"><div class="fm-qr"><img src="img/qr/08_instagram.svg" alt="Instagram二维码" loading="lazy"></div><div class="fm-name">Instagram</div><div class="fm-id">@harry.333999</div><a class="fm-btn" href="https://www.instagram.com/harry.333999" target="_blank" rel="noopener noreferrer">Follow</a></div>
+          <div class="fm-card"><div class="fm-qr"><img src="img/qr/09_facebook.svg" alt="Facebook二维码" loading="lazy"></div><div class="fm-name">Facebook</div><div class="fm-id">profile id 61590119862997</div><a class="fm-btn" href="https://www.facebook.com/share/19C3FZJG8z/" target="_blank" rel="noopener noreferrer">Follow</a></div>
+          <div class="fm-card"><div class="fm-qr"><img src="img/qr/10_threads.svg" alt="Threads二维码" loading="lazy"></div><div class="fm-name">Threads</div><div class="fm-id">@harry.333999</div><a class="fm-btn" href="https://www.threads.com/@harry.333999" target="_blank" rel="noopener noreferrer">Follow</a></div>
+          <div class="fm-card"><div class="fm-qr"><img src="img/qr/11_youtube.svg" alt="YouTube二维码" loading="lazy"></div><div class="fm-name">YouTube</div><div class="fm-id">@harrywood1013</div><a class="fm-btn" href="https://www.youtube.com/@harrywood1013?sub_confirmation=1" target="_blank" rel="noopener noreferrer">Follow</a></div>
         </div>
         </div>
       </div>
+        </div>
     </section>
 
     <!-- Footer · Admin 入口藏在「关于」里 -->
