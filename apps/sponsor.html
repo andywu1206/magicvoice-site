@@ -435,7 +435,7 @@ body.dark [data-v="6"] .ccard{border-color:rgba(255,255,255,.095)}
    ══════════════════════════════════════════════════════════════ */
 .sbtoggle{display:none}
 /* 收缩按钮放在卡片底部留白里 —— 视觉重心平衡，也不会挤到条目（Harry 2026-08-04）*/
-[data-v="7"] .sbtoggle{display:grid;place-items:center;width:26px;height:26px;margin:0 auto;
+[data-v="7"] .sbtoggle{display:grid;place-items:center;width:26px;height:26px;margin:6px auto 0;position:sticky;bottom:0;z-index:3;
   border:1px solid var(--line);border-radius:50%;background:transparent;color:var(--ink2);
   font:400 13px/1 var(--font);cursor:pointer;transition:.18s;flex:0 0 auto}
 [data-v="7"] .sbtoggle:hover{background:var(--sel);color:var(--ink)}
@@ -618,7 +618,7 @@ body.dark [data-v="9"] .side::before{
 [data-v="9"] .item:hover,[data-v="9"] .item.on{background:rgba(255,255,255,.46)}
 body.dark [data-v="9"] .item:hover,body.dark [data-v="9"] .item.on{background:rgba(255,255,255,.12)}
 
-[data-v="9"] .sbtoggle{display:grid;place-items:center;width:26px;height:26px;margin:0 auto;
+[data-v="9"] .sbtoggle{display:grid;place-items:center;width:26px;height:26px;margin:6px auto 0;position:sticky;bottom:0;z-index:3;
   border:1px solid var(--line);border-radius:50%;background:rgba(255,255,255,.42);color:var(--ink2);
   font:600 14px/1 var(--font);cursor:pointer;transition:.18s;flex:0 0 auto}
 [data-v="9"] .sbtoggle:hover{background:rgba(255,255,255,.70);color:var(--ink)}
@@ -674,7 +674,11 @@ body:has(.app[data-v="9"]){padding:0;background:var(--page)}
    继续裁只会把它的投影切出一条硬边 —— 放开 */
 [data-v="9"] .hero{overflow:visible}
 /* 侧栏固定浮在 body 上：页面上下滚动时保持可点，不参与正文布局 */
-[data-v="9"] .side{overflow:hidden}
+/* 🔴 BUG-P15-0002（Harry 2026-09-01 手机实测「收拢的按钮根本看不到，没办法收起来」）：
+   原来是 overflow:hidden + 收起按钮在列表末尾 —— 展开态列表变高，按钮被裁掉且无法滚动到。
+   改 overflow-y:auto（能滚到底）+ 收起按钮 position:sticky bottom:0（永远贴在可视区底部）。 */
+[data-v="9"] .side{overflow-y:auto;overflow-x:hidden;scrollbar-width:none}
+[data-v="9"] .side::-webkit-scrollbar{width:0;height:0}
 
 @media (max-width:1100px){
   [data-v="9"]{padding-left:0;padding-right:0}

@@ -445,7 +445,7 @@ body.dark [data-v="6"] .ccard{border-color:rgba(255,255,255,.095)}
    ══════════════════════════════════════════════════════════════ */
 .sbtoggle{display:none}
 /* 收缩按钮放在卡片底部留白里 —— 视觉重心平衡，也不会挤到条目（Harry 2026-08-04）*/
-[data-v="7"] .sbtoggle{display:grid;place-items:center;width:26px;height:26px;margin:0 auto;
+[data-v="7"] .sbtoggle{display:grid;place-items:center;width:26px;height:26px;margin:6px auto 0;position:sticky;bottom:0;z-index:3;
   border:1px solid var(--line);border-radius:50%;background:transparent;color:var(--ink2);
   font:400 13px/1 var(--font);cursor:pointer;transition:.18s;flex:0 0 auto}
 [data-v="7"] .sbtoggle:hover{background:var(--sel);color:var(--ink)}
@@ -628,7 +628,7 @@ body.dark [data-v="9"] .side::before{
 [data-v="9"] .item:hover,[data-v="9"] .item.on{background:rgba(255,255,255,.46)}
 body.dark [data-v="9"] .item:hover,body.dark [data-v="9"] .item.on{background:rgba(255,255,255,.12)}
 
-[data-v="9"] .sbtoggle{display:grid;place-items:center;width:26px;height:26px;margin:0 auto;
+[data-v="9"] .sbtoggle{display:grid;place-items:center;width:26px;height:26px;margin:6px auto 0;position:sticky;bottom:0;z-index:3;
   border:1px solid var(--line);border-radius:50%;background:rgba(255,255,255,.42);color:var(--ink2);
   font:600 14px/1 var(--font);cursor:pointer;transition:.18s;flex:0 0 auto}
 [data-v="9"] .sbtoggle:hover{background:rgba(255,255,255,.70);color:var(--ink)}
@@ -684,7 +684,11 @@ body:has(.app[data-v="9"]){padding:0;background:var(--page)}
    继续裁只会把它的投影切出一条硬边 —— 放开 */
 [data-v="9"] .hero{overflow:visible}
 /* 侧栏固定浮在 body 上：页面上下滚动时保持可点，不参与正文布局 */
-[data-v="9"] .side{overflow:hidden}
+/* 🔴 BUG-P15-0002（Harry 2026-09-01 手机实测「收拢的按钮根本看不到，没办法收起来」）：
+   原来是 overflow:hidden + 收起按钮在列表末尾 —— 展开态列表变高，按钮被裁掉且无法滚动到。
+   改 overflow-y:auto（能滚到底）+ 收起按钮 position:sticky bottom:0（永远贴在可视区底部）。 */
+[data-v="9"] .side{overflow-y:auto;overflow-x:hidden;scrollbar-width:none}
+[data-v="9"] .side::-webkit-scrollbar{width:0;height:0}
 
 @media (max-width:1100px){
   [data-v="9"]{padding-left:0;padding-right:0}
@@ -932,7 +936,16 @@ body.dark .fm-qr.wait{background:repeating-linear-gradient(45deg,#26272c 0 7px,#
    窄屏侧栏会收起，用 max() 保底不至于把内容推出视口。 */
 .hz-block{max-width:760px;text-align:left;
   margin-left:max(0px,calc((100vw - 1280px)/2 + 236px + 30px))}
-@media (max-width:1100px){.hz-block{margin-left:0}}
+/* 🔴 BUG-P15-0003（Harry 2026-09-01 手机实测「完全被那个菜单挡住了」）：
+   原来这里写死 margin-left:0，等于亲手把移动端的让位关掉；上面那句 max(0px,…) 在窄屏
+   也会算出负数退化成 0。两处叠加 = 侧栏直接盖在正文上。
+   现在照 index.html 已验证的做法给窄屏【正的】左距：1100 档侧栏 200px → 246px；
+   760 档侧栏收成 44px 窄条 → 68px。
+   ⚠️ 教训：max(0px,…) / clamp 这类"防负数"写法在窄屏会静默退化成 0，看着安全，
+      实际是把移动端保护关掉了。窄屏必须显式给正值。 */
+@media (max-width:1100px){.hz-block{margin-left:246px}}
+@media (max-width:760px){.hz-block{margin-left:68px;margin-right:18px}}
+@media (max-width:520px){.hz-block{margin-left:60px;margin-right:14px}}
 .hz-tabs{display:inline-flex;gap:3px;background:rgba(0,0,0,.05);border-radius:10px;padding:3px;margin:18px 0 20px}
 body.dark .hz-tabs{background:rgba(255,255,255,.08)}
 .hz-tabs button{appearance:none;border:0;background:transparent;color:var(--ink2);
