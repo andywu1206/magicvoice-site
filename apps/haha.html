@@ -709,7 +709,22 @@ body:has(.app[data-v="9"]){padding:0;background:var(--page)}
 @media (max-width:760px){
   [data-v="9"] main{padding-left:0}
   [data-v="9"] .side{left:10px;top:92px;width:208px;height:auto;min-height:480px;max-height:calc(100svh - 112px);border-radius:14px}
-  [data-v="9"].sbmin .side{width:44px;height:auto;min-height:0;padding:10px 8px}
+  /* 🔴 Harry 2026-09-01 21:5x iPhone 实测两条（不是 vivo —— 所有浏览器都这样）：
+     ① 「右边的间距太小，左边是对的」—— 实测左 9px / 右 3px。
+        根因：box-sizing:border-box，44px 的窄条减去 2px 边框 + 16px padding，
+        内容盒只剩 26px，而 .item 是 32px —— 比容器还宽 6px，于是贴着左边、右边被挤掉。
+        改法：窄条加宽到 50px（1+8+32+8+1），左右各 9px 真正对称；.item 保持 32px
+        不缩水（缩到 26px 点击区太小）。窄条右缘 10+50=60，正文左 68，仍留 8px。
+     ② 「图标大的大小的小」—— 实测 i人洞府那个 42×42，其余全是 28×28。
+        根因很讽刺：8-31 为了修「大的大小的小」加了 #p8Nav 那条 42px 规则
+        （那张图自带 18.8% 透明边，34px 框里图案只有 27.6px，放到 42px 才让图案=34px）。
+        但那是给【展开态 34px 框】算的，ID 选择器又压过了窄条的 28px 规则，
+        于是窄条里它一个人 42px —— 同一个补丁在另一个状态下把问题反着又造了一遍。
+        改法：窄条单独算一次 —— 图案要 28px，则框 = 28×128/104 ≈ 34.5px，
+        负边距 -3.25px 把占位收回 28px。展开态那条 42px 一个字不动。
+     ⚠️ 别把 #p8Nav 那条 42px 删掉去「统一」—— 删了展开态就会重新变小一圈。 */
+  [data-v="9"].sbmin .side{width:50px;height:auto;min-height:0;padding:10px 8px;align-items:center}
+  [data-v="9"].sbmin #p8Nav img{width:34.5px;height:34.5px;margin:0 -3.25px}
   [data-v="9"].sbmin .brand .m{width:28px;height:28px}
   [data-v="9"].sbmin .item{width:32px;height:32px;margin-bottom:8px;border-radius:9px}
   [data-v="9"].sbmin .item img,
