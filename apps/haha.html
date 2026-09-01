@@ -709,7 +709,7 @@ body:has(.app[data-v="9"]){padding:0;background:var(--page)}
 @media (max-width:760px){
   [data-v="9"] main{padding-left:0}
   [data-v="9"] .side{left:10px;top:92px;width:208px;height:auto;min-height:480px;max-height:calc(100svh - 112px);border-radius:14px}
-  [data-v="9"].sbmin .side{width:44px;height:418px;min-height:418px;padding:10px 8px}
+  [data-v="9"].sbmin .side{width:44px;height:auto;min-height:0;padding:10px 8px}
   [data-v="9"].sbmin .brand .m{width:28px;height:28px}
   [data-v="9"].sbmin .item{width:32px;height:32px;margin-bottom:8px;border-radius:9px}
   [data-v="9"].sbmin .item img,
@@ -789,7 +789,33 @@ body.dark .mnu{background:rgba(40,40,44,.86);border-color:rgba(255,255,255,.14);
 .mnu button i{font-style:normal;width:12px;flex:0 0 12px;font-size:11px;opacity:.9}
 .mnu button:hover i{color:#fff}
 /* 顶栏两个按钮宽度取最大值锁死 —— 中英切换时不再变来变去 */
-#lang,#theme{min-width:78px;justify-content:center}
+#lang{min-width:78px;justify-content:center}
+/* 🔽 Harry 2026-09-01：Light / Dark 从下拉改成【点击切换】的太阳-月亮按钮。
+   为什么改：下拉的三角意味着"这里显示的是当前选中项"，可这个按钮显示的一直是
+   【点了会变成什么】（浅色模式下写 Dark）—— 两个信号互相打架，已经有好几个人问 Harry
+   "现在到底是什么状态"。改成图标开关后就没有这种矛盾了：页面本身是深是浅一眼可见，
+   按钮只表达"点我会变成什么"（月亮=去深色）。语言那个仍然是下拉，不动。 */
+#theme{min-width:0;width:26px;padding:0;justify-content:center;border-radius:999px}
+#theme svg{width:14px;height:14px;display:block}
+#theme::after{content:none!important}
+/* ── 浏览端选择器（电脑 / 平板 / 手机）· 挂在侧栏底部 ── */
+.devpick{display:none}
+[data-v="7"] .devpick,[data-v="9"] .devpick{display:flex;flex-wrap:wrap;
+  justify-content:center;align-content:center;gap:6px;
+  margin:10px 0 2px;padding-top:10px;border-top:1px solid var(--line)}
+/* 侧栏收起成窄条时改竖排：窄条内宽只有 ~28px，横排三个 28px 按钮一定会被切边。
+   （2026-09-01 实测：容器 22px、按钮 28px，两侧各被裁 3px） */
+[data-v="7"].sbmin .devpick,[data-v="9"].sbmin .devpick{flex-direction:column;align-items:center;gap:5px}
+[data-v="7"].sbmin .devpick .dv,[data-v="9"].sbmin .devpick .dv{width:26px;height:26px}
+[data-v="7"].sbmin .devpick .dv svg,[data-v="9"].sbmin .devpick .dv svg{width:16px;height:16px}
+.devpick .dv{width:28px;height:28px;flex:0 0 auto;display:grid;place-items:center;padding:0;
+  border:1px solid transparent;border-radius:8px;background:transparent;
+  color:var(--ink2);cursor:pointer;transition:.15s}
+.devpick .dv svg{width:17px;height:17px;display:block}
+.devpick .dv:hover{background:var(--sel);color:var(--ink)}
+.devpick .dv[aria-pressed="true"]{background:var(--ink);color:var(--page);border-color:var(--ink)}
+body.dark .devpick .dv:hover{background:rgba(255,255,255,.10);color:#fff}
+body.dark .devpick .dv[aria-pressed="true"]{background:rgba(255,255,255,.92);color:#111;border-color:transparent}
 /* 三张档位卡统一阴影（Harry：这个阴影蛮好看的，三个都要） */
 .ccard{box-shadow:0 8px 26px -14px rgba(0,0,0,.16)}
 body.dark .ccard{box-shadow:0 8px 26px -14px rgba(0,0,0,.5)}
@@ -1031,6 +1057,8 @@ body.dark .hz-src a{color:#7FB4FF}
       <span class="tx"><b id="fmNavTx">Follow Me</b></span>
     </a>
     <div class="sp"></div>
+    <!-- 浏览端选择器（Harry 2026-09-01）：既是他自己的人工测试工具，也是读者的"请求桌面版网站" -->
+    <div class="devpick" id="devPick" role="group"></div>
     <button class="sbtoggle" id="sbToggle" title="收起侧栏" aria-label="收起侧栏">‹</button>
   </aside>
 
@@ -1523,6 +1551,14 @@ function renderVersions(){
     </div>`;
 }
 let cur='aria',lang='en';   /* 默认英文 —— 任何国家地区进来先看英文（Harry 2026-08-04） */
+/* 只记"用户自己点过的"选择；没点过仍然走上面那个默认值 —— 默认口径一个字节没动。
+   为什么要记：以前每翻一页语言和深浅色都被打回默认，Harry 反馈"状态老是让人困惑"。
+   这段跑在 </body> 前的同步脚本里，在首次绘制之前，所以不会闪一下。（Harry 2026-09-01）*/
+try{ const _l=localStorage.getItem('hasLang'); if(_l==='zh'||_l==='en') lang=_l;
+     if(localStorage.getItem('hasTheme')==='dark') document.body.classList.add('dark'); }catch(_){}
+const THEME_ICON={
+ sun:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.1"/><path d="M12 2.4v2.3M12 19.3v2.3M2.4 12h2.3M19.3 12h2.3M5.2 5.2l1.6 1.6M17.2 17.2l1.6 1.6M18.8 5.2l-1.6 1.6M6.8 17.2l-1.6 1.6"/></svg>',
+ moon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.6 14.4A8.7 8.7 0 0 1 9.6 3.4a8.7 8.7 0 1 0 11 11Z"/></svg>'};
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const app=$('.app');
 
@@ -1554,8 +1590,11 @@ function render(){
     });
   }
   $('#lang').textContent=lang==='zh'?'中文':'English';
-  $('#theme').textContent=document.body.classList.contains('dark')
-    ?(lang==='zh'?'浅色':'Light'):(lang==='zh'?'深色':'Dark');
+  { /* 主题按钮：图标表达"点了会变成什么"（月亮=去深色 / 太阳=回浅色）· Harry 2026-09-01 */
+    const _dk=document.body.classList.contains('dark'), _tb=$('#theme'), _zh=lang==='zh';
+    _tb.innerHTML=_dk?THEME_ICON.sun:THEME_ICON.moon;
+    const _lb=_dk?(_zh?'切换到浅色':'Switch to light mode'):(_zh?'切换到深色':'Switch to dark mode');
+    _tb.title=_lb; _tb.setAttribute('aria-label',_lb); }
   // 侧栏文字跟着语言走（之前英文状态下还是中文，是错的）
   const zh=lang==='zh';
   // Footer 跟着语言走（之前上面英文下面中文，是错的）
@@ -1616,7 +1655,7 @@ function render(){
     else{mn.style.backgroundSize='';app.style.backgroundSize='';app.style.backgroundPosition='';}
   };
   requestAnimationFrame(__applyBg); setTimeout(__applyBg,80); setTimeout(__applyBg,400);
-  syncSidebarToggle();
+  syncSidebarToggle(); paintDev();
 }
 $$('.item[data-app]').forEach(b=>b.onclick=()=>{location.href='/apps/#'+b.dataset.app;});
 $$('.tabs .t').forEach(b=>b.onclick=()=>{
@@ -1626,11 +1665,9 @@ $$('.tabs .t').forEach(b=>b.onclick=()=>{
 const MENU={
   lang:{el:'#mnuLang',btn:'#lang',
     items:()=>[['zh','简体中文'],['en','English']],
-    cur:()=>lang, set:v=>{lang=v;render();}},
-  theme:{el:'#mnuTheme',btn:'#theme',
-    items:()=>lang==='zh'?[['light','浅色'],['dark','深色']]:[['light','Light'],['dark','Dark']],
-    cur:()=>document.body.classList.contains('dark')?'dark':'light',
-    set:v=>{document.body.classList.toggle('dark',v==='dark');render();}}};
+    cur:()=>lang, set:v=>{lang=v;try{localStorage.setItem('hasLang',v)}catch(_){}render();}}};
+/* theme 下拉已移除（Harry 2026-09-01）——改成 #theme 点击直接切换，见下方 onclick。
+   #mnuTheme 那个空 div 留着不删（U25 只增不删），没有任何代码再打开它。 */
 function closeMenus(){document.querySelectorAll('.mnu').forEach(m=>m.classList.remove('on'));}
 function openMenu(k){
   const c=MENU[k],el=$(c.el),btn=$(c.btn);
@@ -1647,10 +1684,92 @@ function openMenu(k){
   el.style.left=L+'px';
 }
 $('#lang').onclick=e=>{e.stopPropagation();openMenu('lang');};
-$('#theme').onclick=e=>{e.stopPropagation();openMenu('theme');};
+$('#theme').onclick=e=>{e.stopPropagation();closeMenus();
+  const dk=!document.body.classList.contains('dark');
+  document.body.classList.toggle('dark',dk);
+  try{localStorage.setItem('hasTheme',dk?'dark':'light')}catch(_){}
+  render();};
 document.addEventListener('click',closeMenus);
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenus();});
 addEventListener('resize',closeMenus); addEventListener('scroll',closeMenus,true);
+
+/* ══ 浏览端选择器 · 电脑 / 平板 / 手机（Harry 2026-09-01）══
+   一个控件两个用途：Harry 自己的人工测试工具 + 读者的"请求桌面版网站"。
+
+   为什么是【两套机制】而不是一套 —— 这是被浏览器规则逼出来的，不是懒：
+   · 手机 / 平板 → 改 <meta viewport> 的宽度。浏览器自带的"请求桌面版网站"用的就是这一招，
+     媒体查询会按新宽度重新命中，布局 100% 真实，零 CSS 重复。
+   · 桌面 → 桌面浏览器【忽略】viewport meta，这条路走不通；改成 window.open 开一个
+     指定宽度的真窗口，窗口视口就是 390 / 820，媒体查询自然正确。比 iframe 简单，
+     也比 iframe 好用（可拖、可再缩放），而且不给公网页面新增内嵌框架这层攻击面。
+
+   ❌ 别改成"给 html 加个 class 再复制一份响应式 CSS" —— 那份副本迟早跟主规则走散，
+      到时候预览出来的是假的，比没有更糟。
+   ⚠️ 已知小瑕疵：桌面开出来的预览窗口里，screen.width 仍然是那块大屏，所以它自己的
+      选择器会显示"电脑端"高亮，而画面其实是手机布局。预览窗口里的高亮状态不必当真。 */
+const DEV_KEY='hasDev', DEVW={pc:1180,pad:820,ph:390};
+const DEV_ICON={
+ pc:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3.4" width="20" height="13.2" rx="2"/><path d="M8.5 20.6h7M12 16.6v4"/></svg>',
+ pad:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.2" y="2.2" width="15.6" height="19.6" rx="2.4"/><path d="M11.1 19h1.8"/></svg>',
+ ph:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6.6" y="2.2" width="10.8" height="19.6" rx="2.6"/><path d="M10.7 4.7h2.6M11.1 19.2h1.8"/></svg>'};
+/* 用 screen.width 而不是 innerWidth：innerWidth 会被我们自己改的 viewport 带跑，
+   一改就再也算不回"这台设备本来是什么端"了。screen.width 不受 viewport meta 影响。 */
+function devNative(){ const w=(screen&&screen.width)||innerWidth||0;
+  return w<=760?'ph':(w<=1100?'pad':'pc'); }
+const DEV_VP_DEFAULT='width=device-width, initial-scale=1, viewport-fit=cover';
+let devSel=devNative(), devBroken=false;
+try{ const _d=localStorage.getItem(DEV_KEY); if(DEVW[_d]) devSel=_d; }catch(_){}
+function devApplyMeta(){
+  const m=document.querySelector('meta[name="viewport"]'); if(!m) return;
+  const nat=devNative();
+  const want=(nat==='pc'||devSel===nat)?DEV_VP_DEFAULT:('width='+DEVW[devSel]);
+  if(m.getAttribute('content')===want) return;
+  const before=document.documentElement.clientWidth;
+  m.setAttribute('content',want);
+  if(want===DEV_VP_DEFAULT) return;
+  /* 少数浏览器不认"改属性"，得整个节点换掉才重排；再不行就是真不支持，老实退回去。 */
+  setTimeout(()=>{
+    if(document.documentElement.clientWidth!==before) return;
+    const cur=document.querySelector('meta[name="viewport"]');
+    const n=cur.cloneNode(); n.setAttribute('content',want); cur.replaceWith(n);
+    setTimeout(()=>{
+      if(document.documentElement.clientWidth!==before) return;
+      devBroken=true; devSel=devNative();
+      try{ localStorage.removeItem(DEV_KEY); }catch(_){}
+      document.querySelector('meta[name="viewport"]').setAttribute('content',DEV_VP_DEFAULT);
+      paintDev();
+    },280);
+  },280);
+}
+function devPick(k){
+  if(!DEVW[k]) return;
+  if(devNative()==='pc'){
+    /* 桌面：本体保持电脑端，另开一个该宽度的真窗口做预览 */
+    if(k!=='pc'){
+      const w=DEVW[k], h=Math.max(560,Math.min((screen.availHeight||900)-90, Math.round(w*2.05)));
+      window.open(location.href,'hasDev_'+k,'width='+w+',height='+h+',menubar=no,toolbar=no,location=no');
+    }
+    paintDev(); return;
+  }
+  devSel=k; try{ localStorage.setItem(DEV_KEY,k); }catch(_){}
+  devApplyMeta(); paintDev();
+}
+function paintDev(){
+  const box=$('#devPick'); if(!box) return;
+  const zh=lang==='zh', nat=devNative();
+  const NM=zh?{pc:'电脑端',pad:'平板端',ph:'手机端'}:{pc:'Desktop',pad:'Tablet',ph:'Phone'};
+  box.setAttribute('aria-label', zh?'浏览端':'View as');
+  box.innerHTML=['pc','pad','ph'].map(k=>{
+    const on=(nat==='pc')?(k==='pc'):(k===devSel);
+    return '<button type="button" class="dv" data-dev="'+k+'" aria-pressed="'+on+'"'
+      +' title="'+NM[k]+'" aria-label="'+NM[k]+'">'+DEV_ICON[k]+'</button>';
+  }).join('');
+  box.title = devBroken ? (zh?'这个浏览器不支持切换浏览端':'This browser cannot switch view mode')
+    : (nat==='pc' ? (zh?'浏览端 —— 在新窗口按该宽度预览':'View as — opens a window at that width')
+                  : (zh?'浏览端':'View as'));
+  box.querySelectorAll('.dv').forEach(b=>b.onclick=()=>devPick(b.dataset.dev));
+}
+devApplyMeta();
 
 /* ══ 下载点击追踪（Harry 2026-08-04：点了按钮就算一次下载，不用 GitHub 真实下载量）══
    诚实边界：这是纯前端 hook 点，只写本机 localStorage，不是全局共享的公开数字。
