@@ -1534,11 +1534,56 @@ function renderVersions(){
     </div>`;
 }
 let cur=(location.hash==='#rm'?'rm':'aria'),lang='en';   /* 默认英文 —— 任何国家地区进来先看英文（Harry 2026-08-04） */
+/* 四语言（Harry 2026-09-04）：简体 / 繁體 / English US / English UK。
+   lang 仍然只有 'zh' | 'en' 两个值，从 locale 派生 —— 全站 55 处 lang==='zh' 判断一个字没改。
+   繁體 = 构建期用 zhconv 生成的短语表查表替换，运行时不猜；US/UK = 拼写表。
+   ⚠️ 只管网站自己的界面和菜单。哈哈资讯的内容不翻英文、也不转繁體（Harry 明确划的界）。 */
+let locale='en-US';
+function localeToLang(v){ return String(v).slice(0,2)==='zh' ? 'zh' : 'en'; }
+function setLocale(v){
+  locale=v; lang=localeToLang(v);
+  try{ localStorage.setItem('hasLocale',v); localStorage.setItem('hasLang',lang); }catch(_){}
+  document.documentElement.lang = v==='zh-Hant' ? 'zh-Hant' : v==='zh-Hans' ? 'zh-Hans' : v==='en-GB' ? 'en-GB' : 'en';
+}
+const LOCALES=[['zh-Hans','简体中文'],['zh-Hant','繁體中文'],['en-US','English (US)'],['en-GB','English (UK)']];
+const LOCALE_SHORT={'zh-Hans':'简体','zh-Hant':'繁體','en-US':'EN US','en-GB':'EN UK'};
 /* 只记"用户自己点过的"选择；没点过仍然走上面那个默认值 —— 默认口径一个字节没动。
    为什么要记：以前每翻一页语言和深浅色都被打回默认，Harry 反馈"状态老是让人困惑"。
    这段跑在 </body> 前的同步脚本里，在首次绘制之前，所以不会闪一下。（Harry 2026-09-01）*/
-try{ const _l=localStorage.getItem('hasLang'); if(_l==='zh'||_l==='en') lang=_l;
+try{ const _lc=localStorage.getItem('hasLocale');
+     if(_lc && LOCALES.some(x=>x[0]===_lc)){ locale=_lc; lang=localeToLang(_lc); }
+     else { /* 兼容 2026-09-04 之前只存 zh/en 的老值，不让谁的选择被清掉 */
+       const _l=localStorage.getItem('hasLang');
+       if(_l==='zh'){ locale='zh-Hans'; lang='zh'; } else if(_l==='en'){ locale='en-US'; lang='en'; } }
      if(localStorage.getItem('hasTheme')==='dark') document.body.classList.add('dark'); }catch(_){}
+/* 繁體词表：构建期由 zhconv(zh-hk) 对本页公开区的中文片段跑出来，只保留「转换后≠原文」的 141 条。
+   运行时纯查表，不做任何猜测；页面新增中文而词表没更新时，那段保持简体（宁可不转，不要转错）。 */
+const HANT={"产品入口：i人洞府（Everything About Me）退休工具、Remember Me 记住我，以及 Aria Magic Voice macOS 语音输入法":"產品入口：i人洞府（Everything About Me）退休工具、Remember Me 記住我，以及 Aria Magic Voice macOS 語音輸入法","你的原始聊天记录绝对不上传云端，锁定在你自己的 Mac 中，隐私保障拉满。超级学习引擎让输入法越用越懂你，越用越准确":"你的原始聊天記錄絕對不上傳雲端，鎖定在你自己的 Mac 中，私隱保障拉滿。超級學習引擎讓輸入法越用越懂你，越用越準確","支持 英文语音输入 · 中文语音输入 · 粤语语音输入 · 中英混合语音输入 · 英文键盘输入法 · 拼音输入法":"支持 英文語音輸入 · 中文語音輸入 · 粵語語音輸入 · 中英混合語音輸入 · 英文鍵盤輸入法 · 拼音輸入法","直接把问题写在下面（越具体越好：什么时候出现、在哪个 App、复现步骤）。内容会直接发到":"直接把問題寫在下面（越具體越好：什麼時候出現、在哪個 App、復現步驟）。內容會直接發到","是 sendBeacon 的默认类型，不触发 CORS 预检；Worker 那边不挑":"是 sendBeacon 的默認類型，不觸發 CORS 預檢；Worker 那邊不挑","超级学习引擎会慢慢摸清你的用词、你常提的名字和你的口音。学到的东西全留在你自己电脑里":"超級學習引擎會慢慢摸清你的用詞、你常提的名字和你的口音。學到的東西全留在你自己電腦裏","请简单说明合作或投资意向（投放、代理、投资、集成等），我会尽快回复。内容会直接发到":"請簡單説明合作或投資意向（投放、代理、投資、集成等），我會儘快回復。內容會直接發到","照片、名字，还有名字背后的故事 —— 集中安放在一处，而不是散落在手机各个角落":"照片、名字，還有名字背後的故事 —— 集中安放在一處，而不是散落在手機各個角落","识别全在你自己的电脑内部完成。录音不上传，原文不上传 —— 断了网照样能用":"識別全在你自己的電腦內部完成。錄音不上傳，原文不上傳 —— 斷了網照樣能用","照片 · 故事 · 族谱 · 家族时间线 —— 全部留在你自己的设备里":"照片 · 故事 · 族譜 · 家族時間線 —— 全部留在你自己的設備裏","你说的每一句话都绝不上传绝不外发，所有数据锁在你自己的电脑，隐私第一":"你説的每一句話都絕不上傳絕不外發，所有數據鎖在你自己的電腦，私隱第一","渐变底边严格对齐「选择版本」上方那根线：不写死高度，按实际位置算":"漸變底邊嚴格對齊「選擇版本」上方那根線：不寫死高度，按實際位置算","中文、英文、粤语混着说也跟得上。还顺带给你英文键盘和拼音输入法":"中文、英文、粵語混着説也跟得上。還順帶給你英文鍵盤和拼音輸入法","方案 4：按钮不再说含糊的「立即下载」，明确说清下的是哪一档":"方案 4：按鈕不再説含糊的「立即下載」，明確説清下的是哪一檔","从 App Store 安装免费版 · 也可选内测版或完整版":"從 App Store 安裝免費版 · 也可選內測版或完整版","三个版本能力不同 —— 有的打勾，没有的打横线，一眼看完":"三個版本能力不同 —— 有的打勾，沒有的打橫線，一眼看完","只发送你写的这段文字，不会附带录音、原文、日志或截图":"只發送你寫的這段文字，不會附帶錄音、原文、日誌或截圖","退到 keepalive fetch，同样不等结果":"退到 keepalive fetch，同樣不等結果","侧栏文字跟着语言走（之前英文状态下还是中文，是错的":"側欄文字跟着語言走（之前英文狀態下還是中文，是錯的","最新功能优先，可能不稳定。适合愿意帮我一起试的人":"最新功能優先，可能不穩定。適合願意幫我一起試的人","例如：在飞书里说完话，文字上屏后光标跳到了行首":"例如：在飛書裏説完話，文字上屏後光標跳到了行首","在本地把声音变成文字，让表达保持在你的控制之下":"在本地把聲音變成文字，讓表達保持在你的控制之下","例如：我们想在某平台做联合推广，预算和排期是":"例如：我們想在某平台做聯合推廣，預算和排期是","中英混说 · 一句话里换语言，不用切输入法":"中英混説 · 一句話裏換語言，不用切輸入法","输入法的 Free 包还没出（内测包正在打":"輸入法的 Free 包還沒出（內測包正在打","照片、故事与族谱，安静地存在你自己的设备里":"照片、故事與族譜，安靜地存在你自己的設備裏","用专属文案（没定义就回落到通用文案）；方案":"用專屬文案（沒定義就回落到通用文案）；方案","三个版本能力不同，勾表示有，横线表示没有":"三個版本能力不同，勾表示有，橫線表示沒有","跟着语言走（之前上面英文下面中文，是错的":"跟着語言走（之前上面英文下面中文，是錯的","输入法的 Pro 包还没出（内测包正在打":"輸入法的 Pro 包還沒出（內測包正在打","更高精度的本地语音识别（Pro 解锁":"更高精度的本地語音識別（Pro 解鎖","自动发送还没接通，这条内容没有被送出":"自動發送還沒接通，這條內容沒有被送出","浏览端 —— 在新窗口按该宽度预览":"瀏覽端 —— 在新窗口按該寬度預覽","审核上架的稳定版本，核心功能免费用":"審核上架的穩定版本，核心功能免費用","先祖在上，保佑血脉后代平安与健康":"先祖在上，保佑血脈後代平安與健康","自动润色（Pro 解锁，可选开启":"自動潤色（Pro 解鎖，可選開啓","禁止 javascript 链接":"禁止 javascript 連結","三个渠道内容相同，就近选择即可":"三個渠道內容相同，就近選擇即可","自动润色 · 口语直接变书面语":"自動潤色 · 口語直接變書面語","三个版本内容不同，按需要选一个":"三個版本內容不同，按需要選一個","发送失败了（网络或服务端问题":"發送失敗了（網絡或服務端問題","抱歉，这是我的问题，不是你的":"抱歉，這是我的問題，不是你的","让思念的家人有一个安静的港湾":"讓思念的家人有一個安靜的港灣","解锁全部能力，付一次长期使用":"解鎖全部能力，付一次長期使用","让思念的家人静静的留在您身边":"讓思念的家人靜靜的留在您身邊","超级学习引擎 · 越用越懂你":"超級學習引擎 · 越用越懂你","已发送，谢谢！我会尽快回复":"已發送，謝謝！我會儘快回復","超级学习引擎（Pro 解锁":"超級學習引擎（Pro 解鎖","这个浏览器不支持切换浏览端":"這個瀏覽器不支持切換瀏覽端","留在这台手机，绝不上传云端":"留在這台手機，絕不上傳雲端","已发送，谢谢！这个窗口将在":"已發送，謝謝！這個窗口將在","中英混说，商务场景想说就说":"中英混説，商務場景想説就説","超级学习引擎，越说越懂你":"超級學習引擎，越説越懂你","请手动复制文本框里的内容":"請手動複製文本框裏的內容","版正在收尾，很快就能下载":"版正在收尾，很快就能下載","秒后关闭，也可以点「关闭":"秒後關閉，也可以點「關閉","留在本机，绝不上传云端":"留在本機，絕不上傳雲端","语音输入 · 实时上屏":"語音輸入 · 實時上屏","一次购买 · 永久使用":"一次購買 · 永久使用","自动润色 · 可选开启":"自動潤色 · 可選開啓","更高精度的本地语音识别":"更高精度的本地語音識別","族谱，承载着家族的记忆":"族譜，承載着家族的記憶","超级学习 · 越用越准":"超級學習 · 越用越準","口水词过滤与词表纠错":"口水詞過濾與詞表糾錯","内容还在框里，没有丢":"內容還在框裏，沒有丟","从未远去 从未忘记":"從未遠去 從未忘記","语音输入，保持私密":"語音輸入，保持私密","内容已复制到剪贴板":"內容已複製到剪貼板","原始语音与聊天原文":"原始語音與聊天原文","打造最准确的输入法":"打造最準確的輸入法","占位 IP，不可用":"佔位 IP，不可用","不限家庭成员数量":"不限家庭成員數量","审核上架的稳定版":"審核上架的穩定版","不能使用相对地址":"不能使用相對地址","优先体验最新功能":"優先體驗最新功能","被拒（少数浏览器":"被拒（少數瀏覽器","永远走通用文案":"永遠走通用文案","家族记忆与族谱":"家族記憶與族譜","把家人留在身边":"把家人留在身邊","抢先体验新功能":"搶先體驗新功能","电子遗嘱资料夹":"電子遺囑資料夾","简体转繁體输出":"簡體轉繁體輸出","记录家人与照片":"記錄家人與照片","不限使用时长":"不限使用時長","表单接线缺失":"表單接線缺失","最新功能优先":"最新功能優先","遇到什么问题":"遇到什麼問題","云同步与备份":"雲同步與備份","全局语音唤起":"全局語音喚起","链接里有空白":"連結裏有空白","审核的稳定版":"審核的穩定版","链接还未配置":"連結還未配置","解锁全部能力":"解鎖全部能力","两段，源记成":"兩段，源記成","切换到深色":"切換到深色","下载内测版":"下載內測版","能力分档为":"能力分檔為","直接选版本":"直接選版本","切换到浅色":"切換到淺色","前往官网":"前往官網","哈哈资讯":"哈哈資訊","立即下载":"立即下載","简体中文":"簡體中文","问题反馈":"問題反饋","链接为空":"連結為空","隐私模式":"私隱模式","用户反馈":"用户反饋","收起侧栏":"收起側欄","中国大陆":"中國大陸","麻烦发到":"麻煩發到","界面语言":"界面語言","族谱视图":"族譜視圖","即将开放":"即將開放","家庭族谱":"家庭族譜","下载来源":"下載來源","即将上线":"即將上線","语音输入":"語音輸入","商务合作":"商務合作","百度网盘":"百度網盤","永久免费":"永久免費","选择版本":"選擇版本","展开侧栏":"展開側欄","一次买断":"一次買斷","记住我":"記住我","已上线":"已上線","浏览端":"瀏覽端","关注我":"關注我","免费版":"免費版","电脑端":"電腦端","输入法":"輸入法","手机端":"手機端","内测版":"內測版","关闭":"關閉","复制":"複製","编辑":"編輯","润色":"潤色","赞助":"贊助","购买":"購買","发送":"發送","免费":"免費","下载":"下載"};
+const HANT_KEYS=Object.keys(HANT).sort((a,b)=>b.length-a.length);
+function toHant(t){ for(const k of HANT_KEYS){ if(t.indexOf(k)>=0) t=t.split(k).join(HANT[k]); } return t; }
+/* 英美拼写：当前公开文案实测 0 处差异（en-US / en-GB 视觉上一样）。
+   表留着是为了将来新增文案时有落点 —— 不是摆设，但也不假装现在有效果。 */
+const GB_SPELL={'color':'colour','colors':'colours','license':'licence','organize':'organise',
+  'organized':'organised','customize':'customise','customized':'customised','analyze':'analyse',
+  'catalog':'catalogue','center':'centre','behavior':'behaviour','favorite':'favourite'};
+const GB_KEYS=Object.keys(GB_SPELL);
+function applyLocaleText(){
+  const hant=locale==='zh-Hant', gb=locale==='en-GB';
+  if(!hant && !gb) return;
+  const w=document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {acceptNode(n){
+    const v=n.nodeValue; if(!v || !v.trim()) return NodeFilter.FILTER_REJECT;
+    if(hant && !/[\u4e00-\u9fff]/.test(v)) return NodeFilter.FILTER_REJECT;
+    const p=n.parentElement;
+    if(!p || p.closest('script,style,code,pre,textarea,input,[data-noloc]')) return NodeFilter.FILTER_REJECT;
+    return NodeFilter.FILTER_ACCEPT; }});
+  const list=[]; let n; while(n=w.nextNode()) list.push(n);
+  list.forEach(node=>{
+    let t=node.nodeValue;
+    if(hant) t=toHant(t);
+    if(gb) GB_KEYS.forEach(k=>{ t=t.replace(new RegExp('\\b'+k+'\\b','g'), GB_SPELL[k]); });
+    if(t!==node.nodeValue) node.nodeValue=t;
+  });
+}
 const THEME_ICON={
  sun:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.1"/><path d="M12 2.4v2.3M12 19.3v2.3M2.4 12h2.3M19.3 12h2.3M5.2 5.2l1.6 1.6M17.2 17.2l1.6 1.6M18.8 5.2l-1.6 1.6M6.8 17.2l-1.6 1.6"/></svg>',
  moon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.6 14.4A8.7 8.7 0 0 1 9.6 3.4a8.7 8.7 0 1 0 11 11Z"/></svg>'};
@@ -1631,6 +1676,8 @@ function render(){
   };
   requestAnimationFrame(__applyBg); setTimeout(__applyBg,80); setTimeout(__applyBg,400);
   syncSidebarToggle(); paintDev();
+  { const lb=document.getElementById('lang'); if(lb) lb.textContent=LOCALE_SHORT[locale]||'EN US'; }
+  applyLocaleText();   // 必须在所有文本写完之后 —— 它改的是渲染好的文本节点
 }
 $$('.item[data-app]').forEach(b=>b.onclick=(event)=>{
   if(event&&(event.metaKey||event.ctrlKey||event.shiftKey||event.altKey))return;
@@ -1642,8 +1689,8 @@ $$('.tabs .t').forEach(b=>b.onclick=()=>{
 /* ══ 顶栏下拉菜单（Apple 规范）══ 有三角就该弹菜单，不该点一下直接切 */
 const MENU={
   lang:{el:'#mnuLang',btn:'#lang',
-    items:()=>[['zh','简体中文'],['en','English']],
-    cur:()=>lang, set:v=>{lang=v;try{localStorage.setItem('hasLang',v)}catch(_){}render();}}};
+    items:()=>LOCALES,
+    cur:()=>locale, set:v=>{ setLocale(v); render(); }}};
 /* theme 下拉已移除（Harry 2026-09-01）——改成 #theme 点击直接切换，见下方 onclick。
    #mnuTheme 那个空 div 留着不删（U25 只增不删），没有任何代码再打开它。 */
 function closeMenus(){document.querySelectorAll('.mnu').forEach(m=>m.classList.remove('on'));}
