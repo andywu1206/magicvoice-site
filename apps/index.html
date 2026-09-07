@@ -1416,7 +1416,7 @@ function renderCompare(){
   const AND = (cur==='aria' && curPlat==='and');
   const VX  = AND ? VER_AND : VER[cur];
   const directSource={n:lang==='zh'?'官网':'Website',
-    u:({and:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-android-v10.201-test/AriaInputMethod-Android-v10.201.apk',mac:'downloads.ariamagicvoice.com/releases/aria/macos/90.672/AriaMagicVoice_Pro_Website_v90.672.dmg'})[curPlat]||'',
+    u:({and:'downloads.ariamagicvoice.com/releases/aria/android/10.201/AriaInputMethod-Android-v10.201.apk',mac:'downloads.ariamagicvoice.com/releases/aria/macos/90.672/AriaMagicVoice_Pro_Website_v90.672.dmg'})[curPlat]||'',
     i:'official',fast:true};
   const hasDirect=cur==='aria'&&!!directSource.u;
   const betaSources=hasDirect?[directSource,...(VX.beta||[])]:VX.beta;
@@ -1654,15 +1654,17 @@ function localeSnapshotValue(map,key,current){
   const base=prior&&current===prior.rendered?prior.base:current;
   const rendered=localizedInterfaceString(base);map.set(key,{base,rendered});return rendered;
 }
+function localeSkipNode(node){return false;}
+
 function applyLocaleText(){
   const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode(n){
     if(!n.nodeValue||!n.nodeValue.trim())return NodeFilter.FILTER_REJECT;
     const p=n.parentElement;
-    return !p||p.closest('script,style,code,pre,textarea,input,[contenteditable],[data-noloc]')?NodeFilter.FILTER_REJECT:NodeFilter.FILTER_ACCEPT;
+    return !p||p.closest('script,style,code,pre,textarea,input,[data-noloc]')||localeSkipNode(p)?NodeFilter.FILTER_REJECT:NodeFilter.FILTER_ACCEPT;
   }});
   let n;while(n=w.nextNode())n.nodeValue=localeSnapshotValue(localeTextSnapshots,n,n.nodeValue);
   document.querySelectorAll('[aria-label],[aria-description],[title],[placeholder],[alt]').forEach(el=>{
-    if(el.closest('script,style,code,pre,[contenteditable],[data-noloc]'))return;
+    if(el.closest('script,style,code,pre,[data-noloc]')||localeSkipNode(el))return;
     let values=localeAttributeSnapshots.get(el);if(!values){values=new Map();localeAttributeSnapshots.set(el,values);}
     for(const name of ['aria-label','aria-description','title','placeholder','alt']){
       const current=el.getAttribute(name);if(current===null)continue;
