@@ -1416,7 +1416,7 @@ function renderCompare(){
   const AND = (cur==='aria' && curPlat==='and');
   const VX  = AND ? VER_AND : VER[cur];
   const directSource={n:lang==='zh'?'官网':'Website',
-    u:({and:'downloads.ariamagicvoice.com/releases/aria/android/10.182/AriaInputMethod-Android-v10.182.apk',mac:'downloads.ariamagicvoice.com/releases/aria/macos/90.672/AriaMagicVoice_Pro_Website_v90.672.dmg'})[curPlat]||'',
+    u:({and:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-android-v10.201-test/AriaInputMethod-Android-v10.201.apk',mac:'downloads.ariamagicvoice.com/releases/aria/macos/90.672/AriaMagicVoice_Pro_Website_v90.672.dmg'})[curPlat]||'',
     i:'official',fast:true};
   const hasDirect=cur==='aria'&&!!directSource.u;
   const betaSources=hasDirect?[directSource,...(VX.beta||[])]:VX.beta;
