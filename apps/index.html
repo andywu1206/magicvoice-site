@@ -1076,9 +1076,9 @@ const ICO={
    u 留空 = 渲染成不可点的「即将开放」，跟 Mac 那边占位符同一条规矩：公网不放坏链接。
    拿到真地址只改这三行的 u，版式一个字不用动。 */
 const VER_AND={
-  beta:[{n:'GitHub',u:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-android-v10.212-test/AriaInputMethod-Android-v10.212.apk',i:'gh'},
-        {n:'Google Drive',u:'drive.google.com/file/d/1MKk_ntzuDEXEu75gOEaCeLYVvl_khbE6/view?usp=drive_link',i:'dr'},
-        {n:'百度网盘',u:'pan.baidu.com/s/1TIjT08aYfSPGTCAzH-JlkA?pwd=1234',i:'bd',code:'1234'}],
+  beta:[{n:'GitHub',u:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-android-v10.201-test/AriaInputMethod-Android-v10.201.apk',i:'gh'},
+        {n:'Google Drive',u:'drive.google.com/file/d/15D4DCCwg3jdNC-9ErPG8D1ZEbxoOZX13/view?usp=sharing',i:'dr'},
+        {n:'百度网盘',u:'pan.baidu.com/s/1F_6scoFheqkRqqzCOLOb9w?pwd=1234',i:'bd',code:'1234'}],
   free:'', pro:'', price:'$39.9'};
 const VER={
   aria:{beta:[{n:'GitHub',u:'github.com/andywu1206/magicvoice-site/releases/download/aria-magic-voice-v90.672-pro-website/AriaMagicVoice_Pro_Website_v90.672.dmg',i:'gh'},
@@ -1330,7 +1330,7 @@ function mergeContent(o){
     if(!ap)continue;
     if(a[1]==='beta'){const b=ap.beta&&ap.beta[+a[2]];if(b)b.u=lk[k];}
     else if(a[1]==='free'||a[1]==='pro')ap[a[1]]=lk[k];}}
-/*BAKED-START*/const BAKED={"__links":{"aria:beta:0":"github.com\u002fandywu1206\u002fmagicvoice-site\u002freleases\u002fdownload\u002faria-magic-voice-v90.672-pro-website\u002fAriaMagicVoice_Pro_Website_v90.672.dmg","aria:beta:1":"drive.google.com\u002ffile\u002fd\u002f1vJ7Mbx0pvtPGjEjElC4JtY2Q8-TqwymU\u002fview?usp=drive_link","aria:beta:2":"pan.baidu.com\u002fs\u002f1tj4fNDQqto_u8Ga8sHrC9g?pwd=1234"}};/*BAKED-END*/
+/*BAKED-START*/const BAKED={"__links":{"aria:beta:0":"github.com/andywu1206/magicvoice-site/releases/download/aria-magic-voice-v90.806-free-website/AriaMagicVoice_Free_Website_v90.806.dmg","aria:beta:1":"drive.google.com/file/d/1vJ7Mbx0pvtPGjEjElC4JtY2Q8-TqwymU/view?usp=drive_link","aria:beta:2":"pan.baidu.com/s/1tj4fNDQqto_u8Ga8sHrC9g?pwd=1234"}};/*BAKED-END*/
 mergeContent(BAKED);
 
 function linkCode(sc,u){
@@ -1416,7 +1416,7 @@ function renderCompare(){
   const AND = (cur==='aria' && curPlat==='and');
   const VX  = AND ? VER_AND : VER[cur];
   const directSource={n:lang==='zh'?'官网':'Website',
-    u:({and:'downloads.ariamagicvoice.com/releases/aria/android/10.212/AriaInputMethod-Android-v10.212.apk',mac:'downloads.ariamagicvoice.com/releases/aria/macos/90.672/AriaMagicVoice_Pro_Website_v90.672.dmg'})[curPlat]||'',
+    u:({and:'downloads.ariamagicvoice.com/releases/aria/android/10.201/AriaInputMethod-Android-v10.201.apk',mac:'downloads.ariamagicvoice.com/releases/aria/macos/90.672/AriaMagicVoice_Pro_Website_v90.672.dmg'})[curPlat]||'',
     i:'official',fast:true};
   const hasDirect=cur==='aria'&&!!directSource.u;
   const betaSources=hasDirect?[directSource,...(VX.beta||[])]:VX.beta;
