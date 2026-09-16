@@ -1076,7 +1076,7 @@ const ICO={
    u 留空 = 渲染成不可点的「即将开放」，跟 Mac 那边占位符同一条规矩：公网不放坏链接。
    拿到真地址只改这三行的 u，版式一个字不用动。 */
 const VER_AND={
-  beta:[{n:'GitHub',u:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-android-v10.363-test/AriaInputMethod-Android-v10.363.apk',i:'gh'}],
+  beta:[{n:'GitHub',u:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-android-v10.365-test/AriaInputMethod-Android-v10.365.apk',i:'gh'}],
   free:'', pro:'', price:'$39.9'};
 const VER={
   aria:{beta:[{n:'GitHub',u:'github.com/andywu1206/magicvoice-site/releases/download/aria-magic-voice-v90.806-free-website/AriaMagicVoice_Free_Website_v90.806.dmg',i:'gh'}],
@@ -1412,7 +1412,7 @@ function renderCompare(){
   const AND = (cur==='aria' && curPlat==='and');
   const VX  = AND ? VER_AND : VER[cur];
   const directSource={n:lang==='zh'?'官网':'Website',
-    u:({and:'downloads.ariamagicvoice.com/releases/aria/android/10.363/AriaInputMethod-Android-v10.363.apk',mac:'github.com/andywu1206/magicvoice-site/releases/download/aria-magic-voice-v90.806-free-website/AriaMagicVoice_Free_Website_v90.806.dmg'})[curPlat]||'',
+    u:({and:'downloads.ariamagicvoice.com/releases/aria/android/10.365/AriaInputMethod-Android-v10.365.apk',mac:'github.com/andywu1206/magicvoice-site/releases/download/aria-magic-voice-v90.806-free-website/AriaMagicVoice_Free_Website_v90.806.dmg'})[curPlat]||'',
     i:'official',fast:true};
   const hasDirect=cur==='aria'&&!!directSource.u;
   const betaSources=hasDirect?[directSource,...(VX.beta||[])]:VX.beta;
