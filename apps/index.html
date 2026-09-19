@@ -1079,7 +1079,7 @@ const VER_AND={
   beta:[{n:'GitHub',u:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-android-v10.370-test/AriaInputMethod-Android-v10.370.apk',i:'gh'}],
   free:'', pro:'', price:'$39.9'};
 const VER={
-  aria:{beta:[{n:'GitHub',u:'github.com/andywu1206/magicvoice-site/releases/download/aria-magic-voice-v90.816-free-website/AriaMagicVoiceIME_Free_v90.816_Qwen0.6B_780MB.dmg',i:'gh'}],
+  aria:{beta:[{n:'GitHub',u:'github.com/andywu1206/magicvoice-site/releases/download/aria-magic-voice-v90.806-free-website/AriaMagicVoice_Free_Website_v90.806.dmg',i:'gh'}],
         /* ⚠️ 这里曾经填过 App Store 的 id6776485989（Harry 2026-08-08 当场纠正）。
            那个上架物是 87.x 的 App，本页现在卖的是 90.x 的「Aria 输入法」——
            两件不同的产品，不能互相代称。输入法的 Free / Pro 包都还没出，
@@ -1330,7 +1330,7 @@ function mergeContent(o){
     if(!ap)continue;
     if(a[1]==='beta'){const b=ap.beta&&ap.beta[+a[2]];if(b)b.u=lk[k];}
     else if(a[1]==='free'||a[1]==='pro')ap[a[1]]=lk[k];}}
-/*BAKED-START*/const BAKED={"__links":{"aria:beta:0":"github.com/andywu1206/magicvoice-site/releases/download/aria-magic-voice-v90.816-free-website/AriaMagicVoiceIME_Free_v90.816_Qwen0.6B_780MB.dmg","aria:beta:1":"drive.google.com/file/d/1vJ7Mbx0pvtPGjEjElC4JtY2Q8-TqwymU/view?usp=drive_link","aria:beta:2":"pan.baidu.com/s/1tj4fNDQqto_u8Ga8sHrC9g?pwd=1234"}};/*BAKED-END*/
+/*BAKED-START*/const BAKED={"__links":{"aria:beta:0":"github.com/andywu1206/magicvoice-site/releases/download/aria-magic-voice-v90.806-free-website/AriaMagicVoice_Free_Website_v90.806.dmg","aria:beta:1":"drive.google.com/file/d/1vJ7Mbx0pvtPGjEjElC4JtY2Q8-TqwymU/view?usp=drive_link","aria:beta:2":"pan.baidu.com/s/1tj4fNDQqto_u8Ga8sHrC9g?pwd=1234"}};/*BAKED-END*/
 mergeContent(BAKED);
 
 function linkCode(sc,u){
@@ -1416,7 +1416,7 @@ function renderCompare(){
   const AND = (cur==='aria' && curPlat==='and');
   const VX  = AND ? VER_AND : VER[cur];
   const directSource={n:lang==='zh'?'官网':'Website',
-    u:({and:'downloads.ariamagicvoice.com/releases/aria/android/10.370/AriaInputMethod-Android-v10.370.apk',mac:'github.com/andywu1206/magicvoice-site/releases/download/aria-magic-voice-v90.816-free-website/AriaMagicVoiceIME_Free_v90.816_Qwen0.6B_780MB.dmg'})[curPlat]||'',
+    u:({and:'downloads.ariamagicvoice.com/releases/aria/android/10.370/AriaInputMethod-Android-v10.370.apk',mac:'github.com/andywu1206/magicvoice-site/releases/download/aria-magic-voice-v90.806-free-website/AriaMagicVoice_Free_Website_v90.806.dmg'})[curPlat]||'',
     i:'official',fast:true};
   const hasDirect=cur==='aria'&&!!directSource.u;
   const betaSources=hasDirect?[directSource,...(VX.beta||[])]:VX.beta;
