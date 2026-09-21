@@ -910,7 +910,7 @@ body.dark .ccard{box-shadow:0 8px 26px -14px rgba(0,0,0,.5)}
     <a class="item" href="follow.html" id="fmNav">
       <svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#141418"/><path d="M0 8a8 8 0 0 1 8-8h18a8 8 0 0 1 8 8v9H0z" fill="#fff" opacity=".08"/><g transform="translate(7.82,7.82) scale(1.1475)" fill="#fff"><path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
   <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/></g></svg>
-      <span class="tx"><b id="fmNavTx">Follow Me</b></span>
+      <span class="tx"><b id="fmNavTx">About Me</b></span>
     </a>
     <div class="sp"></div>
     <!-- 浏览端选择器（Harry 2026-09-01）：既是他自己的人工测试工具，也是读者的"请求桌面版网站" -->
@@ -1727,7 +1727,7 @@ function render(){
      Harry 原话（该 AI 记的）：侧栏/页名不许中英写在同一行，跟语言开关走。 */
   { const s=$('#supportSlab'); if(s) s.textContent=zh?'支持':'Support'; }
   { const s=$('#spNavTx'); if(s) s.textContent=zh?'赞助':'Sponsor'; }
-  { const s=$('#fmNavTx'); if(s) s.textContent=zh?'关注我':'Follow Me'; }
+  { const s=$('#fmNavTx'); if(s) s.textContent=zh?'关于我':'About Me'; }
   auditActionLinks();
 
   // 渐变底边严格对齐「选择版本」上方那根线：不写死高度，按实际位置算

@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Follow Me · Harry App Store</title>
+<title>About Me · Harry App Store</title>
 <meta name="description" content="Official Harry App Store pages for Remember Me 记住我, a memorial, family tree, and electronic will folder app, plus Aria Magic Voice, a macOS voice input and AI input method.">
 <meta name="keywords" content="Remember Me, Remember Me 记住我, 记住我, 祭奠, 家庭族谱, 族谱, 电子遗嘱, 电子遗嘱资料夹, Aria Magic Voice, Aria 输入法, macOS 语音输入">
 <meta name="robots" content="index,follow">
@@ -891,6 +891,37 @@ body.dark .sp-card{box-shadow:0 8px 26px -14px rgba(0,0,0,.5)}
   font-size:13px;color:var(--ink2);text-align:center;line-height:1.6}
 .fm-tip b{color:var(--ink);font-weight:600}
 
+/* 关于我 · 自我介绍卡（2026-09-21 12:3x 周一 北京时间 (CST) · claude-opus-5）
+   外壳逐值沿用 .fm-card（#F7F3F3 / 22px / 同款两层阴影 / 深色 #1c1d21），不另造颜色；
+   宽度逐条沿用 .fm-all 的 744 + 窄屏净空规则 → 与下面二维码区同左同宽。
+   🔴 .ab-card 不许写 display —— 写了会压过 [hidden]，中英两版同时露出来。 */
+.ab-wrap{width:100%;max-width:744px;margin:24px auto 0}
+.ab-card{background:#F7F3F3;border-radius:22px;padding:26px 30px;text-align:left;
+  color:#1D1D1F;font:400 15px/1.75 -apple-system,"PingFang SC",system-ui;
+  box-shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px -16px rgba(0,0,0,.16)}
+.ab-card[hidden]{display:none!important}
+.ab-card p{margin:0 0 12px}
+.ab-card p:last-child{margin-bottom:0}
+.ab-card .ab-name{font-weight:600;font-size:16px;letter-spacing:-.01em}
+.ab-card ul{margin:0 0 12px;padding-left:1.3em}
+.ab-card li{margin:2px 0}
+.ab-card .ab-contact{margin-top:16px;padding-top:14px;border-top:1px solid var(--line);
+  font-size:14px;line-height:1.85}
+.ab-card a{color:inherit;text-decoration:underline;text-decoration-color:var(--ink3);
+  text-underline-offset:3px;word-break:break-word;overflow-wrap:anywhere}
+/* ↑ 不用 break-all：它会把网址从中间劈开填满上一行（实测 375px 被劈成「…/apps」+「/」）。
+     overflow-wrap:anywhere 先把整条网址挪到下一行，真放不下才断。 */
+.ab-card a:hover{text-decoration-color:currentColor}
+.ab-h2{margin:52px 0 0;text-align:center;color:var(--ink);
+  font:700 28px/1.2 -apple-system,"PingFang SC",system-ui;letter-spacing:-.01em}
+body.dark .ab-card{background:#1c1d21;color:#f2f2f7;
+  box-shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px -16px rgba(0,0,0,.6)}
+@media(max-width:1100px){.ab-wrap{max-width:min(744px,calc(100vw - 443px))}}
+@media(max-width:760px){.ab-wrap{max-width:none}}
+@media(max-width:520px){.ab-card{padding:20px 18px;font-size:14.5px;line-height:1.7}
+  .ab-card .ab-contact{font-size:13px}   /* 官网网址 14px 宽 261 > 375 屏卡内 259，13px ≈ 242 整条放得下 */
+  .ab-h2{font-size:24px;margin-top:40px}}
+
 /* Harry 2026-08-31 第三轮 · 两段「同左同宽」且整排必须避开左侧固定侧栏 —— 前两版都翻在这
    ❌ 版本一 auto-fill+minmax(164px,1fr) 放在 shrink-to-fit 容器里：repeat 数按「不定尺寸」算 → 塌成 1 列
    ❌ 版本二 两段 width:100% 拉满：6 张卡那排铺进侧栏底下 → 公众号整张被盖住，扫不出来
@@ -1025,7 +1056,7 @@ body.dark .fm-qr.wait{background:repeating-linear-gradient(45deg,#26272c 0 7px,#
     <a class="item" href="follow.html" id="fmNav">
       <svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#141418"/><path d="M0 8a8 8 0 0 1 8-8h18a8 8 0 0 1 8 8v9H0z" fill="#fff" opacity=".08"/><g transform="translate(7.82,7.82) scale(1.1475)" fill="#fff"><path fill="#fff" d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
   <path fill="#fff" fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/></g></svg>
-      <span class="tx"><b id="fmNavTx">Follow Me</b></span>
+      <span class="tx"><b id="fmNavTx">About Me</b></span>
     </a>
     <div class="sp"></div>
     <!-- 浏览端选择器（Harry 2026-09-01）：既是他自己的人工测试工具，也是读者的"请求桌面版网站" -->
@@ -1047,7 +1078,29 @@ body.dark .fm-qr.wait{background:repeating-linear-gradient(45deg,#26272c 0 7px,#
          电脑前扫码 · 手机上看这页的人直接点「关注」（不能假设人人两台设备）。 -->
     <section class="hero sponsor-hero">
       <div class="sp-wrap fm-block">
-        <h1 class="h1 sp-h1" id="spH1">Follow Me</h1>
+        <h1 class="h1 sp-h1" id="spH1">About Me</h1>
+
+        <!-- 关于我 · About Me（Harry 2026-09-21 定稿原文，中英各一版，跟语言开关切换；
+             两版都是 Harry 自己写的，不是机翻。正文与原文逐字一致，只动了三处写法：
+             ① 中文第一段「创始人, 」半角逗号改全角「，」；② 「Aria输入法」改「Aria 输入法」跟第二段一致；
+             ③ 官网网址按 Harry 的 www 铁律补全成 https://www.ariamagicvoice.com/apps/（原文写的是不带 www 的）。） -->
+        <div class="ab-wrap">
+          <article class="ab-card" id="abEn" lang="en">
+            <p class="ab-name">Harry | Founder of Aria Input Method, Senior UX Designer &amp; AI Product Builder</p>
+            <p>With over 20 years of deep industry expertise in IT and technology, Harry has served across Fortune 500 enterprises and premier tech leaders—including Salesforce, HSBC, Accenture, Avanade, Tencent, Huawei, XPeng Motors, and Biostime—holding leadership positions as Design Director and Design Lead. He combines mature strategic vision in design organization management with frontline, full-lifecycle product design mastery.</p>
+            <p>Currently, a portfolio of native applications independently built by Harry—including Aria Magic Voice, Every Thing about Me, Remember Me, Haha News, and Shadow Guard—has passed Apple's rigorous review process and is officially live on the App Store. From initial product conception, user experience architecture, and visual UI design to full-stack code development, testing, release, and marketing, every stage has been completed end-to-end as a solo creator with 100% proprietary intellectual property ownership.</p>
+            <p>If your enterprise or team is interested in business consulting, project advisory, or strategic collaborations, please feel free to reach out:</p>
+            <p class="ab-contact">Official Website: <a href="https://www.ariamagicvoice.com/apps/">https://www.ariamagicvoice.com/apps/</a><br>Email: <a href="mailto:magicvoice.team@outlook.com">magicvoice.team@outlook.com</a></p>
+          </article>
+          <article class="ab-card" id="abZh" lang="zh-CN" hidden>
+            <p>Harry，Aria 输入法创始人，资深用户体验设计师与 AI 产品 Builder。深耕 IT 行业 20 余载，曾就职于 Salesforce、HSBC 汇丰银行、Accenture 埃森哲、Avanade 埃维诺、Tencent 腾讯、Huawei 华为、XPeng 小鹏汽车、Biostime 合生元等世界 500 强与科技领军企业，担任设计总监与 Design Lead，拥有成熟的设计团队管理视野与一线全链路产品设计经验。</p>
+            <p>目前，由 Harry 独立打造的 Aria 输入法（Aria Magic Voice）、i人洞府（Every Thing about Me）、记住我（Remember Me）、哈哈新闻资讯、暗影卫士等多款 App 均已通过苹果 App Store 严格审核并正式上线。从产品构想、体验架构、视觉设计，到全栈代码、测试上架与宣发推广，均由其一人独立闭环完成，拥有 100% 独立知识产权。</p>
+            <p>如果您的企业或团队有业务咨询、项目顾问或深度合作意向，欢迎联系：</p>
+            <p class="ab-contact">官网: <a href="https://www.ariamagicvoice.com/apps/">https://www.ariamagicvoice.com/apps/</a><br>邮箱: <a href="mailto:magicvoice.team@outlook.com">magicvoice.team@outlook.com</a></p>
+          </article>
+        </div>
+
+        <h2 class="ab-h2" id="fmH2">Follow Me</h2>
         <p class="lead sp-en" id="fmLead">Scan the code on desktop — or tap through on mobile.</p>
 
         <div class="fm-tip" id="fmTip">On a <b>computer</b> → scan the QR with your phone. On a <b>phone</b> → tap Follow — no need to scan.</div>
@@ -1055,8 +1108,8 @@ body.dark .fm-qr.wait{background:repeating-linear-gradient(45deg,#26272c 0 7px,#
         <div class="fm-all">
         <div class="fm-sec"><div class="fm-sec-t" id="fmSecCn">China <span class="fm-tag">CN</span></div>
         <div class="fm-grid">
-          <div class="fm-card"><div class="fm-qr"><img src="img/qr/01_wechat_mp.svg" alt="微信公众号 购买宝 二维码" loading="lazy"></div><div class="fm-name">微信公众号</div><div class="fm-id">购买宝</div><a class="fm-btn" href="https://mp.weixin.qq.com/s/RpLKSG6YTcXIFCXK0yzA6w" target="_blank" rel="noopener">Follow</a></div>
           <div class="fm-card"><div class="fm-qr"><img src="img/qr/02_xiaohongshu.svg" alt="小红书 二维码" loading="lazy"></div><div class="fm-name">小红书</div><div class="fm-id">小红书号 970474894</div><a class="fm-btn" href="https://xhslink.cn/m/TUEiatRggZ" target="_blank" rel="noopener">Follow</a></div>
+          <div class="fm-card"><div class="fm-qr"><img src="img/qr/01_wechat_mp.svg" alt="微信公众号 购买宝 二维码" loading="lazy"></div><div class="fm-name">微信公众号</div><div class="fm-id">购买宝</div><a class="fm-btn" href="https://mp.weixin.qq.com/s/RpLKSG6YTcXIFCXK0yzA6w" target="_blank" rel="noopener">Follow</a></div>
           <div class="fm-card"><div class="fm-qr"><img src="img/qr/03_weibo.svg" alt="微博 二维码" loading="lazy"></div><div class="fm-name">微博</div><div class="fm-id">@Harry维哥</div><a class="fm-btn" href="http://weibo.cn/qr/userinfo?featurecode=profile_qrcode&uid=8210429593" target="_blank" rel="noopener">Follow</a></div>
           <div class="fm-card"><div class="fm-qr"><img src="img/qr/04_douyin.svg" alt="抖音 二维码" loading="lazy"></div><div class="fm-name">抖音</div><div class="fm-id">抖音号 734466330</div><a class="fm-btn" href="https://www.douyin.com/user/MS4wLjABAAAAApV2FDZAY0110gIn7JSm8-2xpV83uXz_1gQU6tMDvmM" target="_blank" rel="noopener">Follow</a></div>
           <div class="fm-card"><div class="fm-qr"><img src="img/qr/05_toutiao.svg" alt="今日头条 二维码" loading="lazy"></div><div class="fm-name">今日头条</div><div class="fm-id">用户名 Harry141659901</div><a class="fm-btn" href="https://www.toutiao.com/c/user/token/MS4wLjABAAAAnY4j150FmVeslJB77xu7TxpmJj1XC1rvIZ76tAIUtV0/" target="_blank" rel="noopener">Follow</a></div>
@@ -1589,10 +1642,12 @@ function render(){
   /* Harry 2026-08-31：侧栏/页名不许中英写在同一行，跟语言开关走 */
   { const s=$('#supportSlab'); if(s) s.textContent=zh?'支持':'Support'; }
   { const s=$('#spNavTx'); if(s) s.textContent=zh?'赞助':'Sponsor'; }
-  { const s=$('#fmNavTx'); if(s) s.textContent=zh?'关注我':'Follow Me'; }
+  { const s=$('#fmNavTx'); if(s) s.textContent=zh?'关于我':'About Me'; }
   if($('#spH1')&&$('.fm-block')){
-    document.title=zh?'关注我 · Harry App Store':'Follow Me · Harry App Store';
-    $('#spH1').textContent=zh?'关注我':'Follow Me';
+    document.title=zh?'关于我 · Harry App Store':'About Me · Harry App Store';
+    $('#spH1').textContent=zh?'关于我':'About Me';
+    { const e=$('#abEn'), c=$('#abZh'); if(e&&c){ e.hidden=zh; c.hidden=!zh; } }
+    { const h=$('#fmH2'); if(h) h.textContent=zh?'关注我':'Follow Me'; }
     { const p=$('#fmLead'); if(p) p.textContent=zh?'电脑前扫码，手机上直接点按钮。':'Scan the code on desktop — or tap through on mobile.'; }
     { const t=$('#fmTip'); if(t) t.innerHTML=zh?'正在<b>电脑</b>前 → 用手机<b>扫二维码</b>；正在<b>手机</b>上看这页 → 直接点按钮，不用扫码。':'On a <b>computer</b> → scan the QR with your phone. On a <b>phone</b> → tap Follow — no need to scan.'; }
     { const a=$('#fmSecCn'); if(a) a.innerHTML=zh?'国内 <span class="fm-tag">CN</span>':'China <span class="fm-tag">CN</span>'; }
