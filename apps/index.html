@@ -21,6 +21,7 @@
 <meta name="twitter:title" content="Harry App Store | i人洞府 · Remember Me · Aria Magic Voice">
 <meta name="twitter:description" content="Official product pages for i人洞府, Remember Me 记住我, and Aria Magic Voice.">
 <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect x="6" y="6" width="52" height="52" rx="16" fill="%235B6CFF"/><text x="32" y="44" font-family="Helvetica,Arial,sans-serif" font-size="36" font-weight="700" fill="white" text-anchor="middle">H</text></svg>'>
+<script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
 <style>
 /* ══════════════════════════════════════════════════════════════
    Harry App Store · 三方案效果预览
@@ -1077,11 +1078,11 @@ const ICO={
    拿到真地址只改这三行的 u，版式一个字不用动。 */
 const VER_AND={
   beta:[{n:'GitHub',u:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-android-v10.387-test/AriaInputMethod-Android-v10.387.apk',i:'gh'}],
-  free:'downloads.ariamagicvoice.com/releases/aria/android/10.387/AriaInputMethod-Android-v10.387.apk', pro:'', price:'$39.9'};
+  free:'downloads.ariamagicvoice.com/releases/aria/android/10.387/AriaInputMethod-Android-v10.387.apk', pro:'', price:'$19.9'};
 const VER={
   aria:{beta:[{n:'GitHub',u:'github.com/andywu1206/magicvoice-site/releases/download/aria-magic-voice-v90.831-free-website/AriaMagicVoiceIME_Free_v90.831.dmg',i:'gh'}],
         free:'github.com/andywu1206/magicvoice-site/releases/download/aria-magic-voice-v90.831-free-website/AriaMagicVoiceIME_Free_v90.831.dmg',
-        pro:'ariamagicvoice.com/apps/sponsor.html',price:'$39.9'},
+        pro:'buy.paddle.com',price:'$19.9'},
   rm:{beta:[{n:'TestFlight',u:'testflight.apple.com/join/…',i:'tf'}],
       /* Remember Me 是唯一确定的。Pro 是这个 listing 里的内购，所以两档同址。
          ⚠️ 别再换回 apps.apple.com/app/id… 这种不带地区的写法：
@@ -1172,10 +1173,10 @@ function renderPlatforms(){
 const COLS6={
  zh:[{n:'内测版',b:'Beta',s:'优先体验最新功能',price:'免费',pu:'',btn:'下载',src:''},
      {n:'免费版',b:'Free',s:'永久免费',price:'免费',pu:'',btn:'下载',src:''},
-     {n:'Pro 版',b:'一次买断',s:'一次购买 · 永久使用',price:'¥268',pu:'US$39.99',btn:'购买',src:''}],
+     {n:'Pro 版',b:'一次买断',s:'一次购买 · 永久使用',price:'$19.9',pu:'¥139',btn:'购买',src:''}],
  en:[{n:'Early Access',b:'Beta',s:'Get new features first',price:'Free',pu:'',btn:'Download',src:''},
      {n:'Free',b:'Free',s:'Free forever',price:'Free',pu:'',btn:'Download',src:''},
-     {n:'Pro',b:'One-time',s:'Buy once · yours forever',price:'US$39.99',pu:'',btn:'Buy It',src:''}]};
+     {n:'Pro',b:'One-time',s:'Buy once · yours forever',price:'US$19.9',pu:'',btn:'Buy It',src:''}]};
 /* 第 5 个元素 = 按列覆盖文字（Pro / Beta 是「更高精度」，免费版是「高精度」）*/
 const ROWS6={
  zh:[['智能离线输入法 · 所有原始聊天数据不上传 · 隐私第一',1,1,1],
@@ -1326,7 +1327,7 @@ function mergeContent(o){
     if(!ap)continue;
     if(a[1]==='beta'){const b=ap.beta&&ap.beta[+a[2]];if(b)b.u=lk[k];}
     else if(a[1]==='free'||a[1]==='pro')ap[a[1]]=lk[k];}}
-/*BAKED-START*/const BAKED={"__links":{"aria:beta:0":"github.com/andywu1206/magicvoice-site/releases/download/aria-magic-voice-v90.831-free-website/AriaMagicVoiceIME_Free_v90.831.dmg","aria:free":"github.com/andywu1206/magicvoice-site/releases/download/aria-magic-voice-v90.831-free-website/AriaMagicVoiceIME_Free_v90.831.dmg","aria:pro":"ariamagicvoice.com/apps/sponsor.html","aria:beta:1":"drive.google.com/file/d/1vJ7Mbx0pvtPGjEjElC4JtY2Q8-TqwymU/view?usp=drive_link","aria:beta:2":"pan.baidu.com/s/1tj4fNDQqto_u8Ga8sHrC9g?pwd=1234"}};/*BAKED-END*/
+/*BAKED-START*/const BAKED={"__links":{"aria:beta:0":"github.com/andywu1206/magicvoice-site/releases/download/aria-magic-voice-v90.831-free-website/AriaMagicVoiceIME_Free_v90.831.dmg","aria:free":"github.com/andywu1206/magicvoice-site/releases/download/aria-magic-voice-v90.831-free-website/AriaMagicVoiceIME_Free_v90.831.dmg","aria:pro":"buy.paddle.com","aria:beta:1":"drive.google.com/file/d/1vJ7Mbx0pvtPGjEjElC4JtY2Q8-TqwymU/view?usp=drive_link","aria:beta:2":"pan.baidu.com/s/1tj4fNDQqto_u8Ga8sHrC9g?pwd=1234"}};/*BAKED-END*/
 mergeContent(BAKED);
 
 function linkCode(sc,u){
@@ -1484,8 +1485,8 @@ function renderCompare(){
       <div class="csub">${E(c.s)}</div>
       <div class="cprice"><span>${E(p)}</span>${c.pu?`<u>${E(c.pu)}</u>`:''}</div>
       ${beta||`<${mainOff?'span':'a'} class="cbtn${mainPh?' soon':''}${mainBad?' unavailable':''}"`+
-        `${mainOff?'':` href="${E(hrefOf(mainU))}"`+
-        ` target="_blank" rel="noopener" data-track="${E(cur+':'+mainKind)}"`}>${
+        `${mainOff?'':(mainKind==='pro'&&cur==='aria'?` href="javascript:void(0)" onclick="openAriaCheckout(event)"`:` href="${E(hrefOf(mainU))}"`+
+        ` target="_blank" rel="noopener"`)} data-track="${E(cur+':'+mainKind)}">${
         (AND&&(mainPh||mainBad))?soon(lang==='zh')
           :(mainBad?E(c.btn):(mainPh?soon(lang==='zh'):E(c.btn)))}${mainBad?warnMark(mainProblem):''}</${mainOff?'span':'a'}>`}
       <div class="csrc">${c.src?(c.src.includes(' · ')
@@ -2105,6 +2106,29 @@ $('#mYes').onclick=async()=>{
      +'Please email it to:\n'+MAIL+'\n\nSorry — this one is on me.'));
 };
 
+const ARIA_PADDLE_PRICE_ID='pri_01kmx0x2kg7dckq4j2q5nhwj6c';
+const ARIA_CHECKOUT_SUCCESS_URL='https://ariamagicvoice.com/aria/thank-you.html';
+function openAriaCheckout(e){
+  if(e&&e.preventDefault)e.preventDefault();
+  if(typeof Paddle!=='undefined'&&Paddle.Checkout){
+    Paddle.Checkout.open({
+      items:[{priceId:ARIA_PADDLE_PRICE_ID,quantity:1}],
+      settings:{successUrl:ARIA_CHECKOUT_SUCCESS_URL,theme:'light'}
+    });
+  }else{
+    location.href='https://ariamagicvoice.com/aria/thank-you.html';
+  }
+}
+if(typeof Paddle!=='undefined'){
+  try{
+    Paddle.Initialize({
+      token:'live_d7beb0bd4a366dacc86dcdc998f',
+      eventCallback:function(ev){
+        if(ev&&ev.name==='checkout.completed')window.location.assign(ARIA_CHECKOUT_SUCCESS_URL);
+      }
+    });
+  }catch(_){}
+}
 render();
 /* /apps/#rm 直达时同步左栏高亮（赞助页回跳用 · 2026-08-22） */
 if(cur==='rm'){$$('.item').forEach(i=>i.classList.remove('on'));$$('.item[data-app="rm"]').forEach(i=>i.classList.add('on'));}

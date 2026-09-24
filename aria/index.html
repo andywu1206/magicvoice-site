@@ -1538,8 +1538,8 @@ section { padding: 100px 24px; }
           <div><i>🧠</i><span data-lang="zh">内置<strong>超级学习引擎</strong>，越用越懂你</span><span data-lang="en" style="display:none">Built-in <strong>Super Learning</strong> — it gets to know you</span></div>
         </div>
         <div class="pricing-price">
-          <span class="pricing-price-local" data-lang="zh"><span class="pricing-amount">¥268</span><span class="pricing-period">／ US$39.99</span></span>
-          <span class="pricing-price-local" data-lang="en" style="display:none"><span class="pricing-amount">US$39.99</span></span>
+          <span class="pricing-price-local" data-lang="zh"><span class="pricing-amount">$19.9</span><span class="pricing-period">／ ¥139</span></span>
+          <span class="pricing-price-local" data-lang="en" style="display:none"><span class="pricing-amount">US$19.9</span></span>
         </div>
         <div class="pricing-note"><span data-lang="zh"><strong>一次购买 · 永久使用</strong> · 无订阅 · 无自动续费</span><span data-lang="en" style="display:none"><strong>One-time purchase · Yours forever</strong> · No subscription · No auto-renewal</span></div>
         <div class="pricing-feature-lead"><span data-lang="zh">Pro 独有：</span><span data-lang="en" style="display:none">Only in Pro:</span></div>
@@ -1563,8 +1563,8 @@ section { padding: 100px 24px; }
           <li><span data-lang="zh">口水词过滤与词表纠错</span><span data-lang="en" style="display:none">Filler-word cleanup and lexicon correction</span></li>
         </ul>
         <div class="pricing-cta">
-          <a class="pricing-btn pricing-btn-primary" href="/apps/#aria"><span data-lang="zh">购买 Pro</span><span data-lang="en" style="display:none">Buy Pro</span></a>
-          <div class="pricing-sub"><span data-lang="zh">在官网下载页查看版本与下载选项</span><span data-lang="en" style="display:none">View versions and download options on the official download page</span></div>
+          <a class="pricing-btn pricing-btn-primary" href="javascript:void(0)" onclick="openAriaCheckout(event)"><span data-lang="zh">购买 Pro</span><span data-lang="en" style="display:none">Buy Pro</span></a>
+          <div class="pricing-sub"><span data-lang="zh">Paddle 结算 · 微信支付 / 信用卡 / PayPal</span><span data-lang="en" style="display:none">Paddle checkout · WeChat Pay / Credit Card / PayPal</span></div>
         </div>
       </div>
 
@@ -1922,6 +1922,33 @@ function updateActiveNav() {
 
 window.addEventListener('scroll', updateActiveNav, { passive: true });
 updateActiveNav();
+</script>
+
+<!-- Paddle Checkout Integration -->
+<script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+<script>
+const ARIA_PADDLE_PRICE_ID = 'pri_01kmx0x2kg7dckq4j2q5nhwj6c';
+const ARIA_CHECKOUT_SUCCESS_URL = 'https://ariamagicvoice.com/aria/thank-you.html';
+
+Paddle.Initialize({
+  token: 'live_d7beb0bd4a366dacc86dcdc998f',
+  eventCallback: function (event) {
+    if (event && event.name === 'checkout.completed') {
+      window.location.assign(ARIA_CHECKOUT_SUCCESS_URL);
+    }
+  }
+});
+
+function openAriaCheckout(e) {
+  if (e && e.preventDefault) e.preventDefault();
+  Paddle.Checkout.open({
+    items: [{ priceId: ARIA_PADDLE_PRICE_ID, quantity: 1 }],
+    settings: {
+      successUrl: ARIA_CHECKOUT_SUCCESS_URL,
+      theme: 'light'
+    }
+  });
+}
 </script>
 
 </body>
