@@ -866,6 +866,17 @@ body.dark .sp-card{box-shadow:0 8px 26px -14px rgba(0,0,0,.5)}
   color:#C93400;text-align:center}
 .sp-soon.on{display:block}
 @media(max-width:760px){.sponsor-hero{padding:24px 18px 60px!important}}
+/* ⚠️ 上面那条 760 断点的 padding 是 SPONSOR_GOLDEN_LOCK 的【CSS 终点锚点】
+   （见 _locked/extract_sponsor.py 的 CSS_END）—— 它的字面量一个字节都不能改，
+   改了抽取器就框不出区间、连 --reseal 都跑不了。所以让位规则写在锁区间【外面】、
+   紧跟其后覆盖：同选择器同 !important，后写的赢。黄金快照因此仍然逐字节有效。
+   🔴 Harry 2026-09-01 22:1x 回「2」明确授权（黄金锁 change_policy/style 要求的那句授权）：
+   实测 375px 赞助页 .sp-card 左缘 18px，而悬浮侧栏右缘 60px —— 收款二维码被压掉 42px。
+   与 follow.html 同一类：这两页当初没给悬浮侧栏让位（index / i人洞府 都给了 68px）。
+   ⚠️ 只动窄屏 padding；卡片版式 / tab 结构 / 咖啡杯位置 / 字号一个字节没动。 */
+@media(max-width:1100px){.sponsor-hero{padding:24px 32px 60px 246px!important}}
+@media(max-width:760px){.sponsor-hero{padding:24px 18px 60px 68px!important}}
+@media(max-width:520px){.sponsor-hero{padding:24px 14px 60px 66px!important}}
 </style>
 
 <div class="app" data-v="9">

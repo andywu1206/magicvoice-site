@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>i人洞府 | Everything About Me · 退休时间与养老金工具</title>
-<meta name="description" content="i人洞府（Everything About Me）提供渐进式延迟退休时间速查、养老金模拟计算及带来源链接的退休政策动态。计算在本地完成，不上传个人输入。">
-<meta name="keywords" content="i人洞府, Everything About Me, 退休时间速查表, 延迟退休年龄, 养老金计算器, 退休金计算器, 退休政策, 社保政策">
+<title>i人洞府 (Everything About Me) · 退休时间速查、养老金计算与个人人生看板</title>
+<meta name="description" content="i人洞府（Everything About Me）— 本地优先个人人生 Dashboard 与到期提醒助手。提供 2025 延迟退休时间速查、养老金模拟估算、证件与社保到期提醒。Mac 版已上架 App Store，核心数据 100% 存在本机，不代办、不存密码、零采集。">
+<meta name="keywords" content="i人洞府, Everything About Me, 个人助手, 退休时间速查表, 延迟退休年龄, 养老金计算器, 退休金计算器, 退休政策, 社保到期提醒, 医保提醒, 证件管理, 本地优先, 个人数据隐私, Mac App Store">
 <meta name="author" content="Harry Wood">
 <meta name="robots" content="index,follow">
 <link rel="canonical" href="https://ariamagicvoice.com/apps/everything-about-me/">
@@ -14,13 +14,13 @@
 <meta property="og:site_name" content="Harry App Store">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:locale:alternate" content="en_US">
-<meta property="og:title" content="i人洞府 | Everything About Me">
-<meta property="og:description" content="退休时间速查、养老金模拟计算，以及带来源链接的退休政策动态。">
+<meta property="og:title" content="i人洞府 (Everything About Me) · 退休时间速查、养老金计算与个人人生看板">
+<meta property="og:description" content="本地优先个人人生 Dashboard 与到期提醒引擎。渐进式延迟退休速查、养老金模拟估算，Mac 版 App Store 现已上架，数据不出机。">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ariamagicvoice.com/apps/everything-about-me/">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="i人洞府 | Everything About Me">
-<meta name="twitter:description" content="Retirement age lookup, pension estimates, and source-linked policy updates.">
+<meta name="twitter:title" content="i人洞府 (Everything About Me) · 退休时间速查、养老金计算与个人人生看板">
+<meta name="twitter:description" content="Personal life dashboard & retirement tools. 100% on-device local storage. Mac version live on the App Store.">
 <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect x="6" y="6" width="52" height="52" rx="16" fill="%235B6CFF"/><text x="32" y="44" font-family="Helvetica,Arial,sans-serif" font-size="36" font-weight="700" fill="white" text-anchor="middle">H</text></svg>'>
 <style>
 /* ══════════════════════════════════════════════════════════════
@@ -2044,17 +2044,40 @@ if(cur==='rm'){$$('.item').forEach(i=>i.classList.remove('on'));$$('.item[data-a
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "i人洞府",
-  "alternateName": ["Everything About Me", "i人洞府 Everything About Me"],
-  "url": "https://ariamagicvoice.com/apps/everything-about-me/",
-  "applicationCategory": "FinanceApplication",
-  "operatingSystem": "Web",
-  "inLanguage": ["zh-CN", "en"],
-  "isAccessibleForFree": true,
-  "description": "i人洞府（Everything About Me）提供渐进式延迟退休时间速查、养老金模拟计算及带来源链接的退休政策动态。",
-  "featureList": ["退休时间速查表", "养老金模拟计算器", "带来源链接的退休政策动态"],
-  "creator": {"@type": "Person", "name": "Harry Wood"}
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "@id": "https://ariamagicvoice.com/apps/everything-about-me/#webapp",
+      "name": "i人洞府",
+      "alternateName": ["Everything About Me", "i人洞府 Everything About Me"],
+      "url": "https://ariamagicvoice.com/apps/everything-about-me/",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Web",
+      "inLanguage": ["zh-CN", "en"],
+      "isAccessibleForFree": true,
+      "description": "i人洞府（Everything About Me）提供渐进式延迟退休时间速查、养老金模拟计算及带来源链接的退休政策动态。",
+      "featureList": ["退休时间速查表", "养老金模拟计算器", "带来源链接的退休政策动态"],
+      "creator": {"@type": "Person", "name": "Harry Wood"}
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://ariamagicvoice.com/apps/everything-about-me/#macapp",
+      "name": "i人洞府",
+      "alternateName": "Everything About Me",
+      "operatingSystem": "macOS 15.0+",
+      "applicationCategory": "ProductivityApplication",
+      "downloadUrl": "https://apps.apple.com/cn/app/i%E4%BA%BA%E6%B4%9E%E5%BA%9C/id6810511228?mt=12",
+      "installUrl": "https://apps.apple.com/cn/app/i%E4%BA%BA%E6%B4%9E%E5%BA%9C/id6810511228?mt=12",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "CNY",
+        "description": "免费下载使用核心功能，可选 ¥28.00 一次性内购去除推广横幅"
+      },
+      "description": "本地优先（数据不出机）的个人人生 Dashboard + 主动权益提醒引擎。证件到期、社保缴费、退休估算一屏掌控。",
+      "creator": {"@type": "Person", "name": "Harry Wood"}
+    }
+  ]
 }
 </script>
 

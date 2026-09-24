@@ -1,15 +1,20 @@
 <!DOCTYPE html>
-<!-- Content version: v1.0.12 · 2026-08-01 16:30:00 CST · by codex-main · previous source copied to history/index_BACKUP_20260801_163000_CST_before-restore-verified-cn-appstore-product-link_by-codex-main.html -->
-<html lang="zh-CN">
+<!-- Locale/channel correction v1.0.0 · 2026-09-07 09:27:00 CST · Codex134 deputy · local candidate, not published. -->
+<!-- Content version: v1.0.13 · 2026-08-01 19:13:23 CST · by claude-opus-5 · previous source copied to history/index_BACKUP_20260801_191323_CST_before-pricing-redesign-v1.0.13_by-claude-opus-5.html
+     范围: 仅 #pricing 段（价格卡重排 + 隐私声明块 + 对比表）与 FAQ「免费/Pro 区别」一条；其余页面未动。
+     商业口径按 Harry 2026-08-01 拍板: Pro = 一次购买 · 永久使用 · 无订阅 · 无自动续费 · 无试用。
+     ⚠ 未决: MAS 2.2.1/87.36 上传回执仍为 com.ariamagicvoice.app.pro.monthly（月度订阅），
+        上线前须先把 App Store Connect 商品改为买断，否则本页与商品页不一致（Apple 2.3.1）。 -->
+<html lang="en-US">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Aria Input Method — AI-powered input method for Mac | Aria Magic Voice</title>
-<meta name="description" content="Aria Input Method (Aria Magic Voice) is an AI-powered input method for macOS: voice input, pinyin typing, and smart correction. Download it free from the Mac App Store; current Pro purchase options are shown in the app.">
+<meta name="description" content="Aria Input Method (Aria Magic Voice) is an AI-powered input method for macOS: voice input, pinyin typing, and smart correction. Visit the official download page for versions and download options.">
 <meta name="robots" content="index,follow">
 <link rel="canonical" href="https://ariamagicvoice.com/aria/">
 <meta property="og:title" content="Aria Input Method — AI-powered input method for Mac">
-<meta property="og:description" content="Voice input, pinyin typing, and smart correction for macOS. Download free from the Mac App Store; current Pro purchase options are shown in the app.">
+<meta property="og:description" content="Voice input, pinyin typing, and smart correction for macOS. Visit the official download page for versions and download options.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ariamagicvoice.com/aria/">
 <script type="application/ld+json">
@@ -22,7 +27,7 @@
       "url": "https://ariamagicvoice.com/aria/",
       "operatingSystem": "macOS",
       "applicationCategory": "UtilitiesApplication",
-      "description": "A macOS AI input method that combines voice input, pinyin typing, and local correction learning. Download from the Mac App Store; current Pro purchase options are shown inside the same app."
+      "description": "A macOS AI input method that combines voice input, pinyin typing, and local correction learning. Visit the official download page for versions and download options."
     },
     {
       "@type": "FAQPage",
@@ -222,6 +227,8 @@ button:focus-visible {
   font-weight: 700;
   line-height: 1;
 }
+
+.site-lang-toggle select { max-width: 190px; color: var(--text-main); }
 
 .site-lang-btn.active {
   background: var(--primary);
@@ -907,11 +914,68 @@ section { padding: 100px 24px; }
 
 .pricing-sub {
   min-height: 20px;
-  margin-top: 18px;
+  margin-top: 10px;
   color: var(--text-light);
   font-size: 12px;
   text-align: center;
 }
+
+/* === PRICING v1.0.13 · 2026-08-01 · 价格卡重排（Harry 定稿方案 4）===
+   硬约束: 绿勾在按钮上方 · 按钮吸卡片底两卡同一水平线 · 静止态无蓝框 · 无推荐角标 */
+.pricing-privacy {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  max-width: 760px;
+  margin: 34px auto 0;
+  padding: 22px 26px;
+  text-align: left;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(0, 113, 227, 0.055), rgba(88, 86, 214, 0.055));
+  border: 1px solid rgba(0, 113, 227, 0.16);
+}
+.pricing-privacy .pp-ico { flex: 0 0 auto; margin-top: 2px; font-size: 24px; line-height: 1; color: var(--primary); }
+.pricing-privacy .pp-1 { font-size: 18px; font-weight: 700; line-height: 1.45; color: var(--text-main); }
+.pricing-privacy .pp-2 { margin-top: 6px; font-size: 14px; line-height: 1.6; color: var(--text-muted); }
+
+.pricing-usp {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 18px;
+  padding: 15px 16px;
+  border-radius: 10px;
+  background: rgba(29, 29, 31, 0.045);
+}
+.pricing-usp.is-pro { background: linear-gradient(135deg, rgba(0, 113, 227, 0.09), rgba(88, 86, 214, 0.09)); }
+.pricing-usp div { display: flex; gap: 10px; align-items: flex-start; font-size: 13.5px; line-height: 1.45; color: var(--text-main); }
+.pricing-usp i { flex: 0 0 auto; font-style: normal; font-size: 15px; line-height: 1.35; }
+
+/* 蓝框只在 hover / 键盘 focus 时出现；静止态两张卡完全一样 */
+.pricing-card:hover,
+.pricing-card:focus-within {
+  transform: translateY(-2px);
+  border-color: var(--primary);
+  box-shadow: inset 0 0 0 1px var(--primary), 0 14px 38px rgba(29, 29, 31, 0.08);
+}
+
+.pricing-feature-lead { min-height: 0; margin-top: 24px; }
+.pricing-price { min-height: 72px; margin-top: 20px; }
+.pricing-features { flex: 0 0 auto; }
+.pricing-features li.pricing-sublead {
+  display: block;
+  margin-top: 14px;
+  padding: 14px 0 0;
+  border-top: 1px solid rgba(29, 29, 31, 0.10);
+  color: var(--text-light);
+  font-size: 12.5px;
+  font-weight: 600;
+}
+.pricing-features li.pricing-sublead::before { content: none; }
+.pricing-features li em { font-style: normal; color: var(--text-muted); }
+/* 按钮吸底：两张卡的 CTA 永远落在同一条水平线上 */
+.pricing-cta { margin-top: auto; padding-top: 26px; }
+.pricing-cta .pricing-btn { margin-top: 0; }
 
 .plan-comparison {
   max-width: 1040px;
@@ -1277,16 +1341,19 @@ section { padding: 100px 24px; }
         <li><a href="#pricing"><span data-lang="zh">价格</span><span data-lang="en" style="display:none">Pricing</span></a></li>
         <li><a href="#faq"><span data-lang="zh">常见问题</span><span data-lang="en" style="display:none">FAQ</span></a></li>
     </ul>
-    <div class="site-lang-toggle" role="group" aria-label="语言切换">
-      <button class="site-lang-btn" onclick="setSiteLang('zh')" type="button">中文</button>
-      <button class="site-lang-btn" onclick="setSiteLang('en')" type="button">EN</button>
+    <div class="site-lang-toggle" role="group" aria-label="Language selector">
+      <select id="siteLocaleSelect" class="site-lang-btn" aria-label="Language selector">
+        <option value="auto">Follow browser language</option>
+        <option value="zh-Hans">简体中文</option><option value="zh-Hant">繁體中文</option>
+        <option value="en-US">English (US)</option><option value="en-GB">English (UK)</option>
+      </select>
     </div>
   </nav>
   <div class="nav-right">
     <button class="hamburger" id="hamburger" type="button" aria-label="打开菜单" aria-controls="navLinks" aria-expanded="false" onclick="toggleMobileMenu(this)">
       <span></span><span></span><span></span>
     </button>
-    <a class="nav-cta" href="https://apps.apple.com/cn/app/aria-magic-voice/id6776485989?mt=12&amp;uo=4"><span data-lang="zh">立即获取</span><span data-lang="en" style="display:none">Get Aria</span></a>
+    <a class="nav-cta" href="/apps/#aria"><span data-lang="zh">立即获取</span><span data-lang="en" style="display:none">Get Aria</span></a>
   </div>
   </header>
 
@@ -1307,7 +1374,7 @@ section { padding: 100px 24px; }
             Aria Magic Voice<br><span class="highlight">is a next-generation AI input method.</span>
           </h1>
           <div class="hero-actions">
-            <a class="btn-primary" href="https://apps.apple.com/cn/app/aria-magic-voice/id6776485989?mt=12&amp;uo=4">
+            <a class="btn-primary" href="/apps/#aria">
               <i class="ph ph-download-simple"></i>
               <span data-lang="zh">免费下载 Mac 版</span><span data-lang="en" style="display:none">Download for Mac</span>
             </a>
@@ -1421,49 +1488,84 @@ section { padding: 100px 24px; }
   <div class="container">
     <div class="section-label"><i class="ph ph-tag"></i> <span data-lang="zh">价格</span><span data-lang="en" style="display:none">Pricing</span></div>
     <h2 class="section-title"><span data-lang="zh">选择适合你的版本。</span><span data-lang="en" style="display:none">Choose the plan that fits.</span></h2>
-    <p class="pricing-intro"><span data-lang="zh">免费下载即可开始使用；当前 Apple 商品页将 Aria Magic Voice Pro Monthly 列为月度自动续订订阅，并提供 7 天免费试用。本地化价格、续费与取消方式以 App Store 购买确认页显示为准。</span><span data-lang="en" style="display:none">Download free and start typing. The current Apple product page lists Aria Magic Voice Pro Monthly as a monthly auto-renewing subscription with a 7-day free trial. Localized price, renewal, and cancellation details appear in the App Store purchase sheet before confirmation.</span></p>
+    <p class="pricing-intro"><span data-lang="zh">免费下载即可开始使用。Pro 一次购买、永久使用，没有订阅，没有自动续费。</span><span data-lang="en" style="display:none">Download free and start typing. Pro is a one-time purchase, yours forever — no subscription, no auto-renewal.</span></p>
+
+    <div class="pricing-privacy reveal">
+      <span class="pp-ico" aria-hidden="true"><i class="ph ph-lock-key"></i></span>
+      <div>
+        <div class="pp-1"><span data-lang="zh">原始聊天内容与原始语音，永远不上传云端。</span><span data-lang="en" style="display:none">Your recordings and your text never leave your Mac.</span></div>
+        <div class="pp-2"><span data-lang="zh">隐私第一，永不泄露 —— 免费版与 Pro 一视同仁。识别、纠错、学习全部在你自己的电脑上完成。</span><span data-lang="en" style="display:none">Privacy first, always. Nothing is uploaded to the cloud — on Free and Pro alike. Recognition, correction and learning all run on your own machine.</span></div>
+      </div>
+    </div>
 
     <div class="pricing-grid">
       <!-- Free -->
       <div class="pricing-card reveal">
         <h3 class="pricing-plan-name"><span data-lang="zh">免费版</span><span data-lang="en" style="display:none">Free</span></h3>
-        <p class="pricing-plan-desc"><span data-lang="zh">完整、独立的 AI 输入法基础能力</span><span data-lang="en" style="display:none">The complete essentials of an independent AI input method</span></p>
+        <div class="pricing-usp">
+          <div><i>🔒</i><span data-lang="zh">内容锁在你自己的电脑，<strong>不上传云端</strong></span><span data-lang="en" style="display:none">Your text stays on your own Mac — <strong>never uploaded</strong></span></div>
+          <div><i>⌨️</i><span data-lang="zh"><strong>语音 + 键盘</strong>，一个输入法全搞定</span><span data-lang="en" style="display:none"><strong>Voice and keyboard</strong> in one input method</span></div>
+        </div>
         <div class="pricing-price">
           <span class="pricing-price-local" data-lang="zh"><span class="pricing-amount">¥0</span></span>
           <span class="pricing-price-local" data-lang="en" style="display:none"><span class="pricing-amount">US$0</span></span>
         </div>
-        <div class="pricing-note"><span data-lang="zh">永久免费</span><span data-lang="en" style="display:none">Free forever</span></div>
-        <a class="pricing-btn pricing-btn-secondary" href="https://apps.apple.com/cn/app/aria-magic-voice/id6776485989?mt=12&amp;uo=4"><span data-lang="zh">下载</span><span data-lang="en" style="display:none">Download</span></a>
+        <div class="pricing-note"><span data-lang="zh"><strong>永久免费</strong> · 在官网下载页查看版本与下载选项</span><span data-lang="en" style="display:none"><strong>Free forever</strong> · View versions and download options on the official download page</span></div>
         <div class="pricing-feature-lead"><span data-lang="zh">免费版包含：</span><span data-lang="en" style="display:none">Free includes:</span></div>
         <div class="pricing-divider" aria-hidden="true"></div>
         <ul class="pricing-features">
-          <li><span data-lang="zh">语音输入与拼音打字</span><span data-lang="en" style="display:none">Voice input and pinyin typing</span></li>
-          <li><span data-lang="zh">全局唤起与麦克风选择</span><span data-lang="en" style="display:none">Global voice wake-up and microphone selection</span></li>
-          <li><span data-lang="zh">基础口水词过滤与词表纠错</span><span data-lang="en" style="display:none">Basic filler filtering and lexicon correction</span></li>
-          <li><span data-lang="zh">本地输入处理</span><span data-lang="en" style="display:none">Local input processing</span></li>
-                  </ul>
-        <div class="pricing-sub"><span data-lang="zh">免费使用</span><span data-lang="en" style="display:none">Free to use</span></div>
+          <li><span data-lang="zh"><strong>原始语音与原文 100% 留在本机</strong> <em>—— 不上传云端</em></span><span data-lang="en" style="display:none"><strong>Recordings and text stay 100% on this Mac</strong> <em>— never uploaded</em></span></li>
+          <li><span data-lang="zh"><strong>全局语音唤起</strong> <em>—— 左 Ctrl 一按，任意 App 里都能说</em></span><span data-lang="en" style="display:none"><strong>Global voice hotkey</strong> <em>— tap left Ctrl and talk, in any app</em></span></li>
+          <li><span data-lang="zh"><strong>中英混说</strong> <em>—— 一句话里换语言，不用切输入法</em></span><span data-lang="en" style="display:none"><strong>Mixed English &amp; Chinese</strong> <em>— switch language mid-sentence, no toggling</em></span></li>
+          <li><span data-lang="zh">中文语音输入 <em>（普通话）</em></span><span data-lang="en" style="display:none">Chinese voice input <em>(Mandarin)</em></span></li>
+          <li><span data-lang="zh"><strong>英文语音输入</strong></span><span data-lang="en" style="display:none"><strong>English voice input</strong></span></li>
+          <li><span data-lang="zh"><strong>英文直接打</strong> <em>—— Shift 切 ABC，不必切回系统英文输入源</em></span><span data-lang="en" style="display:none"><strong>Type English directly</strong> <em>— tap Shift for ABC, no separate input source</em></span></li>
+          <li><span data-lang="zh"><strong>拼音键盘</strong> <em>—— 简体中文，可一键转繁體输出</em></span><span data-lang="en" style="display:none"><strong>Pinyin keyboard</strong> <em>— Simplified Chinese, with one-tap Traditional output</em></span></li>
+          <li><span data-lang="zh">界面语言 <em>—— English (US) / English (UK) / 简体中文 / 繁體中文</em></span><span data-lang="en" style="display:none">Interface language <em>— English (US) / English (UK) / 简体中文 / 繁體中文</em></span></li>
+          <li><span data-lang="zh">口水词过滤与词表纠错</span><span data-lang="en" style="display:none">Filler-word cleanup and lexicon correction</span></li>
+        </ul>
+        <div class="pricing-cta">
+          <a class="pricing-btn pricing-btn-secondary" href="/apps/#aria"><span data-lang="zh">免费下载</span><span data-lang="en" style="display:none">Download free</span></a>
+          <div class="pricing-sub"><span data-lang="zh">macOS 14 及以上</span><span data-lang="en" style="display:none">macOS 14 or later</span></div>
+        </div>
       </div>
 
       <!-- Pro -->
       <div class="pricing-card reveal">
         <h3 class="pricing-plan-name">Pro</h3>
-        <p class="pricing-plan-desc"><span data-lang="zh">同一款输入法，下载后在 App 内查看并解锁当前 Pro 购买选项</span><span data-lang="en" style="display:none">One input method. Download it, then view and unlock the current Pro purchase option inside the app.</span></p>
-        <div class="pricing-price">
-          <span class="pricing-price-local" data-lang="zh"><span class="pricing-amount">以 App Store 为准</span></span>
-          <span class="pricing-price-local" data-lang="en" style="display:none"><span class="pricing-amount">See App Store</span></span>
+        <div class="pricing-usp is-pro">
+          <div><i>🔒</i><span data-lang="zh">内容锁在你自己的电脑，<strong>不上传云端</strong></span><span data-lang="en" style="display:none">Your text stays on your own Mac — <strong>never uploaded</strong></span></div>
+          <div><i>🧠</i><span data-lang="zh">内置<strong>超级学习引擎</strong>，越用越懂你</span><span data-lang="en" style="display:none">Built-in <strong>Super Learning</strong> — it gets to know you</span></div>
         </div>
-        <div class="pricing-note"><span data-lang="zh">当前 Apple 商品页显示月度自动续订与 7 天免费试用；价格、续费与取消条款以购买确认页为准</span><span data-lang="en" style="display:none">The current Apple product page shows monthly auto-renewal with a 7-day free trial; price, renewal, and cancellation terms appear before confirmation</span></div>
-        <a class="pricing-btn pricing-btn-primary" href="https://apps.apple.com/cn/app/aria-magic-voice/id6776485989?mt=12&amp;uo=4"><span data-lang="zh">前往 App Store</span><span data-lang="en" style="display:none">View in App Store</span></a>
-        <div class="pricing-feature-lead"><span data-lang="zh">免费版的全部功能，以及：</span><span data-lang="en" style="display:none">Everything in Free, plus:</span></div>
+        <div class="pricing-price">
+          <span class="pricing-price-local" data-lang="zh"><span class="pricing-amount">¥268</span><span class="pricing-period">／ US$39.99</span></span>
+          <span class="pricing-price-local" data-lang="en" style="display:none"><span class="pricing-amount">US$39.99</span></span>
+        </div>
+        <div class="pricing-note"><span data-lang="zh"><strong>一次购买 · 永久使用</strong> · 无订阅 · 无自动续费</span><span data-lang="en" style="display:none"><strong>One-time purchase · Yours forever</strong> · No subscription · No auto-renewal</span></div>
+        <div class="pricing-feature-lead"><span data-lang="zh">Pro 独有：</span><span data-lang="en" style="display:none">Only in Pro:</span></div>
         <div class="pricing-divider" aria-hidden="true"></div>
         <ul class="pricing-features">
-          <li><span data-lang="zh">更高精度的本地语音识别</span><span data-lang="en" style="display:none">Higher-accuracy local voice recognition</span></li>
-          <li><span data-lang="zh">一次纠正，立即学会</span><span data-lang="en" style="display:none">Correct once, learned immediately</span></li>
-          <li><span data-lang="zh">AI 自动润色，口语表达更流畅</span><span data-lang="en" style="display:none">AI polish for more fluent wording</span></li>
-          <li><span data-lang="zh">在 App 内查看并解锁 Pro 购买选项</span><span data-lang="en" style="display:none">View and unlock Pro purchase options inside the app</span></li>
+          <li><span data-lang="zh"><strong>更高精度</strong>的本地语音识别</span><span data-lang="en" style="display:none"><strong>Higher-accuracy</strong> on-device recognition</span></li>
+          <li><span data-lang="zh"><strong>超级学习引擎：纠一次，立刻学会</strong></span><span data-lang="en" style="display:none"><strong>Super Learning: correct it once, learned instantly</strong></span></li>
+          <li><span data-lang="zh">AI 自动润色 <em>—— 口语直接变书面语</em></span><span data-lang="en" style="display:none">AI polish <em>— spoken words become clean writing</em></span></li>
+          <li><span data-lang="zh">个人词库持续累积 <em>—— 词表会自己长，越用越准</em></span><span data-lang="en" style="display:none">A personal lexicon that keeps growing <em>— your corrections become the dictionary</em></span></li>
+          <li><span data-lang="zh">语音 + 键盘 <strong>双通道一起学</strong></span><span data-lang="en" style="display:none">Learns from <strong>both voice and keyboard</strong></span></li>
+          <li><span data-lang="zh">后续版本免费升级</span><span data-lang="en" style="display:none">Free upgrades to future versions</span></li>
+          <li class="pricing-sublead"><span data-lang="zh">以下能力免费版同样包含</span><span data-lang="en" style="display:none">Also included in Free</span></li>
+          <li><span data-lang="zh"><strong>原始语音与原文 100% 留在本机</strong> <em>—— 不上传云端</em></span><span data-lang="en" style="display:none"><strong>Recordings and text stay 100% on this Mac</strong> <em>— never uploaded</em></span></li>
+          <li><span data-lang="zh"><strong>全局语音唤起</strong> <em>—— 左 Ctrl 一按，任意 App 里都能说</em></span><span data-lang="en" style="display:none"><strong>Global voice hotkey</strong> <em>— tap left Ctrl and talk, in any app</em></span></li>
+          <li><span data-lang="zh"><strong>中英混说</strong> <em>—— 一句话里换语言，不用切输入法</em></span><span data-lang="en" style="display:none"><strong>Mixed English &amp; Chinese</strong> <em>— switch language mid-sentence, no toggling</em></span></li>
+          <li><span data-lang="zh">中文语音输入 <em>（普通话）</em></span><span data-lang="en" style="display:none">Chinese voice input <em>(Mandarin)</em></span></li>
+          <li><span data-lang="zh"><strong>英文语音输入</strong></span><span data-lang="en" style="display:none"><strong>English voice input</strong></span></li>
+          <li><span data-lang="zh"><strong>英文直接打</strong> <em>—— Shift 切 ABC，不必切回系统英文输入源</em></span><span data-lang="en" style="display:none"><strong>Type English directly</strong> <em>— tap Shift for ABC, no separate input source</em></span></li>
+          <li><span data-lang="zh"><strong>拼音键盘</strong> <em>—— 简体中文，可一键转繁體输出</em></span><span data-lang="en" style="display:none"><strong>Pinyin keyboard</strong> <em>— Simplified Chinese, with one-tap Traditional output</em></span></li>
+          <li><span data-lang="zh">界面语言 <em>—— English (US) / English (UK) / 简体中文 / 繁體中文</em></span><span data-lang="en" style="display:none">Interface language <em>— English (US) / English (UK) / 简体中文 / 繁體中文</em></span></li>
+          <li><span data-lang="zh">口水词过滤与词表纠错</span><span data-lang="en" style="display:none">Filler-word cleanup and lexicon correction</span></li>
         </ul>
-        <div class="pricing-sub"><span data-lang="zh">下载同一款 App；购买前由 Apple 显示适用的价格、试用、续费与取消条款</span><span data-lang="en" style="display:none">Download the same app; Apple shows the applicable price, trial, renewal, and cancellation terms before purchase</span></div>
+        <div class="pricing-cta">
+          <a class="pricing-btn pricing-btn-primary" href="/apps/#aria"><span data-lang="zh">购买 Pro</span><span data-lang="en" style="display:none">Buy Pro</span></a>
+          <div class="pricing-sub"><span data-lang="zh">在官网下载页查看版本与下载选项</span><span data-lang="en" style="display:none">View versions and download options on the official download page</span></div>
+        </div>
       </div>
 
       <!-- Free and Pro are the only current plan columns. -->
@@ -1472,7 +1574,7 @@ section { padding: 100px 24px; }
     <div class="plan-comparison reveal">
       <div class="comparison-heading">
         <h3 class="comparison-title" id="plan-comparison-title"><span data-lang="zh">逐项比较版本</span><span data-lang="en" style="display:none">Compare plans feature by feature</span></h3>
-        <p class="comparison-note" id="plan-comparison-note"><span data-lang="zh">免费版已可在 App Store 下载；Pro 的当前购买选项在同一款 App 内显示。</span><span data-lang="en" style="display:none">Free is available on the App Store; current Pro purchase options are shown inside the same app.</span></p>
+        <p class="comparison-note" id="plan-comparison-note"><span data-lang="zh">在官网下载页查看版本与下载选项；Pro 为一次购买、永久使用。</span><span data-lang="en" style="display:none">See versions and download options on the official download page; Pro is a one-time purchase, yours forever.</span></p>
       </div>
 
       <table class="comparison-table" aria-labelledby="plan-comparison-title" aria-describedby="plan-comparison-note">
@@ -1486,7 +1588,19 @@ section { padding: 100px 24px; }
         <tbody>
 
         <tr class="comparison-row">
-          <th class="comparison-cell comparison-feature" scope="row"><span data-lang="zh">语音输入与拼音打字</span><span data-lang="en" style="display:none">Voice input and pinyin typing</span><small><span data-lang="zh">一套输入法，两种输入方式</span><span data-lang="en" style="display:none">One input method, two ways to type</span></small></th>
+          <th class="comparison-cell comparison-feature" scope="row"><span data-lang="zh">中文 / 英文 / 中英混说 语音输入</span><span data-lang="en" style="display:none">English / Chinese / mixed voice input</span><small><span data-lang="zh">一句话里换语言，不用切输入法</span><span data-lang="en" style="display:none">Switch language mid-sentence, no toggling</span></small></th>
+          <td class="comparison-cell"><span class="comparison-mobile-plan"><span data-lang="zh">免费版</span><span data-lang="en" style="display:none">Free</span></span><span class="comparison-mark" aria-hidden="true">✓</span><span class="sr-only"><span data-lang="zh">包含</span><span data-lang="en" style="display:none">Included</span></span></td>
+          <td class="comparison-cell"><span class="comparison-mobile-plan">Pro</span><span class="comparison-mark" aria-hidden="true">✓</span><span class="sr-only"><span data-lang="zh">包含</span><span data-lang="en" style="display:none">Included</span></span></td>
+        </tr>
+
+        <tr class="comparison-row">
+          <th class="comparison-cell comparison-feature" scope="row"><span data-lang="zh">英文直接打</span><span data-lang="en" style="display:none">Type English directly</span><small><span data-lang="zh">Shift 切 ABC，不必切回系统英文输入源</span><span data-lang="en" style="display:none">Tap Shift for ABC — no separate input source</span></small></th>
+          <td class="comparison-cell"><span class="comparison-mobile-plan"><span data-lang="zh">免费版</span><span data-lang="en" style="display:none">Free</span></span><span class="comparison-mark" aria-hidden="true">✓</span><span class="sr-only"><span data-lang="zh">包含</span><span data-lang="en" style="display:none">Included</span></span></td>
+          <td class="comparison-cell"><span class="comparison-mobile-plan">Pro</span><span class="comparison-mark" aria-hidden="true">✓</span><span class="sr-only"><span data-lang="zh">包含</span><span data-lang="en" style="display:none">Included</span></span></td>
+        </tr>
+
+        <tr class="comparison-row">
+          <th class="comparison-cell comparison-feature" scope="row"><span data-lang="zh">拼音键盘 · 简体中文</span><span data-lang="en" style="display:none">Pinyin keyboard · Simplified Chinese</span><small><span data-lang="zh">可一键把输出转繁體</span><span data-lang="en" style="display:none">One-tap Traditional output</span></small></th>
           <td class="comparison-cell"><span class="comparison-mobile-plan"><span data-lang="zh">免费版</span><span data-lang="en" style="display:none">Free</span></span><span class="comparison-mark" aria-hidden="true">✓</span><span class="sr-only"><span data-lang="zh">包含</span><span data-lang="en" style="display:none">Included</span></span></td>
           <td class="comparison-cell"><span class="comparison-mobile-plan">Pro</span><span class="comparison-mark" aria-hidden="true">✓</span><span class="sr-only"><span data-lang="zh">包含</span><span data-lang="en" style="display:none">Included</span></span></td>
         </tr>
@@ -1505,7 +1619,7 @@ section { padding: 100px 24px; }
 
         <tr class="comparison-row">
           <th class="comparison-cell comparison-feature" scope="row"><span data-lang="zh">超级学习：一次纠正，立即学会</span><span data-lang="en" style="display:none">Super learning: correct once, learned immediately</span><small><span data-lang="zh">学习资料保留在本机并跨版本累积</span><span data-lang="en" style="display:none">Learning stays local and accumulates across updates</span></small></th>
-          <td class="comparison-cell"><span class="comparison-mobile-plan"><span data-lang="zh">免费版</span><span data-lang="en" style="display:none">Free</span></span><span class="comparison-text"><span data-lang="zh">有限额度候选</span><span data-lang="en" style="display:none">Limited candidate</span></span></td>
+          <td class="comparison-cell"><span class="comparison-mobile-plan"><span data-lang="zh">免费版</span><span data-lang="en" style="display:none">Free</span></span><span class="comparison-mark is-empty" aria-hidden="true">—</span><span class="sr-only"><span data-lang="zh">不包含</span><span data-lang="en" style="display:none">Not included</span></span></td>
           <td class="comparison-cell"><span class="comparison-mobile-plan">Pro</span><span class="comparison-mark" aria-hidden="true">✓</span><span class="sr-only"><span data-lang="zh">包含</span><span data-lang="en" style="display:none">Included</span></span></td>
         </tr>
 
@@ -1522,15 +1636,15 @@ section { padding: 100px 24px; }
         </tr>
 
         <tr class="comparison-row">
-          <th class="comparison-cell comparison-feature" scope="row"><span data-lang="zh">购买与授权</span><span data-lang="en" style="display:none">Purchase and access</span><small><span data-lang="zh">同一款 App：免费下载，Pro 的当前购买选项在 App 内显示</span><span data-lang="en" style="display:none">One app: download free, then view current Pro purchase options inside the app</span></small></th>
+          <th class="comparison-cell comparison-feature" scope="row"><span data-lang="zh">购买与授权</span><span data-lang="en" style="display:none">Purchase and access</span><small><span data-lang="zh">同一款 App：免费下载，App 内解锁 Pro</span><span data-lang="en" style="display:none">One app: download free, unlock Pro inside the app</span></small></th>
           <td class="comparison-cell"><span class="comparison-mobile-plan"><span data-lang="zh">免费版</span><span data-lang="en" style="display:none">Free</span></span><span class="comparison-text"><span data-lang="zh">无需购买</span><span data-lang="en" style="display:none">No purchase required</span></span></td>
-          <td class="comparison-cell"><span class="comparison-mobile-plan">Pro</span><span class="comparison-text"><span data-lang="zh">在 App 内查看</span><span data-lang="en" style="display:none">View in the app</span></span></td>
+          <td class="comparison-cell"><span class="comparison-mobile-plan">Pro</span><span class="comparison-text"><span data-lang="zh">一次购买 · 永久使用</span><span data-lang="en" style="display:none">One-time purchase</span></span></td>
         </tr>
 
         <tr class="comparison-row">
           <th class="comparison-cell comparison-feature" scope="row"><span data-lang="zh">当前状态</span><span data-lang="en" style="display:none">Availability</span></th>
           <td class="comparison-cell"><span class="comparison-mobile-plan"><span data-lang="zh">免费版</span><span data-lang="en" style="display:none">Free</span></span><span class="comparison-text"><span data-lang="zh">可直接下载</span><span data-lang="en" style="display:none">Available now</span></span></td>
-          <td class="comparison-cell"><span class="comparison-mobile-plan">Pro</span><span class="comparison-text"><span data-lang="zh">下载后查看购买选项</span><span data-lang="en" style="display:none">View purchase options after download</span></span></td>
+          <td class="comparison-cell"><span class="comparison-mobile-plan">Pro</span><span class="comparison-text"><span data-lang="zh">下载后在 App 内购买</span><span data-lang="en" style="display:none">Unlock inside the app</span></span></td>
         </tr>
         </tbody>
       </table>
@@ -1568,7 +1682,7 @@ section { padding: 100px 24px; }
         <button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">
           <span data-lang="zh">免费版和 Pro 有什么区别？</span><span data-lang="en" style="display:none">What is the difference between Free and Pro?</span>
         </button>
-        <div class="faq-a" aria-hidden="true"><div class="faq-a-inner"><span data-lang="zh">免费版可直接下载使用：语音输入、拼音打字、全局唤起、基础纠错都包含在内。当前 Apple 商品页将 Aria Magic Voice Pro Monthly 列为月度自动续订订阅，并提供 7 天免费试用；本地化价格、续费与取消方式以 App Store 购买确认页显示为准。Pro 提供更高精度的本地语音识别、超级学习与 AI 自动润色。两个版本的原始录音和完整文本都只在本机处理，不上传。</span><span data-lang="en" style="display:none">The Free version is a full download: voice input, pinyin typing, global voice wake-up, and basic correction are all included. The current Apple product page lists Aria Magic Voice Pro Monthly as a monthly auto-renewing subscription with a 7-day free trial; localized price, renewal, and cancellation details appear in the App Store purchase sheet before confirmation. Pro includes higher-accuracy local voice recognition, super learning, and AI polish. In both versions, recordings and full text stay on your Mac.</span></div></div>
+        <div class="faq-a" aria-hidden="true"><div class="faq-a-inner"><span data-lang="zh">免费版可直接下载使用：中文与英文语音输入、中英混说、英文直接打、拼音键盘、全局唤起、口水词过滤与词表纠错都包含在内。Pro 一次购买、永久使用，额外提供更高精度的本地语音识别、超级学习（纠一次立刻学会）与 AI 自动润色。两个版本的原始录音和完整文本都只在本机处理，不上传。</span><span data-lang="en" style="display:none">The Free version is a full download: English and Chinese voice input, mixed-language speech, direct English typing, the pinyin keyboard, the global hotkey, filler-word cleanup and lexicon correction are all included. Pro is a one-time purchase, yours forever, and adds higher-accuracy on-device recognition, Super Learning (correct it once, learned instantly), and AI polish. In both versions, recordings and full text stay on your Mac.</span></div></div>
       </div>
     </div>
   </div>
@@ -1594,9 +1708,9 @@ section { padding: 100px 24px; }
   const siteLangCopy = {
     zh: {
       title: 'Aria Magic Voice — 新一代 AI 输入法',
-      description: 'Aria Input Method（Aria Magic Voice）是 macOS AI 输入法：本地语音输入、拼音打字与智能纠错。可从 App Store 免费下载，Pro 的当前购买选项在 App 内显示。',
+      description: 'Aria Input Method（Aria Magic Voice）是 macOS AI 输入法：本地语音输入、拼音打字与智能纠错。在官网下载页查看版本与下载选项。',
       ogTitle: 'Aria Magic Voice — 新一代 AI 输入法',
-      ogDescription: 'macOS AI 输入法：本地语音输入、拼音打字与智能纠错。可从 App Store 免费下载，Pro 的当前购买选项在 App 内显示。',
+      ogDescription: 'macOS AI 输入法：本地语音输入、拼音打字与智能纠错。在官网下载页查看版本与下载选项。',
       menuLabel: '打开菜单',
       closeMenuLabel: '关闭菜单',
       langLabel: '语言切换',
@@ -1604,9 +1718,9 @@ section { padding: 100px 24px; }
     },
     en: {
       title: 'Aria Magic Voice — macOS input method for typing and voice',
-      description: 'Aria Magic Voice is a macOS AI input method. Download it free from the Mac App Store; current Pro purchase options are shown inside the same app.',
+      description: 'Aria Magic Voice is a macOS AI input method. Visit the official download page for versions and download options.',
       ogTitle: 'Aria Magic Voice — macOS input method for typing and voice',
-      ogDescription: 'A macOS AI input method available on the Mac App Store, with current Pro purchase options shown inside the same app.',
+      ogDescription: 'A macOS AI input method. Visit the official download page for versions and download options.',
       menuLabel: 'Open menu',
       closeMenuLabel: 'Close menu',
       langLabel: 'Language selector',
@@ -1614,44 +1728,114 @@ section { padding: 100px 24px; }
     }
   };
 
-  function setSiteLang(lang) {
-    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
-    const copy = siteLangCopy[lang] || siteLangCopy.en;
-    document.title = copy.title;
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) metaDescription.setAttribute('content', copy.description);
-    const ogTitle = document.querySelector('meta[property="og:title"]');
-    if (ogTitle) ogTitle.setAttribute('content', copy.ogTitle);
-    const ogDescription = document.querySelector('meta[property="og:description"]');
-    if (ogDescription) ogDescription.setAttribute('content', copy.ogDescription);
-    const hamburger = document.getElementById('hamburger');
-    if (hamburger) hamburger.setAttribute('aria-label', copy.menuLabel);
-    document.querySelectorAll('.site-lang-toggle').forEach(el => el.setAttribute('aria-label', copy.langLabel));
-    const mainNav = document.querySelector('.nav-center');
-    if (mainNav) mainNav.setAttribute('aria-label', copy.navLabel);
-    try { localStorage.setItem('aria-site-lang', lang); } catch (e) {}
-    document.querySelectorAll('.site-lang-btn').forEach(btn => btn.classList.remove('active'));
-    document.querySelectorAll('.site-lang-btn').forEach(btn => btn.setAttribute('aria-pressed', 'false'));
-    document.querySelectorAll(`.site-lang-btn[onclick="setSiteLang('${lang}')"]`).forEach(btn => {
-      btn.classList.add('active');
-      btn.setAttribute('aria-pressed', 'true');
-    });
-    document.querySelectorAll('[data-lang]').forEach(el => {
-      el.style.display = el.getAttribute('data-lang') === lang ? '' : 'none';
-    });
-    document.querySelectorAll('.faq-q.active').forEach(btn => {
-      const panel = btn.nextElementSibling;
-      if (panel) panel.style.maxHeight = panel.scrollHeight + 'px';
-    });
-    const mobileNav = document.getElementById('navLinks');
-    const mobileMenuButton = document.getElementById('hamburger');
-    if (mobileNav) mobileNav.classList.remove('open');
-    if (mobileMenuButton) {
-      mobileMenuButton.classList.remove('active');
-      mobileMenuButton.setAttribute('aria-expanded', 'false');
-      mobileMenuButton.setAttribute('aria-label', copy.menuLabel);
-    }
+
+  /* ARIA_PRODUCT_LOCALE_V1_BEGIN · Codex134 · 2026-09-07 · v1.0.0 */
+const LOCALES=[['zh-Hans','简体中文'],['zh-Hant','繁體中文'],['en-US','English (US)'],['en-GB','English (UK)']];
+function canonicalBrowserLanguage(value){
+  if(typeof value!=='string'||!value.trim()) return null;
+  try{ return Intl.getCanonicalLocales(value.trim())[0]||null; }catch(_){ return null; }
+}
+function supportedBrowserLocale(tag){
+  const parts=tag.toLowerCase().split('-'), language=parts[0];
+  const script=/^[a-z]{4}$/.test(parts[1]||'')?parts[1]:null;
+  const region=parts[script?2:1];
+  if(language==='zh'){
+    if(script==='hans'||script==='hant') return script==='hant'?'zh-Hant':'zh-Hans';
+    return ['tw','hk','mo'].includes(region)?'zh-Hant':'zh-Hans';
   }
+  if(language==='en') return region==='gb'?'en-GB':'en-US';
+  return null;
+}
+function resolveBrowserLocale(languages, language, country){
+  let valid=(Array.isArray(languages)?languages:[]).map(canonicalBrowserLanguage).filter(Boolean);
+  if(!valid.length){ const fallback=canonicalBrowserLanguage(language); if(fallback) valid=[fallback]; }
+  for(const tag of valid){ const supported=supportedBrowserLocale(tag); if(supported) return supported; }
+  // A valid unsupported language defaults to English, even in a Chinese region.
+  if(valid.length) return 'en-US';
+  const region=typeof country==='string'?country.toUpperCase():'';
+  return region==='CN'?'zh-Hans':['TW','HK','MO'].includes(region)?'zh-Hant':'en-US';
+}
+function resolveLocalePreference(savedLocale,savedLang,savedMode,languages,language,country){
+  if(savedMode!=='auto'){
+    if(LOCALES.some(x=>x[0]===savedLocale)) return {locale:savedLocale,mode:'manual'};
+    if(savedLang==='zh'||savedLang==='en') return {locale:savedLang==='zh'?'zh-Hans':'en-US',mode:'manual'};
+  }
+  return {locale:resolveBrowserLocale(languages,language,country),mode:'auto'};
+}
+
+// ARIA_SHARED_LOCALE_PREFERENCE_V1_BEGIN
+const SHARED_LOCALE_KEY='aria-site-locale-preference-v1';
+function parseSharedLocalePreference(raw){
+  try{
+    const value=JSON.parse(raw);
+    if(!value||typeof value!=='object'||Array.isArray(value)||Object.keys(value).length!==2
+      ||!Object.prototype.hasOwnProperty.call(value,'mode')||!Object.prototype.hasOwnProperty.call(value,'locale'))return null;
+    if(value.mode==='auto'&&value.locale===null)return {mode:'auto',locale:null};
+    if(value.mode==='manual'&&LOCALES.some(row=>row[0]===value.locale))return {mode:'manual',locale:value.locale};
+  }catch(_){}
+  return null;
+}
+function resolveSharedLocalePreference(raw,savedLocale,savedLang,savedMode,languages,language,country){
+  const shared=parseSharedLocalePreference(raw);
+  return shared?resolveLocalePreference(shared.locale,null,shared.mode,languages,language,country)
+    :resolveLocalePreference(savedLocale,savedLang,savedMode,languages,language,country);
+}
+function storeSharedLocalePreference(mode,value){
+  localStorage.setItem(SHARED_LOCALE_KEY,JSON.stringify({mode,locale:mode==='manual'?value:null}));
+}
+// ARIA_SHARED_LOCALE_PREFERENCE_V1_END
+const GB_SPELL={'color':'colour','colors':'colours','license':'licence','organize':'organise',
+  'organized':'organised','customize':'customise','customized':'customised','analyze':'analyse',
+  'catalog':'catalogue','center':'centre','behavior':'behaviour','favorite':'favourite'};
+
+const SITE_HANT={"价格":"價格","常见问题":"常見問題","简体中文":"簡體中文","立即获取":"立即獲取","macOS 输入法 · 语音输入 + 拼音打字":"macOS 輸入法 · 語音輸入 + 拼音打字","是新一代 AI 输入法。":"是新一代 AI 輸入法。","免费下载 Mac 版":"免費下載 Mac 版","Aria 输入法已启用":"Aria 輸入法已啓用","当前输入框":"當前輸入框","今天下午三点和团队开会，":"今天下午三點和團隊開會，","讨论第二季度营销计划":"討論第二季度營銷計劃","Aria Magic Voice 输入法的核心功能亮点":"Aria Magic Voice 輸入法的核心功能亮點","语音输入 + 拼音打字":"語音輸入 + 拼音打字","语音输入和拼音打字相互补充。切到 Aria 输入法后，可以单击左 Ctrl 说话，也可以正常打字。":"語音輸入和拼音打字相互補充。切到 Aria 輸入法後，可以單擊左 Ctrl 說話，也可以正常打字。","语音聊天数据不上传":"語音聊天數據不上傳","原始录音和完整聊天内容只在本机处理，不上传。体验改进计划可在设置中管理，只处理隔离纠错对与质量信号。":"原始錄音和完整聊天內容只在本機處理，不上傳。體驗改進計劃可在設置中管理，只處理隔離糾錯對與質量信號。","超级学习功能":"超級學習功能","当你把错字改成正确写法，Aria 会在本地学习这类修改。敏感数字、网址、路径、账号和代码不会盲目入库。":"當你把錯字改成正確寫法，Aria 會在本地學習這類修改。敏感數字、網址、路徑、賬號和代碼不會盲目入庫。","AI 自动润色，口语表达更流畅":"AI 自動潤色，口語表達更流暢","需要时开启自动润色，把口语表达变得更流畅；不开时就保持原始识别结果，适合记录、代码和敏感场景。":"需要時開啓自動潤色，把口語表達變得更流暢；不開時就保持原始識別結果，適合記錄、代碼和敏感場景。","单击左 Ctrl，开始；再单击，结束。":"單擊左 Ctrl，開始；再單擊，結束。","输入法版的重点是少一步：不复制、不粘贴、不找窗口。":"輸入法版的重點是少一步：不複製、不粘貼、不找窗口。","切到 Aria 输入法":"切到 Aria 輸入法","在系统输入法菜单里选择 Aria Magic Voice，然后照常进入任意输入框。":"在系統輸入法菜單里選擇 Aria Magic Voice，然後照常進入任意輸入框。","菜单栏输入源":"菜單欄輸入源","单击左 Ctrl 说话":"單擊左 Ctrl 說話","一句话开始录音，实时草稿以下划线显示；再次单击左 Ctrl 结束。":"一句話開始錄音，實時草稿以下划線顯示；再次單擊左 Ctrl 結束。","正在聆听…":"正在聆聽…","文字自动上屏":"文字自動上屏","最终文本直接进入当前光标位置，像普通输入法候选上屏一样干净。":"最終文本直接進入當前光標位置，像普通輸入法候選上屏一樣乾淨。","ASR API 不会被拆成 A S R A P I":"ASR API 不會被拆成 A S R A P I","需要详细教程？查看完整安装与使用指南":"需要詳細教程？查看完整安裝與使用指南","选择适合你的版本。":"選擇適合你的版本。","免费下载即可开始使用。Pro 一次购买、永久使用，没有订阅，没有自动续费。":"免費下載即可開始使用。Pro 一次購買、永久使用，沒有訂閱，沒有自動續費。","原始聊天内容与原始语音，永远不上传云端。":"原始聊天內容與原始語音，永遠不上傳雲端。","隐私第一，永不泄露 —— 免费版与 Pro 一视同仁。识别、纠错、学习全部在你自己的电脑上完成。":"隱私第一，永不洩露 —— 免費版與 Pro 一視同仁。識別、糾錯、學習全部在你自己的電腦上完成。","免费版":"免費版","内容锁在你自己的电脑，":"內容鎖在你自己的電腦，","不上传云端":"不上傳雲端","语音 + 键盘":"語音 + 鍵盤","，一个输入法全搞定":"，一個輸入法全搞定","永久免费":"永久免費"," · 在官网下载页查看版本与下载选项":" · 在官網下載頁查看版本與下載選項","免费版包含：":"免費版包含：","原始语音与原文 100% 留在本机":"原始語音與原文 100% 留在本機","—— 不上传云端":"—— 不上傳雲端","全局语音唤起":"全局語音喚起","—— 左 Ctrl 一按，任意 App 里都能说":"—— 左 Ctrl 一按，任意 App 里都能說","中英混说":"中英混說","—— 一句话里换语言，不用切输入法":"—— 一句話里換語言，不用切輸入法","中文语音输入 ":"中文語音輸入 ","（普通话）":"（普通話）","英文语音输入":"英文語音輸入","—— Shift 切 ABC，不必切回系统英文输入源":"—— Shift 切 ABC，不必切回系統英文輸入源","拼音键盘":"拼音鍵盤","—— 简体中文，可一键转繁體输出":"—— 簡體中文，可一鍵轉繁體輸出","界面语言 ":"界面語言 ","—— English (US) / English (UK) / 简体中文 / 繁體中文":"—— English (US) / English (UK) / 簡體中文 / 繁體中文","— English (US) / English (UK) / 简体中文 / 繁體中文":"— English (US) / English (UK) / 簡體中文 / 繁體中文","口水词过滤与词表纠错":"口水詞過濾與詞表糾錯","免费下载":"免費下載","内置":"內置","超级学习引擎":"超級學習引擎","一次购买 · 永久使用":"一次購買 · 永久使用"," · 无订阅 · 无自动续费":" · 無訂閱 · 無自動續費","Pro 独有：":"Pro 獨有：","的本地语音识别":"的本地語音識別","超级学习引擎：纠一次，立刻学会":"超級學習引擎：糾一次，立刻學會","AI 自动润色 ":"AI 自動潤色 ","—— 口语直接变书面语":"—— 口語直接變書面語","个人词库持续累积 ":"個人詞庫持續累積 ","—— 词表会自己长，越用越准":"—— 詞表會自己長，越用越准","语音 + 键盘 ":"語音 + 鍵盤 ","双通道一起学":"雙通道一起學","后续版本免费升级":"後續版本免費升級","以下能力免费版同样包含":"以下能力免費版同樣包含","购买 Pro":"購買 Pro","在官网下载页查看版本与下载选项":"在官網下載頁查看版本與下載選項","逐项比较版本":"逐項比較版本","在官网下载页查看版本与下载选项；Pro 为一次购买、永久使用。":"在官網下載頁查看版本與下載選項；Pro 為一次購買、永久使用。","中文 / 英文 / 中英混说 语音输入":"中文 / 英文 / 中英混說 語音輸入","一句话里换语言，不用切输入法":"一句話里換語言，不用切輸入法","Shift 切 ABC，不必切回系统英文输入源":"Shift 切 ABC，不必切回系統英文輸入源","拼音键盘 · 简体中文":"拼音鍵盤 · 簡體中文","可一键把输出转繁體":"可一鍵把輸出轉繁體","全局语音唤醒与麦克风选择":"全局語音喚醒與麥克風選擇","单击左 Ctrl 开始或结束":"單擊左 Ctrl 開始或結束","本地输入处理":"本地輸入處理","Free 与 Pro 的核心输入能力可离线":"Free 與 Pro 的核心輸入能力可離線","超级学习：一次纠正，立即学会":"超級學習：一次糾正，立即學會","学习资料保留在本机并跨版本累积":"學習資料保留在本機並跨版本累積","更高精度的本地语音识别":"更高精度的本地語音識別","AI 自动润色":"AI 自動潤色","需要时手动开启，默认关闭":"需要時手動開啓，默認關閉","购买与授权":"購買與授權","同一款 App：免费下载，App 内解锁 Pro":"同一款 App：免費下載，App 內解鎖 Pro","无需购买":"無需購買","当前状态":"當前狀態","可直接下载":"可直接下載","下载后在 App 内购买":"下載後在 App 內購買","需要联网才能用吗？":"需要聯網才能用嗎？","Free 与 Pro 的本地输入能力可离线使用。体验改进计划可在设置中管理；只处理隔离纠错对与质量信号，不上传原始录音或完整原文。":"Free 與 Pro 的本地輸入能力可離線使用。體驗改進計劃可在設置中管理；只處理隔離糾錯對與質量信號，不上傳原始錄音或完整原文。","支持哪些语言？":"支持哪些語言？","支持普通话、英语、粤语、日语、韩语，以及多语言内容。未来会持续增加更多语言支持。":"支持普通話、英語、粵語、日語、韓語，以及多語言內容。未來會持續增加更多語言支持。","和普通语音输入法有什么区别？":"和普通語音輸入法有什麼區別？","Aria Magic Voice 把语音输入、拼音打字、本地纠错学习和 AI 自动润色放在同一个 macOS 输入法里，并对数字、网址、路径、账号和代码设置安全保护。":"Aria Magic Voice 把語音輸入、拼音打字、本地糾錯學習和 AI 自動潤色放在同一個 macOS 輸入法里，並對數字、網址、路徑、賬號和代碼設置安全保護。","免费版和 Pro 有什么区别？":"免費版和 Pro 有什麼區別？","免费版可直接下载使用：中文与英文语音输入、中英混说、英文直接打、拼音键盘、全局唤起、口水词过滤与词表纠错都包含在内。Pro 一次购买、永久使用，额外提供更高精度的本地语音识别、超级学习（纠一次立刻学会）与 AI 自动润色。两个版本的原始录音和完整文本都只在本机处理，不上传。":"免費版可直接下載使用：中文與英文語音輸入、中英混說、英文直接打、拼音鍵盤、全局喚起、口水詞過濾與詞表糾錯都包含在內。Pro 一次購買、永久使用，額外提供更高精度的本地語音識別、超級學習（糾一次立刻學會）與 AI 自動潤色。兩個版本的原始錄音和完整文本都只在本機處理，不上傳。","© 2026 Aria Magic Voice。保留所有权利。":"© 2026 Aria Magic Voice。保留所有權利。","隐私政策":"隱私政策","使用条款":"使用條款","联系我们":"聯繫我們","Aria Magic Voice — 新一代 AI 输入法":"Aria Magic Voice — 新一代 AI 輸入法","Aria Input Method（Aria Magic Voice）是 macOS AI 输入法：本地语音输入、拼音打字与智能纠错。在官网下载页查看版本与下载选项。":"Aria Input Method（Aria Magic Voice）是 macOS AI 輸入法：本地語音輸入、拼音打字與智能糾錯。在官網下載頁查看版本與下載選項。","macOS AI 输入法：本地语音输入、拼音打字与智能纠错。在官网下载页查看版本与下载选项。":"macOS AI 輸入法：本地語音輸入、拼音打字與智能糾錯。在官網下載頁查看版本與下載選項。","打开菜单":"打開菜單","关闭菜单":"關閉菜單","语言切换":"語言切換","主菜单":"主菜單"};
+  const siteOriginalText=new WeakMap();
+  let siteLocale='en-US', siteLocaleMode='auto';
+  function siteLocalizedString(text,value){
+    if(value==='zh-Hant') return SITE_HANT[text]||text;
+    if(value==='en-GB') for(const key of Object.keys(GB_SPELL)) text=text.replace(new RegExp('\\b'+key+'\\b','g'),GB_SPELL[key]);
+    return text;
+  }
+  function currentSiteCopy(){
+    const base=siteLangCopy[siteLocale.startsWith('zh')?'zh':'en'];
+    return Object.fromEntries(Object.entries(base).map(([key,value])=>[key,siteLocalizedString(value,siteLocale)]));
+  }
+  function applySiteLocale(value){
+    siteLocale=value;
+    const lang=value.startsWith('zh')?'zh':'en',copy=currentSiteCopy();
+    document.documentElement.lang=value;document.title=copy.title;
+    for(const [selector,key] of [['meta[name="description"]','description'],['meta[property="og:title"]','ogTitle'],['meta[property="og:description"]','ogDescription']]){
+      const meta=document.querySelector(selector);if(meta)meta.setAttribute('content',copy[key]);
+    }
+    const hamburger=document.getElementById('hamburger');if(hamburger)hamburger.setAttribute('aria-label',copy.menuLabel);
+    document.querySelectorAll('.site-lang-toggle').forEach(el=>el.setAttribute('aria-label',copy.langLabel));
+    const mainNav=document.querySelector('.nav-center');if(mainNav)mainNav.setAttribute('aria-label',copy.navLabel);
+    const selector=document.getElementById('siteLocaleSelect');
+    if(selector){selector.value=siteLocaleMode==='auto'?'auto':value;selector.setAttribute('aria-label',copy.langLabel);
+      selector.querySelector('[value="auto"]').textContent=value==='zh-Hant'?'跟隨瀏覽器語言':lang==='zh'?'跟随浏览器语言':'Follow browser language';}
+    document.querySelectorAll('[data-lang]').forEach(el=>{
+      el.style.display=el.getAttribute('data-lang')===lang?'':'none';
+      const walker=document.createTreeWalker(el,NodeFilter.SHOW_TEXT);let node;
+      while(node=walker.nextNode()){
+        if(node.parentElement.closest('script,style,code,pre,textarea,input,[contenteditable],[data-noloc]'))continue;
+        if(!siteOriginalText.has(node))siteOriginalText.set(node,node.nodeValue);
+        node.nodeValue=siteLocalizedString(siteOriginalText.get(node),value);
+      }
+    });
+    document.querySelectorAll('.faq-q.active').forEach(btn=>{const panel=btn.nextElementSibling;if(panel)panel.style.maxHeight=panel.scrollHeight+'px';});
+    const mobileNav=document.getElementById('navLinks');if(mobileNav)mobileNav.classList.remove('open');
+    if(hamburger){hamburger.classList.remove('active');hamburger.setAttribute('aria-expanded','false');}
+  }
+  function setSiteLang(value){
+    value=value==='zh'?'zh-Hans':value==='en'?'en-US':value;
+    if(value!=='auto'&&!LOCALES.some(row=>row[0]===value))return;
+    siteLocaleMode=value==='auto'?'auto':'manual';
+    applySiteLocale(value==='auto'?resolveBrowserLocale(navigator.languages,navigator.language,undefined):value);
+    try{storeSharedLocalePreference(siteLocaleMode,siteLocale);localStorage.setItem('aria-site-locale-mode',siteLocaleMode);
+      if(siteLocaleMode==='manual'){localStorage.setItem('aria-site-locale',siteLocale);localStorage.setItem('aria-site-lang',siteLocale.startsWith('zh')?'zh':'en');}
+    }catch(_){}
+  }
+  /* ARIA_PRODUCT_LOCALE_V1_END */
 
   function toggleMobileMenu(button) {
     const mobileNav = document.getElementById('navLinks');
@@ -1659,8 +1843,7 @@ section { padding: 100px 24px; }
     const isOpen = mobileNav.classList.toggle('open');
     button.classList.toggle('active', isOpen);
     button.setAttribute('aria-expanded', String(isOpen));
-    const lang = document.documentElement.lang === 'zh-CN' ? 'zh' : 'en';
-    const copy = siteLangCopy[lang] || siteLangCopy.en;
+    const copy = currentSiteCopy();
     button.setAttribute('aria-label', isOpen ? copy.closeMenuLabel : copy.menuLabel);
   }
 
@@ -1675,10 +1858,12 @@ section { padding: 100px 24px; }
     }
   }
 
-  const savedSiteLang = (() => {
-    try { return localStorage.getItem('aria-site-lang'); } catch (e) { return null; }
-  })();
-  setSiteLang(savedSiteLang || 'en'); // 90.x 立约: 默认纯英文, 用户可手动切中文
+  let savedSiteLang=null,savedSiteLocale=null,savedSiteMode=null,savedSharedLocale=null;
+  try{savedSharedLocale=localStorage.getItem(SHARED_LOCALE_KEY);savedSiteLang=localStorage.getItem('aria-site-lang');savedSiteLocale=localStorage.getItem('aria-site-locale');savedSiteMode=localStorage.getItem('aria-site-locale-mode');}catch(_){}
+  const initialSiteLocale=resolveSharedLocalePreference(savedSharedLocale,savedSiteLocale,savedSiteLang,savedSiteMode,navigator.languages,navigator.language,undefined);
+  siteLocaleMode=initialSiteLocale.mode;applySiteLocale(initialSiteLocale.locale);
+  document.getElementById('siteLocaleSelect').addEventListener('change',event=>setSiteLang(event.target.value));
+  window.addEventListener('languagechange',()=>{if(siteLocaleMode==='auto')applySiteLocale(resolveBrowserLocale(navigator.languages,navigator.language,undefined));});
 
 document.querySelectorAll('.faq-q').forEach((button, index) => {
   const panel = button.nextElementSibling;
@@ -1711,8 +1896,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     if (mobileMenuButton) {
       mobileMenuButton.classList.remove('active');
       mobileMenuButton.setAttribute('aria-expanded', 'false');
-      const lang = document.documentElement.lang === 'zh-CN' ? 'zh' : 'en';
-      mobileMenuButton.setAttribute('aria-label', (siteLangCopy[lang] || siteLangCopy.en).menuLabel);
+      mobileMenuButton.setAttribute('aria-label', currentSiteCopy().menuLabel);
     }
   });
 });

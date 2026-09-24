@@ -105,6 +105,7 @@ body {
   gap: 4px;
 }
 
+.support-locale-select { max-width:190px; color:var(--text-main); }
 .lang-btn {
   padding: 4px 14px;
   border: 1px solid var(--border);
@@ -280,8 +281,11 @@ body {
     Aria <span class="brand-magic">Magic</span> Voice
   </a>
   <div class="lang-toggle">
-    <button type="button" class="lang-btn" onclick="setLang('zh')">中文</button>
-    <button type="button" class="lang-btn" onclick="setLang('en')">EN</button>
+    <select class="lang-btn support-locale-select" aria-label="Language selector">
+      <option value="auto">Follow browser language</option>
+      <option value="zh-Hans">简体中文</option><option value="zh-Hant">繁體中文</option>
+      <option value="en-US">English (US)</option><option value="en-GB">English (UK)</option>
+    </select>
   </div>
   <button type="button" class="hamburger" onclick="toggleMenu()" aria-label="Menu">☰</button>
 </nav>
@@ -294,8 +298,11 @@ body {
     <a href="./index.html" data-lang="zh">首页</a>
   </nav>
   <div class="lang-toggle">
-    <button type="button" class="lang-btn" onclick="setLang('zh')">中文</button>
-    <button type="button" class="lang-btn" onclick="setLang('en')">EN</button>
+    <select class="lang-btn support-locale-select" aria-label="Language selector">
+      <option value="auto">Follow browser language</option>
+      <option value="zh-Hans">简体中文</option><option value="zh-Hant">繁體中文</option>
+      <option value="en-US">English (US)</option><option value="en-GB">English (UK)</option>
+    </select>
   </div>
 </div>
 
@@ -511,7 +518,109 @@ body {
 
 <script>
 (function() {
-  var currentLang = navigator.language && navigator.language.startsWith('zh') ? 'zh' : 'en';
+  
+// SUPPORT_PAGE_LOCALE_V1_BEGIN · Codex134 · 2026-09-07 · v1.0.0
+const LOCALES=[['zh-Hans','简体中文'],['zh-Hant','繁體中文'],['en-US','English (US)'],['en-GB','English (UK)']];
+function canonicalBrowserLanguage(value){
+  if(typeof value!=='string'||!value.trim()) return null;
+  try{ return Intl.getCanonicalLocales(value.trim())[0]||null; }catch(_){ return null; }
+}
+function supportedBrowserLocale(tag){
+  const parts=tag.toLowerCase().split('-'), language=parts[0];
+  const script=/^[a-z]{4}$/.test(parts[1]||'')?parts[1]:null;
+  const region=parts[script?2:1];
+  if(language==='zh'){
+    if(script==='hans'||script==='hant') return script==='hant'?'zh-Hant':'zh-Hans';
+    return ['tw','hk','mo'].includes(region)?'zh-Hant':'zh-Hans';
+  }
+  if(language==='en') return region==='gb'?'en-GB':'en-US';
+  return null;
+}
+function resolveBrowserLocale(languages, language, country){
+  let valid=(Array.isArray(languages)?languages:[]).map(canonicalBrowserLanguage).filter(Boolean);
+  if(!valid.length){ const fallback=canonicalBrowserLanguage(language); if(fallback) valid=[fallback]; }
+  for(const tag of valid){ const supported=supportedBrowserLocale(tag); if(supported) return supported; }
+  // A valid unsupported language defaults to English, even in a Chinese region.
+  if(valid.length) return 'en-US';
+  const region=typeof country==='string'?country.toUpperCase():'';
+  return region==='CN'?'zh-Hans':['TW','HK','MO'].includes(region)?'zh-Hant':'en-US';
+}
+function resolveLocalePreference(savedLocale,savedLang,savedMode,languages,language,country){
+  if(savedMode!=='auto'){
+    if(LOCALES.some(x=>x[0]===savedLocale)) return {locale:savedLocale,mode:'manual'};
+    if(savedLang==='zh'||savedLang==='en') return {locale:savedLang==='zh'?'zh-Hans':'en-US',mode:'manual'};
+  }
+  return {locale:resolveBrowserLocale(languages,language,country),mode:'auto'};
+}
+// ARIA_SHARED_LOCALE_PREFERENCE_V1_BEGIN
+const SHARED_LOCALE_KEY='aria-site-locale-preference-v1';
+function parseSharedLocalePreference(raw){
+  try{
+    const value=JSON.parse(raw);
+    if(!value||typeof value!=='object'||Array.isArray(value)||Object.keys(value).length!==2
+      ||!Object.prototype.hasOwnProperty.call(value,'mode')||!Object.prototype.hasOwnProperty.call(value,'locale'))return null;
+    if(value.mode==='auto'&&value.locale===null)return {mode:'auto',locale:null};
+    if(value.mode==='manual'&&LOCALES.some(row=>row[0]===value.locale))return {mode:'manual',locale:value.locale};
+  }catch(_){}
+  return null;
+}
+function resolveSharedLocalePreference(raw,savedLocale,savedLang,savedMode,languages,language,country){
+  const shared=parseSharedLocalePreference(raw);
+  return shared?resolveLocalePreference(shared.locale,null,shared.mode,languages,language,country)
+    :resolveLocalePreference(savedLocale,savedLang,savedMode,languages,language,country);
+}
+function storeSharedLocalePreference(mode,value){
+  localStorage.setItem(SHARED_LOCALE_KEY,JSON.stringify({mode,locale:mode==='manual'?value:null}));
+}
+// ARIA_SHARED_LOCALE_PREFERENCE_V1_END
+
+const GB_SPELL={'color':'colour','colors':'colours','license':'licence','organize':'organise',
+  'organized':'organised','customize':'customise','customized':'customised','analyze':'analyse',
+  'catalog':'catalogue','center':'centre','behavior':'behaviour','favorite':'favourite'};
+
+const SUPPORT_HANT={"首页":"首頁","使用条款":"使用條款","候选更新：2026 年 7 月 13 日":"候選更新：2026 年 7 月 13 日","本使用条款（以下简称\"条款\"）适用于您对 Aria Magic Voice（以下简称\"本软件\"）的使用。本软件是一款 macOS AI 输入法，提供语音输入、拼音打字、本地纠错学习和 AI 自动润色，由 Aria Magic Voice（以下简称\"我们\"）开发和运营。":"本使用條款（以下簡稱\"條款\"）適用於您對 Aria Magic Voice（以下簡稱\"本軟件\"）的使用。本軟件是一款 macOS AI 輸入法，提供語音輸入、拼音打字、本地糾錯學習和 AI 自動潤色，由 Aria Magic Voice（以下簡稱\"我們\"）開發和運營。","下载、安装或使用本软件即表示您同意受本条款的约束。如您不同意本条款，请勿使用本软件。":"下載、安裝或使用本軟件即表示您同意受本條款的約束。如您不同意本條款，請勿使用本軟件。","2. 产品说明":"2. 產品說明","Free 和拟定 Pro 在您的 Mac 上提供本地输入能力。加入体验改进计划是一条独立网络路径，具体以隐私政策为准。":"Free 和擬定 Pro 在您的 Mac 上提供本地輸入能力。加入體驗改進計劃是一條獨立網絡路徑，具體以隱私政策為準。","3. 版本与使用权":"3. 版本與使用權"," 规划为永久免费版本。":" 規劃為永久免費版本。"," 拟定价格为 ¥268 一次性，但尚未开放购买。官网 License 与 Apple IAP 是两条分离的候选购买路径。":" 擬定價格為 ¥268 一次性，但尚未開放購買。官網 License 與 Apple IAP 是兩條分離的候選購買路徑。","旧版独立授权继续适用其购买时的条款，不得共享、转售或再分发。":"舊版獨立授權繼續適用其購買時的條款，不得共享、轉售或再分發。","您不得对本软件进行逆向工程、反编译、反汇编或以其他方式尝试获取源代码。":"您不得對本軟件進行逆向工程、反編譯、反匯編或以其他方式嘗試獲取源代碼。","4. 试用候选":"4. 試用候選","Free 无需试用。Pro 的试用条款尚未上线；未来官网 License 或 Apple IAP 如提供试用，必须由对应购买渠道在付款前明确展示。":"Free 無需試用。Pro 的試用條款尚未上線；未來官網 License 或 Apple IAP 如提供試用，必須由對應購買渠道在付款前明確展示。","5. 购买与付款":"5. 購買與付款","Pro 为一次性买断（¥268）。官网购买以官网结账页展示的 License 条款为准；Apple 版本购买如上线，以 Apple IAP 确认界面展示的价格与条款为准。早期由 Paddle 处理的独立购买继续作为历史交易获得支持，但不属于新版 Pro 方案。":"Pro 為一次性買斷（¥268）。官網購買以官網結賬頁展示的 License 條款為準；Apple 版本購買如上線，以 Apple IAP 確認界面展示的價格與條款為準。早期由 Paddle 處理的獨立購買繼續作為歷史交易獲得支持，但不屬於新版 Pro 方案。","Free 不收费。新版 Pro 尚未开放购买；未来官网 License 退款按官网结账条款处理，Apple IAP 退款按 Apple 的适用规则处理。Paddle 历史交易继续适用购买时的条款。退款路径详见":"Free 不收費。新版 Pro 尚未開放購買；未來官網 License 退款按官網結賬條款處理，Apple IAP 退款按 Apple 的適用規則處理。Paddle 歷史交易繼續適用購買時的條款。退款路徑詳見","7. 隐私与数据":"7. 隱私與數據","加入体验改进计划在设置中管理，并可随时关闭。":"加入體驗改進計劃在設置中管理，並可隨時關閉。","体验改进计划只处理脱敏的隔离纠错对与质量信号，不传原始录音、完整原文或账号密码。":"體驗改進計劃只處理脫敏的隔離糾錯對與質量信號，不傳原始錄音、完整原文或賬號密碼。","旧版授权激活与恢复可能为权益管理传输设备标识符和设备名称。":"舊版授權激活與恢復可能為權益管理傳輸設備標識符和設備名稱。","详情请参阅我们的":"詳情請參閱我們的","隐私政策":"隱私政策","8. 知识产权":"8. 知識產權","本软件的所有知识产权，包括但不限于源代码、设计、图形、标志、商标和文档，均归 Aria Magic Voice 或其许可方所有。本条款不授予您在未经事先书面同意的情况下使用我们的商标、商号或品牌的任何权利。":"本軟件的所有知識產權，包括但不限於源代碼、設計、圖形、標誌、商標和文檔，均歸 Aria Magic Voice 或其許可方所有。本條款不授予您在未經事先書面同意的情況下使用我們的商標、商號或品牌的任何權利。","本软件包含开源组件，每个组件均受其各自的许可条款约束。开源许可列表可在软件内查阅。":"本軟件包含開源組件，每個組件均受其各自的許可條款約束。開源許可列表可在軟件內查閱。","9. 责任限制":"9. 責任限制","在适用法律允许的最大范围内：":"在適用法律允許的最大範圍內：","本软件按":"本軟件按","\"现状\"":"\"現狀\"","基础提供，不附带任何明示、暗示或法定的保证。":"基礎提供，不附帶任何明示、暗示或法定的保證。","我们不保证本软件无错误、不中断或满足您的特定需求。":"我們不保證本軟件無錯誤、不中斷或滿足您的特定需求。","在任何情况下，Aria Magic Voice 均不对任何间接、附带、特殊、后果性或惩罚性损害承担责任，包括但不限于数据丢失、利润损失或商业机会损失。":"在任何情況下，Aria Magic Voice 均不對任何間接、附帶、特殊、後果性或懲罰性損害承擔責任，包括但不限於數據丟失、利潤損失或商業機會損失。","我们的累计总责任不超过您为适用订阅或旧版购买支付的金额。":"我們的累計總責任不超過您為適用訂閱或舊版購買支付的金額。","10. 终止":"10. 終止","如您违反本条款，我们保留终止或暂停使用权的权利。终止后，您必须停止被禁止的使用。有关知识产权、责任限制和适用法律的条款在终止后继续有效。":"如您違反本條款，我們保留終止或暫停使用權的權利。終止後，您必須停止被禁止的使用。有關知識產權、責任限制和適用法律的條款在終止後繼續有效。","11. 条款变更":"11. 條款變更","我们可能会不时更新本条款。当我们做出重大变更时，将更新本页面顶部的\"最后更新\"日期。您在任何变更后继续使用本软件即表示接受修订后的条款。":"我們可能會不時更新本條款。當我們做出重大變更時，將更新本頁面頂部的\"最後更新\"日期。您在任何變更後繼續使用本軟件即表示接受修訂後的條款。","12. 适用法律":"12. 適用法律","本条款受中华人民共和国法律管辖并依其解释，不考虑法律冲突原则。因本条款引起的或与之相关的任何争议，应提交至开发者所在地的有管辖权的法院。":"本條款受中華人民共和國法律管轄並依其解釋，不考慮法律衝突原則。因本條款引起的或與之相關的任何爭議，應提交至開發者所在地的有管轄權的法院。","13. 联系我们":"13. 聯繫我們","如您对本使用条款有任何疑问，请通过以下方式联系我们：":"如您對本使用條款有任何疑問，請通過以下方式聯繫我們：","联系我们":"聯繫我們"};
+const supportTextOriginals=new WeakMap();
+let currentLang='en',supportLocale='en-US',supportLocaleMode='auto';
+function supportTranslatedText(text,value){
+  if(value==='zh-Hant')return SUPPORT_HANT[text]||text;
+  if(value==='en-GB')for(const key of Object.keys(GB_SPELL))text=text.replace(new RegExp('\\b'+key+'\\b','g'),GB_SPELL[key]);
+  return text;
+}
+function applySupportLocale(value){
+  supportLocale=value;currentLang=value.startsWith('zh')?'zh':'en';document.documentElement.lang=value;
+  document.title={"en-US": "Terms of Service — Aria Magic Voice", "en-GB": "Terms of Service — Aria Magic Voice", "zh-Hans": "使用条款 — Aria Magic Voice", "zh-Hant": "使用條款 — Aria Magic Voice"}[value];
+  document.querySelectorAll('[data-lang]').forEach(el=>{
+    el.style.display=el.getAttribute('data-lang')===currentLang?'':'none';
+    const walker=document.createTreeWalker(el,NodeFilter.SHOW_TEXT);let node;
+    while(node=walker.nextNode()){
+      if(node.parentElement.closest('script,style,code,pre,textarea,input,[contenteditable],[data-noloc]'))continue;
+      if(!supportTextOriginals.has(node))supportTextOriginals.set(node,node.nodeValue);
+      node.nodeValue=supportTranslatedText(supportTextOriginals.get(node),value);
+    }
+  });
+  const labels=value==='zh-Hant'?['語言選擇','跟隨瀏覽器語言','開啟選單','關閉選單','主選單','行動版選單']:currentLang==='zh'?['语言选择','跟随浏览器语言','打开菜单','关闭菜单','主菜单','移动版菜单']:['Language selector','Follow browser language','Open menu','Close menu','Main navigation','Mobile navigation'];
+  document.querySelectorAll('.support-locale-select').forEach(el=>{el.value=supportLocaleMode==='auto'?'auto':value;el.setAttribute('aria-label',labels[0]);el.querySelector('[value="auto"]').textContent=labels[1];});
+  for(const [selector,label] of [['.hamburger',labels[2]],['.mobile-panel-close',labels[3]],['nav.nav',labels[4]],['.mobile-panel nav',labels[5]]]){
+    document.querySelectorAll(selector).forEach(el=>el.setAttribute('aria-label',label));
+  }
+  document.querySelectorAll('.mobile-panel .lang-toggle').forEach(el=>el.style.display='flex');
+}
+function setLang(value){
+  value=value==='zh'?'zh-Hans':value==='en'?'en-US':value;
+  if(value!=='auto'&&!LOCALES.some(row=>row[0]===value))return;
+  supportLocaleMode=value==='auto'?'auto':'manual';
+  applySupportLocale(value==='auto'?resolveBrowserLocale(navigator.languages,navigator.language,undefined):value);
+  try{storeSharedLocalePreference(supportLocaleMode,supportLocale);}catch(_){}
+}
+function initializeSupportLocale(){
+  let saved=null;try{saved=localStorage.getItem(SHARED_LOCALE_KEY);}catch(_){}
+  const initial=resolveSharedLocalePreference(saved,null,null,null,navigator.languages,navigator.language,undefined);
+  supportLocaleMode=initial.mode;applySupportLocale(initial.locale);
+  document.querySelectorAll('.support-locale-select').forEach(el=>el.addEventListener('change',event=>setLang(event.target.value)));
+  window.addEventListener('languagechange',()=>{if(supportLocaleMode==='auto')applySupportLocale(resolveBrowserLocale(navigator.languages,navigator.language,undefined));});
+}
+// SUPPORT_PAGE_LOCALE_V1_END
+
 
   function toggleMenu() {
     document.getElementById('mobileOverlay').classList.toggle('open');
@@ -519,22 +628,9 @@ body {
   }
   window.toggleMenu = toggleMenu;
 
-  function setLang(lang) {
-    currentLang = lang;
-    document.querySelectorAll('.lang-btn').forEach(function(b) { b.classList.remove('active'); });
-    document.querySelector('.lang-btn[onclick="setLang(\'' + lang + '\')"]').classList.add('active');
-    document.querySelectorAll('[data-lang]').forEach(function(el) {
-      if (el.getAttribute('data-lang') === lang) {
-        el.style.display = '';
-      } else {
-        el.style.display = 'none';
-      }
-    });
-    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
-  }
-
+  
   window.setLang = setLang;
-  setLang(currentLang);
+  initializeSupportLocale();
 })();
 </script>
 </body>

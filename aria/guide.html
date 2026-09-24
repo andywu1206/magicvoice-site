@@ -117,6 +117,7 @@ body {
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-pill);
 }
+.support-locale-select { max-width:190px; color:var(--text-main); }
 .lang-btn {
   padding: 2px 10px;
   border: none;
@@ -498,7 +499,7 @@ body {
     <i class="ph ph-sparkle"></i>
     Aria <span class="brand-magic">Magic</span> Voice
   </a>
-  <a href="https://apps.apple.com/cn/app/aria-magic-voice/id6776485989?mt=12&amp;uo=4" class="nav-download">
+  <a href="/apps/#aria" class="nav-download">
     <span data-lang="en">View on App Store</span>
     <span data-lang="zh" style="display:none">前往 App Store</span>
   </a>
@@ -513,8 +514,11 @@ body {
     <a href="./index.html" data-lang="zh">首页</a>
   </nav>
   <div class="lang-toggle" style="display:flex">
-    <button class="lang-btn" onclick="setLang('zh')">中文</button>
-    <button class="lang-btn" onclick="setLang('en')">EN</button>
+    <select class="lang-btn support-locale-select" aria-label="Language selector">
+      <option value="auto">Follow browser language</option>
+      <option value="zh-Hans">简体中文</option><option value="zh-Hant">繁體中文</option>
+      <option value="en-US">English (US)</option><option value="en-GB">English (UK)</option>
+    </select>
   </div>
 </div>
 
@@ -536,8 +540,11 @@ body {
   <!-- ====== LANG TOGGLE (pill style, centered below tab bar) ====== -->
   <div class="lang-toggle-wrap">
     <div class="lang-toggle">
-      <button class="lang-btn" onclick="setLang('zh')">中文</button>
-      <button class="lang-btn" onclick="setLang('en')">EN</button>
+      <select class="lang-btn support-locale-select" aria-label="Language selector">
+      <option value="auto">Follow browser language</option>
+      <option value="zh-Hans">简体中文</option><option value="zh-Hant">繁體中文</option>
+      <option value="en-US">English (US)</option><option value="en-GB">English (UK)</option>
+    </select>
     </div>
   </div>
 
@@ -807,24 +814,116 @@ body {
 </footer>
 
 <script>
-let currentLang = navigator.language.startsWith('zh') ? 'zh' : 'en';
+
+// SUPPORT_PAGE_LOCALE_V1_BEGIN · Codex134 · 2026-09-07 · v1.0.0
+const LOCALES=[['zh-Hans','简体中文'],['zh-Hant','繁體中文'],['en-US','English (US)'],['en-GB','English (UK)']];
+function canonicalBrowserLanguage(value){
+  if(typeof value!=='string'||!value.trim()) return null;
+  try{ return Intl.getCanonicalLocales(value.trim())[0]||null; }catch(_){ return null; }
+}
+function supportedBrowserLocale(tag){
+  const parts=tag.toLowerCase().split('-'), language=parts[0];
+  const script=/^[a-z]{4}$/.test(parts[1]||'')?parts[1]:null;
+  const region=parts[script?2:1];
+  if(language==='zh'){
+    if(script==='hans'||script==='hant') return script==='hant'?'zh-Hant':'zh-Hans';
+    return ['tw','hk','mo'].includes(region)?'zh-Hant':'zh-Hans';
+  }
+  if(language==='en') return region==='gb'?'en-GB':'en-US';
+  return null;
+}
+function resolveBrowserLocale(languages, language, country){
+  let valid=(Array.isArray(languages)?languages:[]).map(canonicalBrowserLanguage).filter(Boolean);
+  if(!valid.length){ const fallback=canonicalBrowserLanguage(language); if(fallback) valid=[fallback]; }
+  for(const tag of valid){ const supported=supportedBrowserLocale(tag); if(supported) return supported; }
+  // A valid unsupported language defaults to English, even in a Chinese region.
+  if(valid.length) return 'en-US';
+  const region=typeof country==='string'?country.toUpperCase():'';
+  return region==='CN'?'zh-Hans':['TW','HK','MO'].includes(region)?'zh-Hant':'en-US';
+}
+function resolveLocalePreference(savedLocale,savedLang,savedMode,languages,language,country){
+  if(savedMode!=='auto'){
+    if(LOCALES.some(x=>x[0]===savedLocale)) return {locale:savedLocale,mode:'manual'};
+    if(savedLang==='zh'||savedLang==='en') return {locale:savedLang==='zh'?'zh-Hans':'en-US',mode:'manual'};
+  }
+  return {locale:resolveBrowserLocale(languages,language,country),mode:'auto'};
+}
+// ARIA_SHARED_LOCALE_PREFERENCE_V1_BEGIN
+const SHARED_LOCALE_KEY='aria-site-locale-preference-v1';
+function parseSharedLocalePreference(raw){
+  try{
+    const value=JSON.parse(raw);
+    if(!value||typeof value!=='object'||Array.isArray(value)||Object.keys(value).length!==2
+      ||!Object.prototype.hasOwnProperty.call(value,'mode')||!Object.prototype.hasOwnProperty.call(value,'locale'))return null;
+    if(value.mode==='auto'&&value.locale===null)return {mode:'auto',locale:null};
+    if(value.mode==='manual'&&LOCALES.some(row=>row[0]===value.locale))return {mode:'manual',locale:value.locale};
+  }catch(_){}
+  return null;
+}
+function resolveSharedLocalePreference(raw,savedLocale,savedLang,savedMode,languages,language,country){
+  const shared=parseSharedLocalePreference(raw);
+  return shared?resolveLocalePreference(shared.locale,null,shared.mode,languages,language,country)
+    :resolveLocalePreference(savedLocale,savedLang,savedMode,languages,language,country);
+}
+function storeSharedLocalePreference(mode,value){
+  localStorage.setItem(SHARED_LOCALE_KEY,JSON.stringify({mode,locale:mode==='manual'?value:null}));
+}
+// ARIA_SHARED_LOCALE_PREFERENCE_V1_END
+
+const GB_SPELL={'color':'colour','colors':'colours','license':'licence','organize':'organise',
+  'organized':'organised','customize':'customise','customized':'customised','analyze':'analyse',
+  'catalog':'catalogue','center':'centre','behavior':'behaviour','favorite':'favourite'};
+
+const SUPPORT_HANT={"首页":"首頁","安装指引":"安裝指引","按照以下步骤安装 Aria、在 macOS 里启用输入法，并授予语音输入所需的权限。":"按照以下步驟安裝 Aria、在 macOS 里啓用輸入法，並授予語音輸入所需的權限。","快速开始":"快速開始","安装":"安裝"," — 打开 DMG，运行一键安装器。输入法版会安装到 macOS 输入法目录。":" — 打開 DMG，運行一鍵安裝器。輸入法版會安裝到 macOS 輸入法目錄。","启用输入源":"啓用輸入源"," — 打开系统设置 → 键盘 → 文本输入，添加或启用 ":" — 打開系統設置 → 鍵盤 → 文本輸入，添加或啓用 ","，再从菜单栏切换到它。":"，再從菜單欄切換到它。","开始使用":"開始使用"," — 单击 ":" — 單擊 "," 开始说话，再次单击 ":" 開始說話，再次單擊 "," 结束并自动上屏到当前输入框。":" 結束並自動上屏到當前輸入框。"," — 使用 Aria 输入源进行常规键盘输入。":" — 使用 Aria 輸入源進行常規鍵盤輸入。","开始语音":"開始語音","，说话时实时草稿以下划线显示。":"，說話時實時草稿以下划線顯示。","结束语音":"結束語音"," — 再次单击 ":" — 再次單擊 ","，最终文本自动上屏到当前输入框。":"，最終文本自動上屏到當前輸入框。","AI 自动润色":"AI 自動潤色"," — 可开可关，让口语表达更流畅。":" — 可開可關，讓口語表達更流暢。","隐私边界":"隱私邊界"," — 体验改进计划可在设置中管理；只处理隔离纠错对与质量信号，不上传原始录音或完整原文。":" — 體驗改進計劃可在設置中管理；只處理隔離糾錯對與質量信號，不上傳原始錄音或完整原文。","设置":"設置","语音触发":"語音觸發"," — 输入法版使用单击左 Control 开始和结束语音输入。":" — 輸入法版使用單擊左 Control 開始和結束語音輸入。","界面语言":"界面語言"," — 支持中文/英文界面切换。":" — 支持中文/英文界面切換。","超级学习功能":"超級學習功能"," — 本地学习你的订正，同时保护数字、网址、路径、账号和代码。":" — 本地學習你的訂正，同時保護數字、網址、路徑、賬號和代碼。","语音聊天数据不上传":"語音聊天數據不上傳"," — 原始录音和完整聊天内容只在本机处理，不上传；体验改进计划可在设置中管理，只处理隔离纠错对与质量信号。":" — 原始錄音和完整聊天內容只在本機處理，不上傳；體驗改進計劃可在設置中管理，只處理隔離糾錯對與質量信號。","支持的语言":"支持的語言","中文(普通话)":"中文(普通話)","粤语":"粵語","中英混合输入":"中英混合輸入","权限说明":"權限說明","麦克风权限":"麥克風權限"," — 用于录音,必须授予。":" — 用於錄音,必須授予。","辅助功能权限":"輔助功能權限"," — 用于将文字自动插入到光标位置(模拟 ":" — 用於將文字自動插入到光標位置(模擬 ","),必须授予。":"),必須授予。","如何授予辅助功能权限:":"如何授予輔助功能權限:","打开 ":"打開 ","(系统设置)":"(系統設置)","进入 ":"進入 ","点击 ":"點擊 "," 按钮,添加 ":" 按鈕,添加 "," — 可从 App Store 获取。":" — 可從 App Store 獲取。"," — 当前 Apple 商品页将 Pro Monthly 列为月度自动续订订阅，并提供 7 天免费试用；本地化价格、续费与取消方式以购买确认页显示为准。":" — 當前 Apple 商品頁將 Pro Monthly 列為月度自動續訂訂閱，並提供 7 天免費試用；本地化價格、續費與取消方式以購買確認頁顯示為準。","体验改进计划":"體驗改進計劃"," — 可在设置中管理；只处理隔离纠错对与质量信号，不上传原始录音或完整原文。":" — 可在設置中管理；只處理隔離糾錯對與質量信號，不上傳原始錄音或完整原文。","设备重置":"設備重置"," — 旧电脑无法使用时,访问":" — 舊電腦無法使用時,訪問","设备重置页面":"設備重置頁面","常见问题":"常見問題","没有声音 / 不识别":"沒有聲音 / 不識別"," — 检查麦克风权限是否已授予,确认在系统声音设置中选择了正确的麦克风。":" — 檢查麥克風權限是否已授予,確認在系統聲音設置中選擇了正確的麥克風。","文字无法插入":"文字無法插入"," — 检查辅助功能权限是否已授予,确认 MagicVoice 已添加到 System Settings → Privacy & Security → Accessibility 列表中。":" — 檢查輔助功能權限是否已授予,確認 MagicVoice 已添加到 System Settings → Privacy & Security → Accessibility 列表中。","快捷键冲突":"快捷鍵衝突"," — 尝试在设置中更换其他热键组合。":" — 嘗試在設置中更換其他熱鍵組合。","联系支持":"聯繫支持","隐私政策":"隱私政策","使用条款":"使用條款","联系我们":"聯繫我們"};
+const supportTextOriginals=new WeakMap();
+let currentLang='en',supportLocale='en-US',supportLocaleMode='auto';
+function supportTranslatedText(text,value){
+  if(value==='zh-Hant')return SUPPORT_HANT[text]||text;
+  if(value==='en-GB')for(const key of Object.keys(GB_SPELL))text=text.replace(new RegExp('\\b'+key+'\\b','g'),GB_SPELL[key]);
+  return text;
+}
+function applySupportLocale(value){
+  supportLocale=value;currentLang=value.startsWith('zh')?'zh':'en';document.documentElement.lang=value;
+  document.title={"en-US": "User Guide — Aria Magic Voice", "en-GB": "User Guide — Aria Magic Voice", "zh-Hans": "使用指南 — Aria Magic Voice", "zh-Hant": "使用指南 — Aria Magic Voice"}[value];
+  document.querySelectorAll('[data-lang]').forEach(el=>{
+    el.style.display=el.getAttribute('data-lang')===currentLang?'':'none';
+    const walker=document.createTreeWalker(el,NodeFilter.SHOW_TEXT);let node;
+    while(node=walker.nextNode()){
+      if(node.parentElement.closest('script,style,code,pre,textarea,input,[contenteditable],[data-noloc]'))continue;
+      if(!supportTextOriginals.has(node))supportTextOriginals.set(node,node.nodeValue);
+      node.nodeValue=supportTranslatedText(supportTextOriginals.get(node),value);
+    }
+  });
+  const labels=value==='zh-Hant'?['語言選擇','跟隨瀏覽器語言','開啟選單','關閉選單','主選單','行動版選單']:currentLang==='zh'?['语言选择','跟随浏览器语言','打开菜单','关闭菜单','主菜单','移动版菜单']:['Language selector','Follow browser language','Open menu','Close menu','Main navigation','Mobile navigation'];
+  document.querySelectorAll('.support-locale-select').forEach(el=>{el.value=supportLocaleMode==='auto'?'auto':value;el.setAttribute('aria-label',labels[0]);el.querySelector('[value="auto"]').textContent=labels[1];});
+  for(const [selector,label] of [['.hamburger',labels[2]],['.mobile-panel-close',labels[3]],['nav.nav',labels[4]],['.mobile-panel nav',labels[5]]]){
+    document.querySelectorAll(selector).forEach(el=>el.setAttribute('aria-label',label));
+  }
+  document.querySelectorAll('.mobile-panel .lang-toggle').forEach(el=>el.style.display='flex');
+}
+function setLang(value){
+  value=value==='zh'?'zh-Hans':value==='en'?'en-US':value;
+  if(value!=='auto'&&!LOCALES.some(row=>row[0]===value))return;
+  supportLocaleMode=value==='auto'?'auto':'manual';
+  applySupportLocale(value==='auto'?resolveBrowserLocale(navigator.languages,navigator.language,undefined):value);
+  try{storeSharedLocalePreference(supportLocaleMode,supportLocale);}catch(_){}
+}
+function initializeSupportLocale(){
+  let saved=null;try{saved=localStorage.getItem(SHARED_LOCALE_KEY);}catch(_){}
+  const initial=resolveSharedLocalePreference(saved,null,null,null,navigator.languages,navigator.language,undefined);
+  supportLocaleMode=initial.mode;applySupportLocale(initial.locale);
+  document.querySelectorAll('.support-locale-select').forEach(el=>el.addEventListener('change',event=>setLang(event.target.value)));
+  window.addEventListener('languagechange',()=>{if(supportLocaleMode==='auto')applySupportLocale(resolveBrowserLocale(navigator.languages,navigator.language,undefined));});
+}
+// SUPPORT_PAGE_LOCALE_V1_END
+
 
 function toggleMenu() {
   document.getElementById('mobileOverlay').classList.toggle('open');
   document.getElementById('mobilePanel').classList.toggle('open');
 }
 
-function setLang(lang) {
-  currentLang = lang;
-  document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
-  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll(`.lang-btn[onclick="setLang('${lang}')"]`).forEach(b => b.classList.add('active'));
-  document.querySelectorAll('[data-lang]').forEach(el => {
-    el.style.display = el.getAttribute('data-lang') === lang ? '' : 'none';
-  });
-  // Re-show mobile lang toggle
-  document.querySelectorAll('.mobile-panel .lang-toggle').forEach(t => t.style.display = 'flex');
-}
+
 
 function switchTab(tabName) {
   document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -839,7 +938,7 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
   btn.addEventListener('click', () => switchTab(btn.dataset.tab));
 });
 
-setLang(currentLang);
+initializeSupportLocale();
 </script>
 
 </body>

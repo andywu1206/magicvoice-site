@@ -1076,16 +1076,12 @@ const ICO={
    u 留空 = 渲染成不可点的「即将开放」，跟 Mac 那边占位符同一条规矩：公网不放坏链接。
    拿到真地址只改这三行的 u，版式一个字不用动。 */
 const VER_AND={
-  beta:[{n:'GitHub',u:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-android-v10.370-test/AriaInputMethod-Android-v10.370.apk',i:'gh'}],
-  free:'', pro:'', price:'$39.9'};
+  beta:[{n:'GitHub',u:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-android-v10.387-test/AriaInputMethod-Android-v10.387.apk',i:'gh'}],
+  free:'downloads.ariamagicvoice.com/releases/aria/android/10.387/AriaInputMethod-Android-v10.387.apk', pro:'', price:'$39.9'};
 const VER={
-  aria:{beta:[{n:'GitHub',u:'github.com/andywu1206/magicvoice-site/releases/download/aria-magic-voice-v90.806-free-website/AriaMagicVoice_Free_Website_v90.806.dmg',i:'gh'}],
-        /* ⚠️ 这里曾经填过 App Store 的 id6776485989（Harry 2026-08-08 当场纠正）。
-           那个上架物是 87.x 的 App，本页现在卖的是 90.x 的「Aria 输入法」——
-           两件不同的产品，不能互相代称。输入法的 Free / Pro 包都还没出，
-           内测包还在 350 号话题打，出包前这两条只能是空的。 */
-        free:'',
-        pro:'',price:'$39.9'},
+  aria:{beta:[{n:'GitHub',u:'github.com/andywu1206/magicvoice-site/releases/download/aria-magic-voice-v90.831-free-website/AriaMagicVoiceIME_Free_v90.831.dmg',i:'gh'}],
+        free:'github.com/andywu1206/magicvoice-site/releases/download/aria-magic-voice-v90.831-free-website/AriaMagicVoiceIME_Free_v90.831.dmg',
+        pro:'ariamagicvoice.com/apps/sponsor.html',price:'$39.9'},
   rm:{beta:[{n:'TestFlight',u:'testflight.apple.com/join/…',i:'tf'}],
       /* Remember Me 是唯一确定的。Pro 是这个 listing 里的内购，所以两档同址。
          ⚠️ 别再换回 apps.apple.com/app/id… 这种不带地区的写法：
@@ -1330,7 +1326,7 @@ function mergeContent(o){
     if(!ap)continue;
     if(a[1]==='beta'){const b=ap.beta&&ap.beta[+a[2]];if(b)b.u=lk[k];}
     else if(a[1]==='free'||a[1]==='pro')ap[a[1]]=lk[k];}}
-/*BAKED-START*/const BAKED={"__links":{"aria:beta:0":"github.com/andywu1206/magicvoice-site/releases/download/aria-magic-voice-v90.806-free-website/AriaMagicVoice_Free_Website_v90.806.dmg","aria:beta:1":"drive.google.com/file/d/1vJ7Mbx0pvtPGjEjElC4JtY2Q8-TqwymU/view?usp=drive_link","aria:beta:2":"pan.baidu.com/s/1tj4fNDQqto_u8Ga8sHrC9g?pwd=1234"}};/*BAKED-END*/
+/*BAKED-START*/const BAKED={"__links":{"aria:beta:0":"github.com/andywu1206/magicvoice-site/releases/download/aria-magic-voice-v90.831-free-website/AriaMagicVoiceIME_Free_v90.831.dmg","aria:free":"github.com/andywu1206/magicvoice-site/releases/download/aria-magic-voice-v90.831-free-website/AriaMagicVoiceIME_Free_v90.831.dmg","aria:pro":"ariamagicvoice.com/apps/sponsor.html","aria:beta:1":"drive.google.com/file/d/1vJ7Mbx0pvtPGjEjElC4JtY2Q8-TqwymU/view?usp=drive_link","aria:beta:2":"pan.baidu.com/s/1tj4fNDQqto_u8Ga8sHrC9g?pwd=1234"}};/*BAKED-END*/
 mergeContent(BAKED);
 
 function linkCode(sc,u){
@@ -1339,20 +1335,8 @@ function linkCode(sc,u){
   return sc&&sc.code?String(sc.code):'';
 }
 /* 这张表是「不管链接填得对不对，都强行标成不可用」的硬闸。
-   2026-08-08 口径（Harry 当场确认）：
-     · Aria 输入法 Free / Pro —— 包还没出来，内测包在 350 号话题打，两条都留在闸里。
-       ⚠️ 别再拿 App Store 上的 id6776485989 来填：那是 87.x 的 App，
-          跟本页卖的 90.x 输入法不是同一件产品。
-     · Remember Me Free / Pro —— 唯一确定的两条，已解闸，见 VER.rm。 */
+   Aria 输入法 Free / Pro 现已正式开放。 */
 const LINK_BLOCKED={
-  'aria:free':{
-    zh:'输入法的 Free 包还没出（内测包正在打）',
-    en:'The Free build of the input method is not out yet'
-  },
-  'aria:pro':{
-    zh:'输入法的 Pro 包还没出（内测包正在打）',
-    en:'The Pro build of the input method is not out yet'
-  }
 };
 function linkProblem(key,u){
   const forced=LINK_BLOCKED[key];
@@ -1416,7 +1400,7 @@ function renderCompare(){
   const AND = (cur==='aria' && curPlat==='and');
   const VX  = AND ? VER_AND : VER[cur];
   const directSource={n:lang==='zh'?'官网':'Website',
-    u:({and:'downloads.ariamagicvoice.com/releases/aria/android/10.370/AriaInputMethod-Android-v10.370.apk',mac:'github.com/andywu1206/magicvoice-site/releases/download/aria-magic-voice-v90.806-free-website/AriaMagicVoice_Free_Website_v90.806.dmg'})[curPlat]||'',
+    u:({and:'downloads.ariamagicvoice.com/releases/aria/android/10.387/AriaInputMethod-Android-v10.387.apk',mac:'github.com/andywu1206/magicvoice-site/releases/download/aria-magic-voice-v90.831-free-website/AriaMagicVoiceIME_Free_v90.831.dmg'})[curPlat]||'',
     i:'official',fast:true};
   const hasDirect=cur==='aria'&&!!directSource.u;
   const betaSources=hasDirect?[directSource,...(VX.beta||[])]:VX.beta;
