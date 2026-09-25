@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy · Night Cat / 隐私政策 · 躺平猫</title>
+<meta name="description" content="Night Cat (躺平猫) privacy policy: the app is sandboxed with no network entitlement, collects no data, and holds system power assertions only while its switch is on.">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --primary: #0071E3;
+  --bg: #F5F5F7;
+  --text-main: #1D1D1F;
+  --text-muted: #6E6E73;
+  --border: #E5E5EA;
+  --card: #FFFFFF;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans SC", "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text-main);
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+  padding: 64px 24px 96px;
+}
+main { max-width: 760px; margin: 0 auto; }
+.back { display: inline-block; color: var(--primary); text-decoration: none; font-size: .9rem; margin-bottom: 28px; }
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 40px 36px 44px; }
+h1 { font-size: 1.6rem; font-weight: 600; letter-spacing: .01em; }
+h2 { font-size: 1.05rem; font-weight: 600; margin-top: 2em; }
+.meta { color: var(--text-muted); font-size: .85rem; margin: .6em 0 2em; }
+p { margin: .6em 0; }
+ul { padding-left: 1.3em; }
+li { margin: .3em 0; }
+a { color: var(--primary); }
+code { background: #F2F2F4; border-radius: 5px; padding: 1px 5px; font-size: .88em; }
+.lang-zh { margin-top: 3.5em; padding-top: 3em; border-top: 1px solid var(--border); }
+footer { max-width: 760px; margin: 24px auto 0; color: var(--text-muted); font-size: .8rem; text-align: center; }
+@media (max-width: 600px) { .card { padding: 28px 22px 32px; border-radius: 14px; } body { padding: 40px 16px 72px; } }
+</style>
+</head>
+<body>
+<main>
+  <a class="back" href="./support.html">Support · Night Cat →</a>
+  <div class="card">
+
+    <h1>Privacy Policy · Night Cat</h1>
+    <p class="meta">Effective date: 2026-09-26　·　Applies to the Night Cat (躺平猫) Mac App Store app for macOS</p>
+
+    <p>Night Cat keeps your Mac awake so long tasks can finish while the screen is locked. It is built so that there is nothing to collect in the first place.</p>
+
+    <h2>1. We collect no data</h2>
+    <p>No account and no sign-up. We do not collect your name, email address, phone number, device identifiers or any other personal information. There is no analytics, no tracking, no advertising and no third-party SDK. We do not log how you use the app.</p>
+
+    <h2>2. The app cannot reach the network</h2>
+    <p>Night Cat ships as a sandboxed Mac App Store app. The <strong>only</strong> entitlement it requests is App Sandbox — it does not request the network client or server entitlement. Without that entitlement macOS blocks outbound and inbound network access for the app entirely, so it physically cannot upload anything, and there is nothing to upload.</p>
+
+    <h2>3. What the app does on your Mac</h2>
+    <ul>
+      <li>While the switch is <strong>on</strong>, the app asks macOS for three IOKit power assertions — <code>PreventUserIdleSystemSleep</code>, <code>PreventSystemSleep</code> and <code>PreventDiskIdle</code> — so the Mac does not sleep from inactivity and the disk is not parked.</li>
+      <li>The assertions are named <code>P16KeepRunning</code> and are held only by this app, only while the switch is on.</li>
+      <li>Turning the switch off, or quitting the app, releases all of them immediately.</li>
+      <li>The app does not read your documents, photos or any other file contents.</li>
+    </ul>
+
+    <h2>4. It does not change your settings</h2>
+    <p>Night Cat never edits your Energy Saver or power settings, and it does not install background agents, login items or system extensions. Nothing is left running after you quit.</p>
+
+    <h2>5. What still sleeps the Mac</h2>
+    <p>These are macOS behaviours, not app settings: closing the lid of a notebook, choosing Apple menu ▸ Sleep, or a critically low battery will still put the Mac to sleep. Night Cat does not prevent, and does not claim to prevent, those.</p>
+
+    <h2>6. Purchases</h2>
+    <p>Night Cat is a one-time purchase on the Mac App Store. Payment is handled entirely by Apple. We never see or store your payment information, and we receive no personal data from the transaction.</p>
+
+    <h2>7. Sharing</h2>
+    <p>Because we collect nothing, there is nothing to share, sell or transfer to anyone.</p>
+
+    <h2>8. Children's privacy</h2>
+    <p>The app collects no personal information from anyone, including children.</p>
+
+    <h2>9. Changes and contact</h2>
+    <p>If a future version ever needed to collect something, this policy would be updated and the change described here before that version shipped. Privacy questions: <a href="mailto:magicvoice.team@outlook.com">magicvoice.team@outlook.com</a></p>
+
+    <div class="lang-zh">
+      <h1>隐私政策 · 躺平猫</h1>
+      <p class="meta">生效日期：2026-09-26　·　本政策适用于躺平猫（Night Cat）macOS 版 Mac App Store 应用</p>
+
+      <p>躺平猫让你的 Mac 在锁屏、屏幕熄灭时继续工作，好让长任务跑完。它从设计上就没有任何可以收集的东西。</p>
+
+      <h2>1. 我们不收集任何数据</h2>
+      <p>不设账号、不需要注册；不收集姓名、邮箱、电话、设备标识或任何其他个人信息。没有分析统计、没有追踪、没有广告、没有第三方 SDK，也不记录你的使用行为。</p>
+
+      <h2>2. 这个 App 连不上网络</h2>
+      <p>躺平猫是开启沙盒的 Mac App Store 应用。它申请的<strong>唯一</strong>权限就是 App Sandbox，<strong>没有</strong>申请网络客户端或服务器权限。没有这项权限，macOS 会完全阻止该 App 的对外和对内网络访问 —— 它在物理上无法上传任何东西，也没有东西可上传。</p>
+
+      <h2>3. 它在你 Mac 上做了什么</h2>
+      <ul>
+        <li>开关<strong>打开</strong>时，App 向 macOS 申请三条 IOKit 电源断言：<code>PreventUserIdleSystemSleep</code>、<code>PreventSystemSleep</code>、<code>PreventDiskIdle</code>，使系统不因空闲而睡眠、硬盘不被停转。</li>
+        <li>这三条断言的名字是 <code>P16KeepRunning</code>，只由本 App 持有，且只在开关打开期间持有。</li>
+        <li>关掉开关或退出 App，三条断言立即释放。</li>
+        <li>App 不读取你的文档、照片或任何其他文件内容。</li>
+      </ul>
+
+      <h2>4. 它不改你的设置</h2>
+      <p>躺平猫不会修改你的「节能」或电源设置，也不安装后台代理、登录项或系统扩展。退出之后不残留任何进程。</p>
+
+      <h2>5. 哪些情况系统仍然会睡</h2>
+      <p>这些是 macOS 的行为，不是 App 的设置：合上笔记本盖子、点苹果菜单里的「睡眠」、电量过低，系统仍然会睡眠。躺平猫不阻止、也不宣称能阻止这三种情况。</p>
+
+      <h2>6. 购买</h2>
+      <p>躺平猫在 Mac App Store 上为一次性买断，付款完全由 Apple 处理。我们既不接触也不保存你的支付信息，交易本身也不会向我们提供任何个人数据。</p>
+
+      <h2>7. 共享</h2>
+      <p>因为我们什么都不收集，所以没有任何数据可供共享、出售或转移。</p>
+
+      <h2>8. 儿童隐私</h2>
+      <p>本应用不收集任何人（含儿童）的个人信息。</p>
+
+      <h2>9. 变更与联系</h2>
+      <p>如果未来某个版本真的需要收集什么，我们会在该版本发布前更新本政策并在此说明。隐私相关问题请联系：<a href="mailto:magicvoice.team@outlook.com">magicvoice.team@outlook.com</a></p>
+    </div>
+
+  </div>
+  <footer>Night Cat · 躺平猫 · 2026</footer>
+</main>
+</body>
+</html>
