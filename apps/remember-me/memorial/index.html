@@ -1,0 +1,931 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b0a09">
+  <title>Remember Me · 线上纪念馆</title>
+  <meta name="description" content="Remember Me 记住我 · 线上纪念馆：追思、亲人纪念、宠物纪念。宠物纪念馆内测中，前 50 位免费托管一年；追思与亲人纪念即将开放。">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://ariamagicvoice.com/apps/remember-me/memorial/">
+  <link rel="icon" href="/favicon.svg">
+  <meta property="og:site_name" content="Harry App Store">
+  <meta property="og:title" content="Remember Me · 线上纪念馆">
+  <meta property="og:description" content="追思 · 亲人纪念 · 宠物纪念">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ariamagicvoice.com/apps/remember-me/memorial/">
+  <!-- REMEMBERME_STYLE_LOCK -->
+  <!-- PROJECT6_REMEMBERME_MEMORIAL_PORTAL_PUBLIC -->
+  <style>
+    :root {
+      --bg: #0b0a09;
+      --deep: #060504;
+      --line: #4a4031;          
+      --line-soft: #3a3226;     
+      --line-faint: #2e271e;    
+      --gold: #b9923f;          
+      --gold-mid: #8a6d34;      
+      --gold-light: #d6b25c;    
+      --text: #e9e2d4;
+      --text-hi: #ece4d3;
+      --dim: #8a8072;
+      --mute: #6f6658;
+      --ok: #9cc7a4;            
+      --ok-line: rgba(127,176,138,0.45);
+      --ok-bg: rgba(62,98,70,0.18);
+      --serif: "Songti SC", "Noto Serif SC", "Noto Serif CJK SC", "Source Han Serif SC", "STSong", Georgia, serif;
+      --latin: Georgia, "Songti SC", "Noto Serif SC", serif;
+      --mono: "Courier Prime", "Courier New", monospace;
+      --ease-damp: cubic-bezier(.22,.61,.36,1);
+      --ease-breath: cubic-bezier(.45,.05,.55,.95);
+      color-scheme: dark;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--latin);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    body {
+      background: radial-gradient(ellipse 80% 55% at 50% 18%, #16120d 0%, #0b0a09 62%, #080706 100%) fixed, var(--bg);
+    }
+    a { color: var(--gold-light); text-decoration: none; }
+    .portal-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 46px;
+      z-index: 100;
+      background: #0e0c0a;
+      border-bottom: 1px solid #2a241b;
+      display: flex;
+      justify-content: center;
+      padding: 0 20px;
+    }
+    .portal-bar-inner {
+      width: 100%;
+      max-width: 1080px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      font-size: 11px;
+    }
+    .lang-seg {
+      display: inline-flex;
+      background: #3a3a37;
+      border-radius: 999px;
+      padding: 3px;
+      gap: 3px;
+      flex-shrink: 0;
+    }
+    .lang-tab-btn {
+      background: transparent;
+      border: none;
+      color: #9c968c;
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      line-height: 1;
+      padding: 4px 10px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all .15s;
+      white-space: nowrap;
+    }
+    .lang-tab-btn:hover { color: #ede7dc; background: rgba(255,255,255,0.05); }
+    .lang-tab-btn.on { background: #deded9; color: #252522; box-shadow: 0 1px 3px rgba(0,0,0,0.2); font-weight: 700; }
+    .portal-main {
+      margin-top: 46px;
+      min-height: calc(100vh - 46px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 42px;
+      padding: 48px 24px 64px;
+    }
+    .portal-hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      text-align: center;
+    }
+    .portal-brand {
+      font-family: Georgia, serif;
+      font-size: 12px;
+      letter-spacing: 0.32em;
+      color: var(--gold);
+    }
+    .portal-title {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(26px, 3.6vw, 36px);
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      line-height: 1.35;
+      color: var(--text-hi);
+    }
+    .ornament {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 2px;
+    }
+    .ornament .rule {
+      width: 96px;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(185,146,63,0), rgba(185,146,63,0.55));
+    }
+    .ornament .rule.r {
+      background: linear-gradient(90deg, rgba(185,146,63,0.55), rgba(185,146,63,0));
+    }
+    .ornament .diamond {
+      width: 5px;
+      height: 5px;
+      transform: rotate(45deg);
+      border: 1px solid var(--gold);
+    }
+    .portal-grid {
+      width: 100%;
+      max-width: 1080px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 28px;
+      align-items: stretch; 
+    }
+    .memorial-gate-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 22px 22px;
+      border: 1px solid var(--line-soft);
+      border-radius: 3px;
+      color: var(--text);
+      background: linear-gradient(180deg, #16120d 0%, #110e0a 60%, #0e0b08 100%);
+      box-shadow:
+        inset 0 1px 0 rgba(214,178,92,0.07),
+        inset 0 0 0 1px rgba(0,0,0,0.55),
+        inset 0 -40px 60px rgba(0,0,0,0.30),
+        0 10px 26px rgba(0,0,0,0.55);
+      transition: border-color .32s var(--ease-damp), box-shadow .32s var(--ease-damp), transform .32s var(--ease-damp);
+      text-decoration: none;
+      height: 100%;
+    }
+    .memorial-gate-card:hover, .memorial-gate-card:focus-visible {
+      border-color: var(--gold-mid);
+      transform: translateY(-2px);
+      outline: none;
+      box-shadow:
+        inset 0 1px 0 rgba(214,178,92,0.12),
+        inset 0 0 0 1px rgba(0,0,0,0.55),
+        inset 0 -40px 60px rgba(0,0,0,0.35),
+        0 18px 40px rgba(0,0,0,0.72),
+        0 0 32px rgba(185,146,63,0.09);
+    }
+    .corner {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-color: rgba(185,146,63,0.45);
+      border-style: solid;
+      border-width: 0;
+      pointer-events: none;
+    }
+    .corner.tl { top: 8px; left: 8px; border-top-width: 1px; border-left-width: 1px; }
+    .corner.tr { top: 8px; right: 8px; border-top-width: 1px; border-right-width: 1px; }
+    .corner.bl { bottom: 8px; left: 8px; border-bottom-width: 1px; border-left-width: 1px; }
+    .corner.br { bottom: 8px; right: 8px; border-bottom-width: 1px; border-right-width: 1px; }
+    .gate-title {
+      margin: 0 0 20px;
+      font-family: var(--serif);
+      font-size: 21px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      color: var(--gold-light);
+      text-align: center;
+      line-height: 1.2;
+      flex-shrink: 0;
+    }
+    .gate-frame {
+      position: relative;
+      width: 204px;
+      height: 255px; 
+      flex-shrink: 0;
+      padding: 11px;
+      border-radius: 2px;
+      background: linear-gradient(155deg, #1d160e 0%, #120d08 55%, #0d0906 100%);
+      box-shadow:
+        0 0 0 1px var(--gold-mid),
+        0 0 0 2px #0a0806,
+        0 14px 30px rgba(0,0,0,0.85),
+        inset 0 1px 0 rgba(214,178,92,0.14),
+        inset 0 -1px 0 rgba(0,0,0,0.7);
+      margin-bottom: 22px;
+    }
+    .gate-canvas {
+      position: absolute;
+      inset: 11px;
+      overflow: hidden;
+      background: #080706;
+      box-shadow: 0 0 0 1px rgba(185,146,63,0.55);
+    }
+    .gate-preview-img {
+      position: absolute;
+      inset: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top !important; 
+      filter: grayscale(100%) contrast(108%) brightness(90%);
+      transition: transform .6s var(--ease-damp);
+    }
+    .gate-preview-img.is-public-scene { object-position: center center !important; }
+    .gate-preview-img.is-pet-scene { object-position: center 12% !important; }
+    .memorial-gate-card:hover .gate-preview-img { transform: scale(1.025); }
+    .gate-vignette {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,0.6), inset 0 0 28px rgba(0,0,0,0.55), inset 0 6px 14px rgba(0,0,0,0.45);
+    }
+    .gate-preview-scrim {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(180deg, rgba(11,10,9,0) 45%, rgba(11,10,9,0.86) 100%);
+    }
+    .gate-preview-candle {
+      position: absolute;
+      left: 50%;
+      bottom: 12px;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 5;
+    }
+    .make-own-band {
+      width: 100%;
+      max-width: 1080px;
+      margin: 26px auto 0;
+      padding: 0 20px;
+      box-sizing: border-box;
+    }
+    .make-own-inner {
+      background: #14110c;
+      border: 1px solid var(--gold);
+      border-radius: 3px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .make-own-text { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+    .make-own-text b {
+      font-family: var(--serif);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--gold-light);
+      letter-spacing: .02em;
+    }
+    .make-own-text span { font-size: 12px; color: #8a8072; line-height: 1.6; }
+    .make-own-btns { display: flex; gap: 10px; flex-shrink: 0; }
+    .make-own-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 18px;
+      border: 1px solid var(--line-light, #6a5d48);
+      border-radius: 2px;
+      background: #1b1610;
+      color: #d9d0bf;
+      font-family: var(--serif);
+      font-size: 13px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background .2s, border-color .2s, color .2s;
+    }
+    .make-own-btn:hover { border-color: var(--gold); color: var(--gold-light); }
+    .make-own-btn.is-primary { background: var(--gold); border-color: var(--gold); color: #17120a; font-weight: 600; }
+    .make-own-btn.is-primary:hover { background: var(--gold-light); color: #17120a; }
+    @media (max-width: 900px) {
+      .make-own-inner { flex-direction: column; align-items: stretch; text-align: center; padding: 16px; }
+      .make-own-btns { justify-content: center; }
+      .make-own-btn { flex: 1; justify-content: center; }
+    }
+    .gate-beta-ribbon {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 6;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 12px;
+      background: #1b1610;
+      border: 1px solid var(--gold);
+      border-radius: 2px;
+      font-size: 11px;
+      line-height: 1;
+      color: var(--gold-light);
+      letter-spacing: .3px;
+      white-space: nowrap;
+      pointer-events: none;
+      box-shadow: 0 0 0 4px #0b0a09;
+    }
+    .gate-beta-ribbon b { font-weight: 600; color: #f0d79a; }
+    @media (max-width: 900px) {
+      .gate-beta-ribbon { padding: 3px 9px; font-size: 10px; }
+    }
+    .carousel-slide {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top !important;
+      filter: grayscale(100%) contrast(108%) brightness(90%);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.85s ease, transform 0.6s var(--ease-damp), visibility 0.85s;
+      z-index: 1;
+    }
+    .carousel-slide.is-active {
+      opacity: 1;
+      visibility: visible;
+      z-index: 2;
+    }
+    .carousel-slide.is-pet-scene { object-position: center 15% !important; }
+    .carousel-slide.is-pet-dog { object-position: center top !important; }
+    .memorial-gate-card:hover .carousel-slide.is-active { transform: scale(1.025); }
+    .carousel-nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: rgba(14, 11, 8, 0.85);
+      border: 1px solid rgba(185, 146, 63, 0.45);
+      color: var(--gold-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 9;
+      opacity: 0;
+      transition: opacity 0.25s ease, background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+      padding: 0;
+      font-size: 13px;
+      line-height: 1;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+    }
+    .carousel-nav-btn:hover {
+      background: #271f14;
+      border-color: var(--gold);
+      transform: translateY(-50%) scale(1.1);
+      color: #fff;
+    }
+    .carousel-nav-btn.prev { left: 5px; }
+    .carousel-nav-btn.next { right: 5px; }
+    .gate-frame:hover .carousel-nav-btn {
+      opacity: 0.95;
+    }
+    .carousel-dots {
+      position: absolute;
+      bottom: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 5px;
+      z-index: 9;
+      pointer-events: auto;
+    }
+    .carousel-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.25);
+      border: 1px solid rgba(0,0,0,0.4);
+      padding: 0;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .carousel-dot:hover { background: rgba(214,178,92,0.6); }
+    .carousel-dot.is-active {
+      background: var(--gold-light);
+      width: 12px;
+      border-radius: 999px;
+      border-color: rgba(185,146,63,0.8);
+    }
+    .carousel-caption-pill {
+      position: absolute;
+      top: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(11, 10, 9, 0.88);
+      border: 1px solid rgba(185, 146, 63, 0.4);
+      color: #cbbba3;
+      font-size: 9.5px;
+      padding: 1px 8px;
+      border-radius: 999px;
+      white-space: nowrap;
+      z-index: 9;
+      pointer-events: none;
+      letter-spacing: 0.04em;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+    .gate-frame:hover .carousel-caption-pill {
+      opacity: 1;
+    }
+    .mini-flame {
+      width: 6px;
+      height: 16px;
+      background: linear-gradient(180deg, #fff9e6 0%, #ffc04d 40%, #ff8000 80%, rgba(255,60,0,0) 100%);
+      border-radius: 50% 50% 35% 35% / 60% 60% 40% 40%;
+      box-shadow: 0 0 14px #ffc04d, 0 0 28px rgba(255,160,30,0.5);
+      animation: miniFlicker 1.8s ease-in-out infinite alternate;
+      transform-origin: 50% 100%;
+    }
+    @keyframes miniFlicker {
+      0% { transform: scale(0.95) rotate(-1deg); }
+      100% { transform: scale(1.05) rotate(1deg); }
+    }
+    .mini-wax {
+      width: 10px;
+      height: 14px;
+      background: linear-gradient(180deg, #eae4d8, #b8b09f);
+      border-radius: 1px;
+      margin-top: -2px;
+    }
+    .gate-btn {
+      margin-top: auto; 
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      height: 44px;
+      min-height: 44px;
+      padding: 0 16px;
+      border: 1px solid var(--line);
+      border-radius: 2px;
+      background: #17120d;
+      color: var(--gold-light);
+      font-family: var(--serif);
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      transition: border-color .2s, background .2s, color .2s;
+      flex-shrink: 0;
+    }
+    .memorial-gate-card:hover .gate-btn {
+      border-color: var(--gold);
+      color: #f1e6cc;
+      background: #231b12;
+    }
+    @keyframes flareBreath {
+      0%, 100% { opacity: 0.14; transform: scale(0.96); }
+      50% { opacity: 0.62; transform: scale(1.04); }
+    }
+    @keyframes menuIn { from { opacity: 0; transform: translateY(12px) scale(0.98); } to { opacity: 1; transform: none; } }
+    @keyframes menuOut { from { opacity: 1; } to { opacity: 0; } }
+    @media (max-width: 1279px) {
+      .portal-main { gap: 36px; padding: 44px 32px 64px; }
+      .portal-title { font-size: 30px; }
+      .portal-grid { gap: 20px; max-width: 920px; }
+      .memorial-gate-card { padding: 26px 18px 20px; }
+      .gate-title { font-size: 19px; margin-bottom: 16px; }
+      .gate-frame { width: 180px; height: 225px; margin-bottom: 18px; }
+    }
+    @media (max-width: 860px) {
+      .lang-tab-btn { padding: 4px 9px; font-size: 10.5px; }
+      .portal-main { justify-content: flex-start; gap: 32px; padding: 40px 20px 120px; }
+      .portal-title { font-size: 24px; }
+      .ornament .rule { width: 64px; }
+      .portal-grid { grid-template-columns: repeat(1, minmax(0, 1fr)); max-width: 400px; gap: 20px; }
+      .memorial-gate-card { padding: 26px 20px 20px; }
+      .gate-title { font-size: 20px; margin-bottom: 16px; }
+      .gate-frame { width: 220px; height: 275px; margin-bottom: 20px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .mini-flame { animation: none; }
+      .memorial-gate-card, .gate-preview-img { transition: none; }
+      .memorial-gate-card:hover { transform: none; }
+    }
+    .bar-right { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+    .portal-bar-inner { justify-content: center; }
+    .bar-right { margin-left: 0; }
+    .p7-toast {
+      position: fixed; left: 50%; bottom: 28px; transform: translate(-50%, 12px); opacity: 0; pointer-events: none; z-index: 400;
+      background: #16120e; border: 1px solid var(--gold-mid); color: var(--text); font-family: var(--serif); font-size: 13px;
+      padding: 9px 16px; border-radius: 2px; box-shadow: 0 10px 28px rgba(0,0,0,.7); transition: opacity .2s, transform .2s; max-width: calc(100vw - 32px);
+    }
+    .p7-toast.is-on { opacity: 1; transform: translate(-50%, 0); }
+
+    /* ===== 公网版补充 ===== */
+    .memorial-gate-card { scroll-margin-top: 64px; }
+    .memorial-gate-card.is-soon { cursor: default; }
+    .memorial-gate-card.is-soon:hover, .memorial-gate-card.is-soon:focus-visible { transform: none; border-color: var(--line); }
+    .memorial-gate-card.is-soon .gate-btn,
+    .memorial-gate-card.is-soon:hover .gate-btn { color: var(--dim); border-color: var(--line-faint); background: #120f0b; }
+    .gate-canvas.is-candle-only { background: radial-gradient(ellipse 70% 42% at 50% 86%, rgba(255,176,72,0.10) 0%, rgba(255,176,72,0) 70%), #080706; }
+    .memorial-gate-card.is-target {
+      border-color: var(--gold);
+      box-shadow:
+        inset 0 1px 0 rgba(214,178,92,0.12),
+        inset 0 0 0 1px rgba(0,0,0,0.55),
+        inset 0 -40px 60px rgba(0,0,0,0.35),
+        0 18px 40px rgba(0,0,0,0.72),
+        0 0 36px rgba(185,146,63,0.16);
+    }
+    .rm-sample-chip {
+      position: absolute; top: 8px; left: 8px; z-index: 8; pointer-events: none;
+      padding: 1px 7px; border: 1px solid rgba(203,163,91,.5); border-radius: 2px;
+      background: rgba(6,5,4,.66); color: var(--gold-light);
+      font-size: 10px; line-height: 1.6; letter-spacing: .12em;
+      transition: opacity .25s ease;
+    }
+    .gate-frame:hover .rm-sample-chip { opacity: 0; }
+    .make-own-btn.is-soon, .make-own-btn.is-soon:hover { cursor: default; color: var(--mute); border-color: var(--line-faint); background: #120f0b; }
+    .portal-foot { width: 100%; max-width: 1080px; display: flex; justify-content: center; }
+    .portal-foot a { font-size: 12px; letter-spacing: .06em; color: var(--mute); }
+    .portal-foot a:hover { color: var(--gold-light); }
+    /* v1.0.1：联系方式那一行，比说明字小一号、颜色淡一档 */
+    .make-own-text .make-own-contact { font-size: 12px; color: var(--mute); letter-spacing: .04em; }
+    /* v1.0.1：日本語 / 한국어整页字体换成当地的明朝 / 명조体，找不到就退回原来的宋体（和宠物纪念馆站同一条规则） */
+    html:lang(ja) body { font-family: Georgia, "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", "Noto Serif JP", "Noto Serif CJK JP", "Source Han Serif JP", "Songti SC", serif; }
+    html:lang(ko) body { font-family: Georgia, "AppleMyungjo", "Nanum Myeongjo", "NanumMyeongjo", "Noto Serif KR", "Noto Serif CJK KR", "Source Han Serif K", "Songti SC", serif; }
+    /* v1.0.1：语言按钮五个，小手机上两边留白收窄，顶栏里放得下一行 */
+    @media (max-width: 420px) { .portal-bar { padding: 0 10px; } .lang-tab-btn { padding: 4px 6px; } }
+  </style>
+</head>
+<body>
+
+  <header class="portal-bar">
+    <div class="portal-bar-inner">
+      <div class="bar-right">
+        <div class="lang-seg" id="portalLangSeg" role="tablist" aria-label="Language">
+          <button type="button" class="lang-tab-btn" data-lang="en">English</button>
+          <button type="button" class="lang-tab-btn on" data-lang="zh-Hans">简体中文</button>
+          <button type="button" class="lang-tab-btn" data-lang="zh-Hant">繁體中文</button>
+          <button type="button" class="lang-tab-btn" data-lang="ja" lang="ja">日本語</button>
+          <button type="button" class="lang-tab-btn" data-lang="ko" lang="ko">한국어</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="portal-main">
+
+    <section class="portal-hero">
+      <div class="portal-brand" data-i18n="heroBrand">REMEMBER ME · 电子祭奠</div>
+      <h1 class="portal-title" data-i18n="heroTitle">让每一代人的故事，都有归处</h1>
+      <div class="ornament" aria-hidden="true">
+        <span class="rule"></span>
+        <span class="diamond"></span>
+        <span class="rule r"></span>
+      </div>
+    </section>
+
+    <section class="portal-grid">
+
+      <div class="memorial-gate-card is-soon" id="cardPublic" role="link" aria-disabled="true" tabindex="0" data-soon="Remembrance">
+        <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+        <h2 class="gate-title" data-i18n="gatePublicTitle">追思</h2>
+        <div class="gate-frame">
+          <div class="gate-canvas is-candle-only">
+            <div class="gate-vignette"></div>
+            <div class="gate-preview-candle"><div class="mini-flame"></div><div class="mini-wax"></div></div>
+          </div>
+        </div>
+        <span class="gate-btn"><span data-i18n="soonBtn">敬请期待</span></span>
+      </div>
+
+      <div class="memorial-gate-card is-soon" id="cardFamily" role="link" aria-disabled="true" tabindex="0" data-soon="Family">
+        <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+        <h2 class="gate-title" data-i18n="gatePersonalTitle">亲人纪念</h2>
+        <div class="gate-frame" id="frameFamily">
+          <div class="gate-canvas" id="canvasFamily">
+            <div class="gate-vignette"></div>
+            <div class="gate-preview-scrim"></div>
+            <div class="gate-preview-candle"><div class="mini-flame"></div><div class="mini-wax"></div></div>
+            <span class="rm-sample-chip" data-i18n="sampleChip">示例</span>
+            <div class="carousel-caption-pill"></div>
+            <div class="carousel-dots"></div>
+          </div>
+          <button type="button" class="carousel-nav-btn prev" data-i18n-label="prevPhoto" aria-label="上一张">&#8249;</button>
+          <button type="button" class="carousel-nav-btn next" data-i18n-label="nextPhoto" aria-label="下一张">&#8250;</button>
+        </div>
+        <span class="gate-btn"><span data-i18n="soonBtn">敬请期待</span></span>
+      </div>
+
+      <a href="https://rememberme.ariamagicvoice.com/new" class="memorial-gate-card" id="cardPet">
+        <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+        <h2 class="gate-title" data-i18n="gatePetTitle">宠物纪念</h2>
+        <div class="gate-frame" id="framePet">
+          <div class="gate-canvas" id="canvasPet">
+            <div class="gate-vignette"></div>
+            <div class="gate-preview-scrim"></div>
+            <div class="gate-preview-candle"><div class="mini-flame"></div><div class="mini-wax"></div></div>
+            <span class="rm-sample-chip" data-i18n="sampleChip">示例</span>
+            <div class="carousel-caption-pill"></div>
+            <div class="carousel-dots"></div>
+          </div>
+          <button type="button" class="carousel-nav-btn prev" data-i18n-label="prevPhoto" aria-label="上一张">&#8249;</button>
+          <button type="button" class="carousel-nav-btn next" data-i18n-label="nextPhoto" aria-label="下一张">&#8250;</button>
+        </div>
+        <span class="gate-btn">
+          <span data-i18n="gatePetBtn">进入宠物纪念</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+
+    </section>
+
+    <section class="make-own-band">
+      <div class="make-own-inner">
+        <div class="make-own-text">
+          <b data-i18n="makeOwnTitle">想给自家的做一个？</b>
+          <span data-i18n="makeOwnSub">宠物纪念馆内测中：上传照片、调好预览都不要钱，调满意了再填内测码发布，前 50 位免费托管一年。亲人纪念和追思即将开放。</span>
+          <span class="make-own-contact" data-i18n="contactNote">更多咨询请关注公众号留言或者私信咨询</span>
+        </div>
+        <div class="make-own-btns">
+          <a class="make-own-btn is-primary" href="https://rememberme.ariamagicvoice.com/new"><span data-i18n="makeOwnPet">🐾 做宠物的</span></a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="portal-foot"><a href="/apps/#rm" data-i18n="footBack">← 返回 Harry App Store</a></footer>
+  </main>
+  <div class="p7-toast" id="p7Toast" role="status" aria-live="polite"></div>
+
+  <script>
+    'use strict';
+    const LANG_KEY = 'rememberme.lang';   // 键名和宠物纪念馆站一样；两个站域名不同、各记各的，跨站靠链接里的 ?lang= 带过去
+
+    const i18nPortal = {
+  "zh-Hans": {
+    "docTitle": "Remember Me · 线上纪念馆",
+    "heroBrand": "REMEMBER ME · 电子祭奠",
+    "heroTitle": "让每一代人的故事，都有归处",
+    "gatePublicTitle": "追思",
+    "gatePersonalTitle": "亲人纪念",
+    "gatePetTitle": "宠物纪念",
+    "gatePetBtn": "进入宠物纪念",
+    "soonBtn": "敬请期待",
+    "soonToastRemembrance": "追思即将开放，敬请期待。",
+    "soonToastFamily": "亲人纪念即将开放，敬请期待。",
+    "sampleChip": "示例",
+    "makeOwnTitle": "想给自家的做一个？",
+    "makeOwnSub": "宠物纪念馆内测中：上传照片、调好预览都不要钱，调满意了再填内测码发布，前 50 位免费托管一年。亲人纪念和追思即将开放。",
+    "makeOwnPet": "🐾 做宠物的",
+    "contactNote": "更多咨询请关注公众号留言或者私信咨询",
+    "prevPhoto": "上一张",
+    "nextPhoto": "下一张",
+    "footBack": "← 返回 Harry App Store"
+  },
+  "zh-Hant": {
+    "docTitle": "Remember Me · 線上紀念館",
+    "heroBrand": "REMEMBER ME · 電子祭奠",
+    "heroTitle": "讓每一代人的故事，都有歸處",
+    "gatePublicTitle": "追思",
+    "gatePersonalTitle": "親人紀念",
+    "gatePetTitle": "寵物紀念",
+    "gatePetBtn": "進入寵物紀念",
+    "soonBtn": "敬請期待",
+    "soonToastRemembrance": "追思即將開放，敬請期待。",
+    "soonToastFamily": "親人紀念即將開放，敬請期待。",
+    "sampleChip": "示例",
+    "makeOwnTitle": "想給自家的做一個？",
+    "makeOwnSub": "寵物紀念館內測中：上傳照片、調好預覽都不要錢，調滿意了再填內測碼發布，前 50 位免費託管一年。親人紀念和追思即將開放。",
+    "makeOwnPet": "🐾 做寵物的",
+    "contactNote": "更多諮詢請關注公眾號留言或者私信諮詢",
+    "prevPhoto": "上一張",
+    "nextPhoto": "下一張",
+    "footBack": "← 返回 Harry App Store"
+  },
+  "en": {
+    "docTitle": "Remember Me · Online Memorials",
+    "heroBrand": "REMEMBER ME · DIGITAL MEMORIAL",
+    "heroTitle": "Every Generation Has a Place to Rest",
+    "gatePublicTitle": "Remembrance",
+    "gatePersonalTitle": "Family Memorial",
+    "gatePetTitle": "Pet Memorial",
+    "gatePetBtn": "Enter Pet Memorial",
+    "soonBtn": "Stay Tuned",
+    "soonToastRemembrance": "Remembrance opens soon. Stay tuned.",
+    "soonToastFamily": "Family Memorial opens soon. Stay tuned.",
+    "sampleChip": "Sample",
+    "makeOwnTitle": "Want one for your own?",
+    "makeOwnSub": "Pet memorials are in beta: uploading and previewing cost nothing. When you are happy with it, publish with a beta code. Free hosting for a year for the first 50. Family Memorial and Remembrance open soon.",
+    "makeOwnPet": "🐾 Make one for a pet",
+    "contactNote": "For more information, follow our WeChat Official Account and leave a message, or send us a direct message.",
+    "prevPhoto": "Previous",
+    "nextPhoto": "Next",
+    "footBack": "← Back to Harry App Store"
+  },
+  "ja": {
+    "docTitle": "Remember Me · オンライン記念館",
+    "heroBrand": "REMEMBER ME · デジタル追悼",
+    "heroTitle": "すべての世代の物語に、安らぐ場所を",
+    "gatePublicTitle": "追悼",
+    "gatePersonalTitle": "家族メモリアル",
+    "gatePetTitle": "ペットメモリアル",
+    "gatePetBtn": "ペットメモリアルへ",
+    "soonBtn": "近日公開",
+    "soonToastRemembrance": "追悼は近日公開予定です。もうしばらくお待ちください。",
+    "soonToastFamily": "家族メモリアルは近日公開予定です。もうしばらくお待ちください。",
+    "sampleChip": "見本",
+    "makeOwnTitle": "自分でもつくってみませんか？",
+    "makeOwnSub": "ペットメモリアルはベータ版受付中です。写真のアップロードとプレビュー調整は無料。気に入ったら招待コードを入力して作成できます。先着50名は1年間、無料で掲載されます。家族メモリアルと追悼は近日公開予定です。",
+    "makeOwnPet": "🐾 うちの子のメモリアルをつくる",
+    "contactNote": "詳しくは、WeChat 公式アカウントをフォローしてメッセージを送るか、ダイレクトメッセージでお問い合わせください。",
+    "prevPhoto": "前の写真",
+    "nextPhoto": "次の写真",
+    "footBack": "← Harry App Store に戻る"
+  },
+  "ko": {
+    "docTitle": "Remember Me · 온라인 기념관",
+    "heroBrand": "REMEMBER ME · 디지털 추모",
+    "heroTitle": "모든 세대의 이야기에 안식처가 있기를",
+    "gatePublicTitle": "추모",
+    "gatePersonalTitle": "가족 추모관",
+    "gatePetTitle": "반려동물 추모관",
+    "gatePetBtn": "반려동물 추모관으로",
+    "soonBtn": "오픈 예정",
+    "soonToastRemembrance": "추모는 곧 열릴 예정이에요. 조금만 기다려 주세요.",
+    "soonToastFamily": "가족 추모관은 곧 열릴 예정이에요. 조금만 기다려 주세요.",
+    "sampleChip": "예시",
+    "makeOwnTitle": "나도 하나 만들어 볼까요?",
+    "makeOwnSub": "반려동물 추모관은 베타 테스트 중이에요. 사진 올리기와 미리보기 조정은 모두 무료예요. 마음에 들면 초대 코드를 입력해서 만들 수 있어요. 선착순 50명은 1년 동안 무료로 게시돼요. 가족 추모관과 추모는 곧 열릴 예정이에요.",
+    "makeOwnPet": "🐾 우리 아이 추모관 만들기",
+    "contactNote": "자세한 문의는 위챗 공식 계정을 팔로우한 뒤 메시지를 남기거나, 다이렉트 메시지로 보내 주세요.",
+    "prevPhoto": "이전 사진",
+    "nextPhoto": "다음 사진",
+    "footBack": "← Harry App Store로 돌아가기"
+  }
+};
+
+    /* 亲人纪念：中文看中国长辈，English 看欧美长辈。都是 AI 生成的虚构人物，卡片上标「示例」 */
+    /* 日本語 / 한국어 看的也是东亚长辈这一组（名字按当地写法起的，同样是虚构示例） */
+    const FAMILY_SLIDES = {
+      zh: [
+        { src: 'photos/elder_cn_female_02_4x5.jpg', cap: { 'zh-Hans': '李淑兰 · 奶奶', 'zh-Hant': '李淑蘭 · 奶奶', ja: '山田 花子 · おばあちゃん', ko: '김순자 · 할머니' } },
+        { src: 'photos/elder_cn_male_01_4x5.jpg',   cap: { 'zh-Hans': '陈国栋 · 爷爷', 'zh-Hant': '陳國棟 · 爺爺', ja: '山田 太郎 · おじいちゃん', ko: '박영수 · 할아버지' } },
+        { src: 'photos/elder_cn_male_02_4x5.jpg',   cap: { 'zh-Hans': '陈老太爷 · 先祖', 'zh-Hant': '陳老太爺 · 先祖', ja: '山田家 · ご先祖様', ko: '박씨 · 조상님' } }
+      ],
+      en: [
+        { src: 'photos/elder_en_female_hd_4x5.jpg', cap: { en: 'Linda Hargrave · Grandmother' } },
+        { src: 'photos/elder_en_male_dark_4x5.jpg', cap: { en: 'William Hargrave · Grandfather' } }
+      ]
+    };
+    const PET_SLIDES = [
+      { src: 'photos/pet_dog_golden_blackbg_4x5.jpg', cls: 'is-pet-dog',   cap: { 'zh-Hans': '爱犬 麦克斯', 'zh-Hant': '愛犬 麥克斯', en: 'Max · Golden Retriever', ja: 'マックス · ゴールデン・レトリーバー', ko: '맥스 · 골든 리트리버' } },
+      { src: 'photos/pet_cat_blackbg_4x5.jpg',        cls: 'is-pet-scene', cap: { 'zh-Hans': '爱猫 汤姆', 'zh-Hant': '愛貓 湯姆', en: 'Tom · British Shorthair', ja: 'トム · ブリティッシュ・ショートヘア', ko: '톰 · 브리티시 숏헤어' } },
+      { src: 'photos/hd_pet_golden_retriever.jpg',    cls: 'is-pet-dog',   cap: { 'zh-Hans': '爱犬 麦克斯', 'zh-Hant': '愛犬 麥克斯', en: 'Max · Golden Retriever', ja: 'マックス · ゴールデン・レトリーバー', ko: '맥스 · 골든 리트리버' } },
+      { src: 'photos/pet_cat_graybg.jpg',             cls: 'is-pet-scene', cap: { 'zh-Hans': '英短 · 银渐层', 'zh-Hant': '英短 · 銀漸層', en: 'British Shorthair · Silver', ja: 'ブリティッシュ・ショートヘア · シルバー', ko: '브리티시 숏헤어 · 실버' } }
+    ];
+    const INTERVAL_MS = 9000;
+
+    function readStr(key) { try { return localStorage.getItem(key); } catch (e) { return null; } }
+    function writeStr(key, v) { try { localStorage.setItem(key, v); } catch (e) {} }
+
+    /* 语言：链接里的 ?lang= > 上次选的 > 系统语言 > 简体 */
+    function detectSystemLang() {
+      const list = (navigator.languages && navigator.languages.length) ? navigator.languages : [navigator.language || ''];
+      for (const raw of list) {
+        const l = String(raw || '').toLowerCase();
+        if (l.startsWith('en')) return 'en';
+        if (l.startsWith('ja')) return 'ja';
+        if (l.startsWith('ko')) return 'ko';
+        if (l.startsWith('zh')) return /hant|tw|hk|mo/.test(l) ? 'zh-Hant' : 'zh-Hans';
+      }
+      return 'zh-Hans';
+    }
+    let currentLang = (() => {
+      const q = new URLSearchParams(location.search).get('lang');
+      if (q && i18nPortal[q]) return q;
+      const saved = readStr(LANG_KEY);
+      if (saved && i18nPortal[saved]) return saved;
+      return detectSystemLang();
+    })();
+    const langGroup = () => currentLang === 'en' ? 'en' : 'zh';
+    const tx = (key) => (i18nPortal[currentLang] || {})[key] || i18nPortal['zh-Hans'][key] || '';
+
+    const toastEl = document.getElementById('p7Toast');
+    let toastTimer = null;
+    function toast(msg) {
+      if (!toastEl) return;
+      toastEl.textContent = msg;
+      toastEl.classList.add('is-on');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toastEl.classList.remove('is-on'), 3200);
+    }
+
+    const carousels = [];
+    function applyPortalI18n(lang) {
+      if (!i18nPortal[lang]) return;
+      currentLang = lang;
+      writeStr(LANG_KEY, lang);
+      document.querySelectorAll('[data-i18n]').forEach(el => { const t = tx(el.getAttribute('data-i18n')); if (t) el.textContent = t; });
+      document.querySelectorAll('[data-i18n-label]').forEach(el => { const t = tx(el.getAttribute('data-i18n-label')); if (t) { el.setAttribute('aria-label', t); el.title = t; } });
+      document.documentElement.lang = lang;
+      /* 去宠物纪念馆站的两个链接带上当前语言：两个站域名不同，语言记忆不通；从那边回来的链接也带 ?lang=（2026-09-26） */
+      document.querySelectorAll('#cardPet, .make-own-btn.is-primary').forEach(a => { const u = new URL(a.href); u.searchParams.set('lang', lang); a.href = u.toString(); });
+      document.querySelectorAll('.lang-tab-btn').forEach(b => b.classList.toggle('on', b.getAttribute('data-lang') === lang));
+      carousels.forEach(c => c.onLangChange());
+      document.title = tx('docTitle') || 'Remember Me';
+    }
+    document.querySelectorAll('.lang-tab-btn').forEach(btn => btn.addEventListener('click', () => applyPortalI18n(btn.getAttribute('data-lang'))));
+
+    /* 轮播：9 秒一张，鼠标停在卡片上暂停，手动翻页后重新计时 */
+    function makeCarousel(opts) {
+      const frame = document.getElementById(opts.frameId);
+      const card = document.getElementById(opts.cardId);
+      if (!frame || !card) return null;
+      const canvas = frame.querySelector('.gate-canvas');
+      const anchor = canvas.querySelector('.gate-vignette');
+      const dotsBox = canvas.querySelector('.carousel-dots');
+      const pill = canvas.querySelector('.carousel-caption-pill');
+      let slides = [], imgs = [], dots = [], idx = 0, timer = null, startTimer = null, paused = false;
+      const capOf = (s) => s.cap[currentLang] || s.cap['zh-Hans'] || s.cap.en || '';
+      function build() {
+        imgs.forEach(im => im.remove());
+        slides = opts.getSlides();
+        imgs = slides.map((s, i) => {
+          const im = document.createElement('img');
+          im.className = 'carousel-slide' + (s.cls ? ' ' + s.cls : '') + (i === 0 ? ' is-active' : '');
+          im.src = s.src; im.alt = capOf(s); im.draggable = false;
+          canvas.insertBefore(im, anchor);
+          return im;
+        });
+        dotsBox.innerHTML = slides.map((_, i) => '<button type="button" class="carousel-dot' + (i === 0 ? ' is-active' : '') + '" aria-label="' + (i + 1) + '"></button>').join('');
+        dots = Array.from(dotsBox.querySelectorAll('.carousel-dot'));
+        dots.forEach((d, i) => d.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); go(i, true); }));
+        idx = 0;
+        render();
+      }
+      function render() {
+        imgs.forEach((im, i) => im.classList.toggle('is-active', i === idx));
+        dots.forEach((d, i) => d.classList.toggle('is-active', i === idx));
+        const s = slides[idx];
+        if (!s) return;
+        if (pill) pill.textContent = capOf(s) + ' (' + (idx + 1) + '/' + slides.length + ')';
+        imgs.forEach((im, i) => { im.alt = capOf(slides[i]); });
+      }
+      function go(i, manual) { idx = (i + slides.length) % slides.length; render(); if (manual) restart(false); }
+      function restart(withDelay) {
+        clearInterval(timer); clearTimeout(startTimer);
+        const begin = () => { timer = setInterval(() => { if (!paused) go(idx + 1, false); }, INTERVAL_MS); };
+        if (withDelay && opts.stagger) startTimer = setTimeout(begin, INTERVAL_MS * opts.stagger); else begin();
+      }
+      frame.querySelector('.carousel-nav-btn.prev')?.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); go(idx - 1, true); });
+      frame.querySelector('.carousel-nav-btn.next')?.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); go(idx + 1, true); });
+      card.addEventListener('mouseenter', () => { paused = true; });
+      card.addEventListener('mouseleave', () => { paused = false; });
+      build();
+      restart(true);
+      return { onLangChange() { if (opts.rebuildOnLang) { build(); restart(true); } else render(); } };
+    }
+    carousels.push(makeCarousel({ frameId: 'frameFamily', cardId: 'cardFamily', getSlides: () => FAMILY_SLIDES[langGroup()], rebuildOnLang: true, stagger: 0 }));
+    carousels.push(makeCarousel({ frameId: 'framePet', cardId: 'cardPet', getSlides: () => PET_SLIDES, rebuildOnLang: false, stagger: 0.5 }));
+    for (let i = carousels.length - 1; i >= 0; i--) if (!carousels[i]) carousels.splice(i, 1);
+
+    /* 还没开放的入口：点了给一句提示，不跳转 */
+    document.querySelectorAll('[data-soon]').forEach(el => {
+      const say = () => toast(tx('soonToast' + el.getAttribute('data-soon')));
+      el.addEventListener('click', (e) => { if (e.target.closest('.carousel-nav-btn, .carousel-dot')) return; say(); });
+      el.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); say(); } });
+    });
+
+    /* 从 Harry App Store 的三个按钮进来：对应卡片描金高亮；手机单列时滚到那张卡 */
+    const TARGETS = { '#remembrance': 'cardPublic', '#family': 'cardFamily', '#pet': 'cardPet' };
+    function markTarget() {
+      document.querySelectorAll('.memorial-gate-card.is-target').forEach(c => c.classList.remove('is-target'));
+      const card = document.getElementById(TARGETS[location.hash] || '');
+      if (!card) return;
+      card.classList.add('is-target');
+      if (window.matchMedia('(max-width: 860px)').matches) card.scrollIntoView({ block: 'center' });
+      setTimeout(() => card.classList.remove('is-target'), 3600);
+    }
+    window.addEventListener('hashchange', markTarget);
+
+    applyPortalI18n(currentLang);
+    markTarget();
+  </script>
+</body>
+</html>
