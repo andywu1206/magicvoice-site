@@ -832,15 +832,18 @@
       }
       return 'zh-Hans';
     }
+    /* 只认词条里真有的五种语言。不能直接拿词条对象按名字取值来判断：?lang=__proto__ / constructor 这类名字在普通对象上也取得到东西（2026-09-26 红军查出）。这句注释故意不写出那个写法，构建检查会搜它 */
+    const own = (o, k) => o != null && ({}).hasOwnProperty.call(o, k);   /* 只算对象自己的键 */
+    const hasLang = (x) => typeof x === 'string' && own(i18nPortal, x);
     let currentLang = (() => {
       const q = new URLSearchParams(location.search).get('lang');
-      if (q && i18nPortal[q]) return q;
+      if (hasLang(q)) return q;
       const saved = readStr(LANG_KEY);
-      if (saved && i18nPortal[saved]) return saved;
+      if (hasLang(saved)) return saved;
       return detectSystemLang();
     })();
     const langGroup = () => currentLang === 'en' ? 'en' : 'zh';
-    const tx = (key) => (i18nPortal[currentLang] || {})[key] || i18nPortal['zh-Hans'][key] || '';
+    const tx = (key) => (hasLang(currentLang) ? i18nPortal[currentLang] : {})[key] || i18nPortal['zh-Hans'][key] || '';
 
     const toastEl = document.getElementById('p7Toast');
     let toastTimer = null;
@@ -854,7 +857,7 @@
 
     const carousels = [];
     function applyPortalI18n(lang) {
-      if (!i18nPortal[lang]) return;
+      if (!hasLang(lang)) return;
       currentLang = lang;
       writeStr(LANG_KEY, lang);
       document.querySelectorAll('[data-i18n]').forEach(el => { const t = tx(el.getAttribute('data-i18n')); if (t) el.textContent = t; });
@@ -878,7 +881,7 @@
       const dotsBox = canvas.querySelector('.carousel-dots');
       const pill = canvas.querySelector('.carousel-caption-pill');
       let slides = [], imgs = [], dots = [], idx = 0, timer = null, startTimer = null, paused = false;
-      const capOf = (s) => s.cap[currentLang] || s.cap['zh-Hans'] || s.cap.en || '';
+      const capOf = (s) => (own(s.cap, currentLang) ? s.cap[currentLang] : '') || s.cap['zh-Hans'] || s.cap.en || '';
       function build() {
         imgs.forEach(im => im.remove());
         slides = opts.getSlides();
