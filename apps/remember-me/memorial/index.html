@@ -552,14 +552,14 @@
         0 18px 40px rgba(0,0,0,0.72),
         0 0 36px rgba(185,146,63,0.16);
     }
-    .rm-sample-chip {
-      position: absolute; top: 8px; left: 8px; z-index: 8; pointer-events: none;
-      padding: 1px 7px; border: 1px solid rgba(203,163,91,.5); border-radius: 2px;
-      background: rgba(6,5,4,.66); color: var(--gold-light);
-      font-size: 10px; line-height: 1.6; letter-spacing: .12em;
-      transition: opacity .25s ease;
-    }
-    .gate-frame:hover .rm-sample-chip { opacity: 0; }
+    /* v1.0.2：追思卡画框里的志哀文字（Harry 2026-09-26：这里不能是空白）。画框内只有约 182×233，
+       文字占上面三分之二，下面留给烛光；层级在暗角之上、蜡烛（z-index 5）之下 */
+    .public-inscription { position: absolute; inset: 0 6% 32% 6%; z-index: 4; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; pointer-events: none; color: #ddd3c2; }
+    .public-inscription p { margin: 0; }
+    .public-inscription .pi-kicker { font-size: 11px; letter-spacing: .24em; padding-left: .24em; color: var(--gold-light); }
+    .public-inscription .pi-rule { width: 32px; height: 1px; margin: 10px 0; background: rgba(203,163,91,.45); }
+    .public-inscription .pi-event { font-size: 13px; line-height: 1.7; letter-spacing: .04em; white-space: pre-line; }
+    .public-inscription .pi-rip { margin-top: 10px; font-size: 11px; letter-spacing: .16em; padding-left: .16em; color: var(--mute); }
     .make-own-btn.is-soon, .make-own-btn.is-soon:hover { cursor: default; color: var(--mute); border-color: var(--line-faint); background: #120f0b; }
     .portal-foot { width: 100%; max-width: 1080px; display: flex; justify-content: center; }
     .portal-foot a { font-size: 12px; letter-spacing: .06em; color: var(--mute); }
@@ -609,6 +609,14 @@
         <div class="gate-frame">
           <div class="gate-canvas is-candle-only">
             <div class="gate-vignette"></div>
+            <div class="public-inscription">
+              <p class="pi-kicker" data-i18n="publicKicker">深切悼念</p>
+              <span class="pi-rule" aria-hidden="true"></span>
+              <p class="pi-event" data-i18n="publicEvent">西藏吉隆“8·26”
+泥石流灾害
+遇难同胞</p>
+              <p class="pi-rip" data-i18n="publicRip">愿逝者安息</p>
+            </div>
             <div class="gate-preview-candle"><div class="mini-flame"></div><div class="mini-wax"></div></div>
           </div>
         </div>
@@ -623,7 +631,6 @@
             <div class="gate-vignette"></div>
             <div class="gate-preview-scrim"></div>
             <div class="gate-preview-candle"><div class="mini-flame"></div><div class="mini-wax"></div></div>
-            <span class="rm-sample-chip" data-i18n="sampleChip">示例</span>
             <div class="carousel-caption-pill"></div>
             <div class="carousel-dots"></div>
           </div>
@@ -641,7 +648,6 @@
             <div class="gate-vignette"></div>
             <div class="gate-preview-scrim"></div>
             <div class="gate-preview-candle"><div class="mini-flame"></div><div class="mini-wax"></div></div>
-            <span class="rm-sample-chip" data-i18n="sampleChip">示例</span>
             <div class="carousel-caption-pill"></div>
             <div class="carousel-dots"></div>
           </div>
@@ -689,7 +695,9 @@
     "soonBtn": "敬请期待",
     "soonToastRemembrance": "追思即将开放，敬请期待。",
     "soonToastFamily": "亲人纪念即将开放，敬请期待。",
-    "sampleChip": "示例",
+    "publicKicker": "深切悼念",
+    "publicEvent": "西藏吉隆“8·26”\n泥石流灾害\n遇难同胞",
+    "publicRip": "愿逝者安息",
     "makeOwnTitle": "想给自家的做一个？",
     "makeOwnSub": "宠物纪念馆内测中：上传照片、调好预览都不要钱，调满意了再填内测码发布，前 50 位免费托管一年。亲人纪念和追思即将开放。",
     "makeOwnPet": "🐾 做宠物的",
@@ -709,7 +717,9 @@
     "soonBtn": "敬請期待",
     "soonToastRemembrance": "追思即將開放，敬請期待。",
     "soonToastFamily": "親人紀念即將開放，敬請期待。",
-    "sampleChip": "示例",
+    "publicKicker": "深切悼念",
+    "publicEvent": "西藏吉隆「8·26」\n泥石流災害\n遇難同胞",
+    "publicRip": "願逝者安息",
     "makeOwnTitle": "想給自家的做一個？",
     "makeOwnSub": "寵物紀念館內測中：上傳照片、調好預覽都不要錢，調滿意了再填內測碼發布，前 50 位免費託管一年。親人紀念和追思即將開放。",
     "makeOwnPet": "🐾 做寵物的",
@@ -729,7 +739,9 @@
     "soonBtn": "Stay Tuned",
     "soonToastRemembrance": "Remembrance opens soon. Stay tuned.",
     "soonToastFamily": "Family Memorial opens soon. Stay tuned.",
-    "sampleChip": "Sample",
+    "publicKicker": "In Silent Memory",
+    "publicEvent": "The victims of the\n26 August debris flow\nin Gyirong, Tibet",
+    "publicRip": "Rest in peace",
     "makeOwnTitle": "Want one for your own?",
     "makeOwnSub": "Pet memorials are in beta: uploading and previewing cost nothing. When you are happy with it, publish with a beta code. Free hosting for a year for the first 50. Family Memorial and Remembrance open soon.",
     "makeOwnPet": "🐾 Make one for a pet",
@@ -749,7 +761,9 @@
     "soonBtn": "近日公開",
     "soonToastRemembrance": "追悼は近日公開予定です。もうしばらくお待ちください。",
     "soonToastFamily": "家族メモリアルは近日公開予定です。もうしばらくお待ちください。",
-    "sampleChip": "見本",
+    "publicKicker": "深い哀悼を込めて",
+    "publicEvent": "チベット・キーロン\n8月26日 土石流災害の\n犠牲者の方々",
+    "publicRip": "安らかにお眠りください",
     "makeOwnTitle": "自分でもつくってみませんか？",
     "makeOwnSub": "ペットメモリアルはベータ版受付中です。写真のアップロードとプレビュー調整は無料。気に入ったら招待コードを入力して作成できます。先着50名は1年間、無料で掲載されます。家族メモリアルと追悼は近日公開予定です。",
     "makeOwnPet": "🐾 うちの子のメモリアルをつくる",
@@ -769,7 +783,9 @@
     "soonBtn": "오픈 예정",
     "soonToastRemembrance": "추모는 곧 열릴 예정이에요. 조금만 기다려 주세요.",
     "soonToastFamily": "가족 추모관은 곧 열릴 예정이에요. 조금만 기다려 주세요.",
-    "sampleChip": "예시",
+    "publicKicker": "깊은 애도를 표합니다",
+    "publicEvent": "티베트 지룽\n8·26 토석류 재해\n희생자",
+    "publicRip": "삼가 명복을 빕니다",
     "makeOwnTitle": "나도 하나 만들어 볼까요?",
     "makeOwnSub": "반려동물 추모관은 베타 테스트 중이에요. 사진 올리기와 미리보기 조정은 모두 무료예요. 마음에 들면 초대 코드를 입력해서 만들 수 있어요. 선착순 50명은 1년 동안 무료로 게시돼요. 가족 추모관과 추모는 곧 열릴 예정이에요.",
     "makeOwnPet": "🐾 우리 아이 추모관 만들기",
@@ -780,7 +796,7 @@
   }
 };
 
-    /* 亲人纪念：中文看中国长辈，English 看欧美长辈。都是 AI 生成的虚构人物，卡片上标「示例」 */
+    /* 亲人纪念：中文看中国长辈，English 看欧美长辈。都是 AI 生成的虚构人物（v1.0.2 起卡片上不再标「示例」） */
     /* 日本語 / 한국어 看的也是东亚长辈这一组（名字按当地写法起的，同样是虚构示例） */
     const FAMILY_SLIDES = {
       zh: [
