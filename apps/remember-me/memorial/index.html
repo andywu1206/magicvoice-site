@@ -571,6 +571,19 @@
     html:lang(ko) body { font-family: Georgia, "AppleMyungjo", "Nanum Myeongjo", "NanumMyeongjo", "Noto Serif KR", "Noto Serif CJK KR", "Source Han Serif K", "Songti SC", serif; }
     /* v1.0.1：语言按钮五个，小手机上两边留白收窄，顶栏里放得下一行 */
     @media (max-width: 420px) { .portal-bar { padding: 0 10px; } .lang-tab-btn { padding: 4px 6px; } }
+    /* 追思卡片底图：追思原型里吉隆泥石流第 1 张照片，裁成 4:5、转黑白，上面压一层暗色保证字看得清（Harry 2026-09-27） */
+    #cardPublic .gate-canvas.is-candle-only { background: linear-gradient(180deg, rgba(6,5,4,.62) 0%, rgba(6,5,4,.78) 55%, rgba(6,5,4,.86) 100%), url('img/remembrance_gyirong_bg.jpg') center / cover no-repeat; }
+    /* 「更多咨询…」做成链接，点了弹公众号二维码（Harry 2026-09-27） */
+    .make-own-contact.is-link { background: none; border: 0; padding: 0; font: inherit; color: inherit; text-align: inherit; cursor: pointer; text-decoration: underline; text-decoration-color: rgba(201,168,106,.45); text-underline-offset: 3px; }
+    .make-own-contact.is-link:hover, .make-own-contact.is-link:focus-visible { color: #d9bd83; }
+    .wx-qr-mask { position: fixed; inset: 0; z-index: 60; display: flex; align-items: center; justify-content: center; padding: 16px; background: rgba(4,3,2,.72); }
+    .wx-qr-mask[hidden] { display: none; }
+    .wx-qr-box { position: relative; width: min(320px, 100%); padding: 26px 22px 20px; text-align: center; background: #15110c; border: 1px solid rgba(201,168,106,.42); border-radius: 14px; box-shadow: 0 20px 60px rgba(0,0,0,.6); outline: none; }
+    .wx-qr-title { margin: 0 0 14px; color: #d9bd83; font-size: 15px; letter-spacing: .04em; }
+    .wx-qr-img { display: block; width: 220px; height: 220px; margin: 0 auto; border-radius: 8px; background: #fff; padding: 8px; box-sizing: content-box; }
+    .wx-qr-sub { margin: 14px 0 0; color: #a89c85; font-size: 12.5px; line-height: 1.7; }
+    .wx-qr-close { position: absolute; top: 8px; right: 10px; width: 32px; height: 32px; border: 0; background: none; color: #a89c85; font-size: 22px; line-height: 1; cursor: pointer; border-radius: 8px; }
+    .wx-qr-close:hover, .wx-qr-close:focus-visible { color: #d9bd83; }
   </style>
 </head>
 <body>
@@ -603,7 +616,7 @@
 
     <section class="portal-grid">
 
-      <div class="memorial-gate-card is-soon" id="cardPublic" role="link" aria-disabled="true" tabindex="0" data-soon="Remembrance">
+      <a href="https://rememberme.ariamagicvoice.com/remembrance" class="memorial-gate-card" id="cardPublic">
         <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
         <h2 class="gate-title" data-i18n="gatePublicTitle">追思</h2>
         <div class="gate-frame">
@@ -620,10 +633,13 @@
             <div class="gate-preview-candle"><div class="mini-flame"></div><div class="mini-wax"></div></div>
           </div>
         </div>
-        <span class="gate-btn"><span data-i18n="soonBtn">敬请期待</span></span>
-      </div>
+        <span class="gate-btn">
+          <span data-i18n="gatePublicBtn">进入追思</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
 
-      <div class="memorial-gate-card is-soon" id="cardFamily" role="link" aria-disabled="true" tabindex="0" data-soon="Family">
+      <a href="https://rememberme.ariamagicvoice.com/family" class="memorial-gate-card" id="cardFamily">
         <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
         <h2 class="gate-title" data-i18n="gatePersonalTitle">亲人纪念</h2>
         <div class="gate-frame" id="frameFamily">
@@ -637,8 +653,11 @@
           <button type="button" class="carousel-nav-btn prev" data-i18n-label="prevPhoto" aria-label="上一张">&#8249;</button>
           <button type="button" class="carousel-nav-btn next" data-i18n-label="nextPhoto" aria-label="下一张">&#8250;</button>
         </div>
-        <span class="gate-btn"><span data-i18n="soonBtn">敬请期待</span></span>
-      </div>
+        <span class="gate-btn">
+          <span data-i18n="gateFamilyBtn">进入亲人纪念</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
 
       <a href="https://rememberme.ariamagicvoice.com/new" class="memorial-gate-card" id="cardPet">
         <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
@@ -665,18 +684,23 @@
     <section class="make-own-band">
       <div class="make-own-inner">
         <div class="make-own-text">
-          <b data-i18n="makeOwnTitle">想给自家的做一个？</b>
+          <b data-i18n="makeOwnTitle">宠物在线纪念馆</b>
           <span data-i18n="makeOwnSub">宠物纪念馆内测中：上传照片、调好预览都不要钱，调满意了再填内测码发布，前 50 位免费托管一年。亲人纪念和追思即将开放。</span>
-          <span class="make-own-contact" data-i18n="contactNote">更多咨询请关注公众号留言或者私信咨询</span>
-        </div>
-        <div class="make-own-btns">
-          <a class="make-own-btn is-primary" href="https://rememberme.ariamagicvoice.com/new"><span data-i18n="makeOwnPet">🐾 做宠物的</span></a>
+          <button type="button" class="make-own-contact is-link" id="openWxQr" data-i18n="contactNote">更多咨询请关注公众号留言或者私信咨询</button>
         </div>
       </div>
     </section>
 
     <footer class="portal-foot"><a href="/apps/#rm" data-i18n="footBack">← 返回 Harry App Store</a></footer>
   </main>
+  <div class="wx-qr-mask" id="wxQrMask" hidden>
+    <div class="wx-qr-box" role="dialog" aria-modal="true" aria-labelledby="wxQrTitle" tabindex="-1">
+      <button type="button" class="wx-qr-close" id="wxQrClose" data-i18n-label="qrClose" aria-label="关闭">×</button>
+      <p class="wx-qr-title" id="wxQrTitle" data-i18n="qrTitle">微信扫一扫，关注公众号「购买宝」</p>
+      <img class="wx-qr-img" src="/apps/img/qr/01_wechat_mp_official.png" alt="公众号「购买宝」二维码" width="220" height="220">
+      <p class="wx-qr-sub" data-i18n="qrSub">在微信里长按识别二维码，关注后直接留言或私信</p>
+    </div>
+  </div>
   <div class="p7-toast" id="p7Toast" role="status" aria-live="polite"></div>
 
   <script>
@@ -692,16 +716,21 @@
     "gatePersonalTitle": "亲人纪念",
     "gatePetTitle": "宠物纪念",
     "gatePetBtn": "进入宠物纪念",
+    "gatePublicBtn": "进入追思",
+    "gateFamilyBtn": "进入亲人纪念",
     "soonBtn": "敬请期待",
     "soonToastRemembrance": "追思即将开放，敬请期待。",
     "soonToastFamily": "亲人纪念即将开放，敬请期待。",
     "publicKicker": "深切悼念",
     "publicEvent": "西藏吉隆“8·26”\n泥石流灾害\n遇难同胞",
     "publicRip": "愿逝者安息",
-    "makeOwnTitle": "想给自家的做一个？",
+    "makeOwnTitle": "宠物在线纪念馆",
     "makeOwnSub": "宠物纪念馆内测中：上传照片、调好预览都不要钱，调满意了再填内测码发布，前 50 位免费托管一年。亲人纪念和追思即将开放。",
     "makeOwnPet": "🐾 做宠物的",
     "contactNote": "更多咨询请关注公众号留言或者私信咨询",
+    "qrTitle": "微信扫一扫，关注公众号「购买宝」",
+    "qrSub": "在微信里长按识别二维码，关注后直接留言或私信",
+    "qrClose": "关闭",
     "prevPhoto": "上一张",
     "nextPhoto": "下一张",
     "footBack": "← 返回 Harry App Store"
@@ -714,16 +743,21 @@
     "gatePersonalTitle": "親人紀念",
     "gatePetTitle": "寵物紀念",
     "gatePetBtn": "進入寵物紀念",
+    "gatePublicBtn": "進入追思",
+    "gateFamilyBtn": "進入親人紀念",
     "soonBtn": "敬請期待",
     "soonToastRemembrance": "追思即將開放，敬請期待。",
     "soonToastFamily": "親人紀念即將開放，敬請期待。",
     "publicKicker": "深切悼念",
     "publicEvent": "西藏吉隆「8·26」\n泥石流災害\n遇難同胞",
     "publicRip": "願逝者安息",
-    "makeOwnTitle": "想給自家的做一個？",
+    "makeOwnTitle": "寵物線上紀念館",
     "makeOwnSub": "寵物紀念館內測中：上傳照片、調好預覽都不要錢，調滿意了再填內測碼發布，前 50 位免費託管一年。親人紀念和追思即將開放。",
     "makeOwnPet": "🐾 做寵物的",
     "contactNote": "更多諮詢請關注公眾號留言或者私信諮詢",
+    "qrTitle": "微信掃一掃，關注公眾號「購買寶」",
+    "qrSub": "在微信裡長按識別二維碼，關注後直接留言或私信",
+    "qrClose": "關閉",
     "prevPhoto": "上一張",
     "nextPhoto": "下一張",
     "footBack": "← 返回 Harry App Store"
@@ -736,16 +770,21 @@
     "gatePersonalTitle": "Family Memorial",
     "gatePetTitle": "Pet Memorial",
     "gatePetBtn": "Enter Pet Memorial",
+    "gatePublicBtn": "Enter Remembrance",
+    "gateFamilyBtn": "Enter Family Memorial",
     "soonBtn": "Stay Tuned",
     "soonToastRemembrance": "Remembrance opens soon. Stay tuned.",
     "soonToastFamily": "Family Memorial opens soon. Stay tuned.",
     "publicKicker": "In Silent Memory",
     "publicEvent": "The victims of the\n26 August debris flow\nin Gyirong, Tibet",
     "publicRip": "Rest in peace",
-    "makeOwnTitle": "Want one for your own?",
+    "makeOwnTitle": "Online Pet Memorial",
     "makeOwnSub": "Pet memorials are in beta: uploading and previewing cost nothing. When you are happy with it, publish with a beta code. Free hosting for a year for the first 50. Family Memorial and Remembrance open soon.",
     "makeOwnPet": "🐾 Make one for a pet",
     "contactNote": "For more information, follow our WeChat Official Account and leave a message, or send us a direct message.",
+    "qrTitle": "Scan with WeChat to follow “购买宝”",
+    "qrSub": "In WeChat, long-press the code to scan it, then leave a message or send a DM.",
+    "qrClose": "Close",
     "prevPhoto": "Previous",
     "nextPhoto": "Next",
     "footBack": "← Back to Harry App Store"
@@ -758,16 +797,21 @@
     "gatePersonalTitle": "家族メモリアル",
     "gatePetTitle": "ペットメモリアル",
     "gatePetBtn": "ペットメモリアルへ",
+    "gatePublicBtn": "追悼ページへ",
+    "gateFamilyBtn": "家族メモリアルへ",
     "soonBtn": "近日公開",
     "soonToastRemembrance": "追悼は近日公開予定です。もうしばらくお待ちください。",
     "soonToastFamily": "家族メモリアルは近日公開予定です。もうしばらくお待ちください。",
     "publicKicker": "深い哀悼を込めて",
     "publicEvent": "チベット・キーロン\n8月26日 土石流災害の\n犠牲者の方々",
     "publicRip": "安らかにお眠りください",
-    "makeOwnTitle": "自分でもつくってみませんか？",
+    "makeOwnTitle": "オンラインペットメモリアル",
     "makeOwnSub": "ペットメモリアルはベータ版受付中です。写真のアップロードとプレビュー調整は無料。気に入ったら招待コードを入力して作成できます。先着50名は1年間、無料で掲載されます。家族メモリアルと追悼は近日公開予定です。",
     "makeOwnPet": "🐾 うちの子のメモリアルをつくる",
     "contactNote": "詳しくは、WeChat 公式アカウントをフォローしてメッセージを送るか、ダイレクトメッセージでお問い合わせください。",
+    "qrTitle": "WeChat でスキャンして「购买宝」をフォロー",
+    "qrSub": "WeChat でコードを長押しして読み取り、フォロー後にメッセージを送ってください。",
+    "qrClose": "閉じる",
     "prevPhoto": "前の写真",
     "nextPhoto": "次の写真",
     "footBack": "← Harry App Store に戻る"
@@ -780,16 +824,21 @@
     "gatePersonalTitle": "가족 추모관",
     "gatePetTitle": "반려동물 추모관",
     "gatePetBtn": "반려동물 추모관으로",
+    "gatePublicBtn": "추모 페이지로",
+    "gateFamilyBtn": "가족 추모관으로",
     "soonBtn": "오픈 예정",
     "soonToastRemembrance": "추모는 곧 열릴 예정이에요. 조금만 기다려 주세요.",
     "soonToastFamily": "가족 추모관은 곧 열릴 예정이에요. 조금만 기다려 주세요.",
     "publicKicker": "깊은 애도를 표합니다",
     "publicEvent": "티베트 지룽\n8·26 토석류 재해\n희생자",
     "publicRip": "삼가 명복을 빕니다",
-    "makeOwnTitle": "나도 하나 만들어 볼까요?",
+    "makeOwnTitle": "온라인 반려동물 추모관",
     "makeOwnSub": "반려동물 추모관은 베타 테스트 중이에요. 사진 올리기와 미리보기 조정은 모두 무료예요. 마음에 들면 초대 코드를 입력해서 만들 수 있어요. 선착순 50명은 1년 동안 무료로 게시돼요. 가족 추모관과 추모는 곧 열릴 예정이에요.",
     "makeOwnPet": "🐾 우리 아이 추모관 만들기",
     "contactNote": "자세한 문의는 위챗 공식 계정을 팔로우한 뒤 메시지를 남기거나, 다이렉트 메시지로 보내 주세요.",
+    "qrTitle": "위챗으로 스캔해 ‘购买宝’를 팔로우하세요",
+    "qrSub": "위챗에서 코드를 길게 눌러 인식한 뒤, 팔로우하고 메시지를 보내 주세요.",
+    "qrClose": "닫기",
     "prevPhoto": "이전 사진",
     "nextPhoto": "다음 사진",
     "footBack": "← Harry App Store로 돌아가기"
@@ -864,7 +913,7 @@
       document.querySelectorAll('[data-i18n-label]').forEach(el => { const t = tx(el.getAttribute('data-i18n-label')); if (t) { el.setAttribute('aria-label', t); el.title = t; } });
       document.documentElement.lang = lang;
       /* 去宠物纪念馆站的两个链接带上当前语言：两个站域名不同，语言记忆不通；从那边回来的链接也带 ?lang=（2026-09-26） */
-      document.querySelectorAll('#cardPet, .make-own-btn.is-primary').forEach(a => { const u = new URL(a.href); u.searchParams.set('lang', lang); a.href = u.toString(); });
+      document.querySelectorAll('#cardPublic, #cardFamily, #cardPet, .make-own-btn.is-primary').forEach(a => { const u = new URL(a.href); u.searchParams.set('lang', lang); a.href = u.toString(); });
       document.querySelectorAll('.lang-tab-btn').forEach(b => b.classList.toggle('on', b.getAttribute('data-lang') === lang));
       carousels.forEach(c => c.onLangChange());
       document.title = tx('docTitle') || 'Remember Me';
@@ -930,6 +979,23 @@
       el.addEventListener('click', (e) => { if (e.target.closest('.carousel-nav-btn, .carousel-dot')) return; say(); });
       el.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); say(); } });
     });
+
+    /* 「更多咨询请关注公众号…」：点了弹公众号二维码（Harry 2026-09-27） */
+    (() => {
+      const mask = document.getElementById('wxQrMask'), btn = document.getElementById('openWxQr'), cls = document.getElementById('wxQrClose');
+      if (!mask || !btn || !cls) return;
+      const box = mask.querySelector('.wx-qr-box');
+      const open = () => { mask.hidden = false; box.focus(); };
+      const close = () => { mask.hidden = true; btn.focus(); };
+      btn.addEventListener('click', open);
+      cls.addEventListener('click', close);
+      mask.addEventListener('click', (e) => { if (e.target === mask) close(); });
+      document.addEventListener('keydown', (e) => {
+        if (mask.hidden) return;
+        if (e.key === 'Escape') close();
+        else if (e.key === 'Tab') { e.preventDefault(); cls.focus(); }
+      });
+    })();
 
     /* 从 Harry App Store 的三个按钮进来：对应卡片描金高亮；手机单列时滚到那张卡 */
     const TARGETS = { '#remembrance': 'cardPublic', '#family': 'cardFamily', '#pet': 'cardPet' };
