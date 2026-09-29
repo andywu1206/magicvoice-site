@@ -1,7 +1,7 @@
 {
  "schema": "promo.feed/1",
- "revision": 2,
- "published_at": "2026-09-30T00:35:08+08:00",
+ "revision": 3,
+ "published_at": "2026-09-30T01:27:25+08:00",
  "refresh_seconds": 900,
  "items": [
   {
@@ -321,7 +321,7 @@
    "text": "Remember Me 原价39.9美刀限时特价3.99美刀",
    "cta": "Go",
    "url": "https://apps.apple.com/app/id6781578277",
-   "logo": "",
+   "logo": "rememberme",
    "app_store": true,
    "start": null,
    "end": null
@@ -335,7 +335,7 @@
    "text": "请我喝杯咖啡",
    "cta": "Go",
    "url": "https://ariamagicvoice.com/apps/sponsor.html",
-   "logo": "",
+   "logo": "sponsor",
    "app_store": true,
    "start": null,
    "end": null
@@ -349,7 +349,7 @@
    "text": "Remember Me was US$39.90, now US$3.99",
    "cta": "Go",
    "url": "https://apps.apple.com/app/id6781578277",
-   "logo": "",
+   "logo": "rememberme",
    "app_store": true,
    "start": null,
    "end": null
@@ -363,7 +363,7 @@
    "text": "Buy me a Coffee",
    "cta": "Go",
    "url": "https://ariamagicvoice.com/apps/sponsor.html",
-   "logo": "",
+   "logo": "sponsor",
    "app_store": true,
    "start": null,
    "end": null
@@ -377,7 +377,7 @@
    "text": "Remember Me 原價39.9美刀限時特價3.99美刀",
    "cta": "Go",
    "url": "https://apps.apple.com/app/id6781578277",
-   "logo": "",
+   "logo": "rememberme",
    "app_store": true,
    "start": null,
    "end": null
@@ -391,7 +391,7 @@
    "text": "請我喝杯咖啡",
    "cta": "Go",
    "url": "https://ariamagicvoice.com/apps/sponsor.html",
-   "logo": "",
+   "logo": "sponsor",
    "app_store": true,
    "start": null,
    "end": null
@@ -405,7 +405,7 @@
    "text": "Remember Me 原价39.9美刀限时特价3.99美刀",
    "cta": "Go",
    "url": "https://apps.apple.com/app/id6781578277",
-   "logo": "",
+   "logo": "rememberme",
    "app_store": true,
    "start": null,
    "end": null
@@ -419,7 +419,7 @@
    "text": "请我喝杯咖啡",
    "cta": "Go",
    "url": "https://ariamagicvoice.com/apps/sponsor.html",
-   "logo": "",
+   "logo": "sponsor",
    "app_store": true,
    "start": null,
    "end": null
@@ -433,7 +433,7 @@
    "text": "Remember Me was US$39.90, now US$3.99",
    "cta": "Go",
    "url": "https://apps.apple.com/app/id6781578277",
-   "logo": "",
+   "logo": "rememberme",
    "app_store": true,
    "start": null,
    "end": null
@@ -447,7 +447,7 @@
    "text": "Buy me a Coffee",
    "cta": "Go",
    "url": "https://ariamagicvoice.com/apps/sponsor.html",
-   "logo": "",
+   "logo": "sponsor",
    "app_store": true,
    "start": null,
    "end": null
@@ -461,7 +461,7 @@
    "text": "Remember Me 原價39.9美刀限時特價3.99美刀",
    "cta": "Go",
    "url": "https://apps.apple.com/app/id6781578277",
-   "logo": "",
+   "logo": "rememberme",
    "app_store": true,
    "start": null,
    "end": null
@@ -475,7 +475,7 @@
    "text": "請我喝杯咖啡",
    "cta": "Go",
    "url": "https://ariamagicvoice.com/apps/sponsor.html",
-   "logo": "",
+   "logo": "sponsor",
    "app_store": true,
    "start": null,
    "end": null
