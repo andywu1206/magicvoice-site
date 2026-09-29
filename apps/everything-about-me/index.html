@@ -2512,8 +2512,405 @@ const POLICY=[
 })();
 /*P8-SCRIPT-END*/
 
+/*PROMO-FEED-JS-START v1.0.1 sha256=9407da95a06fd4616a8eb4602566801c433be3e347b91eb641a9801829814c93
+  推广内容接收模块。真源：_公共模块/PromoFeed/web/promo-feed.js。别在这里改，改真源后整段替换（前后两个标记之间）。*/
+/*
+ * promo-feed.js · 推广内容接收模块（网页版）
+ *
+ * 时间：2026-09-29 20:41:12 周二 北京时间 (CST)
+ * 模型：claude-fable-5-1（Claude Code 云端）
+ * 版本：v1.0.1（2026-09-30 本机 claude-opus-5-5 改：超时 8 秒改 15 秒、内容变化回调送达前再比一次。v1.0.0 = 云端原版）
+ * 契约：PROMO_FEED_V1
+ * 依据：spec/约定_推广内容文件格式与接收规则_*.md · 参照实现 spec/ad_feed_reference.py
+ *       （feed_acceptable / item_valid / select_items）· 测试向量 spec/feed_test_vectors.v1.json
+ *
+ * 它做什么：
+ *   从 https://ariamagicvoice.com/feed/cards.v1.json 取推广内容，挑出本面、本语言、此刻该显示的条目；
+ *   取不到用上次 localStorage 存下的，再取不到用宿主传进来的「自带内容」。广告位永远不空。
+ *
+ * 它不做什么：
+ *   不画界面、不轮播、不管字号颜色、不加「推广 / AD」标 —— 那些全是宿主的事。
+ *   不上传任何东西、不带 Cookie（credentials: "omit"）、不加设备/版本/语言参数。
+ *
+ * 用法（浏览器全局变量 PromoFeed；Node 里 require / import 也行，给测试用）：
+ *   var feed = PromoFeed.create({
+ *     surface: "p8_web_banner",
+ *     language: "zh",                       // 任意界面语言标识，模块自己映射成 en / zh-Hans / zh-Hant
+ *     appStoreBuild: false,
+ *     networkEnabled: true,
+ *     bundledItems: [ { id: "...", text: "...", url: "https://..." }, ... ],   // 现在写死的那几条
+ *     onChange: function (items) { /* 重画轮播，不要动间隔和样式 *\/ }
+ *   });
+ *   feed.start();
+ *   var items = feed.currentItems();       // 永远至少有自带内容
+ *   PromoFeed.openURL(items[0].url);  // 安全打开：再查一遍白名单，合格才 window.open(..., "noopener")
+ *
+ * 只用 textContent 显示 item.text / item.name / item.cta，永远不要 innerHTML。
+ */
+(function (root, factory) {
+  var api = factory();
+  if (typeof module === "object" && module && module.exports) { module.exports = api; }
+  if (root && typeof root === "object") { root.PromoFeed = api; }
+})(typeof window !== "undefined" ? window : (typeof globalThis !== "undefined" ? globalThis : this), function () {
+  "use strict";
+
+  var VERSION = "1.0.1";
+  var CONTRACT = "PROMO_FEED_V1";
+  var FEED_URL = "https://ariamagicvoice.com/feed/cards.v1.json";
+  var CACHE_KEY = "promo.feed.v1";
+  var SCHEMA_PREFIX = "promo.feed/1";
+  var MAX_BYTES = 256 * 1024;
+  var TIMEOUT_MS = 15000;   // 15 秒（2026-09-30 本机改：国内移动实测最慢一次 11.5 秒，8 秒会断）
+  var BUCKET_SECONDS = 300;          // ?t=<unix 秒整除 300>
+  var FOREGROUND_MIN_GAP = 300;      // 回到前台：距上次取超过 5 分钟才再取
+  var REFRESH_MIN = 300, REFRESH_MAX = 86400, REFRESH_DEFAULT = 900;
+  var MAX_ITEMS = 200, MAX_TEXT = 200, MAX_NAME = 80, MAX_CTA = 20;
+  var LANGS = { "en": 1, "zh-Hans": 1, "zh-Hant": 1 };
+  var ALLOWED_HOSTS = {
+    "apps.apple.com": 1, "ariamagicvoice.com": 1, "www.ariamagicvoice.com": 1,
+    "rememberme.ariamagicvoice.com": 1, "play.google.com": 1
+  };
+  var CTRL_RE = /[\u0000-\u001f\u007f\u200b-\u200f\u202a-\u202e\u2066-\u2069\ufeff]/;
+  var LOGO_RE = /^[a-z0-9][a-z0-9_-]{0,39}$/;
+  // ISO 8601，必须带时区：2026-10-01T00:00:00+08:00 / 2026-09-30T16:00:00Z / 秒和小数可省
+  var ISO_RE = /^(\d{4})-(\d{2})-(\d{2})[T ](\d{2}):(\d{2})(?::(\d{2})(?:[.,](\d{1,9}))?)?(Z|[+-]\d{2}(?::?\d{2})?)$/;
+
+  function isPlainObject(v) { return v !== null && typeof v === "object" && !Array.isArray(v); }
+  function hasOwn(o, k) { return Object.prototype.hasOwnProperty.call(o, k); }
+  function codePointLength(s) { var n = 0; for (var i = 0; i < s.length; i++) { var c = s.charCodeAt(i); if (c >= 0xD800 && c <= 0xDBFF && i + 1 < s.length) { var d = s.charCodeAt(i + 1); if (d >= 0xDC00 && d <= 0xDFFF) { i++; } } n++; } return n; }
+
+  // ── 时间 ──────────────────────────────────────────────────────────────
+  function daysFromCivil(y, m, d) {
+    y -= m <= 2 ? 1 : 0;
+    var era = Math.floor((y >= 0 ? y : y - 399) / 400);
+    var yoe = y - era * 400;
+    var doy = Math.floor((153 * (m + (m > 2 ? -3 : 9)) + 2) / 5) + d - 1;
+    var doe = yoe * 365 + Math.floor(yoe / 4) - Math.floor(yoe / 100) + doy;
+    return era * 146097 + doe - 719468;
+  }
+  function daysInMonth(y, m) {
+    if (m === 2) { return (y % 4 === 0 && (y % 100 !== 0 || y % 400 === 0)) ? 29 : 28; }
+    return (m === 4 || m === 6 || m === 9 || m === 11) ? 30 : 31;
+  }
+  /** 带时区的 ISO 8601 → unix 秒（可含小数）；不合法（含不带时区）→ null。对齐参照实现 parse_iso。 */
+  function parseISO(s) {
+    if (typeof s !== "string" || !s) { return null; }
+    var m = ISO_RE.exec(s.trim());
+    if (!m) { return null; }
+    var y = +m[1], mo = +m[2], d = +m[3], hh = +m[4], mi = +m[5], ss = m[6] ? +m[6] : 0;
+    var frac = m[7] ? Number("0." + m[7]) : 0;
+    if (mo < 1 || mo > 12 || d < 1 || d > daysInMonth(y, mo) || hh > 23 || mi > 59 || ss > 59) { return null; }
+    var off = 0;
+    if (m[8] !== "Z") {
+      var sign = m[8].charAt(0) === "-" ? -1 : 1;
+      var body = m[8].slice(1).replace(":", "");
+      var oh = +body.slice(0, 2), om = body.length >= 4 ? +body.slice(2, 4) : 0;
+      if (oh > 23 || om > 59) { return null; }
+      off = sign * (oh * 3600 + om * 60);
+    }
+    return daysFromCivil(y, mo, d) * 86400 + hh * 3600 + mi * 60 + ss + frac - off;
+  }
+
+  // ── 链接白名单 ────────────────────────────────────────────────────────
+  /** 合格返回 null，不合格返回原因码。只认 https + 白名单域名，不带账号密码和端口（443 除外）。 */
+  function urlProblem(u) {
+    if (typeof u !== "string" || !u.trim()) { return "EMPTY"; }
+    var s = u.trim();
+    var i = s.indexOf("://");
+    if (i < 0 || s.slice(0, i).toLowerCase() !== "https") { return "SCHEME"; }
+    var rest = s.slice(i + 3), end = rest.length;
+    for (var k = 0; k < rest.length; k++) { var c = rest.charAt(k); if (c === "/" || c === "?" || c === "#") { end = k; break; } }
+    var authority = rest.slice(0, end);
+    if (authority.indexOf("@") >= 0) { return "USERINFO"; }
+    if (authority.charAt(0) === "[") { return "HOST"; }
+    var host = authority, colon = authority.lastIndexOf(":");
+    if (colon >= 0) {
+      host = authority.slice(0, colon);
+      var port = authority.slice(colon + 1);
+      if (port !== "") { if (!/^\d+$/.test(port) || Number(port) !== 443) { return "PORT"; } }
+    }
+    host = host.toLowerCase();
+    if (!host || !hasOwn(ALLOWED_HOSTS, host)) { return "HOST"; }
+    return null;
+  }
+  function isSafeURL(u) { return urlProblem(u) === null; }
+
+  // ── 三条规则（与参照实现一字不差）────────────────────────────────────
+  function feedAcceptable(doc, cachedRevision) {
+    if (!isPlainObject(doc)) { return { ok: false, reason: "NOT_OBJECT" }; }
+    var sch = doc.schema;
+    if (typeof sch !== "string" || sch.indexOf(SCHEMA_PREFIX) !== 0) { return { ok: false, reason: "SCHEMA" }; }
+    var rev = doc.revision;
+    if (typeof rev !== "number" || !isFinite(rev) || Math.floor(rev) !== rev || rev < 1) { return { ok: false, reason: "REVISION" }; }
+    if (cachedRevision !== null && cachedRevision !== undefined && rev < cachedRevision) { return { ok: false, reason: "OLDER_THAN_CACHE" }; }
+    var items = doc.items;
+    if (!Array.isArray(items) || items.length > MAX_ITEMS) { return { ok: false, reason: "ITEMS" }; }
+    return { ok: true, reason: "OK" };
+  }
+
+  function itemValid(it) {
+    if (!isPlainObject(it)) { return false; }
+    var req = ["id", "surface", "lang", "text", "url"];
+    for (var i = 0; i < req.length; i++) { var v = it[req[i]]; if (typeof v !== "string" || v === "") { return false; } }
+    if (!hasOwn(LANGS, it.lang)) { return false; }
+    if (codePointLength(it.text) > MAX_TEXT || CTRL_RE.test(it.text)) { return false; }
+    var caps = [["name", MAX_NAME], ["cta", MAX_CTA]];
+    for (var j = 0; j < caps.length; j++) {
+      var w = it[caps[j][0]];
+      if (w === undefined || w === null) { w = ""; }
+      if (typeof w !== "string" || codePointLength(w) > caps[j][1] || CTRL_RE.test(w)) { return false; }
+    }
+    var logo = it.logo;
+    if (logo !== undefined && logo !== null && logo !== "") { if (typeof logo !== "string" || !LOGO_RE.test(logo)) { return false; } }
+    if (urlProblem(it.url) !== null) { return false; }
+    if (hasOwn(it, "app_store") && typeof it.app_store !== "boolean") { return false; }
+    var se = ["start", "end"];
+    for (var k = 0; k < se.length; k++) { var t = it[se[k]]; if (t !== undefined && t !== null && parseISO(t) === null) { return false; } }
+    return true;
+  }
+
+  /** 某个面、某种界面语言、此刻（unix 秒）该轮播哪几条，按文件顺序。返回 [] = 用自带内容。 */
+  function selectItems(feed, surface, lang, appStoreBuild, nowSeconds) {
+    function pick(l) {
+      var out = [], items = (feed && Array.isArray(feed.items)) ? feed.items : [];
+      for (var i = 0; i < items.length; i++) {
+        var it = items[i];
+        if (!itemValid(it)) { continue; }
+        if (it.surface !== surface || it.lang !== l) { continue; }
+        if (appStoreBuild && it.app_store === false) { continue; }
+        var st = parseISO(it.start), en = parseISO(it.end);
+        if (st !== null && nowSeconds < st) { continue; }
+        if (en !== null && nowSeconds >= en) { continue; }
+        out.push(it);
+      }
+      return out;
+    }
+    var r = pick(lang);
+    if (r.length === 0 && lang === "zh-Hant") { r = pick("zh-Hans"); }
+    return r;
+  }
+
+  /** 界面语言 → en / zh-Hans / zh-Hant。宿主已经传这三个之一时原样返回。 */
+  function mapLanguage(raw) {
+    if (raw === "en" || raw === "zh-Hans" || raw === "zh-Hant") { return raw; }
+    var t = String(raw === undefined || raw === null ? "" : raw).trim().replace(/_/g, "-").toLowerCase();
+    if (t.indexOf("zh") === 0) {
+      return /(^|-)(hant|tw|hk|mo)(-|$)/.test(t) ? "zh-Hant" : "zh-Hans";
+    }
+    return "en";
+  }
+
+  /** 条目补齐默认字段后的浅拷贝（宿主拿到的永远是这 12 个字段）。 */
+  function normalizeItem(it) {
+    var str = function (v) { return typeof v === "string" ? v : ""; };
+    return {
+      id: str(it.id), surface: str(it.surface), lang: str(it.lang), product: str(it.product),
+      name: str(it.name), text: str(it.text), cta: str(it.cta) || "Go", url: str(it.url), logo: str(it.logo),
+      app_store: it.app_store !== false,
+      start: typeof it.start === "string" ? it.start : null,
+      end: typeof it.end === "string" ? it.end : null
+    };
+  }
+  function snapshotOf(items) { return JSON.stringify(items.map(normalizeItem)); }
+  function clampRefresh(v) {
+    if (typeof v !== "number" || !isFinite(v)) { return REFRESH_DEFAULT; }
+    return Math.min(REFRESH_MAX, Math.max(REFRESH_MIN, Math.floor(v)));
+  }
+
+  // ── 默认请求：fetch · 15 秒超时 · 不带 Cookie · 超过 256 KB 丢弃 ──────────
+  function defaultFetcher(url) {
+    return new Promise(function (resolve) {
+      var done = false, ctrl = null, timer = null;
+      function finish(r) { if (!done) { done = true; if (timer) { clearTimeout(timer); } resolve(r); } }
+      try {
+        if (typeof fetch !== "function") { finish({ status: 0, body: null, size: 0 }); return; }
+        ctrl = (typeof AbortController === "function") ? new AbortController() : null;
+        timer = setTimeout(function () { try { if (ctrl) { ctrl.abort(); } } catch (e) {} finish({ status: 0, body: null, size: 0 }); }, TIMEOUT_MS);
+        fetch(url, { method: "GET", credentials: "omit", redirect: "follow", signal: ctrl ? ctrl.signal : undefined })
+          .then(function (res) {
+            var cl = Number(res.headers && res.headers.get ? res.headers.get("content-length") : 0);
+            if (cl > MAX_BYTES) { try { if (ctrl) { ctrl.abort(); } } catch (e) {} finish({ status: res.status, body: null, size: cl }); return null; }
+            return res.arrayBuffer().then(function (buf) {
+              if (buf.byteLength > MAX_BYTES) { finish({ status: res.status, body: null, size: buf.byteLength }); return; }
+              finish({ status: res.status, body: new TextDecoder("utf-8").decode(buf), size: buf.byteLength });
+            });
+          })
+          .catch(function () { finish({ status: 0, body: null, size: 0 }); });
+      } catch (e) { finish({ status: 0, body: null, size: 0 }); }
+    });
+  }
+
+  function defaultStorage() {
+    try { if (typeof localStorage !== "undefined" && localStorage) { return localStorage; } } catch (e) {}
+    return null;
+  }
+
+  // ── 实例 ──────────────────────────────────────────────────────────────
+  function create(opts) {
+    opts = opts || {};
+    var surface = String(opts.surface || "");
+    var language = mapLanguage(opts.language);
+    var appStoreBuild = !!opts.appStoreBuild;
+    var networkEnabled = opts.networkEnabled !== false;
+    var bundled = (Array.isArray(opts.bundledItems) ? opts.bundledItems : []).map(normalizeItem);
+    var feedURL = typeof opts.feedURL === "string" && opts.feedURL ? opts.feedURL : FEED_URL;
+    var fetcher = typeof opts.fetcher === "function" ? opts.fetcher : defaultFetcher;
+    var storage = opts.storage !== undefined ? opts.storage : defaultStorage();
+    var now = typeof opts.now === "function" ? opts.now : function () { return Date.now() / 1000; };
+    var onChange = typeof opts.onChange === "function" ? opts.onChange : null;
+    var doc = (opts.document !== undefined) ? opts.document : (typeof document !== "undefined" ? document : null);
+
+    var feed = null;            // 当前收下的文件（缓存或线上）
+    var started = false, inFlight = false, timer = null;
+    var lastFetchAt = null;     // unix 秒
+    var snapshot = snapshotOf(bundled);   // 宿主最后一次拿到的内容
+    var visibilityHandler = null;
+    var log = [];               // 给测试看的流水：{event, ...}
+
+    function record(ev, extra) { var row = { event: ev }; if (extra) { for (var k in extra) { if (hasOwn(extra, k)) { row[k] = extra[k]; } } } log.push(row); if (log.length > 200) { log.shift(); } }
+
+    function cachedRevision() { return feed ? feed.revision : null; }
+
+    function selectedNow() {
+      if (!networkEnabled || !feed) { return bundled.slice(); }
+      var sel = selectItems(feed, surface, language, appStoreBuild, now());
+      return sel.length ? sel.map(normalizeItem) : bundled.slice();
+    }
+
+    function currentItems() { var items = selectedNow(); snapshot = snapshotOf(items); return items; }
+
+    function notifyIfChanged() {
+      var snap = snapshotOf(selectedNow());
+      if (snap === snapshot) { return false; }
+      if (!onChange) { snapshot = snap; return true; }
+      // 回调异步送达，送达前再比一次：宿主要是这之间已经用 currentItems() 拿到了同样的内容，就不再回调。
+      setTimeout(function () {
+        var cur = selectedNow(), s = snapshotOf(cur);
+        if (s === snapshot) { return; }
+        snapshot = s;
+        try { onChange(cur.slice()); } catch (e) {}
+      }, 0);
+      return true;
+    }
+
+    function loadCache() {
+      if (!storage) { return; }
+      var text = null;
+      try { text = storage.getItem(CACHE_KEY); } catch (e) { return; }
+      if (typeof text !== "string" || !text) { return; }
+      var parsed;
+      try { parsed = JSON.parse(text); } catch (e) { return; }
+      if (feedAcceptable(parsed, null).ok) { feed = parsed; record("cache_loaded", { revision: parsed.revision }); }
+    }
+
+    function saveCache(text) {
+      if (!storage) { return; }
+      try { storage.setItem(CACHE_KEY, text); } catch (e) { /* 写不进去就算了，下次启动再取 */ }
+    }
+
+    function refreshSeconds() { return clampRefresh(feed ? feed.refresh_seconds : REFRESH_DEFAULT); }
+
+    function schedule() {
+      if (!started || !networkEnabled) { return; }
+      if (timer) { clearTimeout(timer); }
+      timer = setTimeout(function () { timer = null; fetchNow("timer"); }, refreshSeconds() * 1000);
+      if (timer && typeof timer === "object" && typeof timer.unref === "function") { timer.unref(); }
+    }
+
+    function fetchNow(why) {
+      if (!networkEnabled) { return Promise.resolve(false); }
+      if (inFlight) { record("skipped_inflight", { why: why }); return Promise.resolve(false); }
+      inFlight = true;
+      var t = Math.floor(now() / BUCKET_SECONDS);
+      var url = feedURL + "?t=" + t;
+      lastFetchAt = now();
+      record("request", { url: url, why: why });
+      var p;
+      try { p = Promise.resolve(fetcher(url)); } catch (e) { p = Promise.resolve({ status: 0, body: null, size: 0 }); }
+      return p.then(function (res) {
+        try { return handleResponse(res); } catch (e) { record("error", { message: String(e && e.message || e) }); return false; }
+      }, function () { record("failed", { why: why }); return false; })
+        .then(function (accepted) { inFlight = false; schedule(); return accepted; });
+    }
+
+    function handleResponse(res) {
+      if (!res || res.status !== 200) { record("rejected", { reason: "HTTP_" + (res ? res.status : 0) }); return false; }
+      // UTF-8 字节数 ≥ UTF-16 单元数，所以 body.length 超过 256K 一定超过 256 KB
+      if (typeof res.body !== "string" || (typeof res.size === "number" && res.size > MAX_BYTES) || res.body.length > MAX_BYTES) { record("rejected", { reason: "TOO_LARGE" }); return false; }
+      var parsed;
+      try { parsed = JSON.parse(res.body); } catch (e) { record("rejected", { reason: "JSON" }); return false; }
+      var verdict = feedAcceptable(parsed, cachedRevision());
+      if (!verdict.ok) { record("rejected", { reason: verdict.reason }); return false; }
+      feed = parsed;
+      saveCache(res.body);
+      record("accepted", { revision: parsed.revision });
+      notifyIfChanged();
+      return true;
+    }
+
+    function didBecomeActive() {
+      if (!started || !networkEnabled) { return false; }
+      if (lastFetchAt !== null && now() - lastFetchAt < FOREGROUND_MIN_GAP) { record("foreground_skipped"); return false; }
+      fetchNow("foreground");
+      return true;
+    }
+
+    function start() {
+      if (started) { return; }
+      started = true;
+      if (!networkEnabled) { record("offline_mode"); return; }
+      loadCache();
+      notifyIfChanged();          // 缓存里的内容和宿主手上的自带内容不同 → 通知一次（三份实现一致）
+      fetchNow("startup");
+      if (doc && typeof doc.addEventListener === "function") {
+        visibilityHandler = function () { try { if (doc.visibilityState === "visible") { didBecomeActive(); } } catch (e) {} };
+        try { doc.addEventListener("visibilitychange", visibilityHandler); } catch (e) { visibilityHandler = null; }
+      }
+    }
+
+    function stop() {
+      started = false;
+      if (timer) { clearTimeout(timer); timer = null; }
+      if (doc && visibilityHandler) { try { doc.removeEventListener("visibilitychange", visibilityHandler); } catch (e) {} visibilityHandler = null; }
+    }
+
+    function setLanguage(raw) { language = mapLanguage(raw); return language; }
+
+    return {
+      start: start, stop: stop, currentItems: currentItems, refreshNow: function () { return fetchNow("manual"); },
+      didBecomeActive: didBecomeActive, setLanguage: setLanguage,
+      get surface() { return surface; }, get language() { return language; },
+      get revision() { return cachedRevision(); }, get refreshSeconds() { return refreshSeconds(); },
+      get lastFetchAt() { return lastFetchAt; }, get inFlight() { return inFlight; }, get log() { return log.slice(); },
+      get networkEnabled() { return networkEnabled; }
+    };
+  }
+
+  /** 安全打开：再查一遍白名单，合格才 window.open(url, "_blank", "noopener")。返回是否打开了。 */
+  function openURL(url, opener) {
+    if (urlProblem(url) !== null) { return false; }
+    var w = opener || (typeof window !== "undefined" ? window : null);
+    if (!w || typeof w.open !== "function") { return false; }
+    try { w.open(String(url).trim(), "_blank", "noopener"); return true; } catch (e) { return false; }
+  }
+
+  return {
+    VERSION: VERSION, CONTRACT: CONTRACT, FEED_URL: FEED_URL, CACHE_KEY: CACHE_KEY, MAX_BYTES: MAX_BYTES,
+    TIMEOUT_MS: TIMEOUT_MS, ALLOWED_HOSTS: Object.keys(ALLOWED_HOSTS),
+    create: create, openURL: openURL, isSafeURL: isSafeURL,
+    rules: {
+      feedAcceptable: feedAcceptable, itemValid: itemValid, selectItems: selectItems, parseISO: parseISO,
+      urlProblem: urlProblem, mapLanguage: mapLanguage, normalizeItem: normalizeItem, clampRefresh: clampRefresh,
+      codePointLength: codePointLength
+    }
+  };
+});
+/*PROMO-FEED-JS-END*/
+
 /* ── 网页版 Toast 轮播 · 文案真源 = Design Guide「广告 › Toast 投放」（Harry 2026-08-06 定稿 3 条 RM + 2026-08-19 赞助条）
-   中文忌讳铁律：中文文案禁「逝去/死去/遗像/祭扫/亡」，用 Harry 亲给的「思念的家人 / 安静的港湾」。 */
+   中文忌讳铁律：中文文案禁「逝去/死去/遗像/祭扫/亡」，用 Harry 亲给的「思念的家人 / 安静的港湾」。
+   2026-09-30 起：内容先取线上推广文件（中台广告中心「发布到线上」→ ariamagicvoice.com/feed/cards.v1.json，广告位 p8_web_banner），
+   取不到或模块没加载，就用下面 POOL（原来写死的那几条）。样式、10 秒轮播、「推广 / AD」标都不变。 */
 (function(){
   var POOL={
     en:[
@@ -2533,15 +2930,26 @@ const POLICY=[
   if(!box) return;
   var idx=0, timer=null;
   function lang(){ try{ if(typeof window.__p8Lang==='function') return window.__p8Lang(); }catch(e){} return (document.documentElement.lang||'en').slice(0,2)==='zh'?'zh':'en'; }
+  var BUNDLED=[];
+  ['en','zh'].forEach(function(L){ (POOL[L]||[]).forEach(function(p,i){ BUNDLED.push({id:'b_'+L+'_'+i, lang:(L==='zh'?'zh-Hans':'en'), text:p.t, url:p.go}); }); });
+  var feed=null;
+  try{ if(window.PromoFeed) feed=window.PromoFeed.create({ surface:'p8_web_banner', language:lang(), appStoreBuild:false, networkEnabled:true,
+    bundledItems:BUNDLED, onChange:function(){ idx=0; start(); } }); }catch(e){ feed=null; }   /* 内容变了才回调：从第一条重新轮播 */
+  function listNow(L){
+    if(feed){ try{ feed.setLanguage(L); var want=(L==='zh')?'zh-Hans':'en';
+      var same=feed.currentItems().filter(function(x){ return x.lang===want; });
+      if(same.length) return same.map(function(x){ return {t:x.text, go:x.url}; }); }catch(e){} }
+    return POOL[L]||POOL.en;
+  }
   function show(i){
-    var L=lang(), list=POOL[L]||POOL.en; idx=i%list.length;
+    var L=lang(), list=listNow(L); if(!list.length) return; idx=i%list.length; var cur=list[idx];
     if(ad) ad.textContent=(L==='zh')?'推广':'AD';  /* 中文「推广」/ 英文「AD」· Harry 2026-08-23 明令 */
     box.classList.add('sw');
-    setTimeout(function(){ tt.textContent=list[idx].t; go.href=list[idx].go; box.classList.remove('sw'); },250);
+    setTimeout(function(){ tt.textContent=cur.t; go.href=(feed&&!window.PromoFeed.isSafeURL(cur.go))?'#':cur.go; box.classList.remove('sw'); },250);
   }
   function start(){ clearInterval(timer); show(idx); timer=setInterval(function(){ show(idx+1); },10000); }  /* 每条 10s（Harry 2026-08-23） */
   window.__p8ToastRefresh=function(){ idx=0; start(); };   /* 语言切换时由门户调用 */
-  setTimeout(start,300);   /* 等门户首轮 render() 把语言变量就位再读 */
+  setTimeout(function(){ if(feed){ try{ feed.setLanguage(lang()); feed.start(); }catch(e){} } start(); },300);   /* 等门户首轮 render() 把语言变量就位再读；模块先读上次存下的，再去取线上 */
   /* 语言变化兜底：菜单点击事件可能被门户 stopPropagation 吞掉，所以每 500ms 轻量比对一次 lang；变了就重启轮播 */
   var lastL=null; setInterval(function(){ var L=lang(); if(lastL!==null && L!==lastL){ idx=0; start(); } lastL=L; },500);
 })();
