@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>开通 Aria Max · 旗舰专属特权</title>
+<meta name="description" content="Aria Max 旗舰版专属功能开通与咨询：支持免抠图手写电子签名、端侧本地大模型纠错等旗舰特权。">
+<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect x="6" y="6" width="52" height="52" rx="16" fill="%232563EB"/><text x="32" y="44" font-family="Helvetica,Arial,sans-serif" font-size="32" font-weight="700" fill="white" text-anchor="middle">Max</text></svg>'>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Helvetica Neue", sans-serif;
+  --bg: #0C0C0E;
+  --card: #18181B;
+  --card-border: rgba(255, 255, 255, 0.12);
+  --text: #FFFFFF;
+  --subtext: #A1A1AA;
+  --accent: #3B82F6;
+  --accent-hover: #2563EB;
+}
+body {
+  font-family: var(--font);
+  background-color: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  -webkit-font-smoothing: antialiased;
+}
+.container {
+  width: 100%;
+  max-width: 420px;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 24px;
+  padding: 32px 24px;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+.badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #3B82F6, #1D4ED8);
+  color: #FFFFFF;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 14px;
+  border-radius: 999px;
+  letter-spacing: 0.05em;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+h1 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+p.subtitle {
+  font-size: 14px;
+  color: var(--subtext);
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+.qr-wrapper {
+  background: #FFFFFF;
+  border-radius: 18px;
+  padding: 12px;
+  margin: 0 auto 20px;
+  width: 240px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+.qr-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+}
+.wechat-box {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+}
+.wechat-id {
+  font-weight: 600;
+  color: #FFFFFF;
+  letter-spacing: 0.02em;
+}
+.btn-copy {
+  background: var(--accent);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.btn-copy:hover {
+  background: var(--accent-hover);
+}
+.hint {
+  font-size: 13px;
+  color: var(--subtext);
+  line-height: 1.5;
+}
+.toast {
+  position: fixed;
+  bottom: 30px;
+  background: rgba(37, 99, 235, 0.95);
+  color: #FFFFFF;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 999px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  pointer-events: none;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+}
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="badge">Aria Max 旗舰专享</div>
+  <h1>开通 Aria Max 特权</h1>
+  <p class="subtitle">电子签名透明笔迹提取、端侧大模型重排序与纠错等旗舰特权，扫码或添加微信号私聊开通。</p>
+
+  <div class="qr-wrapper">
+    <img src="./img/qr/wechat_personal_ariamagicvoice.png" alt="WeChat QR Code" class="qr-img">
+  </div>
+
+  <div class="wechat-box">
+    <span>微信号：<span class="wechat-id" id="wxId">AriaMagicVoice</span></span>
+    <button class="btn-copy" id="copyBtn" onclick="copyWeChat()">复制</button>
+  </div>
+
+  <p class="hint">长按上方二维码保存到相册，或复制微信号在微信搜索添加，私信留言「开通 Max」即可为您开通。</p>
+</div>
+
+<div class="toast" id="toast">已复制微信号 AriaMagicVoice</div>
+
+<script>
+function copyWeChat() {
+  var wxId = 'AriaMagicVoice';
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(wxId);
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = wxId;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+  }
+  showToast('已复制微信号 AriaMagicVoice');
+}
+
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  t.innerText = msg;
+  t.classList.add('show');
+  setTimeout(function() {
+    t.classList.remove('show');
+  }, 2200);
+}
+</script>
+</body>
+</html>
