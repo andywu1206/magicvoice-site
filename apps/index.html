@@ -1107,11 +1107,11 @@ const ICO={
    拿到真地址只改这三行的 u，版式一个字不用动。 */
 const VER_AND={
   beta:[{n:'GitHub',u:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-android-v10.387-test/AriaInputMethod-Android-v10.387.apk',i:'gh'}],
-  free:'downloads.ariamagicvoice.com/releases/aria/android/10.387/AriaInputMethod-Android-v10.387.apk', pro:'', price:'$19.9'};
+  free:'downloads.ariamagicvoice.com/releases/aria/android/10.387/AriaInputMethod-Android-v10.387.apk', pro:'', price:'$19.99'};
 const VER={
   aria:{beta:[{n:'GitHub',u:'github.com/andywu1206/magicvoice-site/releases/download/aria-magic-voice-v90.831-free-website/AriaMagicVoiceIME_Free_v90.831.dmg',i:'gh'}],
         free:'github.com/andywu1206/magicvoice-site/releases/download/aria-magic-voice-v90.831-free-website/AriaMagicVoiceIME_Free_v90.831.dmg',
-        pro:'buy.paddle.com',price:'$19.9'},
+        pro:'buy.paddle.com',price:'$19.99'},
   rm:{beta:[{n:'TestFlight',u:'testflight.apple.com/join/…',i:'tf'}],
       /* Remember Me 是唯一确定的。Pro 是这个 listing 里的内购，所以两档同址。
          ⚠️ 别再换回 apps.apple.com/app/id… 这种不带地区的写法：
@@ -1202,10 +1202,10 @@ function renderPlatforms(){
 const COLS6={
  zh:[{n:'内测版',b:'Beta',s:'优先体验最新功能',price:'免费',pu:'',btn:'下载',src:''},
      {n:'免费版',b:'Free',s:'永久免费',price:'免费',pu:'',btn:'下载',src:''},
-     {n:'Max 版',b:'一次买断',s:'一次购买 · 永久使用',price:'$19.9',pu:'¥139',btn:'购买',src:''}],
+     {n:'Max 版',b:'一次买断',s:'一次购买 · 永久使用',price:'$19.99',pu:'¥139',btn:'购买',src:''}],
  en:[{n:'Early Access',b:'Beta',s:'Get new features first',price:'Free',pu:'',btn:'Download',src:''},
      {n:'Free',b:'Free',s:'Free forever',price:'Free',pu:'',btn:'Download',src:''},
-     {n:'Max',b:'One-time',s:'Buy once · yours forever',price:'US$19.9',pu:'',btn:'Buy It',src:''}]};
+     {n:'Max',b:'One-time',s:'Buy once · yours forever',price:'US$19.99',pu:'',btn:'Buy It',src:''}]};
 /* 第 5 个元素 = 按列覆盖文字（Pro / Beta 是「更高精度」，免费版是「高精度」）*/
 const ROWS6={
  zh:[['智能离线输入法 · 所有原始聊天数据不上传 · 隐私第一',1,1,1],
@@ -1435,7 +1435,7 @@ function renderCompare(){
   const hasDirect=cur==='aria'&&!!directSource.u;
   const betaSources=hasDirect?[directSource,...(VX.beta||[])]:VX.beta;
   let R=V6?ROWS6[lang]:ROWS[cur][lang];
-  const price=cur==='aria'?'$19.9':'—';
+  const price=cur==='aria'?'$19.99':'—';
   if(AND && V6){
     /* Harry 2026-09-04：「基本上就是没有全局语音唤醒，其他都一样」。
        另外「100% 留在本机」那条 Mac 版写的是这台 Mac —— 安卓页照抄就是假话，按端改口径。 */
@@ -1514,7 +1514,7 @@ function renderCompare(){
       <div class="csub">${E(c.s)}</div>
       <div class="cprice"><span>${E(p)}</span>${c.pu?`<u>${E(c.pu)}</u>`:''}</div>
       ${beta||`<${mainOff?'span':'a'} class="cbtn${mainPh?' soon':''}${mainBad?' unavailable':''}"`+
-        `${mainOff?'':(mainKind==='pro'&&cur==='aria'?` href="javascript:void(0)" onclick="openAriaCheckout(event)"`:` href="${E(hrefOf(mainU))}"`+
+        `${mainOff?'':(mainKind==='pro'&&cur==='aria'?` href="javascript:void(0)" onclick="openAriaBuy(event)"`:` href="${E(hrefOf(mainU))}"`+
         ` target="_blank" rel="noopener"`)} data-track="${E(cur+':'+mainKind)}">${
         (AND&&(mainPh||mainBad))?soon(lang==='zh')
           :(mainBad?E(c.btn):(mainPh?soon(lang==='zh'):E(c.btn)))}${mainBad?warnMark(mainProblem):''}</${mainOff?'span':'a'}>`}
@@ -2183,6 +2183,201 @@ if(typeof Paddle!=='undefined'){
 render();
 /* /apps/#rm 直达时同步左栏高亮（赞助页回跳用 · 2026-08-22） */
 if(cur==='rm'){$$('.item').forEach(i=>i.classList.remove('on'));$$('.item[data-app="rm"]').forEach(i=>i.classList.add('on'));}
+</script>
+<!-- ARIA_BUY_FLOW_V1 · 简体中文页点「购买」→ 弹出微信转账二维码；其余语言 → Paddle 结账 · v1.0.0 · 2026-10-07 · claude-sonnet-5-5（Sonnet 5.5）
+     语言判断只看页面当前语言（<html lang>），不查 IP、不调第三方（这两页本来就写明「没有可信的国家来源」）。
+     价格数字只在下面这一处：19.99 / 139 由 项目9 的 site_price_sync.py 按价格中心（data/price_registry.json）写入，别手改。 -->
+<script>
+(function () {
+  "use strict";
+  var CFG = { usd: "19.99", cny: "139", wx: "AriaMagicVoice", qr: "/apps/img/qr/wechat_personal_ariamagicvoice.png" };
+  var S = {
+    zh: {
+      h: "购买 Aria Max · Mac 版",
+      p: "¥" + CFG.cny + " · 一次购买，永久使用",
+      alt_img: "微信二维码 AriaMagicVoice",
+      id: "微信号", copy: "复制", copied: "已复制",
+      steps: [
+        "微信「扫一扫」上面的二维码，添加我为好友（或搜索微信号 " + CFG.wx + "）。",
+        "发给我「购买 Aria Max」，按我回复的方式转账 ¥" + CFG.cny + "。",
+        "确认收款后，我把开通方式发给你。"
+      ],
+      hint: "在手机上看这个页面？长按二维码保存图片，在微信里「扫一扫 → 相册」选它；或复制微信号搜索添加。",
+      alt: "不在国内，或想用信用卡 / PayPal？",
+      altLink: "用 Paddle 付款（US$" + CFG.usd + "）",
+      close: "关闭"
+    },
+    en: {
+      h: "Buy Aria Max for Mac — WeChat transfer",
+      p: "¥" + CFG.cny + " · one-time purchase, yours forever",
+      alt_img: "WeChat QR code: AriaMagicVoice",
+      id: "WeChat ID", copy: "Copy", copied: "Copied",
+      steps: [
+        "Scan the QR code above in WeChat to add me (or search for WeChat ID " + CFG.wx + ").",
+        "Message me “Buy Aria Max” and transfer ¥" + CFG.cny + " the way I reply.",
+        "Once I confirm the payment, I’ll send you the activation details."
+      ],
+      hint: "Viewing this on your phone? Press and hold the QR code to save it, then in WeChat choose Scan → Album; or copy the WeChat ID and search for it.",
+      alt: "Outside mainland China, or prefer card / PayPal?",
+      altLink: "Pay with Paddle (US$" + CFG.usd + ")",
+      close: "Close"
+    }
+  };
+  var CSS = ".abm-mask{position:fixed;inset:0;z-index:2147483000;background:rgba(10,10,12,.46);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;transition:opacity .18s}" +
+    ".abm-mask.on{opacity:1}" +
+    ".abm-card{box-sizing:border-box;width:min(420px,100%);max-height:calc(100vh - 40px);overflow:auto;background:#fff;color:#1d1d1f;border-radius:24px;padding:28px 24px 22px;box-shadow:0 24px 70px rgba(0,0,0,.28);font:400 14px/1.6 -apple-system,BlinkMacSystemFont,\"SF Pro Text\",\"PingFang SC\",\"Noto Sans SC\",\"Helvetica Neue\",sans-serif;position:relative;text-align:center}" +
+    ".abm-card *{box-sizing:border-box}" +
+    ".abm-x{position:absolute;top:10px;right:12px;width:34px;height:34px;border:0;border-radius:50%;background:transparent;color:#6e6e73;font:400 24px/1 -apple-system,sans-serif;cursor:pointer;padding:0}" +
+    ".abm-x:hover{background:rgba(0,0,0,.06)}" +
+    ".abm-h{margin:2px 30px 4px;font-size:19px;line-height:1.35;font-weight:700;letter-spacing:-.01em;color:#1d1d1f;text-wrap:balance}" +
+    ".abm-p{margin:0 0 14px;color:#6e6e73;font-size:13.5px}" +
+    ".abm-qr{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:18px;padding:10px;margin:0 auto 12px;width:min(250px,66vw,31vh)}" +
+    ".abm-qr img{display:block;width:100%;height:auto;border-radius:10px}" +
+    ".abm-id{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#f5f5f7;border-radius:12px;padding:9px 12px;margin:0 0 12px;font-size:14px;color:#1d1d1f}" +
+    ".abm-id b{font-weight:600}" +
+    ".abm-copy{border:0;border-radius:8px;background:#0071e3;color:#fff;font:600 13px/1 -apple-system,\"PingFang SC\",sans-serif;padding:8px 14px;cursor:pointer}" +
+    ".abm-copy:hover{background:#0058b0}" +
+    ".abm-steps{list-style:none;margin:0 0 10px;padding:0;text-align:left;counter-reset:abm}" +
+    ".abm-steps li{counter-increment:abm;position:relative;margin:0;padding:4px 0 4px 28px;font-size:13.5px;color:#1d1d1f}" +
+    ".abm-steps li:before{content:counter(abm);position:absolute;left:0;top:5px;width:20px;height:20px;border-radius:50%;background:#e8f1fd;color:#0058b0;font-size:12px;font-weight:700;line-height:20px;text-align:center}" +
+    ".abm-hint{margin:0 0 10px;font-size:12.5px;color:#6e6e73;text-align:left}" +
+    ".abm-alt{border-top:1px solid rgba(0,0,0,.08);padding-top:12px;font-size:13px;color:#6e6e73}" +
+    ".abm-alt a{color:#0071e3;font-weight:600;text-decoration:none;cursor:pointer;white-space:nowrap}" +
+    ".abm-alt a:hover{text-decoration:underline}" +
+    "@media (max-width:420px){.abm-card{padding:22px 16px 16px;border-radius:20px}.abm-steps li{font-size:13px}}@media (hover:hover) and (pointer:fine){.abm-hint{display:none}}";
+  var mask = null, lastFocus = null;
+
+  function pageLang() { return String(document.documentElement.lang || "").trim().toLowerCase().replace(/_/g, "-"); }
+  /* 只有「简体中文」页走微信转账；繁體 / English 一律 Paddle（Harry 2026-10-07：国内弹二维码，国外走 Paddle）
+     v1.1.0：规范化（去首尾空白、小写、_ 当 -）后查这张明确的小表，不用「以 zh 开头」这种松规则 */
+  var WECHAT_LANGS = { "zh": 1, "zh-cn": 1, "zh-hans": 1, "zh-hans-cn": 1 };
+  function isMainlandZh() { return Object.prototype.hasOwnProperty.call(WECHAT_LANGS, pageLang()); }
+  function modalLang() { return pageLang().indexOf("zh") === 0 ? "zh" : "en"; }
+  function esc(t) { return String(t).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+
+  function close() {
+    if (!mask) return;
+    var m = mask; mask = null;
+    document.removeEventListener("keydown", onKey, true);
+    m.classList.remove("on");
+    document.documentElement.style.overflow = m.getAttribute("data-prev-overflow") || "";
+    setTimeout(function () { if (m.parentNode) m.parentNode.removeChild(m); }, 180);
+    if (lastFocus && lastFocus.focus) { try { lastFocus.focus(); } catch (e) {} }
+  }
+  function onKey(ev) {
+    if (!mask) return;
+    if (ev.key === "Escape") { ev.preventDefault(); close(); return; }
+    if (ev.key === "Tab") {
+      var f = mask.querySelectorAll("button,a[href],a[data-abm-alt]");
+      if (!f.length) return;
+      var first = f[0], last = f[f.length - 1];
+      if (ev.shiftKey && document.activeElement === first) { ev.preventDefault(); last.focus(); }
+      else if (!ev.shiftKey && document.activeElement === last) { ev.preventDefault(); first.focus(); }
+    }
+  }
+  function copyId(btn, t) {
+    function done() { var old = btn.textContent; btn.textContent = t.copied; setTimeout(function () { btn.textContent = old; }, 1600); }
+    if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(CFG.wx).then(done, function () { fallback(); }); } else { fallback(); }
+    function fallback() {
+      var ta = document.createElement("textarea"); ta.value = CFG.wx; ta.setAttribute("readonly", ""); ta.style.cssText = "position:fixed;left:-9999px;top:0";
+      document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); } catch (e) {} document.body.removeChild(ta); done();
+    }
+  }
+  function openWeChat(e) {
+    if (e && e.preventDefault) e.preventDefault();
+    if (mask) return;
+    var t = S[modalLang()];
+    if (!document.getElementById("abm-style")) {
+      var st = document.createElement("style"); st.id = "abm-style"; st.textContent = CSS; document.head.appendChild(st);
+    }
+    lastFocus = document.activeElement;
+    var m = document.createElement("div");
+    m.className = "abm-mask"; m.setAttribute("data-abm", "wechat");
+    m.setAttribute("data-prev-overflow", document.documentElement.style.overflow || "");
+    m.innerHTML =
+      '<div class="abm-card" role="dialog" aria-modal="true" aria-labelledby="abm-h">' +
+      '<button type="button" class="abm-x" aria-label="' + esc(t.close) + '">×</button>' +
+      '<h2 class="abm-h" id="abm-h">' + esc(t.h) + '</h2>' +
+      '<p class="abm-p">' + esc(t.p) + '</p>' +
+      '<div class="abm-qr"><img alt="' + esc(t.alt_img) + '" width="260" height="413" decoding="async"></div>' +
+      '<div class="abm-id"><span>' + esc(t.id) + '：<b>' + esc(CFG.wx) + '</b></span><button type="button" class="abm-copy">' + esc(t.copy) + '</button></div>' +
+      '<ol class="abm-steps">' + t.steps.map(function (s) { return "<li>" + esc(s) + "</li>"; }).join("") + '</ol>' +
+      '<p class="abm-hint">' + esc(t.hint) + '</p>' +
+      '<div class="abm-alt">' + esc(t.alt) + ' <a role="button" tabindex="0" data-abm-alt="1">' + esc(t.altLink) + '</a></div>' +
+      '</div>';
+    document.body.appendChild(m);
+    mask = m;
+    m.querySelector("img").src = CFG.qr;      /* 点开才加载这张图（约 500 KB），没点购买的访客不下载 */
+    m.addEventListener("click", function (ev) { if (ev.target === m) close(); });
+    m.querySelector(".abm-x").addEventListener("click", close);
+    m.querySelector(".abm-copy").addEventListener("click", function () { copyId(this, t); });
+    var alt = m.querySelector("[data-abm-alt]");
+    alt.addEventListener("click", function (ev) { ev.preventDefault(); openPaddle(ev); });
+    alt.addEventListener("keydown", function (ev) { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); openPaddle(ev); } });
+    document.documentElement.style.overflow = "hidden";
+    document.addEventListener("keydown", onKey, true);
+    requestAnimationFrame(function () { m.classList.add("on"); });
+    m.querySelector(".abm-x").focus();
+  }
+  /* v1.1.0 重入保护：上一次被接受的委托之后 800 ms 内的重复调用直接忽略（连点「购买」不会开两次 Paddle） */
+  var PADDLE_GAP_MS = 800, lastPaddleAt = null;
+  function nowMs() { return (window.performance && typeof window.performance.now === "function") ? window.performance.now() : Date.now(); }
+  /* v1.1.0 Paddle 不可用：不跳转页面，在同一个弹窗框架里给一句事实提示 + 重试（简体中文页另给「改用微信转账」） */
+  function paddleReady() { var P = window.Paddle; return !!(P && P.Checkout && typeof P.Checkout.open === "function"); }
+  var U = {
+    zh: { msg: "Paddle 结账没有加载成功，付款窗口没有打开。", retry: "重试", wechat: "改用微信转账", close: "关闭" },
+    en: { msg: "Paddle checkout did not load, so the payment window did not open.", retry: "Try again", wechat: "", close: "Close" }
+  };
+  function showUnavailable() {
+    if (mask) return;
+    var t = U[modalLang()], zhMain = isMainlandZh();
+    if (!document.getElementById("abm-style")) {
+      var st = document.createElement("style"); st.id = "abm-style"; st.textContent = CSS; document.head.appendChild(st);
+    }
+    lastFocus = document.activeElement;
+    var m = document.createElement("div");
+    m.className = "abm-mask"; m.setAttribute("data-abm", "paddle-unavailable");
+    m.setAttribute("data-prev-overflow", document.documentElement.style.overflow || "");
+    m.innerHTML =
+      '<div class="abm-card" role="alertdialog" aria-modal="true" aria-labelledby="abm-u">' +
+      '<button type="button" class="abm-x" aria-label="' + esc(t.close) + '">×</button>' +
+      '<p class="abm-h" id="abm-u">' + esc(t.msg) + '</p>' +
+      '<div class="abm-alt"><button type="button" class="abm-copy" data-abm-retry="1">' + esc(t.retry) + '</button>' +
+      (zhMain ? ' <a role="button" tabindex="0" data-abm-alt="1" data-abm-wechat="1">' + esc(t.wechat) + '</a>' : '') +
+      '</div></div>';
+    document.body.appendChild(m);
+    mask = m;
+    m.addEventListener("click", function (ev) { if (ev.target === m) close(); });
+    m.querySelector(".abm-x").addEventListener("click", close);
+    m.querySelector("[data-abm-retry]").addEventListener("click", function (ev) { openPaddle(ev); });
+    var w = m.querySelector("[data-abm-wechat]");
+    function toWeChat(ev) { ev.preventDefault(); close(); openWeChat(ev); }
+    if (w) {
+      w.addEventListener("click", toWeChat);
+      w.addEventListener("keydown", function (ev) { if (ev.key === "Enter" || ev.key === " ") toWeChat(ev); });
+    }
+    document.documentElement.style.overflow = "hidden";
+    document.addEventListener("keydown", onKey, true);
+    requestAnimationFrame(function () { m.classList.add("on"); });
+    m.querySelector("[data-abm-retry]").focus();
+  }
+  function openPaddle(e) {
+    if (e && e.preventDefault) e.preventDefault();
+    var t0 = nowMs();
+    if (lastPaddleAt !== null && t0 - lastPaddleAt < PADDLE_GAP_MS) return;
+    close();
+    if (!paddleReady() || typeof window.openAriaCheckout !== "function") { showUnavailable(); return; }
+    lastPaddleAt = t0;
+    try { window.openAriaCheckout(e); } catch (err) { lastPaddleAt = null; showUnavailable(); }
+  }
+  function openBuy(e) {
+    if (e && e.preventDefault) e.preventDefault();
+    if (isMainlandZh()) openWeChat(e); else openPaddle(e);
+  }
+  window.openAriaBuy = openBuy;          /* 「购买」按钮：简体中文 → 微信转账弹窗；其余 → Paddle */
+  window.openAriaWeChat = openWeChat;    /* 小链接：任何语言都能直接打开微信转账弹窗 */
+  window.openAriaPaddle = openPaddle;    /* 小链接：任何语言都能直接走 Paddle */
+})();
 </script>
 <script type="application/ld+json">
 {
