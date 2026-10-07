@@ -6,7 +6,7 @@
 <title>i人洞府 (Everything About Me) · 退休时间速查、养老金计算与个人人生看板</title>
 <meta name="description" content="i人洞府（Everything About Me）— 本地优先个人人生 Dashboard 与到期提醒助手。提供 2025 延迟退休时间速查、养老金模拟估算、证件与社保到期提醒。Mac 版已上架 App Store，核心数据 100% 存在本机，不代办、不存密码、零采集。">
 <meta name="keywords" content="i人洞府, Everything About Me, 个人助手, 退休时间速查表, 延迟退休年龄, 养老金计算器, 退休金计算器, 退休政策, 社保到期提醒, 医保提醒, 证件管理, 本地优先, 个人数据隐私, Mac App Store">
-<meta name="author" content="Harry Wood">
+<meta name="author" content="Peace &amp; Light">
 <meta name="robots" content="index,follow">
 <link rel="canonical" href="https://ariamagicvoice.com/apps/everything-about-me/">
 <link rel="alternate" href="https://ariamagicvoice.com/apps/everything-about-me/" hreflang="x-default">
@@ -753,7 +753,7 @@ body:has(.app[data-v="9"]){padding:0;background:var(--page)}
    🔴 必须留在公开 CSS 区，不得移进 ADMIN 哨兵块。
    历史事故（2026-08-06 线上）：这个弹窗原本复用 admin 登录弹层的 .gate，
    而 .gate 的 CSS 定义在 ADMIN 哨兵块里 → 发布时被整段剥掉 →
-   公开页面上「没有 display:none」= 弹窗永久悬挂，「没有 .on 规则」= 点 Cancel 毫无反应。
+   公开页面上「没有 display:none」= 弹窗一直悬挂，「没有 .on 规则」= 点 Cancel 毫无反应。
    一个原因两个症状，三道构建校验一道都没响（它们只查 JS，不查 CSS）。
    → 因此独立成 .fgate，与 admin 的 .gate 彻底解耦：
      以后谁调 admin 登录弹层的 .gate（z-index / backdrop / 遮罩色），都不会再静默改到公开弹窗。 */
@@ -1105,7 +1105,7 @@ body:not(.dark) .p8-scope .p8-card{border-color:var(--p8-line)}
   </div>
 
   <footer>
-    © 2026 Harry Wood · <a href="https://ariamagicvoice.com/apps/" target="_blank" rel="noopener">Harry App Store</a> · 模拟估算仅供参考，最终以社保经办机构核定为准
+    © 2026 Peace &amp; Light · <a href="https://ariamagicvoice.com/apps/" target="_blank" rel="noopener">Harry App Store</a> · 模拟估算仅供参考，最终以社保经办机构核定为准
   </footer>
 </div>
 </div>
@@ -1174,13 +1174,12 @@ body:not(.dark) .p8-scope .p8-card{border-color:var(--p8-line)}
     <div class="about" id="ab"></div>
     </div>
     <footer class="ft">
-      <!-- About 不单独列，入口并进署名：点 Harry Wood 展开（Harry 2026-08-04）-->
       <!-- 版本号已废除（Harry 2026-08-08：「官网版本号也是有点奇怪，干脆不要了」）。
            它本来只给 Harry 自己核对「线上是哪一版」，访客看不懂也不需要；
            而且它一度卡在 v1.0.1 连着 11 次发布没动过，反而误导人。
            要查线上是哪一版：看 scripts/publish_log.jsonl，或 magicvoice-site 的 git log。
            ⚠️ 别再往 footer 加版本号，除非 Harry 明说要。 -->
-      <span>© 2026 Peace &amp; Light · Designed by Harry Wood</span>
+      <span>© 2026 Peace &amp; Light</span>
       <span class="sp"></span>
       <a id="bizLink">Partnerships</a>
       <a id="fbLink">Feedback</a>
@@ -1307,11 +1306,11 @@ const ROWS={
 /* 档位与顺序 = Harry 2026-08-04 手改定稿，以他给的顺序与措辞为准 */
 const COLS6={
  zh:[{n:'内测版',b:'Beta',s:'优先体验最新功能',price:'免费',pu:'',btn:'下载',src:''},
-     {n:'免费版',b:'Free',s:'永久免费',price:'免费',pu:'',btn:'下载',src:''},
-     {n:'Pro 版',b:'一次买断',s:'一次购买 · 永久使用',price:'¥268',pu:'US$39.99',btn:'购买',src:''}],
+     {n:'免费版',b:'Free',s:'免费下载',price:'免费',pu:'',btn:'下载',src:''},
+     {n:'Pro 版',b:'一次买断',s:'一次购买 · 无订阅',price:'¥268',pu:'US$39.99',btn:'购买',src:''}],
  en:[{n:'Early Access',b:'Beta',s:'Get new features first',price:'Free',pu:'',btn:'Download',src:''},
-     {n:'Free',b:'Free',s:'Free forever',price:'Free',pu:'',btn:'Download',src:''},
-     {n:'Pro',b:'One-time',s:'Buy once · yours forever',price:'US$39.99',pu:'',btn:'Buy It',src:''}]};
+     {n:'Free',b:'Free',s:'Free to download',price:'Free',pu:'',btn:'Download',src:''},
+     {n:'Pro',b:'One-time',s:'Buy once · no subscription',price:'US$39.99',pu:'',btn:'Buy It',src:''}]};
 /* 第 5 个元素 = 按列覆盖文字（Pro / Beta 是「更高精度」，免费版是「高精度」）*/
 const ROWS6={
  zh:[['超级学习引擎 · 越用越懂你',1,0,1,{1:'超级学习引擎（Pro 解锁）'}],
@@ -2071,7 +2070,7 @@ if(cur==='rm'){$$('.item').forEach(i=>i.classList.remove('on'));$$('.item[data-a
       "isAccessibleForFree": true,
       "description": "i人洞府（Everything About Me）提供渐进式延迟退休时间速查、养老金模拟计算及带来源链接的退休政策动态。",
       "featureList": ["退休时间速查表", "养老金模拟计算器", "带来源链接的退休政策动态"],
-      "creator": {"@type": "Person", "name": "Harry Wood"}
+      "creator": {"@type": "Organization", "name": "Peace & Light"}
     },
     {
       "@type": "SoftwareApplication",
@@ -2089,7 +2088,7 @@ if(cur==='rm'){$$('.item').forEach(i=>i.classList.remove('on'));$$('.item[data-a
         "description": "免费下载使用核心功能，可选 ¥28.00 一次性内购去除推广横幅"
       },
       "description": "本地优先（数据不出机）的个人人生 Dashboard + 主动权益提醒引擎。证件到期、社保缴费、退休估算一屏掌控。",
-      "creator": {"@type": "Person", "name": "Harry Wood"}
+      "creator": {"@type": "Organization", "name": "Peace & Light"}
     }
   ]
 }
