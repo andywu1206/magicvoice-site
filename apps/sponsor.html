@@ -877,6 +877,39 @@ body.dark .sp-card{box-shadow:0 8px 26px -14px rgba(0,0,0,.5)}
 @media(max-width:1100px){.sponsor-hero{padding:24px 32px 60px 246px!important}}
 @media(max-width:760px){.sponsor-hero{padding:24px 18px 60px 68px!important}}
 @media(max-width:520px){.sponsor-hero{padding:24px 14px 60px 66px!important}}
+/* 内测申请入口：产品列表下面一行黑色按钮；收起时是同尺寸的黑色方块（中文「内」/ 英文「B」）。
+   「Support / 支持」小标题改成一条分隔线：文字还在页面里，只是不画出来。 */
+.item.beta{height:44px;margin:8px 0 2px;padding:0 14px;border-radius:12px;gap:8px;justify-content:space-between;
+  background:var(--btn);color:var(--btnink);box-shadow:0 6px 16px -6px rgba(0,0,0,.35)}
+.item.beta .tx b{color:var(--btnink);font-weight:600}
+.item.beta .bm{display:none}
+.item.beta .bc{flex:0 0 auto;font:400 18px/1 var(--font);opacity:.9}
+[data-v="9"] .item.beta,[data-v="9"] .item.beta:hover,[data-v="9"] .item.beta.on,
+body.dark [data-v="9"] .item.beta,body.dark [data-v="9"] .item.beta:hover,body.dark [data-v="9"] .item.beta.on{background:var(--btn)}
+.item.beta:hover{opacity:.9}
+.item.beta:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+body.dark .item.beta{box-shadow:0 6px 16px -6px rgba(0,0,0,.6)}
+#supportSlab{flex:0 0 auto;height:1px;margin:12px 10px 6px;padding:0;overflow:hidden;
+  font-size:0;line-height:0;letter-spacing:0;background:var(--line)}
+[data-v="9"].sbmin .item.beta{margin:8px auto 6px}
+[data-v="9"].sbmin .item.beta .tx,[data-v="9"].sbmin .item.beta .bc{display:none}
+[data-v="9"].sbmin .item.beta .bm{display:block;font:700 16px/1 var(--font);color:var(--btnink)}
+[data-v="9"].sbmin #supportSlab{display:block;width:56px;margin:10px auto 6px}
+/* 窗口矮（≤820px）：新增的入口压紧一点、展开态的分隔线先不画，让原来能看到的「关于我」仍然在左栏里 */
+@media (max-height:820px){
+  .item.beta{height:38px;margin:4px 0 3px}
+  [data-v="9"]:not(.sbmin) #supportSlab{height:0;margin:0;background:none}
+}
+/* 收起态的竖条原来只有 456px 高，多了一个方块就会被底下的展开按钮盖住：加高到 536px，窗口矮时跟着缩回 */
+@media (min-width:761px){
+  [data-v="9"].sbmin .side{height:clamp(456px,calc(100svh - 132px),536px);min-height:456px}
+}
+@media (max-width:760px){
+  [data-v="9"] .item.beta{height:40px}
+  [data-v="9"].sbmin .item.beta{height:32px;margin:6px auto 8px}
+  [data-v="9"].sbmin .item.beta .bm{font-size:13px}
+  [data-v="9"].sbmin #supportSlab{width:28px;margin:6px auto 8px}
+}
 </style>
 
 <div class="app" data-v="9">
@@ -920,6 +953,11 @@ body.dark .sp-card{box-shadow:0 8px 26px -14px rgba(0,0,0,.5)}
     <a class="item" href="haha.html" id="hahaNav">
       <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='23' fill='%23F0821E'/><text x='50' y='50' font-family='PingFang SC,-apple-system,sans-serif' font-size='58' font-weight='600' fill='%23fff' text-anchor='middle' dominant-baseline='central'>哈</text></svg>" alt="" aria-hidden="true">
       <span class="tx"><b id="hahaNavTx">哈哈资讯</b></span>
+    </a>
+    <a class="item beta" href="/apps/beta.html" id="betaNav" title="内测申请">
+      <span class="bm" id="betaNavM" aria-hidden="true">内</span>
+      <span class="tx"><b id="betaNavTx">内测申请</b></span>
+      <span class="bc" aria-hidden="true">›</span>
     </a>
     <div class="slab" id="supportSlab">Support</div>
     <!-- Harry 2026-08-28：SUPPORT 区顺序 = 商务合作 → 用户反馈 → 赞助。
@@ -1563,6 +1601,11 @@ function render(){
   { const s=$('#supportSlab'); if(s) s.textContent=zh?'支持':'Support'; }
   { const s=$('#spNavTx'); if(s) s.textContent=zh?'赞助':'Sponsor'; }
   { const s=$('#fmNavTx'); if(s) s.textContent=zh?'关于我':'About Me'; }
+  { const bh=(typeof locale!=='undefined'&&locale==='zh-Hant');
+    const bt=zh?(bh?'內測申請':'内测申请'):'Beta', bm=zh?(bh?'內':'内'):'B';
+    const b1=$('#betaNavTx'); if(b1) b1.textContent=bt;
+    const b2=$('#betaNavM'); if(b2) b2.textContent=bm;
+    const b3=$('#betaNav'); if(b3){ b3.title=bt; b3.setAttribute('aria-label',bt); } }
   /* 对内叫「哈哈新闻」，对外叫「哈哈资讯」—— 见 §红线：对外一律不叫「新闻」。
      ⚠️ 2026-08-31 教训：这里原来还有一行 hahaNavSoon，我用正则删它时把闭合的 } 一起删了，
      整个 <script> SyntaxError、版本卡全没。删多行 JS 别用行正则，要连大括号一起看。 */
