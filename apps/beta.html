@@ -2541,9 +2541,9 @@ if(cur==='rm'){$$('.item').forEach(i=>i.classList.remove('on'));$$('.item[data-a
   var PRODUCTS=[['aria','Aria Magic Voice'],['rm','Remember Me'],['p8','Everything About Me'],
     ['nc','Aria Magic Cat'],['fan','Aria Magic Fan'],['haha','Haha News']];
   var NAMES={
-    hans:['Aria输入法（Aria Magic Voice）','Remember Me','i人洞府','躺平猫','Aria魔法散热风扇','哈哈资讯'],
-    hant:['Aria輸入法（Aria Magic Voice）','Remember Me','i人洞府','躺平貓','Aria魔法散熱風扇','哈哈資訊'],
-    en:['Aria Keyboard (Aria Magic Voice)','Remember Me','Everything About Me','Aria Magic Cat','Aria Magic Fan','Haha News']};
+    hans:['Aria Magic Voice','Remember Me','i人洞府','躺平猫','Aria魔法散热风扇','哈哈资讯'],
+    hant:['Aria Magic Voice','Remember Me','i人洞府','躺平貓','Aria魔法散熱風扇','哈哈資訊'],
+    en:['Aria Magic Voice','Remember Me','Everything About Me','Aria Magic Cat','Aria Magic Fan','Haha News']};
   var TX={
     hans:{title:'内测申请 · Harry App Store',h:'内测申请',lead:'先用上，再告诉我们哪里不好。',
       desc:'选好产品，填写邮箱。审批通过后，内测码会发到这个邮箱。',prod:'产品',mail:'邮箱',
@@ -2611,6 +2611,7 @@ if(cur==='rm'){$$('.item').forEach(i=>i.classList.remove('on'));$$('.item[data-a
   }
 
   function el(id){return document.getElementById(id);}
+  function put(node,text){ if(node.textContent!==text) node.textContent=text; }   /* 文字没变就不重写：免得读屏软件在切语言、收起侧栏时把同一句话再念一遍 */
   var form=el('betaForm');
   if(!form||form.getAttribute('data-bound')==='1') return;
   form.setAttribute('data-bound','1');
@@ -2639,9 +2640,9 @@ if(cur==='rm'){$$('.item').forEach(i=>i.classList.remove('on'));$$('.item[data-a
   function setState(s){
     var t=TX[loc()];
     state=s;
-    lamp.innerHTML=LAMPS[s];
-    stT.textContent=s?t.s1:t.s0;
-    stP.textContent=s?t.p1:t.p0;
+    if(lamp.getAttribute('data-s')!==String(s)){ lamp.innerHTML=LAMPS[s]; lamp.setAttribute('data-s',String(s)); }
+    put(stT,s?t.s1:t.s0);
+    put(stP,s?t.p1:t.p0);
     go.hidden=s===1; wait.hidden=s===1; again.hidden=s!==1;
     prod.disabled=mail.disabled=(s===1);
   }
@@ -2658,7 +2659,7 @@ if(cur==='rm'){$$('.item').forEach(i=>i.classList.remove('on'));$$('.item[data-a
     prod.selectedIndex=i;
     go.textContent=busy?t.sending:t.go;
     wait.textContent=t.wait; again.textContent=t.again;
-    if(!err.hidden){ err.textContent=err.getAttribute('data-k')==='bad'?t.bad:(err.getAttribute('data-k')==='rate'?t.rate:t.fail); }
+    if(!err.hidden){ put(err,err.getAttribute('data-k')==='bad'?t.bad:(err.getAttribute('data-k')==='rate'?t.rate:t.fail)); }
     setState(state);
     if(busy) lock(true);
   }
