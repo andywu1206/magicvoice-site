@@ -2533,7 +2533,17 @@ if(cur==='rm'){$$('.item').forEach(i=>i.classList.remove('on'));$$('.item[data-a
     m.querySelector(".b3-x").focus();
   }
   /* ?buy=mac / ?buy=and：手机扫 Paddle 二维码进来后自动弹出购买窗 */
-  try { var qb = new URLSearchParams(location.search).get("buy"); if (qb && PLAT[qb]) setTimeout(function () { openBuy3(null, qb); }, 400); } catch (e) {}
+  try {
+    var qs = new URLSearchParams(location.search), qb = qs.get("buy");
+    if (qb && PLAT[qb]) {
+      var direct = qs.get("pay") === "1", tries = 0;
+      (function go() {
+        if (!direct) { openBuy3(null, qb); return; }
+        if (paddleReady()) { paddleOpen(qb); return; }
+        if (++tries < 25) setTimeout(go, 200); else openBuy3(null, qb);
+      })();
+    }
+  } catch (e) {}
   window.openAriaBuy = openBuy3;         /* 「购买」按钮：三栏弹窗（v2.0.0）；第二个参数 'mac' | 'and' */
   window.openAriaBuyLegacy = openBuy;    /* 旧逻辑保留作回退 */
   window.openAriaWeChat = openWeChat;    /* 小链接：任何语言都能直接打开微信转账弹窗 */
