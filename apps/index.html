@@ -2228,7 +2228,7 @@ $('#mYes').onclick=async()=>{
 };
 
 const ARIA_PADDLE_PRICE_ID='pri_01kmx0x2kg7dckq4j2q5nhwj6c';
-const ARIA_CHECKOUT_SUCCESS_URL='https://ariamagicvoice.com/aria/thank-you.html';
+const ARIA_CHECKOUT_SUCCESS_URL='https://ariamagicvoice.com/apps/thank-you.html';
 function openAriaCheckout(e){
   if(e&&e.preventDefault)e.preventDefault();
   if(typeof Paddle!=='undefined'&&Paddle.Checkout){
@@ -2236,8 +2236,6 @@ function openAriaCheckout(e){
       items:[{priceId:ARIA_PADDLE_PRICE_ID,quantity:1}],
       settings:{successUrl:ARIA_CHECKOUT_SUCCESS_URL,theme:'light'}
     });
-  }else{
-    location.href='https://ariamagicvoice.com/aria/thank-you.html';
   }
 }
 if(typeof Paddle!=='undefined'){
@@ -2505,7 +2503,7 @@ if(cur==='rm'){$$('.item').forEach(i=>i.classList.remove('on'));$$('.item[data-a
     if (!paddleReady()) { showUnavailable(); return; }
     lastPaddleAt = t0;
     try {
-      window.Paddle.Checkout.open({ items: [{ priceId: PLAT[plat].price, quantity: 1 }], settings: { successUrl: "https://ariamagicvoice.com/aria/thank-you.html", theme: "light" } });
+      window.Paddle.Checkout.open({ items: [{ priceId: PLAT[plat].price, quantity: 1 }], settings: { successUrl: "https://ariamagicvoice.com/apps/thank-you.html", theme: "light" } });
     } catch (err) { lastPaddleAt = null; showUnavailable(); }
   }
   function openBuy3(e, plat) {

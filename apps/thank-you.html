@@ -1,0 +1,122 @@
+<!doctype html>
+<!-- Payment success page · v1.0.0 · 2026-10-14 · claude-sonnet-5-5 (115 topic)
+     Where buyers land after paying in the purchase window at /apps/. Static page, no external requests, no scripts besides the language picker.
+     It makes no promise beyond what exists: the activation code is emailed to the payment address; contact details for when it does not arrive. No delivery-time claims (delivery is not fully automatic yet). -->
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>付款成功 — Aria Magic Voice</title>
+<meta name="robots" content="noindex">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{min-height:100vh;background:#fbfbfd;color:#1d1d1f;font:400 16px/1.6 -apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC","Noto Sans SC","Helvetica Neue",sans-serif;display:flex;align-items:center;justify-content:center;padding:24px 16px}
+  .card{width:min(520px,100%);background:#fff;border-radius:24px;box-shadow:0 12px 48px rgba(0,0,0,.10);padding:36px 28px 26px;position:relative}
+  .lang{position:absolute;right:18px;top:16px;font-size:12px;color:#6e6e73}
+  .lang button{border:0;background:none;color:#6e6e73;font:inherit;cursor:pointer;padding:6px 7px}
+  .lang button[aria-pressed="true"]{color:#1d1d1f;font-weight:600}
+  .ok{width:56px;height:56px;border-radius:50%;background:#e7f6ec;display:flex;align-items:center;justify-content:center;margin:6px auto 14px}
+  h1{margin:0;text-align:center;font-size:26px;font-weight:650;letter-spacing:-.01em}
+  .sub{margin:6px 0 22px;text-align:center;color:#6e6e73;font-size:15px}
+  ol{margin:0;padding:0;list-style:none;counter-reset:s}
+  li{counter-increment:s;position:relative;padding:0 0 16px 40px}
+  li::before{content:counter(s);position:absolute;left:0;top:1px;width:26px;height:26px;border-radius:50%;background:#f2f2f4;color:#1d1d1f;font-weight:600;font-size:13px;display:flex;align-items:center;justify-content:center}
+  li b{display:block;font-weight:600}
+  li span{color:#515154;font-size:15px}
+  a{color:#0a6cff;text-decoration:none;font-weight:600}
+  a:hover{text-decoration:underline}
+  .back{display:block;text-align:center;margin-top:8px;padding-top:16px;border-top:1px solid #f0f0f2;font-size:14px}
+  [data-l]{display:none}
+  html[lang="zh-CN"] [data-l="zh"],html[lang="zh-TW"] [data-l="tw"],html[lang="en"] [data-l="en"]{display:block}
+  @media (max-width:420px){.card{padding:32px 20px 22px}h1{font-size:23px}.lang{right:12px;top:12px}}
+</style>
+<noscript><style>[data-l="zh"],[data-l="en"]{display:block}.lang{display:none}</style></noscript>
+</head>
+<body>
+<main class="card">
+  <div class="lang" role="group" aria-label="Language / 语言">
+    <button type="button" lang="zh-Hans" data-set="zh-Hans" aria-pressed="true">简体</button>·<button type="button" lang="zh-Hant" data-set="zh-Hant" aria-pressed="false">繁體</button>·<button type="button" lang="en" data-set="en-US" aria-pressed="false">English</button>
+  </div>
+  <div class="ok" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1e9e55" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+
+  <section data-l="zh">
+    <h1>付款成功</h1>
+    <p class="sub">谢谢你购买 Aria Max。</p>
+    <ol>
+      <li><b>查收邮件</b><span>激活码会发到你付款时填写的邮箱。</span></li>
+      <li><b>过一阵还没收到？</b><span>先看一下垃圾邮件箱；还是没有，请联系我们：微信 AriaMagicVoice，或邮件 <a href="mailto:magicvoice.team@outlook.com">magicvoice.team@outlook.com</a>。</span></li>
+      <li><b>还没安装？</b><span>去 <a href="/apps/">Harry App Store</a> 下载 Aria。</span></li>
+    </ol>
+    <a class="back" href="/apps/">返回 Harry App Store</a>
+  </section>
+
+  <section data-l="tw">
+    <h1>付款成功</h1>
+    <p class="sub">謝謝你購買 Aria Max。</p>
+    <ol>
+      <li><b>查收郵件</b><span>啟用碼會寄到你付款時填寫的信箱。</span></li>
+      <li><b>過一陣還沒收到？</b><span>先看一下垃圾郵件匣；還是沒有，請聯絡我們：微信 AriaMagicVoice，或郵件 <a href="mailto:magicvoice.team@outlook.com">magicvoice.team@outlook.com</a>。</span></li>
+      <li><b>還沒安裝？</b><span>前往 <a href="/apps/">Harry App Store</a> 下載 Aria。</span></li>
+    </ol>
+    <a class="back" href="/apps/">返回 Harry App Store</a>
+  </section>
+
+  <section data-l="en">
+    <h1>Payment received</h1>
+    <p class="sub">Thank you for buying Aria Max.</p>
+    <ol>
+      <li><b>Check your email</b><span>Your activation code will be emailed to the address you used when paying.</span></li>
+      <li><b>Still nothing after a while?</b><span>Check your spam folder first. If it is still missing, contact us: WeChat AriaMagicVoice, or email <a href="mailto:magicvoice.team@outlook.com">magicvoice.team@outlook.com</a>.</span></li>
+      <li><b>Not installed yet?</b><span>Get Aria from <a href="/apps/">Harry App Store</a>.</span></li>
+    </ol>
+    <a class="back" href="/apps/">Back to Harry App Store</a>
+  </section>
+</main>
+<script>
+(function () {
+  "use strict";
+  var KEY = "aria-site-locale-preference-v1";
+  var MAP = { "zh-Hans": ["zh", "zh-CN"], "zh-Hant": ["tw", "zh-TW"], "en-US": ["en", "en"] };
+  /* Same rules as the purchase page (apps/index.html, supportedBrowserLocale): for Chinese an explicit script (Hans / Hant) wins,
+     otherwise the region decides (TW / HK / MO -> Traditional, anything else -> Simplified). The browser's language list is walked in order
+     and the first supported tag is used; nothing supported -> English. */
+  function supported(tag) {
+    var parts = String(tag || "").toLowerCase().replace(/_/g, "-").split("-");
+    var language = parts[0];
+    var script = /^[a-z]{4}$/.test(parts[1] || "") ? parts[1] : null;
+    var region = parts[script ? 2 : 1];
+    if (language === "zh") {
+      if (script === "hans" || script === "hant") return script === "hant" ? "zh-Hant" : "zh-Hans";
+      return (region === "tw" || region === "hk" || region === "mo") ? "zh-Hant" : "zh-Hans";
+    }
+    if (language === "en") return "en-US";
+    return null;
+  }
+  function resolve() {
+    try {
+      var p = JSON.parse(localStorage.getItem(KEY) || "null");
+      if (p && p.mode === "manual" && typeof p.locale === "string") { var s1 = supported(p.locale); if (s1) return s1; }
+    } catch (e) {}
+    var ls = (navigator.languages && navigator.languages.length) ? navigator.languages : [navigator.language];
+    for (var i = 0; i < ls.length; i++) { var s2 = supported(ls[i]); if (s2) return s2; }
+    return "en-US";
+  }
+  function apply(loc) {
+    var m = MAP[loc] || MAP["en-US"];
+    document.documentElement.lang = m[1];
+    var bs = document.querySelectorAll(".lang button");
+    for (var i = 0; i < bs.length; i++) bs[i].setAttribute("aria-pressed", bs[i].getAttribute("data-set") === loc ? "true" : "false");
+    document.title = loc === "en-US" ? "Payment received — Aria Magic Voice" : "付款成功 — Aria Magic Voice";
+  }
+  var bs = document.querySelectorAll(".lang button");
+  for (var i = 0; i < bs.length; i++) bs[i].addEventListener("click", function () {
+    var loc = this.getAttribute("data-set");
+    try { localStorage.setItem(KEY, JSON.stringify({ mode: "manual", locale: loc })); } catch (e) {}
+    apply(loc);
+  });
+  apply(resolve());
+})();
+</script>
+</body>
+</html>
