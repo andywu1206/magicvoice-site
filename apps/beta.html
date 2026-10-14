@@ -1619,7 +1619,8 @@ function renderCompare(){
   }
   /* 2026-09-04：安卓先只上「内测版 + 免费版」两张（走 .two 满宽）。
      2026-10-07：安卓的免费版换成 Pro 版，再加 Max 版，安卓也是三张卡；.two 只剩 Remember Me 用。 */
-  const COLIDX = cur==='rm' ? [1,2] : [0,1,2];
+  /* 2026-10-14 Harry：安卓不设 Pro 档，只留 内测版 + Max 版两张。 */
+  const COLIDX = cur==='rm' ? [1,2] : (AND ? [0,2] : [0,1,2]);
   $('#cg').classList.toggle('two',COLIDX.length===2);
   $('#cg').innerHTML=COLIDX.map(i=>{const c=T.cols[i];
     const p=c.price||price;
