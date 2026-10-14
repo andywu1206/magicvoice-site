@@ -2696,14 +2696,25 @@ if(cur==='rm'){$$('.item').forEach(i=>i.classList.remove('on'));$$('.item[data-a
       var body={kind:'biz',lang:(typeof lang!=='undefined'&&lang==='zh')?'zh':'en',
         text:'内测申请 / Beta application\nProduct: '+p[1]+' ('+p[0]+')'+(flagged?'\nflag: hp':''),
         contact:email,source:'Beta Application',productId:p[0],product:p[1],page:page()};
-      var opts={method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)};
-      if(ac) opts.signal=ac.signal;
-      fetch(url,opts).then(function(r){
-        if(r.status===429){ var e429=new Error('rate'); e429.rate=true; throw e429; }
-        if(!r.ok) throw new Error('HTTP '+r.status);
-        return r.json();
-      }).then(function(j){
-        if(!j||j.ok!==true) throw new Error('bad response');
+      var payload=JSON.stringify(body);
+      function postOne(u,ms){
+        var c=(typeof AbortController!=='undefined')?new AbortController():null;
+        var tm=setTimeout(function(){ if(c) c.abort(); },ms);
+        var o={method:'POST',headers:{'Content-Type':'application/json'},body:payload};
+        if(c) o.signal=c.signal;
+        return fetch(u,o).finally(function(){ clearTimeout(tm); }).then(function(r){
+          if(r.status===429){ var e429=new Error('rate'); e429.rate=true; throw e429; }
+          if(!r.ok) throw new Error('HTTP '+r.status);
+          return r.json();
+        }).then(function(j){
+          if(!j||j.ok!==true) throw new Error('bad response');
+          return j;
+        });
+      }
+      postOne('https://code-preview.ariamagicvoice.com/v1/feedback',7000).catch(function(e1){
+        if(e1&&e1.rate) throw e1;
+        return postOne(url,10000);
+      }).then(function(){
         finish(); setState(1);
         try{ stat.focus(); }catch(e){}
       }).catch(function(e){
