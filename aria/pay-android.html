@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<!-- Content version: v1.0.4 · 2026-10-14 08:42:00 周三 CST · by codex-main（804 话题；Harry「打开Paddle帮我配置」+ 选1接线）· 变更：接线 Android 专属 Paddle 价格（商品 Aria Max (Android) pro_01m4vxhns2adz7gz7cdarf8nah；价格 pri_01m4vxn2pt7zbwvrc5edr2hp24 = US$9.99 一次性 + CN ¥60，2026-10-14 后台新建）；方法二按钮保持「即将开放」保护态，待发码桥就绪后一步解封；v1.0.3=价格修正+置灰（antigravity 08:23）
-     用途：Android App「购买」按钮的跳转目标（App 10.460 已接线）。通道：微信转账弹窗（真 QR + 微信号，人工发码）+ Paddle 结账（Price ID 已接线 pri_01m4vxn2pt7zbwvrc5edr2hp24；待发码桥就绪后解封按钮）。
+<!-- Content version: v1.0.5 · 2026-10-14 12:55:00 周三 CST · by codex-main（804 话题；Harry「把安卓付费按钮开放」指令）· 变更：解封方法二「立即付款」（去 disabled / 改主按钮 / 弹窗 altLink 恢复）；发码=人工过渡（付款后激活码发至邮箱），自动发码桥（Worker /paddle/webhook + 拉取签码 + 发信）施工中，就绪后切全自动；v1.0.4=接线 Android 专属 Price、v1.0.3=价格修正+置灰（antigravity）
+     用途：Android App「购买」按钮的跳转目标（App 10.460 已接线）。通道：微信转账弹窗（真 QR + 微信号，人工发码）+ Paddle 结账（已开放 pri_01m4vxn2pt7zbwvrc5edr2hp24；过渡期人工发码）。
 -->
 <html lang="zh-CN">
 <head>
@@ -71,7 +71,7 @@
 
   <div class="card">
     <h2><span data-lang="zh">选择支付方式</span><span data-lang="en">Choose payment method</span></h2>
-    <p class="map-note"><span data-lang="zh">中国大陆：微信转账开通 ｜ 海外 / International：在线付款通道即将开放</span><span data-lang="en">Online card / PayPal checkout for Android is coming soon.</span></p>
+    <p class="map-note"><span data-lang="zh">中国大陆：微信转账开通 ｜ 海外 / International：在线付款已开放（信用卡 / PayPal）</span><span data-lang="en">Card / PayPal checkout for Android — open now.</span></p>
     <div class="pay-grid">
       <div class="pay-method" data-lang="zh">
         <div class="pm-tag">方法一 · 微信转账</div>
@@ -82,10 +82,9 @@
       <div class="pay-method">
         <div class="pm-tag"><span data-lang="zh">方法二 · 在线直接付款</span><span data-lang="en">Card / PayPal</span></div>
         <h3 class="pm-h"><span data-lang="zh">信用卡 / PayPal · US$9.99</span><span data-lang="en">Card / PayPal · US$9.99</span></h3>
-        <p class="pm-p"><span data-lang="zh">支持主流信用卡与 PayPal（Android 专属自动发码通道升级中）</span><span data-lang="en">Major cards and PayPal via Paddle (Android instant code delivery upgrading).</span></p>
-        <!-- 解封清单（发码桥就绪后才做）：①去掉 disabled 与 aria-disabled、class 改 btn-primary；②文案改「立即付款」/「Pay now」；③弹窗 altLink 补回为可点的「用 Paddle 付款」链接。
-             v1.0.4 已接好 openAriaCheckout（Android 专属 Price ID pri_01m4vxn2pt7zbwvrc5edr2hp24）——去掉保护即可真扣款，所以这一步必须等桥。 -->
-        <button class="btn btn-disabled" type="button" disabled aria-disabled="true" onclick="openAriaPaddle(event)"><span data-lang="zh">即将开放</span><span data-lang="en">Coming soon</span></button>
+        <p class="pm-p"><span data-lang="zh">点开即付：支持主流信用卡与 PayPal（付款后我们会把激活码发送到您的邮箱）</span><span data-lang="en">Instant checkout — the activation code will be sent to your email after purchase.</span></p>
+        <!-- 2026-10-14 12:55 已解封（Harry 指令；过渡期人工发码，桥就绪后切全自动）。回滚 = 加回 disabled + btn-disabled + 「即将开放」文案。 -->
+        <button class="btn btn-primary" type="button" onclick="openAriaPaddle(event)"><span data-lang="zh">立即付款</span><span data-lang="en">Pay now</span></button>
       </div>
     </div>
     <p class="after"><span data-lang="zh">已有激活码？打开 App，在设置页「输入 SN」处点「激活」即可。</span><span data-lang="en">Already have a code? Enter it in Settings → Enter SN → Redeem.</span></p>
@@ -140,8 +139,8 @@ function openAriaCheckout(e) {
         "确认收款后，我把开通方式发给你。"
       ],
       hint: "在手机上看这个页面？长按二维码保存图片，在微信里「扫一扫 → 相册」选它；或复制微信号搜索添加。",
-      alt: "信用卡 / PayPal 在线付款（US$" + CFG.usd + "）即将开放",
-      altLink: "",
+      alt: "不在国内，或想用信用卡 / PayPal？",
+      altLink: "用 Paddle 付款（US$" + CFG.usd + "）",
       close: "关闭"
     },
     en: {
@@ -155,8 +154,8 @@ function openAriaCheckout(e) {
         "Once I confirm the payment, I’ll send you the activation details."
       ],
       hint: "Viewing this on your phone? Press and hold the QR code to save it, then in WeChat choose Scan → Album; or copy the WeChat ID and search for it.",
-      alt: "Card / PayPal checkout (US$" + CFG.usd + ") coming soon",
-      altLink: "",
+      alt: "Outside mainland China, or prefer card / PayPal?",
+      altLink: "Pay with Paddle (US$" + CFG.usd + ")",
       close: "Close"
     }
   };
