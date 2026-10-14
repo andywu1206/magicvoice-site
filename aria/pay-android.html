@@ -1,18 +1,13 @@
 <!DOCTYPE html>
-<!-- Content version: v1.0.2 · 2026-10-13 20:50:00 周二 CST · by codex-main（804 话题）· 变更（Harry 20:47 指令）：方法二按钮文案改「立即付款」（英文 Pay now）、两方法按钮等高；v1.0.1=两方法并排版（19:17）；v1.0.0=同日本文件初版
-     用途：Android App「购买」按钮的跳转目标（App 端接线 = 待办）。通道：微信转账弹窗（真 QR + 微信号，人工发码）+ Paddle 结账（真 Price ID；成功 → /aria/thank-you.html）。
-     机制复用：aria/index.html ARIA_BUY_FLOW_V1 v1.1.0（claude-sonnet-5-5 · 2026-10-07）；价格 US$19.99 / ¥139 与现网一致（项目9 site_price_sync.py 如要覆盖本页再纳入，勿单方面手改数字）。
-     ⚠ 纪律（先桥后市 P0）：本页先只建、本机预览；未部署、未公开、未在任何页面挂链。公开启用的时点须在「付款→发码桥」就绪后由 Harry 拍板；部署前按需处理 robots（现为 noindex）。
-     用途：Android App「购买」按钮的跳转目标（App 端接线 = 待办）。通道：微信转账弹窗（真 QR + 微信号，人工发码）+ Paddle 结账（真 Price ID；成功 → /aria/thank-you.html）。
-     机制复用：aria/index.html ARIA_BUY_FLOW_V1 v1.1.0（claude-sonnet-5-5 · 2026-10-07）；价格 US$19.99 / ¥139 与现网一致（项目9 site_price_sync.py 如要覆盖本页再纳入，勿单方面手改数字）。
-     ⚠ 纪律（先桥后市 P0）：本页先只建、本机预览；未部署、未公开、未在任何页面挂链。公开启用的时点须在「付款→发码桥」就绪后由 Harry 拍板；部署前按需处理 robots（现为 noindex）。
+<!-- Content version: v1.0.3 · 2026-10-14 08:23:00 周三 CST · by antigravity · 变更（Harry 08:21 指令）：价格统一修正为 Android Max 定价 US$9.99 / ¥60，Paddle「立即付款」暂时置灰设为「即将开放」（防误用 Mac Price ID 扣款），保留微信扫码 ¥60 人工发码；v1.0.2=方法二按钮文案改「立即付款」
+     用途：Android App「购买」按钮的跳转目标（App 10.460 已接线）。通道：微信转账弹窗（真 QR + 微信号，人工发码）+ Paddle 结账（待配 Android 专属 Price ID 与发码桥后开启）。
 -->
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>购买 Aria Max · Android 版 — Aria Magic Voice</title>
-<meta name="description" content="Aria Max for Android: one-time purchase (US$19.99 / ¥139). Pay by WeChat transfer (mainland China) or card / PayPal via Paddle.">
+<meta name="description" content="Aria Max for Android: one-time purchase (US$9.99 / ¥60). Pay by WeChat transfer (mainland China) or card / PayPal via Paddle.">
 <meta name="robots" content="noindex">
 <link rel="canonical" href="https://ariamagicvoice.com/aria/pay-android.html">
 <style>
@@ -35,6 +30,7 @@
   .btn{display:block;width:100%;text-align:center;border:0;border-radius:14px;padding:15px 16px;font-size:16px;font-weight:600;cursor:pointer;margin:0 0 8px}
   .btn-primary{background:var(--primary);color:#fff}
   .btn-primary:hover{background:#0058b0}
+  .btn-disabled{background:#e5e5ea;color:#8e8e93;cursor:not-allowed}
   .btn-ghost{background:#fff;color:var(--primary);border:1px solid rgba(0,113,227,.35)}
   .btn-ghost:hover{background:rgba(0,113,227,.05)}
   .btn-note{font-size:12.5px;color:var(--sub);margin:0 0 12px;text-align:center}
@@ -61,7 +57,7 @@
   </div>
 
   <h1><span data-lang="zh">购买 Aria Max · Android 版</span><span data-lang="en">Buy Aria Max for Android</span></h1>
-  <p class="price"><span data-lang="zh"><b>¥139</b> / US$19.99 · 一次购买，无订阅</span><span data-lang="en"><b>US$19.99</b> / ¥139 · one-time purchase, no subscription</span></p>
+  <p class="price"><span data-lang="zh"><b>¥60</b> / US$9.99 · 一次购买，无订阅</span><span data-lang="en"><b>US$9.99</b> / ¥60 · one-time purchase, no subscription</span></p>
 
   <div class="card">
     <h2><span data-lang="zh">你将解锁</span><span data-lang="en">What you unlock</span></h2>
@@ -75,22 +71,22 @@
 
   <div class="card">
     <h2><span data-lang="zh">选择支付方式</span><span data-lang="en">Choose payment method</span></h2>
-    <p class="map-note"><span data-lang="zh">中国大陆：两种方式任选 ｜ 海外 / International：直接用「方法二 · 在线付款」</span><span data-lang="en">Instant checkout via Paddle — pay with card or PayPal.</span></p>
+    <p class="map-note"><span data-lang="zh">中国大陆：微信转账开通 ｜ 海外 / International：在线付款通道即将开放</span><span data-lang="en">Online card / PayPal checkout for Android is coming soon.</span></p>
     <div class="pay-grid">
       <div class="pay-method" data-lang="zh">
         <div class="pm-tag">方法一 · 微信转账</div>
-        <h3 class="pm-h">加微信好友 · 转账 ¥139</h3>
-        <p class="pm-p">扫码加好友 → 转账 ¥139 → 我们发开通方式（人工确认，通常很快）</p>
+        <h3 class="pm-h">加微信好友 · 转账 ¥60</h3>
+        <p class="pm-p">扫码加好友 → 转账 ¥60 → 我们发开通方式（人工确认，通常很快）</p>
         <button class="btn btn-primary" type="button" onclick="openAriaWeChat(event)">打开微信二维码</button>
       </div>
       <div class="pay-method">
         <div class="pm-tag"><span data-lang="zh">方法二 · 在线直接付款</span><span data-lang="en">Card / PayPal</span></div>
-        <h3 class="pm-h"><span data-lang="zh">信用卡 / PayPal · US$19.99</span><span data-lang="en">Card / PayPal · US$19.99</span></h3>
-        <p class="pm-p"><span data-lang="zh">点开即付——与海外相同的通道；支持主流信用卡与 PayPal</span><span data-lang="en">Instant checkout via Paddle — major cards and PayPal accepted.</span></p>
-        <button class="btn btn-primary" type="button" onclick="openAriaPaddle(event)"><span data-lang="zh">立即付款</span><span data-lang="en">Pay now</span></button>
+        <h3 class="pm-h"><span data-lang="zh">信用卡 / PayPal · US$9.99</span><span data-lang="en">Card / PayPal · US$9.99</span></h3>
+        <p class="pm-p"><span data-lang="zh">支持主流信用卡与 PayPal（Android 专属自动发码通道升级中）</span><span data-lang="en">Major cards and PayPal via Paddle (Android instant code delivery upgrading).</span></p>
+        <button class="btn btn-disabled" type="button" disabled aria-disabled="true"><span data-lang="zh">即将开放</span><span data-lang="en">Coming soon</span></button>
       </div>
     </div>
-    <p class="after"><span data-lang="zh">已有激活码？打开 App，在「输入激活码」处激活即可。</span><span data-lang="en">Already have a code? Enter it in the app to activate.</span></p>
+    <p class="after"><span data-lang="zh">已有激活码？打开 App，在设置页「输入 SN」处点「激活」即可。</span><span data-lang="en">Already have a code? Enter it in Settings → Enter SN → Redeem.</span></p>
   </div>
 
   <div class="foot">
@@ -101,33 +97,18 @@
   </div>
 </div>
 
-<script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
 <script>
-/* 与 aria/index.html 保持一致（Paddle v2 正式 token 与 Price ID 沿用现网）；改价须走项目9价格登记表 */
-const ARIA_PADDLE_PRICE_ID = 'pri_01kmx0x2kg7dckq4j2q5nhwj6c';
-const ARIA_CHECKOUT_SUCCESS_URL = 'https://ariamagicvoice.com/aria/thank-you.html';
-Paddle.Initialize({
-  token: 'live_d7beb0bd4a366dacc86dcdc998f',
-  eventCallback: function (event) {
-    if (event && event.name === 'checkout.completed') {
-      window.location.assign(ARIA_CHECKOUT_SUCCESS_URL);
-    }
-  }
-});
+/* Android 专属 Paddle Price ID 与自动发码桥就绪前，暂不加载/触发 Mac 的 Price ID 结账，防止误按 Mac 价格扣款 */
 function openAriaCheckout(e) {
   if (e && e.preventDefault) e.preventDefault();
-  Paddle.Checkout.open({
-    items: [{ priceId: ARIA_PADDLE_PRICE_ID, quantity: 1 }],
-    settings: { successUrl: ARIA_CHECKOUT_SUCCESS_URL, theme: 'light' }
-  });
 }
 </script>
 <script>
 /* ARIA_BUY_FLOW_V1 复用（源自 aria/index.html v1.1.0 · claude-sonnet-5-5 · 2026-10-07）：
-   微信转账弹窗（真 QR + 微信号）与 Paddle 结账；本页为 Android 跳转落地页，两个按钮各自直达对应弹窗/结账。 */
+   微信转账弹窗（真 QR + 微信号）；Android 定价 US$9.99 / ¥60。 */
 (function () {
   "use strict";
-  var CFG = { usd: "19.99", cny: "139", wx: "AriaMagicVoice", qr: "/apps/img/qr/wechat_personal_ariamagicvoice.png" };
+  var CFG = { usd: "9.99", cny: "60", wx: "AriaMagicVoice", qr: "/apps/img/qr/wechat_personal_ariamagicvoice.png" };
   var S = {
     zh: {
       h: "购买 Aria Max · Android 版",
@@ -140,8 +121,8 @@ function openAriaCheckout(e) {
         "确认收款后，我把开通方式发给你。"
       ],
       hint: "在手机上看这个页面？长按二维码保存图片，在微信里「扫一扫 → 相册」选它；或复制微信号搜索添加。",
-      alt: "不在国内，或想用信用卡 / PayPal？",
-      altLink: "用 Paddle 付款（US$" + CFG.usd + "）",
+      alt: "信用卡 / PayPal 在线付款（US$" + CFG.usd + "）即将开放",
+      altLink: "",
       close: "关闭"
     },
     en: {
@@ -155,8 +136,8 @@ function openAriaCheckout(e) {
         "Once I confirm the payment, I’ll send you the activation details."
       ],
       hint: "Viewing this on your phone? Press and hold the QR code to save it, then in WeChat choose Scan → Album; or copy the WeChat ID and search for it.",
-      alt: "Outside mainland China, or prefer card / PayPal?",
-      altLink: "Pay with Paddle (US$" + CFG.usd + ")",
+      alt: "Card / PayPal checkout (US$" + CFG.usd + ") coming soon",
+      altLink: "",
       close: "Close"
     }
   };
