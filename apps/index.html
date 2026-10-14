@@ -1470,6 +1470,12 @@ function renderMq(){
 }
 
 function renderCompare(){
+  const cmpSection = document.querySelector('.cmp');
+  if(cur==='rm'){
+    if(cmpSection) cmpSection.hidden = true;
+    return;
+  }
+  if(cmpSection) cmpSection.hidden = false;
   const V6=app.dataset.v==='6'||app.dataset.v==='7'||app.dataset.v==='8'||app.dataset.v==='9';
   const AND = (cur==='aria' && curPlat==='and');   /* 要比 T 更早：安卓有自己的三张卡 */
   const T=V6?{...CMP[lang],cols:(AND?COLS6_AND:COLS6)[lang],
@@ -1482,7 +1488,7 @@ function renderCompare(){
     u:({and:'downloads.ariamagicvoice.com/releases/aria/android/10.467/AriaInputMethod-Android-v10.467.apk',mac:'github.com/andywu1206/magicvoice-site/releases/download/aria-magic-voice-v90.831-free-website/AriaMagicVoiceIME_Free_v90.831.dmg'})[curPlat]||'',
     i:'official',fast:true};
   const hasDirect=cur==='aria'&&!!directSource.u;
-  const betaSources=hasDirect?[directSource,...(VX.beta||[])]:VX.beta;
+  const betaSources=hasDirect?[directSource,...(VX.beta||[]).filter(b=>b.i!=='official'&&b.n!=='官网'&&b.n!=='Website')]:VX.beta;
   let R=V6?ROWS6[lang]:ROWS[cur][lang];
   const price=cur==='aria'?'$19.99':'—';
   if(AND && V6){
@@ -2182,8 +2188,14 @@ $('#mYes').onclick=async()=>{
   const zh=lang==='zh';
   if(MAIL_ENDPOINT){
     try{
-      const r=await fetch(MAIL_ENDPOINT,{method:'POST',
+      const ac=(typeof AbortController!=='undefined')?new AbortController():null;
+      let tm=0;
+      const timeoutP=new Promise((_,rej)=>{
+        tm=setTimeout(()=>{ if(ac) try{ac.abort();}catch(_){} rej(new Error('timeout')); },15000);
+      });
+      const fetchP=fetch(MAIL_ENDPOINT,{method:'POST',
         headers:{'Content-Type':'application/json'},
+        signal:ac?ac.signal:undefined,
         body:JSON.stringify({
           kind:FORM_KIND,
           lang:lang,
@@ -2193,8 +2205,8 @@ $('#mYes').onclick=async()=>{
           product:feedbackProductName(),
           category:FEEDBACK_KIND_LABEL[FORM_KIND]||FORM_KIND,
           page:feedbackPage()
-        })});
-      if(!r.ok)throw new Error('HTTP '+r.status);
+        })}).then(r=>{ if(!r.ok) throw new Error('HTTP '+r.status); return r; });
+      await Promise.race([fetchP, timeoutP]).finally(()=>clearTimeout(tm));
       showSentCountdown();
     }catch(e){
       alert(zh?'发送失败了（网络或服务端问题）。\n\n内容还在框里，没有丢。'

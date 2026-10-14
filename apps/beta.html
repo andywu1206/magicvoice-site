@@ -2280,8 +2280,14 @@ $('#mYes').onclick=async()=>{
   const zh=lang==='zh';
   if(MAIL_ENDPOINT){
     try{
-      const r=await fetch(MAIL_ENDPOINT,{method:'POST',
+      const ac=(typeof AbortController!=='undefined')?new AbortController():null;
+      let tm=0;
+      const timeoutP=new Promise((_,rej)=>{
+        tm=setTimeout(()=>{ if(ac) try{ac.abort();}catch(_){} rej(new Error('timeout')); },15000);
+      });
+      const fetchP=fetch(MAIL_ENDPOINT,{method:'POST',
         headers:{'Content-Type':'application/json'},
+        signal:ac?ac.signal:undefined,
         body:JSON.stringify({
           kind:FORM_KIND,
           lang:lang,
@@ -2291,8 +2297,8 @@ $('#mYes').onclick=async()=>{
           product:feedbackProductName(),
           category:FEEDBACK_KIND_LABEL[FORM_KIND]||FORM_KIND,
           page:feedbackPage()
-        })});
-      if(!r.ok)throw new Error('HTTP '+r.status);
+        })}).then(r=>{ if(!r.ok) throw new Error('HTTP '+r.status); return r; });
+      await Promise.race([fetchP, timeoutP]).finally(()=>clearTimeout(tm));
       showSentCountdown();
     }catch(e){
       alert(zh?'发送失败了（网络或服务端问题）。\n\n内容还在框里，没有丢。'
@@ -2702,10 +2708,13 @@ if(cur==='rm'){$$('.item').forEach(i=>i.classList.remove('on'));$$('.item[data-a
       var payload=JSON.stringify(body);
       function postOne(u,ms){
         var c=(typeof AbortController!=='undefined')?new AbortController():null;
-        var tm=setTimeout(function(){ if(c) c.abort(); },ms);
+        var tm=0;
+        var timeoutP=new Promise(function(_,rej){
+          tm=setTimeout(function(){ if(c) try{c.abort();}catch(_){} rej(new Error('timeout')); },ms);
+        });
         var o={method:'POST',headers:{'Content-Type':'application/json'},body:payload};
         if(c) o.signal=c.signal;
-        return fetch(u,o).finally(function(){ clearTimeout(tm); }).then(function(r){
+        var fetchP=fetch(u,o).then(function(r){
           if(r.status===429){ var e429=new Error('rate'); e429.rate=true; throw e429; }
           if(!r.ok) throw new Error('HTTP '+r.status);
           return r.json();
@@ -2713,6 +2722,7 @@ if(cur==='rm'){$$('.item').forEach(i=>i.classList.remove('on'));$$('.item[data-a
           if(!j||j.ok!==true) throw new Error('bad response');
           return j;
         });
+        return Promise.race([fetchP, timeoutP]).finally(function(){ clearTimeout(tm); });
       }
       postOne('https://code-preview.ariamagicvoice.com/v1/feedback',7000).catch(function(e1){
         if(e1&&e1.rate) throw e1;
