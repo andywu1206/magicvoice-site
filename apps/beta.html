@@ -1343,14 +1343,15 @@ const COLS6={
  en:[{n:'Early Access',b:'Beta',s:'Get new features first',price:'Free',pu:'',btn:'Download',src:''},
      {n:'Free',b:'Free',s:'Free to download',price:'Free',pu:'',btn:'Download',src:''},
      {n:'Max',b:'One-time',s:'Buy once · no subscription',price:'US$19.99',pu:'',btn:'Buy It',src:''}]};
-/* 安卓档自己的三张卡（内测版 / Pro 版 / Max 版），价格取自价格中心（data/price_registry.json）。
-   Pro / Max 两张暂为「即将开放」：VER_AND.pro 留空 = 渲染成不可点的占位态，跟 Mac 那边占位符同一条规矩（公网不放坏链接）。 */
+/* 安卓档自己的三张卡（内测版 / 免费版 / Max 版），价格取自价格中心（data/price_registry.json）。
+   2026-10-14：跟 Mac 一样三张卡，中间那张是免费版（Pro 档已取消）。
+   Max 暂为「即将开放」：VER_AND.pro 留空 = 渲染成不可点的占位态，跟 Mac 那边占位符同一条规矩（公网不放坏链接）。 */
 const COLS6_AND={
  zh:[{n:'内测版',b:'Beta',s:'优先体验最新功能',price:'免费',pu:'',btn:'下载',src:''},
-     {n:'Pro 版',b:'即将开放',s:'稳定版 · 核心功能',price:'$3.99',pu:'¥20',btn:'购买',src:''},
+     {n:'免费版',b:'Free',s:'免费下载',price:'免费',pu:'',btn:'下载',src:''},
      {n:'Max 版',b:'即将开放',s:'解锁全部能力',price:'$9.99',pu:'¥60',btn:'购买',src:''}],
  en:[{n:'Early Access',b:'Beta',s:'Get new features first',price:'Free',pu:'',btn:'Download',src:''},
-     {n:'Pro',b:'Coming soon',s:'Stable build · core features',price:'US$3.99',pu:'',btn:'Buy It',src:''},
+     {n:'Free',b:'Free',s:'Free to download',price:'Free',pu:'',btn:'Download',src:''},
      {n:'Max',b:'Coming soon',s:'Everything unlocked',price:'US$9.99',pu:'',btn:'Buy It',src:''}]};
 /* 第 5 个元素 = 按列覆盖文字（Pro / Beta 是「更高精度」，免费版是「高精度」）*/
 const ROWS6={
@@ -1619,8 +1620,9 @@ function renderCompare(){
   }
   /* 2026-09-04：安卓先只上「内测版 + 免费版」两张（走 .two 满宽）。
      2026-10-07：安卓的免费版换成 Pro 版，再加 Max 版，安卓也是三张卡；.two 只剩 Remember Me 用。 */
-  /* 2026-10-14 Harry：安卓不设 Pro 档，只留 内测版 + Max 版两张。 */
-  const COLIDX = cur==='rm' ? [1,2] : (AND ? [0,2] : [0,1,2]);
+  /* 2026-10-14 上午：安卓拿掉 Pro 档，只留内测版 + Max 版两张。
+     2026-10-14 下午：安卓跟 Mac 一样三张卡，中间换成免费版。 */
+  const COLIDX = cur==='rm' ? [1,2] : [0,1,2];
   $('#cg').classList.toggle('two',COLIDX.length===2);
   $('#cg').innerHTML=COLIDX.map(i=>{const c=T.cols[i];
     const p=c.price||price;
@@ -1649,7 +1651,7 @@ function renderCompare(){
           const code=linkCode(sc,sc.u);
           return code?`<em class="code">${E(`${sc.n} Code：${code}`)}</em>`:'';
         }).join('')}</div>`:'';
-    const freeSlot=(i===1&&!AND),   /* 安卓没有免费版：中间那张是 Pro，走 pro 的占位态 */
+    const freeSlot=(i===1),   /* 中间那张是免费版（2026-10-14 起安卓也一样，走 VER_AND.free） */
       mainKind=freeSlot?'free':'pro',
       mainU=freeSlot?VX.free:VX.pro,
       mainKey=`${cur}:${mainKind}`,
