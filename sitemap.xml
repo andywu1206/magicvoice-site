@@ -13,6 +13,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://ariamagicvoice.com/aria/ios.html</loc>
+    <lastmod>2026-10-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://ariamagicvoice.com/aria/about.html</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
