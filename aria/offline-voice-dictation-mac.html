@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<!--
+  Aria Magic Voice — SEO 短答案页 · Offline Voice Dictation on Mac
+  目标关键词: "offline voice dictation mac"（2026-10-15 三端实测：Google/Bing 首屏无本产品，对手为 Voibe 列表文与 Apple 内置听写）
+  结构: 开头两三句给结论（AI 概览优先引用）→ 判断标准 → 对比 → FAQ
+  Date: 2026-10-15
+-->
+<html lang="en-US"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Offline Voice Dictation on Mac: The Short Answer (2026)</title>
+<meta name="description" content="Offline voice dictation on Mac runs your speech-to-text entirely on your own machine — no audio upload, no subscription. Here is how to pick one, and where Aria Magic Voice fits.">
+<meta name="keywords" content="offline voice dictation mac, offline speech to text mac, private voice dictation, on-device dictation mac, local whisper mac">
+<meta property="og:title" content="Offline Voice Dictation on Mac: The Short Answer (2026)">
+<meta property="og:description" content="Offline voice dictation on Mac = your audio never leaves the machine. A 2-minute guide to choosing one, plus an honest comparison.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://ariamagicvoice.com/aria/offline-voice-dictation-mac.html">
+<link rel="canonical" href="https://ariamagicvoice.com/aria/offline-voice-dictation-mac.html">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { theme: { extend: {
+    colors: { primary:'#0071e3','primary-hover':'#0077ED', bgLight:'#f5f5f7', textMain:'#1d1d1f', textMuted:'#6e6e73' },
+    fontFamily: { sans:['-apple-system','BlinkMacSystemFont','SF Pro Display','SF Pro Text','Helvetica Neue','Arial','sans-serif'] }
+  } } }
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web"/>
+<style data-purpose="custom-utilities">
+  .glass-nav{background:rgba(251,251,253,.8);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid rgba(0,0,0,.04)}
+  .answer{background:#fff;border:1px solid rgba(0,0,0,.08);border-left:4px solid #0071e3;border-radius:12px;padding:22px 24px}
+  .toc a{color:#0071e3;text-decoration:none}
+  .toc a:hover{text-decoration:underline}
+</style>
+</head>
+<body class="bg-bgLight text-textMain font-sans antialiased">
+
+<header class="fixed top-0 left-0 right-0 z-50 glass-nav">
+<div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+  <div class="flex items-center gap-2.5">
+    <i class="ph ph-sparkle text-primary text-xl"></i>
+    <a href="./index.html" class="font-semibold text-[18px] tracking-tight text-textMain no-underline">Aria <span class="text-primary">Magic</span> Voice</a>
+  </div>
+  <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-textMuted">
+    <a class="hover:text-textMain transition-colors" href="./index.html">Overview</a>
+    <a class="hover:text-textMain transition-colors" href="./vs-apple-dictation.html">vs Apple Dictation</a>
+    <a class="hover:text-textMain transition-colors" href="./vs-superwhisper.html">vs Superwhisper</a>
+    <a class="hover:text-textMain transition-colors" href="./vs-voibe.html">vs Voibe</a>
+    <a class="hover:text-textMain transition-colors" href="../apps/">Download</a>
+  </nav>
+  <a href="../apps/" class="inline-flex bg-primary text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-primary-hover active:scale-[0.97] transition-all no-underline">Get Aria</a>
+</div>
+</header>
+
+<main class="pt-28 pb-20">
+<div class="max-w-[760px] mx-auto px-6 text-[15px] leading-7 text-textMain/90">
+
+<h1 class="text-[34px] font-bold tracking-tight leading-tight mb-3">Offline voice dictation on Mac: the short answer</h1>
+<p class="text-textMuted text-sm mb-8">Updated 15 October 2026 · 3 min read</p>
+
+<div class="answer mb-10">
+  <p class="mb-3"><strong>Offline voice dictation on Mac is speech-to-text that runs entirely on your Mac — your audio is never uploaded, and the app keeps working with the Wi-Fi off.</strong> On Apple Silicon (M1–M4) this is now a solved problem: a local model transcribes faster than you can finish a sentence.</p>
+  <p class="mb-0">Three things decide whether a tool is genuinely "offline": <strong>(1)</strong> it works in airplane mode, <strong>(2)</strong> it never needs an account or a key, <strong>(3)</strong> it does not silently fall back to a cloud endpoint when your local model is unsure. Check all three — most tools that advertise "on-device" pass only the first.</p>
+</div>
+
+<h2 class="text-2xl font-semibold mt-12 mb-4">What "offline" actually has to mean</h2>
+<p>Voice dictation tools describe themselves with three different words. They are not interchangeable, and the difference is the whole point if you dictate anything private.</p>
+
+<div class="overflow-x-auto my-5">
+<table class="w-full text-[14px] border-collapse">
+<thead><tr class="border-b border-black/10 text-left">
+<th class="py-2 pr-4 font-semibold">Term</th><th class="py-2 pr-4 font-semibold">Where your audio goes</th><th class="py-2 font-semibold">Works offline</th>
+</tr></thead>
+<tbody class="align-top">
+<tr class="border-b border-black/5"><td class="py-2.5 pr-4 font-medium">On-device / local</td><td class="py-2.5 pr-4">Stays on your Mac</td><td class="py-2.5">Yes, always</td></tr>
+<tr class="border-b border-black/5"><td class="py-2.5 pr-4 font-medium">Hybrid</td><td class="py-2.5 pr-4">Local first; cloud fallback for hard phrases</td><td class="py-2.5">Usually — but the fallback is the catch</td></tr>
+<tr><td class="py-2.5 pr-4 font-medium">Cloud</td><td class="py-2.5 pr-4">Uploaded to a server, returned as text</td><td class="py-2.5">No</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 class="text-2xl font-semibold mt-12 mb-4">How to test any dictation app in 30 seconds</h2>
+<ol class="list-decimal pl-5 space-y-2">
+  <li><strong>Turn off Wi-Fi and Bluetooth.</strong> Dictate a full paragraph. Any error, spinner, or "check your connection" means it is not offline.</li>
+  <li><strong>Open Activity Monitor → Network.</strong> Dictate again. A local model shows a small, bursty transfer of nothing in particular; a cloud app shows a steady, repeating upload.</li>
+  <li><strong>Open a brand-new app</strong> (Notes, a blank doc). If you must manually aim a cursor or paste to get text in, it is not an input method — see <a class="text-primary" href="../apps/aria-magic-voice/">the Aria overview</a>.</li>
+</ol>
+
+<h2 class="text-2xl font-semibold mt-12 mb-4">What to look for beyond "offline"</h2>
+<ul class="space-y-2.5 list-disc pl-5">
+  <li><strong>Typing, not transcription.</strong> The best Mac dictation apps inject text directly into whatever app you are in — Slack, Notion, VS Code, Mail — instead of parking it on the clipboard.</li>
+  <li><strong>Code-switching.</strong> If you write in both English and Chinese, a tool that forces a language switch mid-sentence is unusable in practice.</li>
+  <li><strong>Learns your vocabulary.</strong> Product names, people's names, and jargon should get more accurate the more you dictate, not less.</li>
+  <li><strong>Punctuation and filler cleanup built in.</strong> If it hands you a wall of unpunctuated text with "um" and "uh" still in it, you will edit more than you typed.</li>
+  <li><strong>A price you can predict.</strong> One-time vs. subscription is a real fork: see <a class="text-primary" href="./vs-apple-dictation.html">Aria vs Apple Dictation</a>.</li>
+</ul>
+
+<h2 class="text-2xl font-semibold mt-12 mb-4">Aria Magic Voice, specifically</h2>
+<p>Aria Magic Voice is a Mac input method (also on iOS, with an Android build) that does dictation <em>and</em> typing in one surface, fully on-device:</p>
+<ul class="space-y-2.5 list-disc pl-5 mt-3">
+  <li>Runs locally on Apple Silicon (M1/M2/M3/M4); no internet or subscription for core dictation.</li>
+  <li>No cloud audio upload, and no telemetry logging of your transcripts.</li>
+  <li>Switches between English, Mandarin and Cantonese mid-sentence — useful if your working language is mixed.</li>
+  <li>Adaptive vocabulary learning: your own terms get more accurate over time, on your machine.</li>
+  <li>Direct text injection into Slack, Notion, VS Code, Google Docs and mail clients.</li>
+</ul>
+<p class="mt-3">Pricing: a <strong>Free</strong> tier, and <strong>Max at US$19.99 / ¥139 one-time</strong> — no recurring subscription.</p>
+<p class="mt-3">Honest caveats: Aria is built for macOS and iOS first, so it is not a Windows answer; and it is a general input method, so if you only ever dictate into one app, a minimal cloud tool may feel lighter.</p>
+
+<h2 class="text-2xl font-semibold mt-12 mb-4">Comparisons</h2>
+<ul class="space-y-2.5 list-disc pl-5">
+  <li><a class="text-primary" href="./vs-apple-dictation.html">Aria vs Apple Dictation</a> — what macOS already gives you for free, and what it structurally cannot do.</li>
+  <li><a class="text-primary" href="./vs-superwhisper.html">Aria vs Superwhisper</a> — Whisper-based apps: the local-model trade-offs.</li>
+  <li><a class="text-primary" href="./vs-voibe.html">Aria vs Voibe</a> — choosing between two privacy-first Mac options.</li>
+</ul>
+
+<h2 class="text-2xl font-semibold mt-12 mb-4">FAQ</h2>
+
+<h3 class="text-lg font-semibold mt-6 mb-2">Does offline voice dictation on Mac work without internet?</h3>
+<p class="mb-4">Yes, if the app is genuinely on-device. Aria Magic Voice does not require a connection. Many "AI dictation" apps advertise local processing but silently route difficult audio to a server — airplane-mode testing is the only reliable check.</p>
+
+<h3 class="text-lg font-semibold mt-6 mb-2">Is Apple Dictation offline?</h3>
+<p class="mb-4">Partly. macOS has long had on-device dictation available, but coverage, language support and accuracy depend on your system version and locale, and enhanced features route to Apple servers. See the <a class="text-primary" href="./vs-apple-dictation.html">full comparison</a>.</p>
+
+<h3 class="text-lg font-semibold mt-6 mb-2">Which Mac dictation app works best for English + Chinese?</h3>
+<p class="mb-4">Code-switching is the deciding factor. Tools built for one language at a time force you to switch modes mid-sentence, which is where most bilingual dictation actually breaks. Aria is built for mixed English / Mandarin / Cantonese speech.</p>
+
+<h3 class="text-lg font-semibold mt-6 mb-2">Do I need a subscription?</h3>
+<p class="mb-4">Not with Aria: Free tier available, Max is a one-time US$19.99 / ¥139 purchase. Some Whisper-based tools ask for a one-off payment, others bill monthly — check before you commit.</p>
+
+<h3 class="text-lg font-semibold mt-6 mb-2">How fast is local speech-to-text on Apple Silicon?</h3>
+<p class="mb-4">On M-series Macs, a quantised local model transcribes at roughly real time or better once it is warm — fast enough that you are not waiting on the tool. First run downloads the model, so allow for that once.</p>
+
+<div class="mt-14 p-6 bg-white rounded-2xl border border-black/5 text-center">
+  <p class="text-[17px] font-semibold mb-1">Try offline dictation on your own Mac</p>
+  <p class="text-textMuted text-sm mb-4">Free tier available · Max US$19.99 / ¥139 one-time · nothing uploaded</p>
+  <a href="../apps/" class="inline-flex bg-primary text-white px-6 py-3 rounded-full text-sm font-medium hover:bg-primary-hover active:scale-[0.97] transition-all no-underline">Download Aria Magic Voice</a>
+</div>
+
+<p class="mt-12 text-textMuted text-xs border-t border-black/5 pt-5">
+  中文用户请看 <a class="text-primary" href="./mac-offline-voice-input.html">Mac 离线语音输入</a>。
+  Product page: <a class="text-primary" href="../apps/aria-magic-voice/">Aria Magic Voice</a> ·
+  Pricing: <a class="text-primary" href="./index.html#pricing">Free / Max</a>
+</p>
+
+</div>
+</main>
+
+<footer class="border-t border-black/5 py-8">
+<div class="max-w-[760px] mx-auto px-6 text-textMuted text-xs flex flex-wrap gap-x-5 gap-y-2">
+  <span>© 2026 Peace &amp; Light · Aria Magic Voice</span>
+  <a class="text-textMuted hover:text-textMain" href="./index.html">Overview</a>
+  <a class="text-textMuted hover:text-textMain" href="./vs-apple-dictation.html">vs Apple Dictation</a>
+  <a class="text-textMuted hover:text-textMain" href="./vs-superwhisper.html">vs Superwhisper</a>
+  <a class="text-textMuted hover:text-textMain" href="./vs-voibe.html">vs Voibe</a>
+  <a class="text-textMuted hover:text-textMain" href="../apps/">Download</a>
+</div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<!--
+  Aria Magic Voice — SEO 短答案页 · Mac 离线语音输入（中文）
+  背景: 2026-10-15 三端实测，中文痛点词首屏为 Flow / CapsWriter-Offline / Koe / VocoType，本产品未出现
+  Date: 2026-10-15
+-->
+<html lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mac 离线语音输入怎么选？短答案版（2026）</title>
+<meta name="description" content="Mac 离线语音输入 = 语音转文字全程在你自己的电脑上跑，音频不上传、断网也能用。这篇 2 分钟讲清怎么挑，以及 Aria Magic Voice 适合谁。">
+<meta name="keywords" content="Mac 离线语音输入, 离线语音转文字, 隐私语音输入, 本地语音识别 Mac, 不上传音频的输入法">
+<meta property="og:title" content="Mac 离线语音输入怎么选？短答案版（2026）">
+<meta property="og:description" content="离线语音输入的关键不是「能离线」，而是离线时不出错、不偷偷回云端。2 分钟讲清判断标准。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://ariamagicvoice.com/aria/mac-offline-voice-input.html">
+<link rel="canonical" href="https://ariamagicvoice.com/aria/mac-offline-voice-input.html">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { theme: { extend: {
+    colors: { primary:'#0071e3','primary-hover':'#0077ED', bgLight:'#f5f5f7', textMain:'#1d1d1f', textMuted:'#6e6e73' },
+    fontFamily: { sans:['-apple-system','BlinkMacSystemFont','SF Pro Display','SF Pro Text','PingFang SC','Helvetica Neue','Arial','sans-serif'] }
+  } } }
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web"/>
+<style data-purpose="custom-utilities">
+  .glass-nav{background:rgba(251,251,253,.8);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid rgba(0,0,0,.04)}
+  .answer{background:#fff;border:1px solid rgba(0,0,0,.08);border-left:4px solid #0071e3;border-radius:12px;padding:22px 24px}
+</style>
+</head>
+<body class="bg-bgLight text-textMain font-sans antialiased">
+
+<header class="fixed top-0 left-0 right-0 z-50 glass-nav">
+<div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+  <div class="flex items-center gap-2.5">
+    <i class="ph ph-sparkle text-primary text-xl"></i>
+    <a href="./index.html" class="font-semibold text-[18px] tracking-tight text-textMain no-underline">Aria <span class="text-primary">Magic</span> Voice</a>
+  </div>
+  <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-textMuted">
+    <a class="hover:text-textMain transition-colors" href="./offline-voice-dictation-mac.html">English</a>
+    <a class="hover:text-textMain transition-colors" href="../apps/">下载</a>
+  </nav>
+  <a href="../apps/" class="inline-flex bg-primary text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-primary-hover active:scale-[0.97] transition-all no-underline">立即下载</a>
+</div>
+</header>
+
+<main class="pt-28 pb-20">
+<div class="max-w-[760px] mx-auto px-6 text-[15px] leading-7 text-textMain/90">
+
+<h1 class="text-[32px] font-bold tracking-tight leading-tight mb-3">Mac 离线语音输入：短答案版</h1>
+<p class="text-textMuted text-sm mb-8">更新于 2026 年 10 月 15 日 · 约 3 分钟读完</p>
+
+<div class="answer mb-10">
+  <p class="mb-3"><strong>Mac 离线语音输入，指的是语音转文字全程在你自己的电脑上完成——音频不上传，断网照常能用。</strong> 在 M 系列芯片（M1–M4）上这已经不是难题，本地模型的速度通常比你说完一句话还快。</p>
+  <p class="mb-0">但判断一个工具是否真「离线」，要看三件事：<strong>①</strong> 关掉网络后是否还完整可用；<strong>②</strong> 是否强制注册账号、绑定密钥；<strong>③</strong> 本地模型「拿不准」时会不会偷偷回退到云端。第三条最容易被含糊其辞地绕过——很多自称本地处理的工具过不了这一关。</p>
+</div>
+
+<h2 class="text-2xl font-semibold mt-12 mb-4">「离线」这两个字，水分最大</h2>
+<p>市面上的语音输入大概三类，它们不是一回事。如果你的工作内容涉及隐私，这个区别就是全部。</p>
+
+<div class="overflow-x-auto my-5">
+<table class="w-full text-[14px] border-collapse">
+<thead><tr class="border-b border-black/10 text-left">
+<th class="py-2 pr-4 font-semibold">类型</th><th class="py-2 pr-4 font-semibold">音频去向</th><th class="py-2 font-semibold">断网能用吗</th>
+</tr></thead>
+<tbody class="align-top">
+<tr class="border-b border-black/5"><td class="py-2.5 pr-4 font-medium">本地 / 端侧</td><td class="py-2.5 pr-4">留在你的 Mac</td><td class="py-2.5">一直可以</td></tr>
+<tr class="border-b border-black/5"><td class="py-2.5 pr-4 font-medium">混合</td><td class="py-2.5 pr-4">本地优先，疑难句回云端</td><td class="py-2.5">通常可以——但回退就是那个漏洞</td></tr>
+<tr><td class="py-2.5 pr-4 font-medium">纯云端</td><td class="py-2.5 pr-4">上传到服务器再返回文本</td><td class="py-2.5">不行</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 class="text-2xl font-semibold mt-12 mb-4">30 秒验一个语音输入工具</h2>
+<ol class="list-decimal pl-5 space-y-2">
+  <li><strong>关掉 Wi-Fi 和蓝牙</strong>，连说一整段。任何报错、转圈、「请检查网络」都说明它不是离线的。</li>
+  <li><strong>打开「活动监视器 → 网络」</strong>，再说一次。本地模型只有零星突发的小流量；云端工具是持续、规律的上传。</li>
+  <li><strong>打开一个全新的应用</strong>（备忘录、空白文档）。如果还要手动点一下光标再粘贴，那它是转写工具，不是输入法——见 <a class="text-primary" href="../apps/aria-magic-voice/">Aria 产品页</a>。</li>
+</ol>
+
+<h2 class="text-2xl font-semibold mt-12 mb-4">比「离线」更该看的四件事</h2>
+<ul class="space-y-2.5 list-disc pl-5">
+  <li><strong>是「打字」还是「转写」。</strong>好的 Mac 语音输入会直接把文字注入你正在用的 App——Slack、飞书、Notion、VS Code、邮件——而不是丢在剪贴板上等你粘贴。</li>
+  <li><strong>中英混说。</strong>如果你的日常写作中英夹杂，需要中途切换语言的工具在真实使用里基本等于废掉。</li>
+  <li><strong>会不会学你的词。</strong>产品名、人名、术语，用得越多应该越准，而不是越用越飘。</li>
+  <li><strong>标点与口水词。</strong>如果它丢给你一整段没有标点、还留着「嗯」「那个」的文字，你花在修改上的时间会超过说话。</li>
+</ul>
+
+<h2 class="text-2xl font-semibold mt-12 mb-4">Aria Magic Voice 具体是什么样</h2>
+<p>Aria Magic Voice 是一款 Mac 输入法（iOS 同步，安卓版在建），把「说话」和「打字」放在同一个入口，全流程本地完成：</p>
+<ul class="space-y-2.5 list-disc pl-5 mt-3">
+  <li>本地运行于 Apple Silicon（M1/M2/M3/M4），核心语音转文字不需要联网，也不需要订阅。</li>
+  <li>音频不上传云端，不记录你的语音内容。</li>
+  <li>英语、普通话、粤语可在一句话中间切换，适合中英混写的日常工作。</li>
+  <li>自适应词库：在你自己的机器上，你的术语会越用越准。</li>
+  <li>直接写入 Slack、Notion、VS Code、Google Docs 与邮件客户端。</li>
+</ul>
+<p class="mt-3">价格：<strong>Free</strong> 档可用，<strong>Max 为 US$19.99 / ¥139 一次性</strong>，没有自动续费。</p>
+<p class="mt-3">也把话说全：Aria 先做 macOS 与 iOS，Windows 暂时不在范围内；它定位是通用输入法，如果你只在一个 App 里说话，轻量的纯云端工具可能反而更省事。</p>
+
+<h2 class="text-2xl font-semibold mt-12 mb-4">常见问题</h2>
+
+<h3 class="text-lg font-semibold mt-6 mb-2">断网了还能用吗？</h3>
+<p class="mb-4">真本地的可以。Aria 不需要联网。很多标榜「AI 语音输入」的其实会把难句悄悄送到服务器——只有飞行模式实测才算数。</p>
+
+<h3 class="text-lg font-semibold mt-6 mb-2">macOS 自带的听写算离线吗？</h3>
+<p class="mb-4">部分算。系统长期提供本地听写，但可用范围、语言支持和准确度跟系统版本与地区设置相关，增强类功能会走苹果服务器。可看 <a class="text-primary" href="./offline-voice-dictation-mac.html">英文对比页</a>。</p>
+
+<h3 class="text-lg font-semibold mt-6 mb-2">中英混说哪个好？</h3>
+<p class="mb-4">决定性因素就是混说能力。为单一语言设计的工具会逼你中途切模式，而双语输入恰恰死在这。Aria 是按英语 / 普通话 / 粤语混说设计的。</p>
+
+<h3 class="text-lg font-semibold mt-6 mb-2">需要订阅吗？</h3>
+<p class="mb-4">Aria 不需要：有 Free 档，Max 是一次性 US$19.99 / ¥139。部分 Whisper 类工具一次性买断，也有按月收费的，选之前先看清楚。</p>
+
+<div class="mt-14 p-6 bg-white rounded-2xl border border-black/5 text-center">
+  <p class="text-[17px] font-semibold mb-1">先在你的 Mac 上试一次离线语音输入</p>
+  <p class="text-textMuted text-sm mb-4">有 Free 档 · Max US$19.99 / ¥139 一次性 · 什么都不上传</p>
+  <a href="../apps/" class="inline-flex bg-primary text-white px-6 py-3 rounded-full text-sm font-medium hover:bg-primary-hover active:scale-[0.97] transition-all no-underline">下载 Aria Magic Voice</a>
+</div>
+
+<p class="mt-12 text-textMuted text-xs border-t border-black/5 pt-5">
+  English readers: <a class="text-primary" href="./offline-voice-dictation-mac.html">Offline voice dictation on Mac</a> ·
+  产品页：<a class="text-primary" href="../apps/aria-magic-voice/">Aria Magic Voice</a>
+</p>
+
+</div>
+</main>
+
+<footer class="border-t border-black/5 py-8">
+<div class="max-w-[760px] mx-auto px-6 text-textMuted text-xs flex flex-wrap gap-x-5 gap-y-2">
+  <span>© 2026 Peace &amp; Light · Aria Magic Voice</span>
+  <a class="text-textMuted hover:text-textMain" href="./offline-voice-dictation-mac.html">English</a>
+  <a class="text-textMuted hover:text-textMain" href="../apps/">下载</a>
+</div>
+</footer>
+
+</body>
+</html>

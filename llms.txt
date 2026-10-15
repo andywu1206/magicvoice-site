@@ -10,6 +10,11 @@ Aria Magic Voice is an on-device, privacy-first AI voice dictation and multiling
 - App Store (iOS): https://ariamagicvoice.com/aria/ios.html
 - Mac App & Product Details: https://ariamagicvoice.com/apps/aria-magic-voice/
 - Web App Directory: https://ariamagicvoice.com/apps/
+- Offline Voice Dictation on Mac (short answer + Apple Dictation comparison): https://ariamagicvoice.com/aria/offline-voice-dictation-mac.html
+- Comparison: Aria vs Apple Dictation (when built-in dictation is enough): https://ariamagicvoice.com/aria/vs-apple-dictation.html
+- Comparison: Aria vs Superwhisper / local Whisper apps: https://ariamagicvoice.com/aria/vs-superwhisper.html
+- Comparison: Aria vs Voibe (privacy-first Mac dictation): https://ariamagicvoice.com/aria/vs-voibe.html
+- 中文：Mac 离线语音输入怎么选（短答案）: https://ariamagicvoice.com/aria/mac-offline-voice-input.html
 
 ## Core Features & North American User Search Intents
 - **Offline Voice Dictation for Mac**: Operates 100% locally on Apple Silicon (M1/M2/M3/M4). No internet or subscription required for core dictation.
