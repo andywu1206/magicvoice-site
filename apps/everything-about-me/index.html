@@ -966,6 +966,86 @@ body:not(.dark) .p8-scope .p8-card{border-color:var(--p8-line)}
 .p8-scope .p8-grid{grid-template-columns:1fr}
 .p8-scope .p8-seg button{padding:9px 14px;font-size:12.5px}
 }
+/* ═══ P8-PLAN3-BEGIN · i人洞府网页版「上架之后」重新分配（方案三 · 工具优先）· 2026-10-15 · Claude 115 话题 · 旧页面存 history/ ═══
+   · 中文 / 英文两套文案都在 DOM 里，CSS 只显示当前语言那一套；.p8-scope[data-l] 由页内脚本同步（见 P8-SCRIPT 里的「介绍区中英同步」）。
+   · 政策标题 / 工具内容是中文新闻 / 中文工具，不翻译（Harry 2026-10-15）。
+   · 设备块尺寸全用 cqw（相对 .p8-devs-host 的宽度）：笔记本屏幕外框宽 66、高 42.846；手机外框宽 20.541、高与它相同
+     —— 手机宽 = 2p + (笔记本高 - 2p) x 560/1216（p = 手机外框边 0.75，560x1216 = 手机截图像素），改任何一个数都要重算（测试会量）。
+   · 别在 .p8-devs 自己的属性里用 cqw，它会去找更外面的容器；容器本身（.p8-devs-host）也不能用。 */
+.p8-scope:not([data-l="zh"]) .l-zh{display:none!important}
+.p8-scope[data-l="zh"] .l-en{display:none!important}
+.p8-scope .p8-top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px 22px}
+.p8-scope .p8-stores-set{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.p8-scope a.p8-store{display:inline-block;background:#111;color:#fff;border-radius:11px;padding:6px 14px;line-height:1.2;text-decoration:none;box-shadow:0 0 0 1px rgba(0,0,0,.2)}
+.p8-scope a.p8-store small{display:block;font-size:10px;font-weight:400;opacity:.82}
+.p8-scope a.p8-store b{display:block;font-size:14px;font-weight:620;color:inherit}
+.p8-scope a.p8-store:hover{opacity:.9}
+.p8-scope a.p8-store:focus-visible{outline:2px solid var(--p8-t1);outline-offset:2px}
+body.dark .p8-scope a.p8-store{background:#000;box-shadow:0 0 0 1px #6b6f7b}
+.p8-scope .p8-h{margin:38px 0 0;color:var(--p8-t1);font-size:15px;font-weight:790}
+.p8-scope .p8-hd{margin:5px 0 0;color:var(--p8-t2);font-size:12.5px;line-height:1.6}
+.p8-scope .p8-devs-host{container-type:inline-size;min-width:0;width:100%;max-width:520px;margin:18px auto 0}
+.p8-scope .p8-devs{display:grid;grid-template-columns:66cqw 20.541cqw;column-gap:7cqw;row-gap:2.4cqw;justify-content:center;align-items:start}
+.p8-scope .p8-lap{grid-column:1;grid-row:1}
+.p8-scope .p8-phn{grid-column:2;grid-row:1}
+.p8-scope .p8-cap{display:flex;justify-content:center;white-space:nowrap;font-size:12px;font-weight:600;letter-spacing:.02em;color:var(--p8-t2)}
+.p8-scope .p8-cap1{grid-column:1;grid-row:2}
+.p8-scope .p8-cap2{grid-column:2;grid-row:2}
+.p8-scope .p8-lap-lid{position:relative;background:#0b0b0d;border-radius:2.2cqw 2.2cqw .5cqw .5cqw;padding:1.5cqw 1.5cqw 2cqw;box-shadow:inset 0 0 0 .3cqw #4a4a52}
+.p8-scope .p8-lap-lid img{display:block;width:100%;height:auto;border-radius:.5cqw}
+.p8-scope .p8-lap-cam{position:absolute;display:block;top:.5cqw;left:50%;width:.7cqw;height:.7cqw;margin-left:-.35cqw;border-radius:50%;background:#2c2c32}
+.p8-scope .p8-lap-base{position:relative;height:1.7cqw;margin:0 -3.2cqw;background:linear-gradient(#e8e8ec,#bcbcc4);border-radius:0 0 2.6cqw 2.6cqw;box-shadow:0 1.4cqw 2.2cqw rgba(0,0,0,.16)}
+.p8-scope .p8-lap-base:before{content:"";position:absolute;left:50%;top:0;width:12cqw;height:.7cqw;margin-left:-6cqw;background:#a7a7b0;border-radius:0 0 1.2cqw 1.2cqw}
+.p8-scope .p8-phn{position:relative;background:#0b0b0d;border-radius:3.8cqw;padding:0.75cqw;box-shadow:inset 0 0 0 .3cqw #4a4a52,0 2.2cqw 4cqw rgba(0,0,0,.26)}
+.p8-scope .p8-phn-screen{border-radius:3cqw;overflow:hidden;background:#000}
+.p8-scope .p8-phn-screen img{display:block;width:100%;height:auto}
+.p8-scope .p8-phn-island{position:absolute;display:block;z-index:2;top:1.5cqw;left:50%;width:5.2cqw;height:1.5cqw;margin-left:-2.6cqw;border-radius:.9cqw;background:#000}
+.p8-scope .p8-devnote{margin:14px 0 0;text-align:center;font-size:11.5px;color:var(--p8-t2)}
+.p8-scope .p8-g4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:16px}
+.p8-scope .p8-pl{border:1px solid var(--p8-line);border-radius:14px;padding:13px 15px;background:var(--p8-card);box-shadow:var(--p8-shadow)}
+.p8-scope .p8-pl b{display:block;margin-bottom:3px;color:var(--p8-t1);font-size:14px;font-weight:790}
+.p8-scope .p8-pl p{margin:0;color:var(--p8-t2);font-size:12.5px;line-height:1.6}
+.p8-scope .p8-tz{margin-top:12px;border:1px solid var(--p8-line);border-radius:16px;background:var(--p8-card);box-shadow:var(--p8-shadow);padding:2px 18px}
+.p8-scope .p8-tzr{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;padding:11px 0}
+.p8-scope .p8-tzr+.p8-tzr{border-top:1px solid var(--p8-line)}
+.p8-scope .p8-tzr .k{flex:none;font-size:11px;font-weight:700;border-radius:999px;padding:1px 9px;border:1px solid var(--p8-line2);color:var(--p8-t2)}
+.p8-scope .p8-tzr .t{color:var(--p8-t1);font-size:14px;font-weight:700}
+.p8-scope .p8-tzr .s{margin-left:auto;color:var(--p8-t2);font-size:12px}
+.p8-scope .p8-tzgo{margin:12px 0 0}
+.p8-scope a.p8-btn{display:inline-block;background:var(--p8-card);color:var(--p8-t1);border:1px solid var(--p8-line2);border-radius:999px;padding:7px 16px;font-size:13px;font-weight:650}
+.p8-scope a.p8-btn:hover{background:var(--p8-card2)}
+.p8-scope a.p8-btn:focus-visible{outline:2px solid var(--p8-t1);outline-offset:2px}
+.p8-scope .p8-faq{margin-top:12px;border:1px solid var(--p8-line);border-radius:16px;background:var(--p8-card);box-shadow:var(--p8-shadow);padding:2px 18px}
+.p8-scope .p8-faq details{padding:11px 0}
+.p8-scope .p8-faq details+details{border-top:1px solid var(--p8-line)}
+.p8-scope .p8-faq summary{cursor:pointer;color:var(--p8-t1);font-size:14px;font-weight:700;list-style:none}
+.p8-scope .p8-faq summary::-webkit-details-marker{display:none}
+.p8-scope .p8-faq summary::before{content:"\25B8  ";color:var(--p8-t3)}
+.p8-scope .p8-faq details[open] summary::before{content:"\25BE  "}
+.p8-scope .p8-faq p{margin:7px 0 0;color:var(--p8-t2);font-size:13px;line-height:1.7}
+.p8-scope .p8-faq p a{text-decoration:underline;text-underline-offset:2px}
+.p8-scope .p8-sticky{position:sticky;bottom:12px;z-index:3;margin-top:22px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 14px;padding:10px 16px;border-radius:16px;background:#17181d;color:#f2f2f4;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+.p8-scope .p8-sticky b{font-size:13.5px;font-weight:640}
+.p8-scope .p8-sticky a.p8-store{background:#fff;color:#111;box-shadow:none}
+body.dark .p8-scope .p8-sticky{border:1px solid #414B63}
+body.dark .p8-scope .p8-sticky a.p8-store{background:#fff;color:#111;box-shadow:none}
+@media (max-width:1180px){.p8-scope .p8-g4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:760px){
+  .p8-scope .p8-seg{max-width:100%}
+  .p8-scope .p8-seg button{padding:9px 11px;font-size:12px;white-space:nowrap}
+}
+@media (max-width:560px){
+  .p8-scope .p8-g4{grid-template-columns:1fr}
+  .p8-scope .p8-tzr .s{margin-left:0;flex-basis:100%}
+}
+/* 手机上门户页的实际排版宽度是 575px（门户顶栏的最小宽度撑的，原来就这样），所以「手机」要在 ≤640 这一档里照顾 */
+@media (max-width:640px){
+  .p8-scope .p8-sticky{padding:8px 10px}
+  .p8-scope .p8-sticky b{display:none}
+  .p8-scope .p8-sticky .p8-stores-set{width:100%}
+  .p8-scope .p8-sticky a.p8-store{flex:1 1 0;min-width:0;text-align:center;padding:6px 8px}
+}
+/* ═══ P8-PLAN3-END ═══ */
 /* 内测申请入口：产品列表下面一行黑色按钮；收起时是同尺寸的黑色方块（中文「内」/ 英文「B」）。
    「Support / 支持」小标题改成一条分隔线：文字还在页面里，只是不画出来。 */
 .item.beta{height:44px;margin:8px 0 2px;padding:0 14px;border-radius:12px;gap:8px;justify-content:space-between;
@@ -1090,7 +1170,14 @@ body.dark .item.beta{box-shadow:0 6px 16px -6px rgba(0,0,0,.6)}
     <!-- i人洞府 主体 · 壳/渐变/左栏/footer 全部沿用母版 index.html -->
     <section class="hero p8-hero">
       <div class="p8-scope">
+<script>
+/* 介绍区语言（方案三）：用户在门户菜单里选过就用 hasLang；没选过时，浏览器是中文就中文，其余英文。
+   （门户自己的默认是英文；这里不跟它，是因为这页的主要读者是中文搜索进来的人，原来整页就是中文。） */
+window.__p8IntroLang=function(){var v=null;try{v=localStorage.getItem('hasLang')}catch(e){}if(v==='zh'||v==='en')return v;var n='';try{n=String((navigator.languages&&navigator.languages[0])||navigator.language||'').toLowerCase()}catch(e){}return n.indexOf('zh')===0?'zh':'en'};
+(function(){var s=document.currentScript&&document.currentScript.parentNode;if(s)s.setAttribute('data-l',window.__p8IntroLang())})();
+</script>
 <div class="p8-wrap">
+  <div class="p8-top">
   <header>
     <!-- Logo = Design Guide 登记真源，不是手画的。禁止再用 CSS 画一个黄色 i。
          真源：项目0_HarryDesignGuide/assets/logo/Project8_Me_BrandLogo_MainApp_128x128.png
@@ -1103,21 +1190,60 @@ body.dark .item.beta{box-shadow:0 6px 16px -6px rgba(0,0,0,.6)}
            Mac：i人洞府 / Everything About Me · 日期 · 地区 · 版本
            网页：i人洞府 / Everything About Me · 那句 tagline
            下一个 AI：别再按「两个名字不并排」把 Everything About Me 删掉。 -->
-      <h1>i人洞府</h1>
-      <p class="p8-sub">Everything About Me · i人自己的洞府，无需打电话咨询，无需求人帮助，你的资料你做主</p>
+      <h1><span class="l-zh" lang="zh-CN">i人洞府</span><span class="l-en" lang="en">Everything About Me</span></h1>
+      <p class="p8-sub"><span class="l-zh" lang="zh-CN">Everything About Me · i人自己的洞府，无需打电话咨询，无需求人帮助，你的资料你做主</span><span class="l-en" lang="en">i人洞府 · Your records, on your device</span></p>
     </div>
   </header>
+  <div class="p8-stores"><span class="p8-stores-set l-zh" lang="zh-CN"><a class="p8-store" href="https://apps.apple.com/cn/app/i%E4%BA%BA%E6%B4%9E%E5%BA%9C/id6810511228" target="_blank" rel="noopener"><small>下载 iPhone · iPad 版</small><b>App Store</b></a><a class="p8-store" href="https://apps.apple.com/cn/app/i%E4%BA%BA%E6%B4%9E%E5%BA%9C/id6810511228?mt=12" target="_blank" rel="noopener"><small>下载 Mac 版</small><b>Mac App Store</b></a></span><span class="p8-stores-set l-en" lang="en"><a class="p8-store" href="https://apps.apple.com/us/app/everything-about-me/id6810511228" target="_blank" rel="noopener"><small>Download for iPhone · iPad</small><b>App Store</b></a><a class="p8-store" href="https://apps.apple.com/us/app/everything-about-me/id6810511228?mt=12" target="_blank" rel="noopener"><small>Download for Mac</small><b>Mac App Store</b></a></span></div>
+  </div>
+
+  <h3 class="p8-h" id="p8sec-tools"><span class="l-zh" lang="zh-CN">先算你最想知道的两件事</span><span class="l-en" lang="en">The two things most people want to know first</span></h3>
+  <p class="p8-hd"><span class="l-zh" lang="zh-CN">不用注册，直接用。你填的数字不会上传。</span><span class="l-en" lang="en">No sign-up needed. Numbers you enter are not uploaded. The tools are in Chinese.</span></p>
 
   <!-- 工具区：Harry 2026-08-22 明批 —— 不要「可用」标签、不要「打开」入口，
        默认就是展开状态，顶部一个硬切换。「不然的话别人老是要点来点去的，很麻烦的」 -->
   <div class="p8-toolbar">
     <div class="p8-seg" role="tablist" aria-label="退休工具切换">
-      <button role="tab" id="tab-table" aria-selected="true"  data-src="./退休计算器/退休时间速查表.html">退休时间速查表</button>
-      <button role="tab" id="tab-calc"  aria-selected="false" data-src="./退休计算器/退休金计算器.html">退休金计算器</button>
+      <button role="tab" id="tab-table" aria-selected="true"  data-src="./退休计算器/退休时间速查表.html"><span class="l-zh" lang="zh-CN">退休时间速查表</span><span class="l-en" lang="en">Retirement lookup</span></button>
+      <button role="tab" id="tab-calc"  aria-selected="false" data-src="./退休计算器/退休金计算器.html"><span class="l-zh" lang="zh-CN">退休金计算器</span><span class="l-en" lang="en">Pension estimator</span></button>
     </div>
   </div>
   <div class="p8-toolstage">
     <iframe id="toolFrame" title="退休工具" src="./退休计算器/退休时间速查表.html" scrolling="no"></iframe>
+  </div>
+
+  <h3 class="p8-h" id="p8sec-app"><span class="l-zh" lang="zh-CN">想把结果和提醒存在自己手机上？</span><span class="l-en" lang="en">Keep the results and reminders on your own phone?</span></h3>
+  <p class="p8-hd"><span class="l-zh" lang="zh-CN">App 里有待办、证件、到期提醒；资料只保存在你自己的设备上。</span><span class="l-en" lang="en">The app has to-dos, documents and expiry reminders. Your records stay on your own device.</span></p>
+  <div class="p8-devs-host">
+    <div class="p8-devs" id="p8Devs">
+      <div class="p8-lap"><div class="p8-lap-lid"><i class="p8-lap-cam"></i><img src="img/eam-mac-zh.jpg" width="1100" height="687" loading="lazy" decoding="async" alt="i人洞府 Mac 版界面（简体中文，示例数据）" data-alt-zh="i人洞府 Mac 版界面（简体中文，示例数据）" data-alt-en="Everything About Me on Mac (Simplified Chinese interface, sample data)"></div><div class="p8-lap-base"></div></div>
+      <div class="p8-phn"><i class="p8-phn-island"></i><div class="p8-phn-screen"><img src="img/eam-iphone-zh.jpg" width="560" height="1216" loading="lazy" decoding="async" alt="i人洞府 iPhone 版界面（简体中文，示例数据）" data-alt-zh="i人洞府 iPhone 版界面（简体中文，示例数据）" data-alt-en="Everything About Me on iPhone (Simplified Chinese interface, sample data)"></div></div>
+      <div class="p8-cap p8-cap1">Mac</div><div class="p8-cap p8-cap2">iPhone · iPad</div>
+    </div>
+  </div>
+  <p class="p8-devnote"><span class="l-zh" lang="zh-CN">截图里的数字是示例数据。</span><span class="l-en" lang="en">Numbers in the screenshots are sample data. The app interface is currently in Simplified Chinese.</span></p>
+  <div class="p8-g4">
+    <div class="p8-pl"><b><span class="l-zh" lang="zh-CN">待办</span><span class="l-en" lang="en">To-dos</span></b><p><span class="l-zh" lang="zh-CN">按剩余天数排。公积金年度对账单还剩 126 天，医保报销额度还剩 45 天，护照到期还剩 82 天</span><span class="l-en" lang="en">Sorts what is due by days remaining. Housing fund statement in 126 days, health reimbursement limit in 45, passport in 82</span></p></div>
+    <div class="p8-pl"><b><span class="l-zh" lang="zh-CN">证件</span><span class="l-en" lang="en">Documents</span></b><p><span class="l-zh" lang="zh-CN">按类别存，到期日直接印在卡片上</span><span class="l-en" lang="en">Files documents by category, with the expiry date printed on the card</span></p></div>
+    <div class="p8-pl"><b><span class="l-zh" lang="zh-CN">一屏看全</span><span class="l-en" lang="en">One screen</span></b><p><span class="l-zh" lang="zh-CN">社保缴费月数、距退休时间、公积金余额，一屏之内看完</span><span class="l-en" lang="en">Puts contribution months, time to retirement, and account balance on one screen</span></p></div>
+    <div class="p8-pl"><b><span class="l-zh" lang="zh-CN">官方来源</span><span class="l-en" lang="en">Official sources</span></b><p><span class="l-zh" lang="zh-CN">每条政策都标了官方来源和最后核实日期</span><span class="l-en" lang="en">Prints the official source and last-verified date under every policy note</span></p></div>
+  </div>
+
+  <h3 class="p8-h" id="p8sec-news"><span class="l-zh" lang="zh-CN">最新政策 · 来自哈哈资讯</span><span class="l-en" lang="en">Latest policy notes, from Haha News (Chinese only)</span></h3>
+  <div class="p8-tz">
+    <div class="p8-tzr"><span class="k">养老</span><span class="t">按月领基本养老金的最低缴费年限：15 年 → 20 年</span><span class="s">全国人民代表大会常务委员会 · 2030-01-01 起实施</span></div>
+    <div class="p8-tzr"><span class="k">医保</span><span class="t">广东职工医保缴费年限统一：男 30 年 / 女 25 年</span><span class="s">广东省医疗保障局 · 2030-01-01 起实施</span></div>
+    <div class="p8-tzr"><span class="k">医保</span><span class="t">人大常委会丨医疗保障法通过 保护参保人合法权益</span><span class="s">新华网 · 2026-08-28 发布</span></div>
+  </div>
+  <p class="p8-tzgo"><a class="p8-btn" href="../haha.html"><span class="l-zh" lang="zh-CN">去哈哈资讯看全部 →</span><span class="l-en" lang="en">See all on Haha News →</span></a></p>
+
+  <h3 class="p8-h" id="p8sec-faq"><span class="l-zh" lang="zh-CN">常见问题</span><span class="l-en" lang="en">FAQ</span></h3>
+  <div class="p8-faq">
+    <details><summary><span class="l-zh" lang="zh-CN">要花钱吗？</span><span class="l-en" lang="en">Does it cost anything?</span></summary><p><span class="l-zh" lang="zh-CN">下载免费。</span><span class="l-en" lang="en">Free to download.</span></p></details>
+    <details><summary><span class="l-zh" lang="zh-CN">我的资料存在哪里？会上传吗？</span><span class="l-en" lang="en">Where are my records kept? Does anything upload?</span></summary><p><span class="l-zh" lang="zh-CN">资料在你自己的设备上，不上传。导入、保存、备份都归你管。</span><span class="l-en" lang="en">Your records stay on your device. Nothing is uploaded. Imports, saves and backups are yours to run.</span></p></details>
+    <details><summary><span class="l-zh" lang="zh-CN">它会替我办事吗？</span><span class="l-en" lang="en">Will it handle the paperwork for me?</span></summary><p><span class="l-zh" lang="zh-CN">不会。真要办的时候，你还是去官方渠道；它帮你记住日期、整理资料，并标出官方来源。</span><span class="l-en" lang="en">No. When it is time to act, you go to the official channel. It keeps track of the dates, organizes your documents, and shows the official source.</span></p></details>
+    <details><summary><span class="l-zh" lang="zh-CN">网页版和 App 有什么区别？</span><span class="l-en" lang="en">What is the difference between the web version and the app?</span></summary><p><span class="l-zh" lang="zh-CN">网页版是轻量版，只有两个免费小工具；证件、待办、到期提醒和政策模块都在 App 里。</span><span class="l-en" lang="en">The web version is the light one, with two free tools. Documents, to-dos, expiry reminders and policy notes are in the app.</span></p></details>
+    <details><summary><span class="l-zh" lang="zh-CN">支持哪些设备？</span><span class="l-en" lang="en">Which devices does it run on?</span></summary><p><span class="l-zh" lang="zh-CN">iPhone、iPad 和 Mac。具体系统版本以 App Store 页面标注为准。Android 内测包在 <a href="https://www.ariamagicvoice.com/apps/" target="_blank" rel="noopener">Harry App Store</a>。</span><span class="l-en" lang="en">iPhone, iPad and Mac. See the App Store page for the exact system versions. The app interface is currently in Simplified Chinese. The Android test build is on the <a href="https://www.ariamagicvoice.com/apps/" target="_blank" rel="noopener">Harry App Store</a>.</span></p></details>
   </div>
 
   <!-- 网页版 Toast · Harry 自家广告位 · 常驻不可关 · 10s 轮播 · 跟界面语言 · 规范见 Design Guide「项目4 › Toast 系统 › 网页版」 -->
@@ -1126,25 +1252,10 @@ body.dark .item.beta{box-shadow:0 6px 16px -6px rgba(0,0,0,.6)}
     <a class="p8-toast-go" id="p8ToastGo" href="#" target="_blank" rel="noopener">Go</a>
   </div>
 
-  <h3 class="p8-sec">政策动态 <span id="polCount"></span></h3>
-  <div class="p8-tracks" id="tracks"></div>
-  <div class="p8-tl" id="timeline"></div>
-
-  <h3 class="p8-sec">下载 App 后可用 <span>网页版是轻量版；这些要装 App</span></h3>
-  <div class="p8-grid">
-    <a class="p8-card p8-lock" href="https://ariamagicvoice.com/apps/" target="_blank" rel="noopener"><span class="p8-tag">下载 App 可用</span><b>证件与资料</b><p>身份证、社保卡、离职材料原图 —— 本地加密保存，随时调出来用。</p><span class="p8-go">去 Harry App Store 下载 →</span></a>
-    <a class="p8-card p8-lock" href="https://ariamagicvoice.com/apps/" target="_blank" rel="noopener"><span class="p8-tag">下载 App 可用</span><b>社保 / 公积金档案</b><p>截图导入自动识别缴费年限、账户余额，不用手抄。</p><span class="p8-go">去 Harry App Store 下载 →</span></a>
-    <a class="p8-card p8-lock" href="https://ariamagicvoice.com/apps/" target="_blank" rel="noopener"><span class="p8-tag">下载 App 可用</span><b>到期主动提醒</b><p>失业金申领窗口、医保断缴、公积金可提取 —— 到点提醒你，不错过一分钱。</p><span class="p8-go">去 Harry App Store 下载 →</span></a>
-  </div>
-
-  <div class="p8-note">
-    <b>下载 App</b>　Mac / iOS：App Store 搜「i人洞府」或「Everything About Me」 · Android：内测包在 <a href="https://ariamagicvoice.com/apps/" target="_blank" rel="noopener">Harry App Store</a>。<br>
-    <b>关于数据</b>　网页版不收集、不上传任何输入；App 内数据默认只存在你自己的设备里。
-  </div>
-
   <footer>
     © 2026 Peace &amp; Light · <a href="https://ariamagicvoice.com/apps/" target="_blank" rel="noopener">Harry App Store</a> · 模拟估算仅供参考，最终以社保经办机构核定为准
   </footer>
+  <div class="p8-sticky"><b><span class="l-zh" lang="zh-CN">想把结果存下来、到期前收到提醒？</span><span class="l-en" lang="en">Want your results saved, with a reminder before the deadline?</span></b><span class="p8-stores-set l-zh" lang="zh-CN"><a class="p8-store" href="https://apps.apple.com/cn/app/i%E4%BA%BA%E6%B4%9E%E5%BA%9C/id6810511228" target="_blank" rel="noopener"><small>下载 iPhone · iPad 版</small><b>App Store</b></a><a class="p8-store" href="https://apps.apple.com/cn/app/i%E4%BA%BA%E6%B4%9E%E5%BA%9C/id6810511228?mt=12" target="_blank" rel="noopener"><small>下载 Mac 版</small><b>Mac App Store</b></a></span><span class="p8-stores-set l-en" lang="en"><a class="p8-store" href="https://apps.apple.com/us/app/everything-about-me/id6810511228" target="_blank" rel="noopener"><small>Download for iPhone · iPad</small><b>App Store</b></a><a class="p8-store" href="https://apps.apple.com/us/app/everything-about-me/id6810511228?mt=12" target="_blank" rel="noopener"><small>Download for Mac</small><b>Mac App Store</b></a></span></div>
 </div>
 </div>
     </section>
@@ -2249,7 +2360,6 @@ const POLICY=[
   "title": "按月领基本养老金的最低缴费年限：15 年 → 20 年",
   "issuingBody": "全国人民代表大会常务委员会",
   "summary": "自 2030-01-01 起，最低缴费年限**每年提高 6 个月**，由 15 年逐步提高至 20 年。2025–2029 为缓冲期，此间退休的仍按 15 年执行。按每年 +6 个月推算：2030 年退休 15.5 年 → 2039 年及以后满 20 年封顶。",
-  "impactOnMe": "你预计 2044 年退休，落在封顶区间 → **最低缴费年限 20 年**。⚠️ 但「你还差多少年」现在算不出来 —— 缺你的实际累计缴费年限，那要从粤省事「个人权益单」导入（App 里社保卡已标「待导入」）。",
   "region": "全国",
   "sources": [
    {
@@ -2285,7 +2395,6 @@ const POLICY=[
   "title": "广东职工医保缴费年限统一：男 30 年 / 女 25 年",
   "issuingBody": "广东省医疗保障局",
   "summary": "广东逐步统一全省职工医保累计缴费年限，到 2030-01-01 统一为**男职工 30 年、女职工 25 年**。未达标的地市自 2022 年起在本市 2021 年政策基础上**逐年调整**，平稳过渡，尽量减少对临近退休人员的影响。",
-  "impactOnMe": "**这条比养老那条更值得盯** —— 广州目前仍在过渡期，按 **10 年**（2014 年前参保）或 **15 年**（2014 年后参保）执行，**尚未涨到 30 年**。你 2044 年退休，届时早已按 30 年口径。\n⚠️ 但「你现在算几年、按 10 还是 15 起算」取决于你的**首次参保时间**，这个 App 里还没有 —— 同样要从粤省事「个人权益单」导入才能算。",
   "region": "广东省（广州市执行）",
   "sources": [
    {
@@ -2321,7 +2430,6 @@ const POLICY=[
   "title": "广州失业保险金标准 = 本市月最低工资的 90%（2070 元/月）",
   "issuingBody": "广州市人力资源和社会保障局",
   "summary": "按月领取的失业保险金标准为**本市月最低工资标准的 90%**，现为 **2070 元/月**。\n领取的基本条件：① 失业前单位和本人累计缴费满 1 年（或不满 1 年但本人有尚未领完的期限）② **非因本人意愿中断就业** ③ 已办失业登记并有求职要求。",
-  "impactOnMe": "你是**协商一致解除**（2026-07-20），属「非因本人意愿中断就业」→ 条件 ② 满足。\n⚠️ **2070 元是「2025 年 11 月版」问答里的数字**，会随最低工资调整而变，**以社保局核定单为准**（App 里失业金卡「月发金额」那栏特意留空写「待核定单填写」，就是这个原因）。",
   "region": "广州市",
   "sources": [
    {
@@ -2357,7 +2465,6 @@ const POLICY=[
   "title": "渐进式延迟法定退休年龄正式启动",
   "issuingBody": "全国人民代表大会常务委员会",
   "summary": "自 2025-01-01 起，男职工法定退休年龄**每四个月延迟一个月**，逐步延迟至 63 周岁；女职工原 50 / 55 周岁的，分别逐步延迟至 55 / 58 周岁。同时新增弹性退休：达到最低缴费年限可自愿提前，最长不超过 3 年，且不得低于原法定退休年龄。",
-  "impactOnMe": "退休时间计算器按出生年月计算到月份：男性按原 60 周岁路径，女性同时展示原 55 / 原 50 周岁两种口径。身份口径、弹性退休和最终日期均以参保地经办机构核定为准。",
   "region": "全国",
   "sources": [
    {
@@ -2407,7 +2514,6 @@ const POLICY=[
   "title": "离职后公积金：账户封存；「封存满半年可销户提取」**仅限非本市户籍**",
   "issuingBody": "广州住房公积金管理中心",
   "summary": "与单位解除/终止劳动关系后，公积金账户转为**封存**状态。\n**非本市户籍**职工若未在异地继续缴存、账户**封存满半年**，可申请**销户提取**，另需满足：本市无未结清公积金贷款、无套取行为（或已全额退回）、账户未被依法冻结。\n线上办理：「广州住房公积金管理中心」公众号 → 提取业务 → 新增提取 → 非住房性消费提取 → 异地户口离职。",
-  "impactOnMe": "🔴 **先看你的户口本再决定要不要走这条**。「封存满半年销户提取」整条路径写明**只给非本市户籍**（办理入口的名字直接就叫「异地户口离职」）。如果你是**广州本市户籍**，这条路走不通。\n**这就是典型的「走错门」**：条件看起来都对得上（离职了、封存了、满半年），唯独户籍这一项把你排除在外 —— 而界面上不会告诉你为什么。\n⚠️ 本市户籍离职后的提取路径**我还没查到足够的官方出处**，按规则不写进来（编造 = 违规）。要用得先补齐来源或打公积金热线核实。",
   "region": "广州市",
   "sources": [
    {
@@ -2450,7 +2556,6 @@ const POLICY=[
   "title": "失业保险金领取期限：按累计缴费年限分三档，最长 24 个月",
   "issuingBody": "国务院（失业保险条例）",
   "summary": "累计缴费**满 1 年不足 5 年** → 最长 **12 个月**；**满 5 年不足 10 年** → 最长 **18 个月**；**10 年以上** → 最长 **24 个月**。\n重新就业后再次失业的，缴费时间**重新计算**，但可与上次应领未领的期限**合并计算**，合计不超过 24 个月。",
-  "impactOnMe": "App 里失业金卡按 **24 期（24 个月）** 排的进度 —— 对应「累计缴费 10 年以上」档。⚠️ 这个档位**取决于你的实际累计缴费年限**，同样要等「个人权益单」导入后才能确认。若实际不足 10 年，期数会短于 24。",
   "region": "全国（广州执行）",
   "sources": [
    {
@@ -2486,7 +2591,6 @@ const POLICY=[
   "title": "缴满最低年限 ≠ 可以不缴（在职期间强制缴纳）",
   "issuingBody": "国务院（社会保险费征缴暂行条例）",
   "summary": "《社会保险费征缴暂行条例》确立：用人单位与职工**必须**依法缴纳社会保险费，属法定义务，不因已缴满最低年限而免除。只有**非在职**身份（灵活就业 / 自主缴纳）才存在「缴满即可自行停缴」的选择空间。",
-  "impactOnMe": "所以「到哪天可以不用交」取决于你的**就业状态**，不是单纯的年限：\n· 重新入职 → 单位必须继续缴，缴满 20 年也得缴，直到退休（预计 2044-12-06）\n· 保持非在职 → 你现在就可以不缴（但会影响养老金金额与医保待遇，需另行权衡）\n⚠️ 这条的具体条文出处只找到 1 个官方渠道，按规则标为「渠道不足」，**不可直接当依据**，需再补两个官方来源或向 020-12333 核实。",
   "region": "全国",
   "sources": [
    {
@@ -2558,6 +2662,25 @@ const POLICY=[
     tl.innerHTML=html;
   }
   renderTracks(); renderList();
+})();
+/* ── 介绍区中英同步（方案三 · 2026-10-15）──
+   中文 / 英文两套文案都在页面里，CSS 只显示 .p8-scope[data-l] 指的那一套；这里负责让 data-l 跟着语言走：
+   ① 用户在门户菜单里点了语言 → 读门户的当前语言（window.__p8Lang，门户把选择写进 localStorage.hasLang）；
+   ② 没选过 → window.__p8IntroLang（hasLang，再看浏览器语言）。图片的 alt 也跟着换。 */
+(function(){
+  var sc=document.querySelector('.p8-scope'); if(!sc) return;
+  var explicit=null;
+  function pick(){ if(explicit) return explicit; try{ if(typeof window.__p8IntroLang==='function') return window.__p8IntroLang(); }catch(e){} return 'en'; }
+  function sync(){
+    var L=pick(); if(sc.getAttribute('data-l')!==L) sc.setAttribute('data-l',L);
+    [].slice.call(sc.querySelectorAll('img[data-alt-zh]')).forEach(function(im){ var a=im.getAttribute('data-alt-'+L); if(a && im.getAttribute('alt')!==a) im.setAttribute('alt',a); });
+  }
+  sync(); document.addEventListener('DOMContentLoaded',sync); setInterval(sync,500);
+  var mn=document.getElementById('mnuLang');
+  if(mn) mn.addEventListener('click',function(e){   /* 门户的菜单按钮会 stopPropagation，所以用捕获阶段 */
+    if(!(e.target&&e.target.closest&&e.target.closest('button'))) return;
+    setTimeout(function(){ try{ if(typeof window.__p8Lang==='function'){ explicit=(window.__p8Lang()==='zh')?'zh':'en'; sync(); } }catch(x){} },120);
+  },true);
 })();
 /*P8-SCRIPT-END*/
 
