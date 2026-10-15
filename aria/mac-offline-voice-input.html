@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- Content version: v1.1.0 · 2026-10-15 23:20 周四 CST · by Grok Bot · 在 d1a0a89 正文上补 JSON-LD/hreflang/来源，收紧无法核实的说法；上一版在 aria/History/20261015_seo_merge/ -->
 <!--
   Aria Magic Voice — SEO 短答案页 · Mac 离线语音输入（中文）
   背景: 2026-10-15 三端实测，中文痛点词首屏为 Flow / CapsWriter-Offline / Koe / VocoType，本产品未出现
@@ -29,6 +30,89 @@
   .glass-nav{background:rgba(251,251,253,.8);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid rgba(0,0,0,.04)}
   .answer{background:#fff;border:1px solid rgba(0,0,0,.08);border-left:4px solid #0071e3;border-radius:12px;padding:22px 24px}
 </style>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "WebPage",
+   "name": "Mac 离线语音输入怎么选？短答案版（2026）| Aria Magic Voice",
+   "url": "https://ariamagicvoice.com/aria/mac-offline-voice-input.html",
+   "inLanguage": [
+    "zh-Hans",
+    "en"
+   ],
+   "dateModified": "2026-10-15",
+   "about": {
+    "@type": "SoftwareApplication",
+    "name": "Aria Magic Voice",
+    "operatingSystem": "macOS 14+",
+    "applicationCategory": "UtilitiesApplication",
+    "url": "https://ariamagicvoice.com/aria/",
+    "offers": [
+     {
+      "@type": "Offer",
+      "name": "Free",
+      "price": "0",
+      "priceCurrency": "USD"
+     },
+     {
+      "@type": "Offer",
+      "name": "Max (one-time purchase)",
+      "price": "19.99",
+      "priceCurrency": "USD"
+     }
+    ]
+   }
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "断网了还能用吗？",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "真本地的可以。Aria Magic Voice 的语音识别在本机运行，原始录音和原文不上传。飞行模式实测最可靠。"
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "macOS 自带的听写算离线吗？",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "视机型和语言而定。请到「系统设置 › 键盘 › 听写」查看是否在本机处理；可用范围因语言与地区而异。"
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "需要订阅吗？",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "不需要。有免费版；Max 一次购买 ¥139（US$19.99），无订阅、无自动续费。"
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "中英混说支持吗？",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "支持。一句话里可以中英混说，不必切换输入法。"
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "系统要求？",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "需要 macOS 14 及以上。"
+     }
+    }
+   ]
+  }
+ ]
+}
+</script>
 </head>
 <body class="bg-bgLight text-textMain font-sans antialiased">
 
@@ -53,7 +137,7 @@
 <p class="text-textMuted text-sm mb-8">更新于 2026 年 10 月 15 日 · 约 3 分钟读完</p>
 
 <div class="answer mb-10">
-  <p class="mb-3"><strong>Mac 离线语音输入，指的是语音转文字全程在你自己的电脑上完成——音频不上传，断网照常能用。</strong> 在 M 系列芯片（M1–M4）上这已经不是难题，本地模型的速度通常比你说完一句话还快。</p>
+  <p class="mb-3"><strong>Mac 离线语音输入，指的是语音转文字全程在你自己的电脑上完成——音频不上传，断网照常能用。</strong> 在现在的 Mac 上，本地模型通常能跟上你的语速。</p>
   <p class="mb-0">但判断一个工具是否真「离线」，要看三件事：<strong>①</strong> 关掉网络后是否还完整可用；<strong>②</strong> 是否强制注册账号、绑定密钥；<strong>③</strong> 本地模型「拿不准」时会不会偷偷回退到云端。第三条最容易被含糊其辞地绕过——很多自称本地处理的工具过不了这一关。</p>
 </div>
 
@@ -89,13 +173,13 @@
 </ul>
 
 <h2 class="text-2xl font-semibold mt-12 mb-4">Aria Magic Voice 具体是什么样</h2>
-<p>Aria Magic Voice 是一款 Mac 输入法（iOS 同步，安卓版在建），把「说话」和「打字」放在同一个入口，全流程本地完成：</p>
+<p>Aria Magic Voice 是一款 Mac 输入法（另有 iPhone 版），把「说话」和「打字」放在同一个入口，全流程本地完成：</p>
 <ul class="space-y-2.5 list-disc pl-5 mt-3">
-  <li>本地运行于 Apple Silicon（M1/M2/M3/M4），核心语音转文字不需要联网，也不需要订阅。</li>
-  <li>音频不上传云端，不记录你的语音内容。</li>
-  <li>英语、普通话、粤语可在一句话中间切换，适合中英混写的日常工作。</li>
+  <li>语音识别在本机运行，核心语音转文字不需要联网，也不需要订阅；需要 macOS 14 及以上。</li>
+  <li>原始录音和原文不上传。可选的体验改进计划可在设置中管理，只处理隔离纠错对与质量信号。</li>
+  <li>支持一句话里中英混说，不必切换输入法。</li>
   <li>自适应词库：在你自己的机器上，你的术语会越用越准。</li>
-  <li>直接写入 Slack、Notion、VS Code、Google Docs 与邮件客户端。</li>
+  <li>作为输入法，文字直接上屏到当前光标位置，任意 App 都能用；单击左 Ctrl 开始，再单击结束。</li>
 </ul>
 <p class="mt-3">价格：<strong>Free</strong> 档可用，<strong>Max 为 US$19.99 / ¥139 一次性</strong>，没有自动续费。</p>
 <p class="mt-3">也把话说全：Aria 先做 macOS 与 iOS，Windows 暂时不在范围内；它定位是通用输入法，如果你只在一个 App 里说话，轻量的纯云端工具可能反而更省事。</p>
@@ -106,10 +190,10 @@
 <p class="mb-4">真本地的可以。Aria 不需要联网。很多标榜「AI 语音输入」的其实会把难句悄悄送到服务器——只有飞行模式实测才算数。</p>
 
 <h3 class="text-lg font-semibold mt-6 mb-2">macOS 自带的听写算离线吗？</h3>
-<p class="mb-4">部分算。系统长期提供本地听写，但可用范围、语言支持和准确度跟系统版本与地区设置相关，增强类功能会走苹果服务器。可看 <a class="text-primary" href="./offline-voice-dictation-mac.html">英文对比页</a>。</p>
+<p class="mb-4">部分算。系统长期提供本地听写，但可用范围、语言支持和准确度跟系统版本与地区设置相关；可在「系统设置 › 键盘 › 听写」查看是否在本机处理。可看 <a class="text-primary" href="./offline-voice-dictation-mac.html">英文对比页</a>。</p>
 
 <h3 class="text-lg font-semibold mt-6 mb-2">中英混说哪个好？</h3>
-<p class="mb-4">决定性因素就是混说能力。为单一语言设计的工具会逼你中途切模式，而双语输入恰恰死在这。Aria 是按英语 / 普通话 / 粤语混说设计的。</p>
+<p class="mb-4">决定性因素就是混说能力。为单一语言设计的工具会逼你中途切模式，而双语输入恰恰死在这。Aria 按中英混说设计。</p>
 
 <h3 class="text-lg font-semibold mt-6 mb-2">需要订阅吗？</h3>
 <p class="mb-4">Aria 不需要：有 Free 档，Max 是一次性 US$19.99 / ¥139。部分 Whisper 类工具一次性买断，也有按月收费的，选之前先看清楚。</p>
@@ -128,6 +212,7 @@
 </div>
 </main>
 
+<section class="max-w-3xl mx-auto px-5 mt-10 text-sm text-textMuted"><h2 class="font-semibold text-base mb-2">核实来源（2026-10-15）</h2><p class="mb-2">对手细节以对方官网为准，可能会变。</p><ul class="list-disc pl-5 space-y-1"><li><a href="https://support.apple.com/guide/mac-help/use-dictation-mh40584/mac" rel="noopener noreferrer">Apple 支持 — 在 Mac 上听写</a></li></ul></section>
 <footer class="border-t border-black/5 py-8">
 <div class="max-w-[760px] mx-auto px-6 text-textMuted text-xs flex flex-wrap gap-x-5 gap-y-2">
   <span>© 2026 Peace &amp; Light · Aria Magic Voice</span>

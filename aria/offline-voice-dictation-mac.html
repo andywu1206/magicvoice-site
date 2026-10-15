@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- Content version: v1.1.0 · 2026-10-15 23:20 周四 CST · by Grok Bot · 在 d1a0a89 正文上补 JSON-LD/hreflang/来源，收紧无法核实的说法；上一版在 aria/History/20261015_seo_merge/ -->
 <!--
   Aria Magic Voice — SEO 短答案页 · Offline Voice Dictation on Mac
   目标关键词: "offline voice dictation mac"（2026-10-15 三端实测：Google/Bing 首屏无本产品，对手为 Voibe 列表文与 Apple 内置听写）
@@ -32,6 +33,89 @@
   .toc a{color:#0071e3;text-decoration:none}
   .toc a:hover{text-decoration:underline}
 </style>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "WebPage",
+   "name": "Offline Voice Dictation on Mac: The Short Answer (2026) | Aria Magic Voice",
+   "url": "https://ariamagicvoice.com/aria/offline-voice-dictation-mac.html",
+   "inLanguage": [
+    "en",
+    "zh-Hans"
+   ],
+   "dateModified": "2026-10-15",
+   "about": {
+    "@type": "SoftwareApplication",
+    "name": "Aria Magic Voice",
+    "operatingSystem": "macOS 14+",
+    "applicationCategory": "UtilitiesApplication",
+    "url": "https://ariamagicvoice.com/aria/",
+    "offers": [
+     {
+      "@type": "Offer",
+      "name": "Free",
+      "price": "0",
+      "priceCurrency": "USD"
+     },
+     {
+      "@type": "Offer",
+      "name": "Max (one-time purchase)",
+      "price": "19.99",
+      "priceCurrency": "USD"
+     }
+    ]
+   }
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "Does offline voice dictation on Mac work without internet?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Yes, if the app is genuinely on-device. Aria Magic Voice runs speech recognition on your Mac and does not upload original recordings or complete text. Airplane-mode testing is the reliable check."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Is Apple Dictation offline?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Apple notes that whether general dictation is processed on your device depends on your Mac and language; check System Settings › Keyboard › Dictation. Features and availability vary by language and region."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Is Aria Magic Voice free?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "There is a free version. Aria Max is a one-time purchase of US$19.99 (¥139) with no subscription and no auto-renewal."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Can I mix English and Chinese while dictating?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Yes. Aria Magic Voice handles mixed English and Mandarin Chinese in the same sentence without switching input methods."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Which macOS version do I need?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "macOS 14 or later."
+     }
+    }
+   ]
+  }
+ ]
+}
+</script>
 </head>
 <body class="bg-bgLight text-textMain font-sans antialiased">
 
@@ -59,7 +143,7 @@
 <p class="text-textMuted text-sm mb-8">Updated 15 October 2026 · 3 min read</p>
 
 <div class="answer mb-10">
-  <p class="mb-3"><strong>Offline voice dictation on Mac is speech-to-text that runs entirely on your Mac — your audio is never uploaded, and the app keeps working with the Wi-Fi off.</strong> On Apple Silicon (M1–M4) this is now a solved problem: a local model transcribes faster than you can finish a sentence.</p>
+  <p class="mb-3"><strong>Offline voice dictation on Mac is speech-to-text that runs entirely on your Mac — your audio is never uploaded, and the app keeps working with the Wi-Fi off.</strong> On a modern Mac, a local model can keep up with live dictation.</p>
   <p class="mb-0">Three things decide whether a tool is genuinely "offline": <strong>(1)</strong> it works in airplane mode, <strong>(2)</strong> it never needs an account or a key, <strong>(3)</strong> it does not silently fall back to a cloud endpoint when your local model is unsure. Check all three — most tools that advertise "on-device" pass only the first.</p>
 </div>
 
@@ -96,13 +180,13 @@
 </ul>
 
 <h2 class="text-2xl font-semibold mt-12 mb-4">Aria Magic Voice, specifically</h2>
-<p>Aria Magic Voice is a Mac input method (also on iOS, with an Android build) that does dictation <em>and</em> typing in one surface, fully on-device:</p>
+<p>Aria Magic Voice is a Mac input method (with a separate iPhone version) that does dictation <em>and</em> typing in one surface, fully on-device:</p>
 <ul class="space-y-2.5 list-disc pl-5 mt-3">
-  <li>Runs locally on Apple Silicon (M1/M2/M3/M4); no internet or subscription for core dictation.</li>
-  <li>No cloud audio upload, and no telemetry logging of your transcripts.</li>
-  <li>Switches between English, Mandarin and Cantonese mid-sentence — useful if your working language is mixed.</li>
+  <li>Speech recognition runs on your Mac; no internet or subscription needed for core dictation. Requires macOS 14 or later.</li>
+  <li>Original recordings and complete text are not uploaded. An optional User Experience Improvement Program (manageable in Settings) processes only isolated correction pairs and quality signals.</li>
+  <li>Handles mixed English and Mandarin Chinese in the same sentence without switching input methods.</li>
   <li>Adaptive vocabulary learning: your own terms get more accurate over time, on your machine.</li>
-  <li>Direct text injection into Slack, Notion, VS Code, Google Docs and mail clients.</li>
+  <li>As an input method, text commits at your cursor in any app — tap Left Ctrl to start, tap again to finish.</li>
 </ul>
 <p class="mt-3">Pricing: a <strong>Free</strong> tier, and <strong>Max at US$19.99 / ¥139 one-time</strong> — no recurring subscription.</p>
 <p class="mt-3">Honest caveats: Aria is built for macOS and iOS first, so it is not a Windows answer; and it is a general input method, so if you only ever dictate into one app, a minimal cloud tool may feel lighter.</p>
@@ -120,16 +204,16 @@
 <p class="mb-4">Yes, if the app is genuinely on-device. Aria Magic Voice does not require a connection. Many "AI dictation" apps advertise local processing but silently route difficult audio to a server — airplane-mode testing is the only reliable check.</p>
 
 <h3 class="text-lg font-semibold mt-6 mb-2">Is Apple Dictation offline?</h3>
-<p class="mb-4">Partly. macOS has long had on-device dictation available, but coverage, language support and accuracy depend on your system version and locale, and enhanced features route to Apple servers. See the <a class="text-primary" href="./vs-apple-dictation.html">full comparison</a>.</p>
+<p class="mb-4">Partly. macOS has long had on-device dictation available, but coverage, language support and accuracy depend on your system version and locale, so check System Settings › Keyboard › Dictation to see whether it is processed on your device. See the <a class="text-primary" href="./vs-apple-dictation.html">full comparison</a>.</p>
 
 <h3 class="text-lg font-semibold mt-6 mb-2">Which Mac dictation app works best for English + Chinese?</h3>
-<p class="mb-4">Code-switching is the deciding factor. Tools built for one language at a time force you to switch modes mid-sentence, which is where most bilingual dictation actually breaks. Aria is built for mixed English / Mandarin / Cantonese speech.</p>
+<p class="mb-4">Code-switching is the deciding factor. Tools built for one language at a time force you to switch modes mid-sentence, which is where most bilingual dictation actually breaks. Aria is built for mixed English and Mandarin Chinese speech.</p>
 
 <h3 class="text-lg font-semibold mt-6 mb-2">Do I need a subscription?</h3>
 <p class="mb-4">Not with Aria: Free tier available, Max is a one-time US$19.99 / ¥139 purchase. Some Whisper-based tools ask for a one-off payment, others bill monthly — check before you commit.</p>
 
 <h3 class="text-lg font-semibold mt-6 mb-2">How fast is local speech-to-text on Apple Silicon?</h3>
-<p class="mb-4">On M-series Macs, a quantised local model transcribes at roughly real time or better once it is warm — fast enough that you are not waiting on the tool. First run downloads the model, so allow for that once.</p>
+<p class="mb-4">On M-series Macs, On Apple Silicon Macs, on-device recognition is fast enough for live dictation. Exact speed depends on your Mac and settings.</p>
 
 <div class="mt-14 p-6 bg-white rounded-2xl border border-black/5 text-center">
   <p class="text-[17px] font-semibold mb-1">Try offline dictation on your own Mac</p>
@@ -146,6 +230,7 @@
 </div>
 </main>
 
+<section class="max-w-3xl mx-auto px-5 mt-10 text-sm text-textMuted"><h2 class="font-semibold text-base mb-2">Sources checked 2026-10-15</h2><p class="mb-2">Competitor details may change; confirm on the vendor site.</p><ul class="list-disc pl-5 space-y-1"><li><a href="https://support.apple.com/guide/mac-help/use-dictation-mh40584/mac" rel="noopener noreferrer">Apple Support — Dictate on Mac</a></li><li><a href="https://superwhisper.com/" rel="noopener noreferrer">Superwhisper</a></li><li><a href="https://www.getvoibe.com/" rel="noopener noreferrer">Voibe</a></li></ul></section>
 <footer class="border-t border-black/5 py-8">
 <div class="max-w-[760px] mx-auto px-6 text-textMuted text-xs flex flex-wrap gap-x-5 gap-y-2">
   <span>© 2026 Peace &amp; Light · Aria Magic Voice</span>
