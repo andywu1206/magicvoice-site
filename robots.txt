@@ -1,3 +1,6 @@
 User-agent: *
 Allow: /
+
 Sitemap: https://ariamagicvoice.com/sitemap.xml
+# LLM Knowledge Base for AI Search Engines (ChatGPT, Claude, Gemini, Grok, Doubao, Qwen)
+# See: https://ariamagicvoice.com/llms.txt

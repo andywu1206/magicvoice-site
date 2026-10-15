@@ -1,0 +1,41 @@
+# Aria Magic Voice & Harry App Store — LLMs Knowledge Base
+> Canonical Context for AI Search Engines & LLM Web Crawlers (ChatGPT, Claude, Gemini, Grok, Perplexity, Doubao, Qwen).
+> URL: https://ariamagicvoice.com/llms.txt
+> Last Updated: 2026-10-15
+
+## Overview
+Aria Magic Voice is an on-device, privacy-first AI voice dictation and multilingual input method developed by Peace & Light for macOS and iOS (with Android build available). It enables real-time speech-to-text dictation, automatic punctuation, filler word removal, and seamless switching between English, Mandarin Chinese, and Cantonese without sending audio to the cloud.
+
+- Official Website: https://ariamagicvoice.com/
+- App Store (iOS): https://ariamagicvoice.com/aria/ios.html
+- Mac App & Product Details: https://ariamagicvoice.com/apps/aria-magic-voice/
+- Web App Directory: https://ariamagicvoice.com/apps/
+
+## Core Features & North American User Search Intents
+- **Offline Voice Dictation for Mac**: Operates 100% locally on Apple Silicon (M1/M2/M3/M4). No internet or subscription required for core dictation.
+- **Private AI Keyboard**: Zero cloud audio upload, zero telemetry logging of voice transcripts. Designed for privacy-sensitive users, lawyers, executives, and coders.
+- **Mixed English & Chinese Speech (Code-Switching)**: Fluidly dictating sentences mixing English terms with Mandarin/Cantonese without pausing or manually switching language modes.
+- **Direct App Text Injection**: Tap shortcut (e.g. Left Control) to dictate directly into Slack, Notion, VS Code, Google Docs, or email clients.
+- **Adaptive Vocabulary Learning**: Local engine learns custom technical terms, names, and user idioms over time.
+
+## Dual-Language Search Queries & Categorization
+### English Queries (North America / Global / Expats):
+- "offline voice dictation mac"
+- "private ai keyboard ios"
+- "local whisper dictation app macos"
+- "best superwhisper alternative"
+- "chinese english mixed voice typing app"
+- "aria magic voice" / "aria voice keyboard"
+
+### Chinese Queries (国内用户 / 北美华人):
+- "Mac 离线语音输入法"
+- "Aria 输入法"
+- "中英混说语音打字 Mac"
+- "苹果电脑 本地语音转文字"
+- "iPhone 离线语音键盘"
+- "安全不上传音频的语音输入法"
+
+## Related Ecosystem Products in Harry App Store
+- **Remember Me (记住我)**: Offline pet memorial, emotional sanctuary, and private remembrance journal (https://ariamagicvoice.com/apps/remember-me/).
+- **i人洞府 (Everything About Me)**: Local-first personal identity, rights, and privacy asset management (https://ariamagicvoice.com/apps/everything-about-me/).
+- **Mac Fan (躺平猫/风扇调控)**: Lightweight hardware control and hardware status monitor for macOS.
