@@ -1243,11 +1243,11 @@ const ICO={
    u 留空 = 渲染成不可点的「即将开放」，跟 Mac 那边占位符同一条规矩：公网不放坏链接。
    拿到真地址只改这三行的 u，版式一个字不用动。 */
 const VER_AND={
-  beta:[{n:'官网',u:'downloads.ariamagicvoice.com/releases/aria/android/10.467/AriaInputMethod-Android-v10.467.apk',i:'official'}],
-  free:'downloads.ariamagicvoice.com/releases/aria/android/10.467/AriaInputMethod-Android-v10.467.apk', pro:'', price:'$9.99'};
+  beta:[{n:'官网',u:'…',i:'official'}],
+  free:'…', pro:'', price:'$9.99'};
 const VER={
-  aria:{beta:[{n:'GitHub',u:'github.com/andywu1206/magicvoice-site/releases/download/aria-magic-voice-v90.831-free-website/AriaMagicVoiceIME_Free_v90.831.dmg',i:'gh'}],
-        free:'github.com/andywu1206/magicvoice-site/releases/download/aria-magic-voice-v90.831-free-website/AriaMagicVoiceIME_Free_v90.831.dmg',
+  aria:{beta:[{n:'GitHub',u:'…',i:'gh'}],
+        free:'…',
         pro:'buy.paddle.com',price:'$19.99'},
   rm:{beta:[{n:'TestFlight',u:'testflight.apple.com/join/…',i:'tf'}],
       /* Remember Me 是唯一确定的。Pro 是这个 listing 里的内购，所以两档同址。
@@ -1503,7 +1503,7 @@ function mergeContent(o){
     if(!ap)continue;
     if(a[1]==='beta'){const b=ap.beta&&ap.beta[+a[2]];if(b)b.u=lk[k];}
     else if(a[1]==='free'||a[1]==='pro')ap[a[1]]=lk[k];}}
-/*BAKED-START*/const BAKED={"__links":{"aria:beta:0":"github.com/andywu1206/magicvoice-site/releases/download/aria-magic-voice-v90.831-free-website/AriaMagicVoiceIME_Free_v90.831.dmg","aria:free":"github.com/andywu1206/magicvoice-site/releases/download/aria-magic-voice-v90.831-free-website/AriaMagicVoiceIME_Free_v90.831.dmg","aria:pro":"buy.paddle.com","aria:beta:1":"drive.google.com/file/d/1vJ7Mbx0pvtPGjEjElC4JtY2Q8-TqwymU/view?usp=drive_link","aria:beta:2":"pan.baidu.com/s/1tj4fNDQqto_u8Ga8sHrC9g?pwd=1234"}};/*BAKED-END*/
+/*BAKED-START*/const BAKED={"__links":{"aria:beta:0":"…","aria:free":"…","aria:pro":"buy.paddle.com"}};/*BAKED-END*/
 mergeContent(BAKED);
 
 function linkCode(sc,u){
@@ -1577,7 +1577,7 @@ function renderCompare(){
   /* 安卓判定（AND）已挪到函数最前面 —— T 要用它挑安卓自己的三张卡；下面的功能行过滤和卡片渲染也用它。 */
   const VX  = AND ? VER_AND : VER[cur];
   const directSource={n:lang==='zh'?'官网':'Website',
-    u:({and:'downloads.ariamagicvoice.com/releases/aria/android/10.467/AriaInputMethod-Android-v10.467.apk',mac:'github.com/andywu1206/magicvoice-site/releases/download/aria-magic-voice-v90.831-free-website/AriaMagicVoiceIME_Free_v90.831.dmg'})[curPlat]||'',
+    u:({and:'',mac:''})[curPlat]||'',
     i:'official',fast:true};
   const hasDirect=cur==='aria'&&!!directSource.u;
   const betaSources=hasDirect?[directSource,...(VX.beta||[])]:VX.beta;
@@ -1641,9 +1641,9 @@ function renderCompare(){
             bad=!!problem,
             off=ph||bad,
             gz=`<span class="g"${si===0?``:''}>${
-              (AND&&(ph||bad))?soon(lang==='zh')
+              (AND&&(ph||bad))||(cur==='aria'&&ph)?soon(lang==='zh')
                 :(bad?E(c.btn):(ph?soon(lang==='zh'):E(c.btn)))}</span>`;
-          return `<${off?'span':'a'} class="s${ph?' soon':''}${bad?' unavailable':''}"${off?'':` href="${E(hrefOf(sc.u))}"`+
+          return `<${off?'span':'a'} class="s${ph?' soon':''}${bad?' unavailable':''}"${off?' aria-disabled="true"':''}${off?'':` href="${E(hrefOf(sc.u))}"`+
             ` target="_blank" rel="noopener" data-track="${E(cur+':beta:'+sc.i)}"`}`+
             `${sc.fast?'':``}>${ICO[sc.i]||''}`+
             `<b>${E(sc.n)}${sc.fast&&lang==='zh'?` <small>快</small>`:''}</b>${gz}${bad?warnMark(problem):''}</${off?'span':'a'}>`;}
@@ -1663,10 +1663,10 @@ function renderCompare(){
       <div class="cname"><span>${E(c.n)}</span><span class="cbadge">${E(c.b)}</span></div>
       <div class="csub">${E(c.s)}</div>
       <div class="cprice"><span>${E(p)}</span>${c.pu?`<u>${E(c.pu)}</u>`:''}</div>
-      ${beta||`<${mainOff?'span':'a'} class="cbtn${mainPh?' soon':''}${mainBad?' unavailable':''}"`+
+      ${beta||`<${mainOff?'span':'a'} class="cbtn${mainPh?' soon':''}${mainBad?' unavailable':''}"${mainOff?' aria-disabled="true"':''}`+
         `${mainOff?'':(mainKind==='pro'&&cur==='aria'?` href="javascript:void(0)" onclick="openAriaBuy(event)"`:` href="${E(hrefOf(mainU))}"`+
         ` target="_blank" rel="noopener"`)}${(AND&&mainOff)?'':` data-track="${E(cur+':'+mainKind)}"`}>${
-        (AND&&(mainPh||mainBad))?soon(lang==='zh')
+        (AND&&(mainPh||mainBad))||(cur==='aria'&&mainPh)?soon(lang==='zh')
           :(mainBad?E(c.btn):(mainPh?soon(lang==='zh'):E(c.btn)))}${mainBad?warnMark(mainProblem):''}</${mainOff?'span':'a'}>`}
       <div class="csrc">${c.src?(c.src.includes(' · ')
         ?c.src.split(' · ').map(s=>`<b>${E(s)}</b>`).join(' · '):E(c.src)):''}</div>
