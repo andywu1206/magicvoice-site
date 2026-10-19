@@ -1246,8 +1246,8 @@ const VER_AND={
   beta:[{n:'官网',u:'downloads.ariamagicvoice.com/releases/aria/android/10.480/AriaInputMethod-Android-v10.480.apk',i:'official'}],
   free:'downloads.ariamagicvoice.com/releases/aria/android/10.480/AriaInputMethod-Android-v10.480.apk', pro:'', price:'$9.99'};
 const VER={
-  aria:{beta:[{n:'GitHub',u:'…',i:'gh'}],
-        free:'…',
+  aria:{beta:[{n:'GitHub',u:'github.com/andywu1206/aria-magic-voice-download/releases/tag/aria-magic-voice-mac-v90.871-free',i:'gh'}],
+        free:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-magic-voice-mac-v90.871-free/AriaMagicVoice_Free_Website_v90.871.dmg',
         pro:'buy.paddle.com',price:'$19.99'},
   rm:{beta:[{n:'TestFlight',u:'testflight.apple.com/join/…',i:'tf'}],
       /* Remember Me 是唯一确定的。Pro 是这个 listing 里的内购，所以两档同址。
@@ -1577,10 +1577,10 @@ function renderCompare(){
   /* 安卓判定（AND）已挪到函数最前面 —— T 要用它挑安卓自己的三张卡；下面的功能行过滤和卡片渲染也用它。 */
   const VX  = AND ? VER_AND : VER[cur];
   const directSource={n:lang==='zh'?'官网':'Website',
-    u:({and:'',mac:''})[curPlat]||'',
+    u:({and:'downloads.ariamagicvoice.com/releases/aria/android/10.480/AriaInputMethod-Android-v10.480.apk',mac:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-magic-voice-mac-v90.871-free/AriaMagicVoice_Free_Website_v90.871.dmg'})[curPlat]||'',
     i:'official',fast:true};
   const hasDirect=cur==='aria'&&!!directSource.u;
-  const betaSources=hasDirect?[directSource,...(VX.beta||[])]:VX.beta;
+  const betaSources=hasDirect?[directSource,...(VX.beta||[]).filter(b=>b.i!=='official'&&b.n!=='官网'&&b.n!=='Website')]:VX.beta;
   let R=V6?ROWS6[lang]:ROWS[cur][lang];
   const price=cur==='aria'?'$19.99':'—';
   if(AND && V6){
