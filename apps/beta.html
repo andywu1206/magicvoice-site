@@ -2549,9 +2549,11 @@ if(cur==='rm'){$$('.item').forEach(i=>i.classList.remove('on'));$$('.item[data-a
   'use strict';
   var PRODUCTS=[['aria','Aria Magic Voice'],['rm','Remember Me'],['p8','Everything About Me'],
     ['nc','Aria Magic Cat'],['fan','Aria Magic Fan'],['haha','Haha News']];
+  /* v1.0.1 · 2026-10-19 · by Grok Bot（Harry 定）：仅改简/繁下拉显示名为「Aria Magic Voice ( Aria 输入法 )」；
+     PRODUCTS 里的 key 'aria' 和提交给后端的 product 名 'Aria Magic Voice' 不变，内测码/中台不受影响。英文不变。 */
   var NAMES={
-    hans:['Aria Magic Voice','Remember Me','i人洞府','躺平猫','Aria魔法散热风扇','哈哈资讯'],
-    hant:['Aria Magic Voice','Remember Me','i人洞府','躺平貓','Aria魔法散熱風扇','哈哈資訊'],
+    hans:['Aria Magic Voice ( Aria 输入法 )','Remember Me','i人洞府','躺平猫','Aria魔法散热风扇','哈哈资讯'],
+    hant:['Aria Magic Voice ( Aria 輸入法 )','Remember Me','i人洞府','躺平貓','Aria魔法散熱風扇','哈哈資訊'],
     en:['Aria Magic Voice','Remember Me','Everything About Me','Aria Magic Cat','Aria Magic Fan','Haha News']};
   var TX={
     hans:{title:'内测申请 · Harry App Store',h:'内测申请',lead:'先用上，再告诉我们哪里不好。',
