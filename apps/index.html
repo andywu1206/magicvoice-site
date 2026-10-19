@@ -943,8 +943,8 @@ const ICO={
  tf:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1.8 13.6 12a1 1 0 0 1-.9 1.5H3.3a1 1 0 0 1-.9-1.5L8 1.8Z"/><path d="M8 6.2v3.1M8 11.3h.01"/></svg>'};
 
 const VER_AND={
-  beta:[{n:'官网',u:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-android-v10.480-free/AriaInputMethod-Android-v10.480.apk',i:'official'}],
-  free:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-android-v10.480-free/AriaInputMethod-Android-v10.480.apk', pro:'ariamagicvoice.com/aria/pay-android.html', price:'$9.99'};
+  beta:[{n:'官网',u:'downloads.ariamagicvoice.com/releases/aria/android/10.480/AriaInputMethod-Android-v10.480.apk',i:'official'}],
+  free:'downloads.ariamagicvoice.com/releases/aria/android/10.480/AriaInputMethod-Android-v10.480.apk', pro:'ariamagicvoice.com/aria/pay-android.html', price:'$9.99'};
 const VER={
   aria:{beta:[{n:'GitHub',u:'…',i:'gh'}],
         free:'…',
@@ -1229,7 +1229,7 @@ function renderCompare(){
 
   const VX  = AND ? VER_AND : VER[cur];
   const directSource={n:lang==='zh'?'官网':'Website',
-    u:({and:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-android-v10.480-free/AriaInputMethod-Android-v10.480.apk',mac:''})[curPlat]||'',
+    u:({and:'downloads.ariamagicvoice.com/releases/aria/android/10.480/AriaInputMethod-Android-v10.480.apk',mac:''})[curPlat]||'',
     i:'official',fast:true};
   const hasDirect=cur==='aria'&&!!directSource.u;
   const betaSources=hasDirect?[directSource,...(VX.beta||[]).filter(b=>b.i!=='official'&&b.n!=='官网'&&b.n!=='Website')]:VX.beta;
