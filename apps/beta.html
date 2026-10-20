@@ -1059,13 +1059,20 @@ body:not(.dark) .bagain:hover{color:var(--ink)}
       <div class="copy">
         <h1 class="h1" id="betaH">内测申请</h1>
         <p class="lead" id="betaLead">先用上，再告诉我们哪里不好。</p>
-        <p class="desc" id="betaDesc">选好产品，填写邮箱。审批通过后，内测码会发到这个邮箱。</p>
+        <p class="desc" id="betaDesc">选好产品和平台，填写邮箱。审批通过后，内测码会发到这个邮箱。</p>
         <form class="bcard" id="betaForm" novalidate>
           <noscript><p class="bhint">请开启 JavaScript 后再提交申请。Please turn on JavaScript to submit your application.</p></noscript>
           <div class="bfield">
             <label class="blab" for="betaProd" id="betaProdL">产品</label>
             <div class="bsel">
               <select id="betaProd"></select>
+              <svg viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5l5 5 5-5"/></svg>
+            </div>
+          </div>
+          <div class="bfield">
+            <label class="blab" for="betaPlat" id="betaPlatL">平台</label>
+            <div class="bsel">
+              <select id="betaPlat" aria-required="true" required></select>
               <svg viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5l5 5 5-5"/></svg>
             </div>
           </div>
@@ -1078,7 +1085,7 @@ body:not(.dark) .bagain:hover{color:var(--ink)}
           <input class="bhp" id="betaHp" name="bk_ref" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" data-lpignore="true" data-1p-ignore="true" data-bwignore="true">
           <div class="bstat" id="betaStat" role="group" aria-labelledby="betaStT" aria-describedby="betaStP" tabindex="-1">
             <span class="blamp" id="betaLamp" aria-hidden="true"></span>
-            <div class="bstx"><div class="bstt" id="betaStT">未申请</div><div class="bstp" id="betaStP">选好产品、填好邮箱后，点「提交申请」。</div></div>
+            <div class="bstx"><div class="bstt" id="betaStT">未申请</div><div class="bstp" id="betaStP">选好产品和平台、填好邮箱后，点「提交申请」。</div></div>
           </div>
           <button class="bsubmit" type="submit" id="betaGo">提交申请</button>
           <div class="bwait" id="betaWait">请等待，最长3个工作日</div>
@@ -2551,29 +2558,35 @@ if(cur==='rm'){$$('.item').forEach(i=>i.classList.remove('on'));$$('.item[data-a
     ['nc','Aria Magic Cat'],['fan','Aria Magic Fan'],['haha','Haha News']];
   /* v1.0.1 · 2026-10-19 · by Grok Bot（Harry 定）：仅改简/繁下拉显示名为「Aria Magic Voice ( Aria 输入法 )」；
      PRODUCTS 里的 key 'aria' 和提交给后端的 product 名 'Aria Magic Voice' 不变，内测码/中台不受影响。英文不变。 */
+  /* v1.0.2 预览 · 2026-10-20 · by Grok Bot：产品与邮箱之间加必选「平台」；选项随产品变。提交带 platform（如 android），
+     中台据此记录并按「产品_平台」发码。除 Aria 外各产品平台为推测，上线前请 Harry 核对。 */
+  /* v1.0.3 · 2026-10-20 22:10 CST · by Grok Bot（Harry 22:04「平台还没加进去吗」→ 上线）：值=中台用户中心平台页签原名，顺序 Android/iOS/Mac/Windows/鸿蒙/Web。
+     各产品只列真上架的端：Aria=Android/iOS/Mac（Harry 定）；Remember Me、i人洞府=iOS+Mac（App Store lookup 实读），Remember Me 另有网页纪念馆=Web；躺平猫、Mac Fan=Mac。哈哈资讯暂无独立商店页，先给 iOS 待 Harry 核。 */
+  var PLATS={aria:['Android','iOS','Mac'],rm:['iOS','Mac','Web'],p8:['iOS','Mac'],nc:['Mac'],fan:['Mac'],haha:['iOS']};
+  var PLAT_NAMES={'Android':'Android','iOS':'iOS','Mac':'Mac','Windows':'Windows','鸿蒙':'鸿蒙','Web':'Web'};
   var NAMES={
     hans:['Aria Magic Voice ( Aria 输入法 )','Remember Me','i人洞府','躺平猫','Aria魔法散热风扇','哈哈资讯'],
     hant:['Aria Magic Voice ( Aria 輸入法 )','Remember Me','i人洞府','躺平貓','Aria魔法散熱風扇','哈哈資訊'],
     en:['Aria Magic Voice','Remember Me','Everything About Me','Aria Magic Cat','Aria Magic Fan','Haha News']};
   var TX={
     hans:{title:'内测申请 · Harry App Store',h:'内测申请',lead:'先用上，再告诉我们哪里不好。',
-      desc:'选好产品，填写邮箱。审批通过后，内测码会发到这个邮箱。',prod:'产品',mail:'邮箱',
-      hint:'邮箱只用来发送审批结果和内测码。',s0:'未申请',p0:'选好产品、填好邮箱后，点「提交申请」。',
+      desc:'选好产品和平台，填写邮箱。审批通过后，内测码会发到这个邮箱。',prod:'产品',plat:'平台',platPick:'请选择平台',badPlat:'请选择平台。',mail:'邮箱',
+      hint:'邮箱只用来发送审批结果和内测码。',s0:'未申请',p0:'选好产品和平台、填好邮箱后，点「提交申请」。',
       s1:'审批中',p1:'内测申请已提交，请随时查看您的邮箱，审批时间最长3个工作日。刷新页面后这里不会保留进度，请以邮件为准。',
       go:'提交申请',wait:'请等待，最长3个工作日',sending:'提交中…',again:'申请其他产品',
       bad:'请填写正确的邮箱地址。',fail:'提交失败了（网络或服务端问题）。邮箱还在框里，没有丢，请稍后再试。',
       rate:'现在申请的人比较多，请过几分钟再试。'},
     hant:{title:'內測申請 · Harry App Store',h:'內測申請',lead:'先用上，再告訴我們哪裡不好。',
-      desc:'選好產品，填寫郵箱。審批通過後，內測碼會發到這個郵箱。',prod:'產品',mail:'郵箱',
-      hint:'郵箱只用來發送審批結果和內測碼。',s0:'未申請',p0:'選好產品、填好郵箱後，點「提交申請」。',
+      desc:'選好產品和平台，填寫郵箱。審批通過後，內測碼會發到這個郵箱。',prod:'產品',plat:'平台',platPick:'請選擇平台',badPlat:'請選擇平台。',mail:'郵箱',
+      hint:'郵箱只用來發送審批結果和內測碼。',s0:'未申請',p0:'選好產品和平台、填好郵箱後，點「提交申請」。',
       s1:'審批中',p1:'內測申請已提交，請隨時查看您的郵箱，審批時間最長3個工作日。刷新頁面後這裡不會保留進度，請以郵件為準。',
       go:'提交申請',wait:'請等待，最長3個工作日',sending:'提交中…',again:'申請其他產品',
       bad:'請填寫正確的郵箱地址。',fail:'提交失敗了（網絡或服務端問題）。郵箱還在框裡，沒有丟，請稍後再試。',
       rate:'現在申請的人比較多，請過幾分鐘再試。'},
     en:{title:'Beta · Harry App Store',h:'Beta',lead:'Try it early. Tell us what’s broken.',
-      desc:'Pick a product and enter your email. Once approved, your beta code will be sent to that address.',
-      prod:'Product',mail:'Email',hint:'We only use your email to send the review result and your beta code.',
-      s0:'Not applied',p0:'Pick a product, enter your email, then tap Submit.',
+      desc:'Pick a product and platform, then enter your email. Once approved, your beta code will be sent to that address.',
+      prod:'Product',plat:'Platform',platPick:'Choose a platform',badPlat:'Please choose a platform.',mail:'Email',hint:'We only use your email to send the review result and your beta code.',
+      s0:'Not applied',p0:'Pick a product and platform, enter your email, then tap Submit.',
       s1:'In review',p1:'Your application is in. Keep an eye on your inbox — review takes up to 3 business days. This page won’t remember your application after a refresh, so please rely on the email.',
       go:'Submit',wait:'Please allow up to 3 business days',sending:'Sending…',again:'Apply for another product',
       bad:'Please enter a valid email address.',
@@ -2645,7 +2658,7 @@ if(cur==='rm'){$$('.item').forEach(i=>i.classList.remove('on'));$$('.item[data-a
     mail.removeAttribute('aria-invalid');
   }
   function lock(on){                                   /* 请求发出期间锁住产品和邮箱，免得发出去的和框里看到的不一样 */
-    prod.disabled=on||state===1;
+    prod.disabled=on||state===1; el('betaPlat').disabled=on||state===1;
     mail.readOnly=on;
   }
   function setState(s){
@@ -2655,13 +2668,13 @@ if(cur==='rm'){$$('.item').forEach(i=>i.classList.remove('on'));$$('.item[data-a
     put(stT,s?t.s1:t.s0);
     put(stP,s?t.p1:t.p0);
     go.hidden=s===1; wait.hidden=s===1; again.hidden=s!==1;
-    prod.disabled=mail.disabled=(s===1);
+    prod.disabled=mail.disabled=el('betaPlat').disabled=(s===1);
   }
   function paint(){
     var k=loc(),t=TX[k],n=NAMES[k],i=prod.selectedIndex<0?0:prod.selectedIndex,j,o;
     document.title=t.title;
     el('betaH').textContent=t.h; el('betaLead').textContent=t.lead; el('betaDesc').textContent=t.desc;
-    el('betaProdL').textContent=t.prod; el('betaMailL').textContent=t.mail; el('betaHint').textContent=t.hint;
+    el('betaProdL').textContent=t.prod; el('betaPlatL').textContent=t.plat; fillPlat(t); el('betaMailL').textContent=t.mail; el('betaHint').textContent=t.hint;
     if(prod.options.length!==PRODUCTS.length){
       prod.innerHTML='';
       for(j=0;j<PRODUCTS.length;j++){ o=document.createElement('option'); o.value=PRODUCTS[j][0]; prod.appendChild(o); }
@@ -2670,9 +2683,16 @@ if(cur==='rm'){$$('.item').forEach(i=>i.classList.remove('on'));$$('.item[data-a
     prod.selectedIndex=i;
     go.textContent=busy?t.sending:t.go;
     wait.textContent=t.wait; again.textContent=t.again;
-    if(!err.hidden){ put(err,err.getAttribute('data-k')==='bad'?t.bad:(err.getAttribute('data-k')==='rate'?t.rate:t.fail)); }
+    if(!err.hidden){ put(err,err.getAttribute('data-k')==='badPlat'?t.badPlat:err.getAttribute('data-k')==='bad'?t.bad:(err.getAttribute('data-k')==='rate'?t.rate:t.fail)); }
     setState(state);
     if(busy) lock(true);
+  }
+  function fillPlat(t){                                /* 平台选项跟着产品变；只有一个平台时自动选中 */
+    var pl=el('betaPlat'),key=(PRODUCTS[prod.selectedIndex<0?0:prod.selectedIndex]||PRODUCTS[0])[0],list=PLATS[key]||[],keep=pl.value,j,o;
+    pl.innerHTML='';
+    o=document.createElement('option'); o.value=''; o.textContent=t.platPick; o.disabled=true; pl.appendChild(o);
+    for(j=0;j<list.length;j++){ o=document.createElement('option'); o.value=list[j]; o.textContent=PLAT_NAMES[list[j]]; pl.appendChild(o); }
+    pl.value=list.indexOf(keep)>=0?keep:(list.length===1?list[0]:'');
   }
   function fail(kind,bad){
     err.setAttribute('data-k',kind);
@@ -2685,11 +2705,14 @@ if(cur==='rm'){$$('.item').forEach(i=>i.classList.remove('on'));$$('.item[data-a
     try{ return (location.origin+location.pathname).slice(0,500); }catch(e){ return ''; }
   }
 
+  prod.addEventListener('change',function(){ fillPlat(TX[loc()]); });
   form.addEventListener('submit',function(ev){
     ev.preventDefault();
     if(busy||state===1) return;
     clearErr();
     var email=mail.value.trim(),i=prod.selectedIndex<0?0:prod.selectedIndex,p=PRODUCTS[i]||PRODUCTS[0];
+    var plat=el('betaPlat').value;
+    if(!plat||(PLATS[p[0]]||[]).indexOf(plat)<0){ fail('badPlat',false); el('betaPlat').focus(); return; }
     if(!emailOk(email)){ fail('bad',true); mail.focus(); return; }
     var url=endpoint();
     if(!url){ fail('fail',false); return; }
@@ -2705,8 +2728,8 @@ if(cur==='rm'){$$('.item').forEach(i=>i.classList.remove('on'));$$('.item[data-a
       ac=(typeof AbortController!=='undefined')?new AbortController():null;
       timer=setTimeout(function(){ if(ac) ac.abort(); },15000);
       var body={kind:'biz',lang:(typeof lang!=='undefined'&&lang==='zh')?'zh':'en',
-        text:'内测申请 / Beta application\nProduct: '+p[1]+' ('+p[0]+')'+(flagged?'\nflag: hp':''),
-        contact:email,source:'Beta Application',productId:p[0],product:p[1],page:page()};
+        text:'内测申请 / Beta application\nProduct: '+p[1]+' ('+p[0]+')\nPlatform: '+plat+(flagged?'\nflag: hp':''),
+        contact:email,source:'Beta Application',productId:p[0],product:p[1],platform:plat,sku:p[0]+'_'+plat.toLowerCase().replace('鸿蒙','harmony'),page:page()};
       var payload=JSON.stringify(body);
       function postOne(u,ms){
         var c=(typeof AbortController!=='undefined')?new AbortController():null;
