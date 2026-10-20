@@ -2560,9 +2560,10 @@ if(cur==='rm'){$$('.item').forEach(i=>i.classList.remove('on'));$$('.item[data-a
      PRODUCTS 里的 key 'aria' 和提交给后端的 product 名 'Aria Magic Voice' 不变，内测码/中台不受影响。英文不变。 */
   /* v1.0.2 预览 · 2026-10-20 · by Grok Bot：产品与邮箱之间加必选「平台」；选项随产品变。提交带 platform（如 android），
      中台据此记录并按「产品_平台」发码。除 Aria 外各产品平台为推测，上线前请 Harry 核对。 */
+  /* v1.0.4 · 2026-10-20 23:20 CST · by Grok Bot 1号（Harry 23:18「缺少Windows」）：Aria 平台加 Windows。
   /* v1.0.3 · 2026-10-20 22:10 CST · by Grok Bot（Harry 22:04「平台还没加进去吗」→ 上线）：值=中台用户中心平台页签原名，顺序 Android/iOS/Mac/Windows/鸿蒙/Web。
      各产品只列真上架的端：Aria=Android/iOS/Mac（Harry 定）；Remember Me、i人洞府=iOS+Mac（App Store lookup 实读），Remember Me 另有网页纪念馆=Web；躺平猫、Mac Fan=Mac。哈哈资讯暂无独立商店页，先给 iOS 待 Harry 核。 */
-  var PLATS={aria:['Android','iOS','Mac'],rm:['iOS','Mac','Web'],p8:['iOS','Mac'],nc:['Mac'],fan:['Mac'],haha:['iOS']};
+  var PLATS={aria:['Android','iOS','Mac','Windows'],rm:['iOS','Mac','Web'],p8:['iOS','Mac'],nc:['Mac'],fan:['Mac'],haha:['iOS']};
   var PLAT_NAMES={'Android':'Android','iOS':'iOS','Mac':'Mac','Windows':'Windows','鸿蒙':'鸿蒙','Web':'Web'};
   var NAMES={
     hans:['Aria Magic Voice ( Aria 输入法 )','Remember Me','i人洞府','躺平猫','Aria魔法散热风扇','哈哈资讯'],
