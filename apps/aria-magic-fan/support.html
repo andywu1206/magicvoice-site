@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Support · Aria Magic Fan / 支持 · 魔法风扇</title>
+<meta name="description" content="Aria Magic Fan support: the Mac App Store edition is a read-only monitor; the website edition adds full fan control. Setup, editions, privacy and contact.">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --primary: #0071E3;
+  --bg: #F5F5F7;
+  --text-main: #1D1D1F;
+  --text-muted: #6E6E73;
+  --border: #E5E5EA;
+  --card: #FFFFFF;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans SC", "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text-main);
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+  padding: 64px 24px 96px;
+}
+main { max-width: 760px; margin: 0 auto; }
+.back { display: inline-block; color: var(--primary); text-decoration: none; font-size: .9rem; margin-bottom: 28px; }
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 40px 36px 44px; }
+h1 { font-size: 1.6rem; font-weight: 600; letter-spacing: .01em; }
+h2 { font-size: 1.05rem; font-weight: 600; margin-top: 2em; }
+.meta { color: var(--text-muted); font-size: .85rem; margin: .6em 0 2em; }
+p { margin: .6em 0; }
+ul, ol { padding-left: 1.3em; }
+li { margin: .3em 0; }
+a { color: var(--primary); }
+code { background: #F2F2F4; border-radius: 5px; padding: 1px 5px; font-size: .88em; }
+.note { background: #FFF8E6; border: 1px solid #F0D48A; border-radius: 10px; padding: 12px 14px; margin: 1em 0; }
+.lang-zh { margin-top: 3.5em; padding-top: 3em; border-top: 1px solid var(--border); }
+footer { max-width: 760px; margin: 24px auto 0; color: var(--text-muted); font-size: .8rem; text-align: center; }
+@media (max-width: 600px) { .card { padding: 28px 22px 32px; border-radius: 14px; } body { padding: 40px 16px 72px; } }
+</style>
+</head>
+<body>
+<main>
+  <a class="back" href="https://ariamagicvoice.com/apps/">All apps · 全部产品 →</a>
+  <div class="card">
+
+    <h1>Support · Aria Magic Fan</h1>
+    <p class="meta">Aria Magic Fan · 魔法风扇　·　Two editions: monitor and full control</p>
+
+    <div class="note">
+      <strong>Two editions.</strong> The Mac App Store edition is a read-only monitor. The website edition adds full fan control. This page explains the difference.
+    </div>
+
+    <h2>How to use it</h2>
+    <ol>
+      <li>Open Aria Magic Fan. The icon appears in the menu bar.</li>
+      <li>Click the icon to open the panel.</li>
+      <li>Mac App Store edition: read the system load and thermal state. It does not change fan speed.</li>
+      <li>Website edition: use the fan controls in the panel. Changes apply immediately; use Auto to return control to macOS.</li>
+      <li>Quit from the menu when you are done.</li>
+    </ol>
+
+    <h2>Frequently asked</h2>
+
+    <h3>Why can’t the Mac App Store version control the fans?</h3>
+    <p>Fan control needs direct access to the SMC, which App Store sandbox rules do not allow for this kind of utility. The App Store edition therefore uses public APIs only and stays read-only. The website edition is signed and notarized outside the App Store and includes full control.</p>
+
+    <h3>Does the App Store edition change my settings?</h3>
+    <p>No. It only reads system state. It does not change fan speed, power settings or login items.</p>
+
+    <h3>Does it need an administrator password or a background helper?</h3>
+    <p>No. There is no root helper and no privileged background service.</p>
+
+    <h3>Does it collect data or use the network?</h3>
+    <p>The Mac App Store edition is sandboxed without network access and collects no data. There is no account and no sign-in. See the <a href="https://ariamagicvoice.com/aria/privacy.html">privacy policy</a>.</p>
+
+    <h3>The menu bar icon does not appear</h3>
+    <p>Quit the app and open it again. If it still does not appear, check that the app is in <code>/Applications</code> and tell us your macOS version (Apple menu ▸ About This Mac).</p>
+
+    <h3>Where do I download the full-control edition?</h3>
+    <p>From <a href="https://ariamagicvoice.com/apps/">ariamagicvoice.com/apps</a>. Pricing is shown on the website. It is a separate Developer ID build, not the App Store build.</p>
+
+    <h2>Contact</h2>
+    <p>Email <a href="mailto:magicvoice.team@outlook.com">magicvoice.team@outlook.com</a>. Please include your macOS version, which edition you use (App Store or website), and what you expected to happen. We usually reply within two business days.</p>
+
+    <div class="lang-zh">
+      <h1>支持 · 魔法风扇</h1>
+      <p class="meta">魔法风扇 · Aria Magic Fan　·　两个版本：只读监控版与全功能版</p>
+
+      <div class="note">
+        <strong>两个版本。</strong> Mac App Store 版是只读监控版；官网版额外提供完整风扇控制。本页说明两者区别。
+      </div>
+
+      <h2>怎么用</h2>
+      <ol>
+        <li>打开魔法风扇，图标出现在菜单栏。</li>
+        <li>点图标打开面板。</li>
+        <li>Mac App Store 版：查看系统负载与热状态，不改变风扇转速。</li>
+        <li>官网版：在面板里调节风扇；点 Auto 把控制权交回 macOS。</li>
+        <li>用完从菜单退出。</li>
+      </ol>
+
+      <h2>常见问题</h2>
+
+      <h3>为什么 Mac App Store 版不能控制风扇？</h3>
+      <p>控制风扇需要直接访问 SMC，App Store 沙盒规则不允许这类工具这样做。因此 App Store 版只用公开 API，保持只读；官网版通过 Developer ID 签名与公证，提供完整控制。</p>
+
+      <h3>App Store 版会改我的设置吗？</h3>
+      <p>不会。它只读取系统状态，不改风扇转速、电源设置或登录项。</p>
+
+      <h3>需要管理员密码或后台辅助进程吗？</h3>
+      <p>不需要。没有 root 助手，也没有常驻的特权服务。</p>
+
+      <h3>会收集数据或联网吗？</h3>
+      <p>Mac App Store 版在沙盒内运行、没有网络权限、不收集数据；没有账号，也不需要登录。详见 <a href="https://ariamagicvoice.com/aria/privacy.html">隐私政策</a>。</p>
+
+      <h3>菜单栏图标不出现</h3>
+      <p>先退出 App 再打开。如果仍不出现，请确认 App 在 <code>/Applications</code>，并告诉我们 macOS 版本（苹果菜单 ▸ 关于本机）。</p>
+
+      <h3>全功能版在哪里下载？</h3>
+      <p>在 <a href="https://ariamagicvoice.com/apps/">ariamagicvoice.com/apps</a>。价格以官网为准。它是独立的 Developer ID 版本，不是 App Store 版本。</p>
+
+      <h2>联系</h2>
+      <p>邮箱 <a href="mailto:magicvoice.team@outlook.com">magicvoice.team@outlook.com</a>。请附上 macOS 版本、使用的版本（App Store 或官网）以及你预期的结果。通常两个工作日内回复。</p>
+    </div>
+
+  </div>
+</main>
+<footer>© 2026 Harry Wood · Aria Magic Fan · 魔法风扇</footer>
+</body>
+</html>
