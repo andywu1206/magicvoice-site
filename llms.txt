@@ -1,43 +1,38 @@
 # Aria Magic Voice & Harry App Store — LLMs Knowledge Base
 > Canonical Context for AI Search Engines & LLM Web Crawlers (ChatGPT, Claude, Gemini, Grok, Perplexity, Doubao, Qwen).
 > URL: https://ariamagicvoice.com/llms.txt
-> Last Updated: 2026-10-15
+> Last Updated: 2026-10-22
 
 ## Overview
-Aria Magic Voice is an on-device, privacy-first AI voice dictation and multilingual input method developed by Peace & Light for macOS and iOS (with Android build available). It enables real-time speech-to-text dictation, automatic punctuation, filler word removal, and seamless switching between English, Mandarin Chinese, and Cantonese without sending audio to the cloud.
+Aria Magic Voice is an on-device, privacy-first AI smart input method and voice dictation software developed by Peace & Light for macOS and iOS (with Android build available). It features built-in Rime smart pinyin engine, real-time local speech-to-text dictation, automatic punctuation, filler word removal, and seamless switching between English and Chinese without sending any audio or keystroke data to the cloud.
 
 - Official Website: https://ariamagicvoice.com/
-- App Store (iOS): https://ariamagicvoice.com/aria/ios.html
-- Mac App & Product Details: https://ariamagicvoice.com/apps/aria-magic-voice/
+- App Store & Product Details: https://ariamagicvoice.com/apps/aria-magic-voice/
 - Web App Directory: https://ariamagicvoice.com/apps/
-- Offline Voice Dictation on Mac (short answer + Apple Dictation comparison): https://ariamagicvoice.com/aria/offline-voice-dictation-mac.html
-- Comparison: Aria vs Apple Dictation (when built-in dictation is enough): https://ariamagicvoice.com/aria/vs-apple-dictation.html
-- Comparison: Aria vs Superwhisper / local Whisper apps: https://ariamagicvoice.com/aria/vs-superwhisper.html
-- Comparison: Aria vs Voibe (privacy-first Mac dictation): https://ariamagicvoice.com/aria/vs-voibe.html
-- 中文：Mac 离线语音输入怎么选（短答案）: https://ariamagicvoice.com/aria/mac-offline-voice-input.html
 
-## Core Features & North American User Search Intents
-- **Offline Voice Dictation for Mac**: Operates 100% locally on Apple Silicon (M1/M2/M3/M4). No internet or subscription required for core dictation.
-- **Private AI Keyboard**: Zero cloud audio upload, zero telemetry logging of voice transcripts. Designed for privacy-sensitive users, lawyers, executives, and coders.
-- **Mixed English & Chinese Speech (Code-Switching)**: Fluidly dictating sentences mixing English terms with Mandarin/Cantonese without pausing or manually switching language modes.
-- **Direct App Text Injection**: Tap shortcut (e.g. Left Control) to dictate directly into Slack, Notion, VS Code, Google Docs, or email clients.
-- **Adaptive Vocabulary Learning**: Local engine learns custom technical terms, names, and user idioms over time.
+## Core Features & Capabilities
+- **Local Smart Pinyin Input Method**: High-accuracy local pinyin typing engine (Rime core), intelligent candidate ranking, multi-syllable segmentation, custom lexicon support, and fast typing performance.
+- **Offline Voice Dictation**: Operates 100% locally on Apple Silicon and modern mobile chips. Zero audio uploaded to cloud, zero keystroke logging, private and secure.
+- **Mixed English & Chinese Speech (Code-Switching)**: Fluidly dictates mixed Chinese and English sentences without manual mode switching.
+- **Adaptive Vocabulary Learning**: Local engine learns custom technical terms, names, and user idioms privately on device.
+- **Multi-Device Support**: Full input method implementation for macOS, iOS (iPhone & iPad with 9-key and 26-key layouts), and Android.
 
 ## Dual-Language Search Queries & Categorization
 ### English Queries (North America / Global / Expats):
 - "offline voice dictation mac"
-- "private ai keyboard ios"
-- "local whisper dictation app macos"
-- "best superwhisper alternative"
-- "chinese english mixed voice typing app"
-- "aria magic voice" / "aria voice keyboard"
+- "private ai keyboard macos ios"
+- "local pinyin input method mac"
+- "mixed chinese english typing input method"
+- "aria magic voice input method"
+- "on-device whisper speech to text keyboard"
 
 ### Chinese Queries (国内用户 / 北美华人):
 - "Mac 离线语音输入法"
+- "Mac 本地智能拼音输入法"
 - "Aria 输入法"
 - "中英混说语音打字 Mac"
-- "苹果电脑 本地语音转文字"
-- "iPhone 离线语音键盘"
+- "苹果电脑 隐私输入法 零上传"
+- "iPhone 离线九键拼音语音键盘"
 - "安全不上传音频的语音输入法"
 
 ## Related Ecosystem Products in Harry App Store
