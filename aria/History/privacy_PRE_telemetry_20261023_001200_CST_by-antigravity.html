@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<!--
+  Aria Magic Voice — Privacy Policy (Bilingual: EN / 中文)
+  Style: v2.4 Glass Design (CSS custom properties, no Tailwind)
+  Content version: v1.0.3-candidate
+  Updated: 2026-07-12 01:20:46 Sunday Beijing Time (CST)
+  Author / AI source: Codex main brain + Codex design deputy
+  Model / executor: gpt-5.5-codex main + NOT_EXPOSED_BY_APP
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — Aria Magic Voice</title>
+<meta name="description" content="Aria Magic Voice privacy candidate. Local learning stays on the Mac; the improvement program is separately managed and excludes original recordings and complete source text.">
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Noto+Sans+SC:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/regular/style.css">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --primary: #0071E3;
+  --primary-dark: #0058b0;
+  --bg: #F5F5F7;
+  --text-main: #1D1D1F;
+  --text-muted: #6E6E73;
+  --text-light: #86868B;
+  --glass-bg: rgba(255, 255, 255, 0.72);
+  --glass-bg-strong: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
+  --glass-blur: blur(28px) saturate(200%);
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-pill: 100px;
+  --border: #E5E5EA;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Noto Sans SC', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text-main);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* === AMBIENT BACKGROUND === */
+.ambient-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(0, 113, 227, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 20%, rgba(147, 130, 220, 0.06) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 40% at 50% 90%, rgba(0, 200, 170, 0.05) 0%, transparent 50%),
+    var(--bg);
+}
+
+/* === GLASS NAV === */
+.nav {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: min(92%, 1100px);
+  height: 56px;
+  padding: 0 24px;
+  border-radius: var(--radius-pill);
+  background: var(--glass-bg-strong);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--text-main);
+  text-decoration: none;
+  word-spacing: -4px;
+}
+.nav-brand i { color: var(--primary); }
+.nav-brand .brand-magic { color: var(--primary); margin: 0 -2px; }
+
+/* === LANGUAGE TOGGLE === */
+.lang-toggle {
+  display: flex;
+  gap: 4px;
+}
+.support-locale-select { max-width:190px; color:var(--text-main); }
+.lang-btn {
+  padding: 4px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.lang-btn.active {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+/* === CONTENT === */
+.content {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 100px 24px 80px;
+}
+
+.page-title {
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin-bottom: 6px;
+}
+
+.page-date {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 48px;
+}
+
+.policy-body {
+  font-size: 15px;
+  line-height: 1.8;
+  color: rgba(29, 29, 31, 0.9);
+}
+
+.policy-body section {
+  margin-bottom: 40px;
+}
+
+.policy-body h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--text-main);
+}
+
+.policy-body p {
+  margin-bottom: 12px;
+}
+
+.policy-body ul {
+  list-style: disc;
+  padding-left: 20px;
+}
+
+.policy-body ul li {
+  margin-bottom: 8px;
+}
+
+.policy-body .highlight {
+  font-weight: 500;
+  color: var(--primary);
+}
+
+.policy-body .code-path {
+  display: inline-block;
+  margin-top: 8px;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: var(--radius-sm);
+  padding: 10px 16px;
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.policy-body .code-path-inline { display: inline; padding: 2px 8px; }
+
+.policy-body a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+.policy-body a:hover {
+  text-decoration: underline;
+}
+
+/* === FOOTER === */
+.footer {
+  padding: 40px 24px;
+  text-align: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.footer-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--text-main);
+  margin-bottom: 12px;
+  word-spacing: -4px;
+}
+.footer-brand i { color: var(--primary); }
+.footer-brand .brand-magic { color: var(--primary); margin: 0 -2px; }
+
+.footer-copy {
+  font-size: 13px;
+  color: var(--text-light);
+}
+
+.footer-links {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+}
+
+.footer-links a {
+  font-size: 13px;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--primary); }
+
+/* === HAMBURGER & MOBILE PANEL === */
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 22px;
+  color: var(--text-main);
+  cursor: pointer;
+  padding: 4px;
+}
+.mobile-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 200;
+  opacity: 0; pointer-events: none; transition: opacity 0.3s;
+}
+.mobile-overlay.open { opacity: 1; pointer-events: auto; }
+.mobile-panel {
+  position: fixed; top: 0; right: 0; width: 260px; height: 100%;
+  background: #fbfbfd; z-index: 210; transform: translateX(100%);
+  transition: transform 0.3s; box-shadow: -4px 0 24px rgba(0,0,0,0.1);
+  padding: 24px;
+}
+.mobile-panel.open { transform: translateX(0); }
+.mobile-panel-close {
+  background: none; border: none; font-size: 22px;
+  color: var(--text-main); cursor: pointer; float: right;
+}
+.mobile-panel nav {
+  margin-top: 48px; display: flex; flex-direction: column; gap: 20px;
+}
+.mobile-panel nav a {
+  font-size: 16px; font-weight: 500; color: var(--text-main);
+  text-decoration: none;
+}
+.mobile-panel .lang-toggle { display: flex; margin-top: 24px; }
+
+/* === RESPONSIVE === */
+@media (max-width: 600px) {
+  .hamburger { display: block; }
+  .lang-toggle { display: none; }
+  .nav {
+    top: 8px;
+    width: calc(100% - 16px);
+    height: 48px;
+    padding: 0 16px;
+  }
+  .nav-brand { font-size: 14px; }
+  .content { padding: 88px 16px 60px; }
+  .page-title { font-size: 28px; }
+  .policy-body { font-size: 14px; }
+  .policy-body h2 { font-size: 18px; }
+  .footer-links { gap: 16px; }
+}
+</style>
+</head>
+<body>
+
+<div class="ambient-bg"></div>
+
+<!-- ==================== NAV ==================== -->
+<nav class="nav" aria-label="Primary navigation">
+  <a href="./index.html" class="nav-brand">
+    <i class="ph ph-sparkle"></i>
+    Aria <span class="brand-magic">Magic</span> Voice
+  </a>
+  <div class="lang-toggle">
+    <select class="lang-btn support-locale-select" aria-label="Language selector">
+      <option value="auto">Follow browser language</option>
+      <option value="zh-Hans">简体中文</option><option value="zh-Hant">繁體中文</option>
+      <option value="en-US">English (US)</option><option value="en-GB">English (UK)</option>
+    </select>
+  </div>
+  <button type="button" class="hamburger" onclick="toggleMenu()" aria-label="Menu">☰</button>
+</nav>
+
+<div class="mobile-overlay" id="mobileOverlay" onclick="toggleMenu()"></div>
+<div class="mobile-panel" id="mobilePanel">
+  <button type="button" class="mobile-panel-close" onclick="toggleMenu()" aria-label="Close menu">✕</button>
+  <nav aria-label="Mobile navigation">
+    <a href="./index.html" data-lang="en">Home</a>
+    <a href="./index.html" data-lang="zh">首页</a>
+  </nav>
+  <div class="lang-toggle">
+    <select class="lang-btn support-locale-select" aria-label="Language selector">
+      <option value="auto">Follow browser language</option>
+      <option value="zh-Hans">简体中文</option><option value="zh-Hant">繁體中文</option>
+      <option value="en-US">English (US)</option><option value="en-GB">English (UK)</option>
+    </select>
+  </div>
+</div>
+
+<!-- ==================== CONTENT ==================== -->
+<main class="content">
+
+<!-- EN title -->
+<h1 class="page-title" data-lang="en">Privacy Policy</h1>
+<p class="page-date" data-lang="en">Candidate updated: July 13, 2026</p>
+
+<!-- ZH title -->
+<h1 class="page-title" data-lang="zh" style="display:none">隐私政策</h1>
+<p class="page-date" data-lang="zh" style="display:none">候选更新：2026 年 7 月 13 日</p>
+
+<!-- ====== ENGLISH ====== -->
+<div class="policy-body" data-lang="en">
+
+<section>
+<h2>Overview</h2>
+<p>Aria Magic Voice is a macOS AI input method for voice input, pinyin typing, local correction learning, and optional AI polish. Local processing and the User Experience Improvement Program are separate data paths.</p>
+<p class="highlight">The User Experience Improvement Program is managed separately in settings. It is limited to isolated correction pairs and quality signals, and excludes original recordings and complete source text.</p>
+</section>
+
+<section>
+<h2>Voice and Text Data</h2>
+<ul>
+<li>Free and the planned Pro tier process their local speech-recognition path on your Mac.</li>
+<li>The User Experience Improvement Program is limited to <strong>de-identified isolated correction pairs and quality signals</strong> and is managed in settings.</li>
+<li>The improvement program does <strong>not</strong> upload original recordings, complete chats, or account passwords.</li>
+</ul>
+</section>
+
+<section>
+<h2>Local Storage</h2>
+<p>Application configuration is stored locally at:</p>
+<div class="code-path">~/.config/magicvoice/</div>
+<p>This directory may contain app settings and local correction-learning records. Local personal learning records remain on your Mac; the improvement program does not upload original recordings or complete source text.</p>
+</section>
+
+<section>
+<h2>Network Connections</h2>
+<p>Local Free and planned Pro input features can work offline. Network connections are limited to the path you choose:</p>
+<ul>
+<li><strong>Improvement program</strong> — Managed in settings; limited to de-identified isolated correction pairs and quality signals, and can be turned off.</li>
+<li><strong>Pro purchase candidates</strong> — Website licensing and Apple IAP are separate purchase paths. Neither path is available yet; each must present its own price, trial, restore, refund, and entitlement terms before launch.</li>
+<li><strong>Legacy license support</strong> — Earlier standalone purchases may still use device activation and recovery services.</li>
+</ul>
+</section>
+
+<section>
+<h2>Data Excluded From the Improvement Program</h2>
+<ul>
+<li>Original recordings</li>
+<li>Complete chats or complete conversation histories</li>
+<li>Account passwords, authentication secrets, or payment credentials</li>
+<li>Raw paths, URLs, code, account identifiers, and other protected no-touch content</li>
+</ul>
+</section>
+
+<section>
+<h2>Payment Processing</h2>
+<p>Free is the no-charge tier. Pro is a one-time purchase (US$39.9). Website purchases will use a website license path; the Apple edition will use Apple IAP. Earlier standalone purchases processed by Paddle remain supported as legacy transactions.</p>
+</section>
+
+<section>
+<h2>This Website</h2>
+<p>ariamagicvoice.com is a purely static website hosted on GitHub Pages. This website does not use any analytics tools, trackers, or cookies. However, the website loads resources from the following external domains in order to render its pages:</p>
+<ul>
+<li><strong>Google Fonts</strong> (fonts.googleapis.com / fonts.gstatic.com) — for web typography. Google may log standard access data; see <a href="https://developers.google.com/fonts/faq/privacy" target="_blank" rel="noopener">Google Fonts Privacy FAQ</a>.</li>
+<li><strong>Phosphor Icons</strong> (unpkg.com) — for UI icons.</li>
+<li><strong>Tailwind CSS CDN</strong> (cdn.tailwindcss.com) — used by some support pages.</li>
+</ul>
+<p>When your browser loads these resources, your IP address and basic request headers are sent to the respective CDN providers as part of standard HTTP requests. We do not control data handling by these providers.</p>
+</section>
+
+<section>
+<h2>Third-Party Services</h2>
+<p><strong>The desktop application</strong> uses local processing for Free and the planned Pro input features. New Pro purchasing is not yet available: the website license path and Apple IAP path remain separate launch candidates. Legacy standalone purchases may continue to use existing activation and Paddle transaction support.</p>
+<p><strong>This website</strong> loads third-party font, icon, and CSS resources as described above. These services may receive standard HTTP request data, such as your IP address, when the page loads.</p>
+</section>
+
+<section>
+<h2>Data Retention and Deletion</h2>
+<ul>
+<li><strong>Local app data</strong> — Settings, preferences, and local correction-learning records are stored on your Mac. You can remove local app data by uninstalling the application and removing its configuration directory at <span class="code-path code-path-inline">~/.config/magicvoice/</span>.</li>
+<li><strong>Improvement data</strong> — Turning off the program stops future uploads. Contact us to request deletion of improvement data associated with your support identifiers, where identifiable and technically available.</li>
+<li><strong>Activation data</strong> — Device identifiers stored on our server for license management can be removed by deactivating your license within the app, or by using the <a href="./recovery.html">Device Recovery</a> page.</li>
+<li><strong>Pro and legacy payment data</strong> — If Pro purchasing launches, the website payment provider will handle website transaction data and Apple will handle Apple IAP data under their respective policies. Paddle handles earlier standalone transactions under its <a href="https://www.paddle.com/legal/privacy" target="_blank" rel="noopener">privacy and data retention policy</a>.</li>
+<li><strong>Data deletion requests</strong> — If you would like to request deletion of any data associated with your purchase or have questions about your data, please contact us at <a href="mailto:magicvoice.team@outlook.com">magicvoice.team@outlook.com</a>.</li>
+</ul>
+</section>
+
+<section>
+<h2>Children's Privacy</h2>
+<p>The product is not designed to collect children's personal information. A parent or guardian should review the improvement-program settings before a child uses that network feature.</p>
+</section>
+
+<section>
+<h2>Changes to This Policy</h2>
+<p>If we make material changes to this Privacy Policy, we will update the content on this page and revise the "Last updated" date. We encourage you to review this page periodically.</p>
+</section>
+
+<section>
+<h2>Contact Us</h2>
+<p>If you have any questions about this Privacy Policy, please contact us at:</p>
+<p><a href="mailto:magicvoice.team@outlook.com">magicvoice.team@outlook.com</a></p>
+</section>
+
+</div>
+
+<!-- ====== CHINESE ====== -->
+<div class="policy-body" data-lang="zh" style="display:none">
+
+<section>
+<h2>概述</h2>
+<p>Aria Magic Voice 是一款 macOS AI 输入法，提供语音输入、拼音打字、本地纠错学习和 AI 自动润色。本地处理与加入体验改进计划是两条独立的数据路径。</p>
+<p class="highlight">加入体验改进计划在设置中单独管理，只处理隔离纠错对与质量信号，不上传原始录音或完整原文。</p>
+</section>
+
+<section>
+<h2>语音与文字数据</h2>
+<ul>
+<li>Free 和拟定 Pro 的本地语音识别路径在您的 Mac 上处理。</li>
+<li>加入体验改进计划只处理<strong>脱敏的隔离纠错对与质量信号</strong>，并在设置中管理。</li>
+<li>体验改进计划不上传原始录音、完整聊天或账号密码。</li>
+</ul>
+</section>
+
+<section>
+<h2>本地存储</h2>
+<p>应用配置存储在本地目录：</p>
+<div class="code-path">~/.config/magicvoice/</div>
+<p>该目录可能包含应用设置和本地纠错学习记录。个人本地学习记录留在您的 Mac；体验改进计划不上传原始录音或完整原文。</p>
+</section>
+
+<section>
+<h2>网络连接</h2>
+<p>Free 和拟定 Pro 的本地输入能力可离线使用。网络连接严格区分为您选择的数据路径：</p>
+<ul>
+<li><strong>体验改进计划</strong> — 在设置中管理；只处理脱敏的隔离纠错对与质量信号，并可随时关闭。</li>
+<li><strong>Pro 购买候选</strong> — 官网 License 与 Apple IAP 是两条独立购买路径，目前均未上线；正式上线前必须分别展示价格、试用、恢复购买、退款与权益条款。</li>
+<li><strong>旧版授权支持</strong> — 早期独立购买用户仍可能使用设备激活与恢复服务。</li>
+</ul>
+</section>
+
+<section>
+<h2>体验改进计划明确排除的数据</h2>
+<ul>
+<li>原始录音</li>
+<li>完整聊天或完整会话历史</li>
+<li>账号密码、认证密钥或支付凭据</li>
+<li>原始路径、网址、代码、账号标识及其他 no-touch 保护内容</li>
+</ul>
+</section>
+
+<section>
+<h2>支付处理</h2>
+<p>Free 为免费版本。Pro 为一次性买断（¥268）。官网版本拟走 License 授权，Apple 版本拟走 Apple IAP；早期由 Paddle 处理的独立购买继续作为历史交易获得支持。</p>
+</section>
+
+<section>
+<h2>本网站</h2>
+<p>ariamagicvoice.com 是一个托管于 GitHub Pages 的纯静态网站。本网站不使用任何分析工具、追踪器或 Cookie。但网站在呈现页面时会从以下外部域名加载资源：</p>
+<ul>
+<li><strong>Google Fonts</strong>（fonts.googleapis.com / fonts.gstatic.com）— 用于网页排版。Google 可能记录标准访问数据，详见 <a href="https://developers.google.com/fonts/faq/privacy" target="_blank" rel="noopener">Google Fonts 隐私常见问题</a>。</li>
+<li><strong>Phosphor Icons</strong>（unpkg.com）— 用于 UI 图标。</li>
+<li><strong>Tailwind CSS CDN</strong>（cdn.tailwindcss.com）— 部分支持页面用于加载样式。</li>
+</ul>
+<p>当您的浏览器加载这些资源时，您的 IP 地址和基本请求头信息会作为标准 HTTP 请求的一部分发送至相应 CDN 服务商。我们无法控制这些服务商的数据处理方式。</p>
+</section>
+
+<section>
+<h2>第三方服务</h2>
+<p><strong>桌面应用</strong> 的 Free 和拟定 Pro 输入能力走本地处理。新版 Pro 尚未开放购买；官网 License 与 Apple IAP 是两条分离的候选路径。早期独立购买继续使用现有激活与 Paddle 历史交易支持。</p>
+<p><strong>本网站</strong> 加载上文所述的第三方字体、图标与 CSS 资源。这些服务可能在页面加载时接收标准 HTTP 请求数据，例如您的 IP 地址。</p>
+</section>
+
+<section>
+<h2>数据保留与删除</h2>
+<ul>
+<li><strong>本地应用数据</strong> — 设置、偏好和本地纠错学习记录存储在您的 Mac。您可以通过卸载应用并移除配置目录 <span class="code-path code-path-inline">~/.config/magicvoice/</span> 清除本地应用数据。</li>
+<li><strong>体验改进数据</strong> — 关闭计划后停止后续上传。对于能够通过支持标识关联且技术上可定位的数据，可联系我们提出删除请求。</li>
+<li><strong>激活数据</strong> — 存储在我们服务器上用于授权管理的设备标识符，可以通过在应用内停用授权码来删除，也可以使用 <a href="./recovery.html">设备重置</a> 页面来操作。</li>
+<li><strong>Pro 与历史支付数据</strong> — 若 Pro 购买上线，官网支付服务商与 Apple 将分别处理各自渠道的交易数据；早期独立交易由 Paddle 按其<a href="https://www.paddle.com/legal/privacy" target="_blank" rel="noopener">隐私和数据保留政策</a>处理。</li>
+<li><strong>数据删除请求</strong> — 如果您希望删除与购买相关的任何数据，或对您的数据有任何疑问，请通过 <a href="mailto:magicvoice.team@outlook.com">magicvoice.team@outlook.com</a> 联系我们。</li>
+</ul>
+</section>
+
+<section>
+<h2>儿童隐私</h2>
+<p>本产品并非为收集儿童个人信息而设计。儿童使用体验改进计划前，应由家长或监护人审阅并决定相应设置。</p>
+</section>
+
+<section>
+<h2>政策变更</h2>
+<p>如果我们对本隐私政策做出重大修改，将更新本页面内容并修改"最后更新"日期。我们建议您定期查阅本页面。</p>
+</section>
+
+<section>
+<h2>联系我们</h2>
+<p>如果您对本隐私政策有任何疑问，请通过以下方式联系我们：</p>
+<p><a href="mailto:magicvoice.team@outlook.com">magicvoice.team@outlook.com</a></p>
+</section>
+
+</div>
+
+</main>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer">
+  <div class="footer-brand">
+    <i class="ph ph-sparkle"></i>
+    Aria <span class="brand-magic">Magic</span> Voice
+  </div>
+  <div class="footer-copy">© 2026 Aria Magic Voice. All rights reserved.</div>
+  <div class="footer-links">
+    <a href="./privacy.html" data-lang="en">Privacy Policy</a>
+    <a href="./privacy.html" data-lang="zh" style="display:none">隐私政策</a>
+    <a href="./terms.html" data-lang="en">Terms of Service</a>
+    <a href="./terms.html" data-lang="zh" style="display:none">使用条款</a>
+    <a href="mailto:magicvoice.team@outlook.com" data-lang="en">Contact Us</a>
+    <a href="mailto:magicvoice.team@outlook.com" data-lang="zh" style="display:none">联系我们</a>
+  </div>
+</footer>
+
+<script>
+
+// SUPPORT_PAGE_LOCALE_V1_BEGIN · Codex134 · 2026-09-07 · v1.0.0
+const LOCALES=[['zh-Hans','简体中文'],['zh-Hant','繁體中文'],['en-US','English (US)'],['en-GB','English (UK)']];
+function canonicalBrowserLanguage(value){
+  if(typeof value!=='string'||!value.trim()) return null;
+  try{ return Intl.getCanonicalLocales(value.trim())[0]||null; }catch(_){ return null; }
+}
+function supportedBrowserLocale(tag){
+  const parts=tag.toLowerCase().split('-'), language=parts[0];
+  const script=/^[a-z]{4}$/.test(parts[1]||'')?parts[1]:null;
+  const region=parts[script?2:1];
+  if(language==='zh'){
+    if(script==='hans'||script==='hant') return script==='hant'?'zh-Hant':'zh-Hans';
+    return ['tw','hk','mo'].includes(region)?'zh-Hant':'zh-Hans';
+  }
+  if(language==='en') return region==='gb'?'en-GB':'en-US';
+  return null;
+}
+function resolveBrowserLocale(languages, language, country){
+  let valid=(Array.isArray(languages)?languages:[]).map(canonicalBrowserLanguage).filter(Boolean);
+  if(!valid.length){ const fallback=canonicalBrowserLanguage(language); if(fallback) valid=[fallback]; }
+  for(const tag of valid){ const supported=supportedBrowserLocale(tag); if(supported) return supported; }
+  // A valid unsupported language defaults to English, even in a Chinese region.
+  if(valid.length) return 'en-US';
+  const region=typeof country==='string'?country.toUpperCase():'';
+  return region==='CN'?'zh-Hans':['TW','HK','MO'].includes(region)?'zh-Hant':'en-US';
+}
+function resolveLocalePreference(savedLocale,savedLang,savedMode,languages,language,country){
+  if(savedMode!=='auto'){
+    if(LOCALES.some(x=>x[0]===savedLocale)) return {locale:savedLocale,mode:'manual'};
+    if(savedLang==='zh'||savedLang==='en') return {locale:savedLang==='zh'?'zh-Hans':'en-US',mode:'manual'};
+  }
+  return {locale:resolveBrowserLocale(languages,language,country),mode:'auto'};
+}
+// ARIA_SHARED_LOCALE_PREFERENCE_V1_BEGIN
+const SHARED_LOCALE_KEY='aria-site-locale-preference-v1';
+function parseSharedLocalePreference(raw){
+  try{
+    const value=JSON.parse(raw);
+    if(!value||typeof value!=='object'||Array.isArray(value)||Object.keys(value).length!==2
+      ||!Object.prototype.hasOwnProperty.call(value,'mode')||!Object.prototype.hasOwnProperty.call(value,'locale'))return null;
+    if(value.mode==='auto'&&value.locale===null)return {mode:'auto',locale:null};
+    if(value.mode==='manual'&&LOCALES.some(row=>row[0]===value.locale))return {mode:'manual',locale:value.locale};
+  }catch(_){}
+  return null;
+}
+function resolveSharedLocalePreference(raw,savedLocale,savedLang,savedMode,languages,language,country){
+  const shared=parseSharedLocalePreference(raw);
+  return shared?resolveLocalePreference(shared.locale,null,shared.mode,languages,language,country)
+    :resolveLocalePreference(savedLocale,savedLang,savedMode,languages,language,country);
+}
+function storeSharedLocalePreference(mode,value){
+  localStorage.setItem(SHARED_LOCALE_KEY,JSON.stringify({mode,locale:mode==='manual'?value:null}));
+}
+// ARIA_SHARED_LOCALE_PREFERENCE_V1_END
+
+const GB_SPELL={'color':'colour','colors':'colours','license':'licence','organize':'organise',
+  'organized':'organised','customize':'customise','customized':'customised','analyze':'analyse',
+  'catalog':'catalogue','center':'centre','behavior':'behaviour','favorite':'favourite'};
+
+const SUPPORT_HANT={"首页":"首頁","隐私政策":"隱私政策","候选更新：2026 年 7 月 13 日":"候選更新：2026 年 7 月 13 日","Aria Magic Voice 是一款 macOS AI 输入法，提供语音输入、拼音打字、本地纠错学习和 AI 自动润色。本地处理与加入体验改进计划是两条独立的数据路径。":"Aria Magic Voice 是一款 macOS AI 輸入法，提供語音輸入、拼音打字、本地糾錯學習和 AI 自動潤色。本地處理與加入體驗改進計劃是兩條獨立的數據路徑。","加入体验改进计划在设置中单独管理，只处理隔离纠错对与质量信号，不上传原始录音或完整原文。":"加入體驗改進計劃在設置中單獨管理，只處理隔離糾錯對與質量信號，不上傳原始錄音或完整原文。","语音与文字数据":"語音與文字數據","Free 和拟定 Pro 的本地语音识别路径在您的 Mac 上处理。":"Free 和擬定 Pro 的本地語音識別路徑在您的 Mac 上處理。","加入体验改进计划只处理":"加入體驗改進計劃只處理","脱敏的隔离纠错对与质量信号":"脫敏的隔離糾錯對與質量信號","，并在设置中管理。":"，並在設置中管理。","体验改进计划不上传原始录音、完整聊天或账号密码。":"體驗改進計劃不上傳原始錄音、完整聊天或賬號密碼。","本地存储":"本地存儲","应用配置存储在本地目录：":"應用配置存儲在本地目錄：","该目录可能包含应用设置和本地纠错学习记录。个人本地学习记录留在您的 Mac；体验改进计划不上传原始录音或完整原文。":"該目錄可能包含應用設置和本地糾錯學習記錄。個人本地學習記錄留在您的 Mac；體驗改進計劃不上傳原始錄音或完整原文。","网络连接":"網絡連接","Free 和拟定 Pro 的本地输入能力可离线使用。网络连接严格区分为您选择的数据路径：":"Free 和擬定 Pro 的本地輸入能力可離線使用。網絡連接嚴格區分為您選擇的數據路徑：","体验改进计划":"體驗改進計劃"," — 在设置中管理；只处理脱敏的隔离纠错对与质量信号，并可随时关闭。":" — 在設置中管理；只處理脫敏的隔離糾錯對與質量信號，並可隨時關閉。","Pro 购买候选":"Pro 購買候選"," — 官网 License 与 Apple IAP 是两条独立购买路径，目前均未上线；正式上线前必须分别展示价格、试用、恢复购买、退款与权益条款。":" — 官網 License 與 Apple IAP 是兩條獨立購買路徑，目前均未上線；正式上線前必須分別展示價格、試用、恢復購買、退款與權益條款。","旧版授权支持":"舊版授權支持"," — 早期独立购买用户仍可能使用设备激活与恢复服务。":" — 早期獨立購買用戶仍可能使用設備激活與恢復服務。","体验改进计划明确排除的数据":"體驗改進計劃明確排除的數據","原始录音":"原始錄音","完整聊天或完整会话历史":"完整聊天或完整會話歷史","账号密码、认证密钥或支付凭据":"賬號密碼、認證密鑰或支付憑據","原始路径、网址、代码、账号标识及其他 no-touch 保护内容":"原始路徑、網址、代碼、賬號標識及其他 no-touch 保護內容","支付处理":"支付處理","Free 为免费版本。Pro 为一次性买断（¥268）。官网版本拟走 License 授权，Apple 版本拟走 Apple IAP；早期由 Paddle 处理的独立购买继续作为历史交易获得支持。":"Free 為免費版本。Pro 為一次性買斷（¥268）。官網版本擬走 License 授權，Apple 版本擬走 Apple IAP；早期由 Paddle 處理的獨立購買繼續作為歷史交易獲得支持。","本网站":"本網站","ariamagicvoice.com 是一个托管于 GitHub Pages 的纯静态网站。本网站不使用任何分析工具、追踪器或 Cookie。但网站在呈现页面时会从以下外部域名加载资源：":"ariamagicvoice.com 是一個托管於 GitHub Pages 的純靜態網站。本網站不使用任何分析工具、追蹤器或 Cookie。但網站在呈現頁面時會從以下外部域名加載資源：","（fonts.googleapis.com / fonts.gstatic.com）— 用于网页排版。Google 可能记录标准访问数据，详见 ":"（fonts.googleapis.com / fonts.gstatic.com）— 用於網頁排版。Google 可能記錄標準訪問數據，詳見 ","Google Fonts 隐私常见问题":"Google Fonts 隱私常見問題","（unpkg.com）— 用于 UI 图标。":"（unpkg.com）— 用於 UI 圖標。","（cdn.tailwindcss.com）— 部分支持页面用于加载样式。":"（cdn.tailwindcss.com）— 部分支持頁面用於加載樣式。","当您的浏览器加载这些资源时，您的 IP 地址和基本请求头信息会作为标准 HTTP 请求的一部分发送至相应 CDN 服务商。我们无法控制这些服务商的数据处理方式。":"當您的瀏覽器加載這些資源時，您的 IP 地址和基本請求頭信息會作為標準 HTTP 請求的一部分發送至相應 CDN 服務商。我們無法控制這些服務商的數據處理方式。","第三方服务":"第三方服務","桌面应用":"桌面應用"," 的 Free 和拟定 Pro 输入能力走本地处理。新版 Pro 尚未开放购买；官网 License 与 Apple IAP 是两条分离的候选路径。早期独立购买继续使用现有激活与 Paddle 历史交易支持。":" 的 Free 和擬定 Pro 輸入能力走本地處理。新版 Pro 尚未開放購買；官網 License 與 Apple IAP 是兩條分離的候選路徑。早期獨立購買繼續使用現有激活與 Paddle 歷史交易支持。"," 加载上文所述的第三方字体、图标与 CSS 资源。这些服务可能在页面加载时接收标准 HTTP 请求数据，例如您的 IP 地址。":" 加載上文所述的第三方字體、圖標與 CSS 資源。這些服務可能在頁面加載時接收標準 HTTP 請求數據，例如您的 IP 地址。","数据保留与删除":"數據保留與刪除","本地应用数据":"本地應用數據"," — 设置、偏好和本地纠错学习记录存储在您的 Mac。您可以通过卸载应用并移除配置目录 ":" — 設置、偏好和本地糾錯學習記錄存儲在您的 Mac。您可以通過卸載應用並移除配置目錄 "," 清除本地应用数据。":" 清除本地應用數據。","体验改进数据":"體驗改進數據"," — 关闭计划后停止后续上传。对于能够通过支持标识关联且技术上可定位的数据，可联系我们提出删除请求。":" — 關閉計劃後停止後續上傳。對於能夠通過支持標識關聯且技術上可定位的數據，可聯繫我們提出刪除請求。","激活数据":"激活數據"," — 存储在我们服务器上用于授权管理的设备标识符，可以通过在应用内停用授权码来删除，也可以使用 ":" — 存儲在我們服務器上用於授權管理的設備標識符，可以通過在應用內停用授權碼來刪除，也可以使用 ","设备重置":"設備重置"," 页面来操作。":" 頁面來操作。","Pro 与历史支付数据":"Pro 與歷史支付數據"," — 若 Pro 购买上线，官网支付服务商与 Apple 将分别处理各自渠道的交易数据；早期独立交易由 Paddle 按其":" — 若 Pro 購買上線，官網支付服務商與 Apple 將分別處理各自渠道的交易數據；早期獨立交易由 Paddle 按其","隐私和数据保留政策":"隱私和數據保留政策","处理。":"處理。","数据删除请求":"數據刪除請求"," — 如果您希望删除与购买相关的任何数据，或对您的数据有任何疑问，请通过 ":" — 如果您希望刪除與購買相關的任何數據，或對您的數據有任何疑問，請通過 "," 联系我们。":" 聯繫我們。","儿童隐私":"兒童隱私","本产品并非为收集儿童个人信息而设计。儿童使用体验改进计划前，应由家长或监护人审阅并决定相应设置。":"本產品並非為收集兒童個人信息而設計。兒童使用體驗改進計劃前，應由家長或監護人審閱並決定相應設置。","政策变更":"政策變更","如果我们对本隐私政策做出重大修改，将更新本页面内容并修改\"最后更新\"日期。我们建议您定期查阅本页面。":"如果我們對本隱私政策做出重大修改，將更新本頁面內容並修改\"最後更新\"日期。我們建議您定期查閱本頁面。","联系我们":"聯繫我們","如果您对本隐私政策有任何疑问，请通过以下方式联系我们：":"如果您對本隱私政策有任何疑問，請通過以下方式聯繫我們：","使用条款":"使用條款"};
+const supportTextOriginals=new WeakMap();
+let currentLang='en',supportLocale='en-US',supportLocaleMode='auto';
+function supportTranslatedText(text,value){
+  if(value==='zh-Hant')return SUPPORT_HANT[text]||text;
+  if(value==='en-GB')for(const key of Object.keys(GB_SPELL))text=text.replace(new RegExp('\\b'+key+'\\b','g'),GB_SPELL[key]);
+  return text;
+}
+function applySupportLocale(value){
+  supportLocale=value;currentLang=value.startsWith('zh')?'zh':'en';document.documentElement.lang=value;
+  document.title={"en-US": "Privacy Policy — Aria Magic Voice", "en-GB": "Privacy Policy — Aria Magic Voice", "zh-Hans": "隐私政策 — Aria Magic Voice", "zh-Hant": "隱私政策 — Aria Magic Voice"}[value];
+  document.querySelectorAll('[data-lang]').forEach(el=>{
+    el.style.display=el.getAttribute('data-lang')===currentLang?'':'none';
+    const walker=document.createTreeWalker(el,NodeFilter.SHOW_TEXT);let node;
+    while(node=walker.nextNode()){
+      if(node.parentElement.closest('script,style,code,pre,textarea,input,[contenteditable],[data-noloc]'))continue;
+      if(!supportTextOriginals.has(node))supportTextOriginals.set(node,node.nodeValue);
+      node.nodeValue=supportTranslatedText(supportTextOriginals.get(node),value);
+    }
+  });
+  const labels=value==='zh-Hant'?['語言選擇','跟隨瀏覽器語言','開啟選單','關閉選單','主選單','行動版選單']:currentLang==='zh'?['语言选择','跟随浏览器语言','打开菜单','关闭菜单','主菜单','移动版菜单']:['Language selector','Follow browser language','Open menu','Close menu','Main navigation','Mobile navigation'];
+  document.querySelectorAll('.support-locale-select').forEach(el=>{el.value=supportLocaleMode==='auto'?'auto':value;el.setAttribute('aria-label',labels[0]);el.querySelector('[value="auto"]').textContent=labels[1];});
+  for(const [selector,label] of [['.hamburger',labels[2]],['.mobile-panel-close',labels[3]],['nav.nav',labels[4]],['.mobile-panel nav',labels[5]]]){
+    document.querySelectorAll(selector).forEach(el=>el.setAttribute('aria-label',label));
+  }
+  document.querySelectorAll('.mobile-panel .lang-toggle').forEach(el=>el.style.display='flex');
+}
+function setLang(value){
+  value=value==='zh'?'zh-Hans':value==='en'?'en-US':value;
+  if(value!=='auto'&&!LOCALES.some(row=>row[0]===value))return;
+  supportLocaleMode=value==='auto'?'auto':'manual';
+  applySupportLocale(value==='auto'?resolveBrowserLocale(navigator.languages,navigator.language,undefined):value);
+  try{storeSharedLocalePreference(supportLocaleMode,supportLocale);}catch(_){}
+}
+function initializeSupportLocale(){
+  let saved=null;try{saved=localStorage.getItem(SHARED_LOCALE_KEY);}catch(_){}
+  const initial=resolveSharedLocalePreference(saved,null,null,null,navigator.languages,navigator.language,undefined);
+  supportLocaleMode=initial.mode;applySupportLocale(initial.locale);
+  document.querySelectorAll('.support-locale-select').forEach(el=>el.addEventListener('change',event=>setLang(event.target.value)));
+  window.addEventListener('languagechange',()=>{if(supportLocaleMode==='auto')applySupportLocale(resolveBrowserLocale(navigator.languages,navigator.language,undefined));});
+}
+// SUPPORT_PAGE_LOCALE_V1_END
+
+
+function toggleMenu() {
+  document.getElementById('mobileOverlay').classList.toggle('open');
+  document.getElementById('mobilePanel').classList.toggle('open');
+}
+
+
+
+initializeSupportLocale();
+</script>
+
+</body>
+</html>
