@@ -987,6 +987,14 @@ body:not(.dark) .bagain:hover{color:var(--ink)}
   [data-v="9"] .beta-hero{padding:86px 18px 42px 68px}
   .bcard{padding:22px 18px;border-radius:18px}
 }
+/* v2.1.1 · 2026-10-22 16:58:38 CST · by grokbot：修 TC01 手机超宽 —— grid/flex 子项 min-width:auto 被 select/长链接撑开，表单溢出视口。只加约束，不改内容和流程。 */
+#betaForm,#betaDesc,#betaLinks,#betaHint,#betaStat,#betaWait{overflow-wrap:anywhere;word-break:break-word}
+@media (max-width:768px){
+  [data-v="9"] .beta-hero > *,#betaForm,#betaDesc,#betaForm *{min-width:0;max-width:100%;box-sizing:border-box}
+  #betaForm input,#betaForm select,#betaForm textarea,#betaForm button{width:100%}
+  html,body{overflow-x:hidden}
+  [data-v="9"] .beta-hero{grid-template-columns:minmax(0,1fr)}
+}
 
 /* v2.1.0 · 2026-10-22 16:01 CST · by grokbot：三条推广 + 安检红绿灯 Gate Lights（绿 #2e844a / 红 #ba0517 / 灰 #6e6e73） */
 .bpromo{margin:14px 0 4px;padding:14px;border:1px solid rgba(0,0,0,.12);border-radius:12px;font-size:14px;line-height:1.55}
@@ -1235,7 +1243,7 @@ body.dark .bpromo{border-color:rgba(235,235,245,.24)}
            而且它一度卡在 v1.0.1 连着 11 次发布没动过，反而误导人。
            要查线上是哪一版：看 scripts/publish_log.jsonl，或 magicvoice-site 的 git log。
            ⚠️ 别再往 footer 加版本号，除非 Harry 明说要。 -->
-      <div class="ftver" id="ftVer">v2.1.0 · 2026-10-22 16:01 CST · Grok Bot</div>
+      <div class="ftver" id="ftVer">v2.1.1 · 2026-10-22 16:58:38 CST · Grok Bot</div>
       <span>© 2026 Peace &amp; Light</span>
       <span class="sp"></span>
       <a id="bizLink">Partnerships</a>
