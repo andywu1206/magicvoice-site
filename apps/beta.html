@@ -1032,6 +1032,33 @@ body:not(.dark) .bprl{color:#6b6660}
 .bprl li[data-d="1"] .pk svg{display:block}
 .bprl li[data-d="1"]{color:var(--ink)}
 #betaSkipG{font-size:13px;color:inherit;text-decoration:underline}
+
+/* v2.3.0 · 2026-10-24 17:20 CST · by Antigravity：严格按原型 A 的待办清单样式（编号 + 圆形绿勾 + 灰锁定 + 进度条 n / 5） */
+.bcard{counter-reset:bi}
+.bprog{flex-direction:row;align-items:center;gap:10px;margin:0 0 4px}
+.bprog b{font:500 13px/1 var(--font);color:#6b6660;min-width:44px;text-align:right}
+body.dark .bprog b{color:rgba(235,235,245,.7)}
+.bprb{flex:1}
+.bitem{display:flex;gap:12px;padding:16px 0;border-top:1px solid rgba(60,60,67,.14);counter-increment:bi}
+body.dark .bitem{border-top-color:rgba(235,235,245,.16)}
+.bitem.first{border-top:0;padding-top:8px}
+.bck{flex:0 0 24px;width:24px;height:24px;margin-top:1px;border-radius:50%;border:2px solid #c7c7cc;box-sizing:border-box;display:flex;align-items:center;justify-content:center;color:#fff}
+.bck svg{width:12px;height:12px;display:none}
+.bitem[data-d="1"] .bck{background:#2e844a;border-color:#2e844a}
+.bitem[data-d="1"] .bck svg{display:block}
+.bitem.lock{opacity:.55}
+.bbody{flex:1;min-width:0;display:flex;flex-direction:column;gap:8px}
+.bttl{font:600 15px/1.4 var(--font);color:var(--ink)}
+.bttl::before{content:counter(bi) ". "}
+.bdsc{font:400 13px/1.45 var(--font);color:#6b6660;margin:0}
+body.dark .bdsc{color:rgba(235,235,245,.7)}
+.bsub{margin-top:4px}
+.bitem .blab,.bsr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+.bitem .bfield{gap:6px}
+#betaSkipG{color:#3b5bdb;text-decoration:underline}
+body.dark #betaSkipG{color:#9db0ff}
+#betaStat.bsr2{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);padding:0}
+#betaLinks{display:block}
 </style>
 </head>
 <body class="beta-page">
@@ -1126,7 +1153,9 @@ body:not(.dark) .bprl{color:#6b6660}
         <p class="desc" id="betaDesc">选好产品和平台，填写邮箱。审批通过后，内测码会发到这个邮箱。</p>
         <form class="bcard" id="betaForm" novalidate>
           <noscript><p class="bhint">请开启 JavaScript 后再提交申请。Please turn on JavaScript to submit your application.</p></noscript>
-          <div class="bprog" id="betaProg" aria-live="polite"><div class="bprb"><i id="betaProgBar"></i></div><ol class="bprl" id="betaProgL"></ol></div>
+          <!-- v2.3.0 · 2026-10-24 17:20 CST · Antigravity（Harry：「严格按照这个样式来做」）：待办清单样式，编号 + 圆形绿勾 + 进度条 n / 5；邮箱在三个绿勾之后 -->
+          <div class="bprog" id="betaProg" aria-live="polite"><div class="bprb"><i id="betaProgBar"></i></div><b id="betaProgTxt">0 / 5</b></div>
+          <div class="bitem first" id="betaItem1" data-d="0"><span class="bck" aria-hidden="true"><svg viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 27l8 8 16-18"/></svg></span><div class="bbody"><div class="bttl" id="betaT1"></div><div class="bdsc" id="betaD1"></div>
           <div class="bfield">
             <label class="blab" for="betaProd" id="betaProdL">产品</label>
             <div class="bsel">
@@ -1141,27 +1170,27 @@ body:not(.dark) .bprl{color:#6b6660}
               <svg viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5l5 5 5-5"/></svg>
             </div>
           </div>
-          <!-- v2.1.0 · 2026-10-22 16:01 CST · by grokbot：三条推广换码（Harry 2026-10-22 定：用户只做三步，链接格式对即绿，三条全绿可提交；Gmail 免推广走 Play 封测；发码由 Harry 本人审批） -->
-          <div class="bpromo" id="betaLinks" hidden>
-            <div class="bpt" id="betaPT">其他邮箱：完成三步，换内测码</div>
-            <ol class="bsteps">
-              <li><b id="betaS1">复制文章</b>
-                <textarea id="betaArt" readonly rows="5"></textarea>
-                <button type="button" class="bcopy" id="betaCopy">复制文章</button></li>
-              <li><b id="betaS2">带图发出去</b><span id="betaS2p">长按或点击保存配图，和文章一起发到三个不同的平台（小红书、微博、朋友圈以外的公开平台等）。</span>
-                <div class="bimgs"><a href="/apps/img/share-beta/01.jpg" download="aria_01.jpg" target="_blank" rel="noopener"><img src="/apps/img/share-beta/01.jpg" alt="配图 1" loading="lazy"></a><a href="/apps/img/share-beta/02.jpg" download="aria_02.jpg" target="_blank" rel="noopener"><img src="/apps/img/share-beta/02.jpg" alt="配图 2" loading="lazy"></a><a href="/apps/img/share-beta/03.jpg" download="aria_03.jpg" target="_blank" rel="noopener"><img src="/apps/img/share-beta/03.jpg" alt="配图 3" loading="lazy"></a><a href="/apps/img/share-beta/04.jpg" download="aria_04.jpg" target="_blank" rel="noopener"><img src="/apps/img/share-beta/04.jpg" alt="配图 4" loading="lazy"></a></div></li>
-              <li><b id="betaS3">贴三条链接</b><span id="betaS3p">把三条帖子的链接贴进来，格式正确就会变绿。</span><div class="blink"><span class="glamp" id="betaLamp1" data-s="" aria-hidden="true"></span><input id="betaLink1" type="url" inputmode="url" autocomplete="off" maxlength="500" placeholder="https://…" aria-label="链接 1"></div><div class="blink"><span class="glamp" id="betaLamp2" data-s="" aria-hidden="true"></span><input id="betaLink2" type="url" inputmode="url" autocomplete="off" maxlength="500" placeholder="https://…" aria-label="链接 2"></div><div class="blink"><span class="glamp" id="betaLamp3" data-s="" aria-hidden="true"></span><input id="betaLink3" type="url" inputmode="url" autocomplete="off" maxlength="500" placeholder="https://…" aria-label="链接 3"></div></li>
-            </ol>
-            <p class="bnote"><a href="#" id="betaSkipG"></a></p>
-            <p class="bnote" id="betaNote">以上完成，看到3个绿勾后，将整个页面截图或者3个绿勾加你的邮箱截图发给工作人员，谢谢。</p>
+          </div></div>
+          <div id="betaLinks" hidden><span class="bsr" id="betaPT"></span>
+            <div class="bitem" id="betaItem2" data-d="0"><span class="bck" aria-hidden="true"><svg viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 27l8 8 16-18"/></svg></span><div class="bbody"><div class="bttl" id="betaS1">复制文章</div><div class="bdsc" id="betaD2"></div>
+              <textarea id="betaArt" readonly rows="5"></textarea>
+              <div><button type="button" class="bcopy" id="betaCopy">复制文章</button></div></div></div>
+            <div class="bitem" id="betaItem3" data-d="0"><span class="bck" aria-hidden="true"><svg viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 27l8 8 16-18"/></svg></span><div class="bbody"><div class="bttl" id="betaS3">贴三条链接</div><div class="bdsc" id="betaS3p"></div>
+              <div class="blink"><span class="glamp" id="betaLamp1" data-s="" aria-hidden="true"></span><input id="betaLink1" type="url" inputmode="url" autocomplete="off" maxlength="500" placeholder="知乎链接 https://…" aria-label="链接 1"></div><div class="blink"><span class="glamp" id="betaLamp2" data-s="" aria-hidden="true"></span><input id="betaLink2" type="url" inputmode="url" autocomplete="off" maxlength="500" placeholder="小红书链接 https://…" aria-label="链接 2"></div><div class="blink"><span class="glamp" id="betaLamp3" data-s="" aria-hidden="true"></span><input id="betaLink3" type="url" inputmode="url" autocomplete="off" maxlength="500" placeholder="微博链接 https://…" aria-label="链接 3"></div>
+              <div class="bdsc bsub"><b id="betaS2">带图发出去</b> <span id="betaS2p"></span></div>
+              <div class="bimgs"><a href="/apps/img/share-beta/01.jpg" download="aria_01.jpg" target="_blank" rel="noopener"><img src="/apps/img/share-beta/01.jpg" alt="配图 1" loading="lazy"></a><a href="/apps/img/share-beta/02.jpg" download="aria_02.jpg" target="_blank" rel="noopener"><img src="/apps/img/share-beta/02.jpg" alt="配图 2" loading="lazy"></a><a href="/apps/img/share-beta/03.jpg" download="aria_03.jpg" target="_blank" rel="noopener"><img src="/apps/img/share-beta/03.jpg" alt="配图 3" loading="lazy"></a><a href="/apps/img/share-beta/04.jpg" download="aria_04.jpg" target="_blank" rel="noopener"><img src="/apps/img/share-beta/04.jpg" alt="配图 4" loading="lazy"></a></div>
+              <p class="bdsc" id="betaSkipP"><span id="betaSkipT"></span> <a href="#" id="betaSkipG"></a></p>
+              <p class="bnote" id="betaNote">以上完成，看到3个绿勾后，将整个页面截图或者3个绿勾加你的邮箱截图发给工作人员，谢谢。</p>
+            </div></div>
           </div>
-          <!-- v2.2.0 · 2026-10-24 17:10 CST · Antigravity（Harry：「A，立刻上架」）：邮箱挪到三个绿勾之后；顶部加进度清单 -->
+          <div class="bitem" id="betaItem4" data-d="0"><span class="bck" aria-hidden="true"><svg viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 27l8 8 16-18"/></svg></span><div class="bbody"><div class="bttl" id="betaT4"></div><div class="bdsc" id="betaD4"></div>
           <div class="bfield">
             <label class="blab" for="betaMail" id="betaMailL">邮箱</label>
             <input id="betaMail" type="email" inputmode="email" autocomplete="email" maxlength="254" placeholder="name@gmail.com" aria-required="true" aria-describedby="betaHint betaErr">
             <div class="bhint" id="betaHint">邮箱只用来发送审批结果和内测码。</div>
             <div class="berr" id="betaErr" role="alert" hidden></div>
           </div>
+          </div></div>
           <div class="bpromo" id="betaGmail" hidden>
             <div class="bpt" id="betaGmT">Gmail 用户：免做推广，直接加入</div>
             <p id="betaGmP">用这个 Gmail 打开下面的链接，点「成为测试人员」，再从 Google Play 安装 Aria输入法。也可以继续点「提交申请」登记邮箱。</p>
@@ -1174,6 +1203,7 @@ body:not(.dark) .bprl{color:#6b6660}
             <ul class="boklist" id="betaOkL"></ul>
           </div>
           <input class="bhp" id="betaHp" name="bk_ref" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" data-lpignore="true" data-1p-ignore="true" data-bwignore="true">
+          <div class="bitem" id="betaItem5" data-d="0"><span class="bck" aria-hidden="true"><svg viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 27l8 8 16-18"/></svg></span><div class="bbody"><div class="bttl" id="betaT5"></div><div class="bdsc" id="betaD5"></div>
           <div class="bstat" id="betaStat" role="group" aria-labelledby="betaStT" aria-describedby="betaStP" tabindex="-1">
             <span class="blamp" id="betaLamp" aria-hidden="true"></span>
             <div class="bstx"><div class="bstt" id="betaStT">未申请</div><div class="bstp" id="betaStP">选好产品和平台、填好邮箱后，点「提交申请」。</div></div>
@@ -1181,6 +1211,7 @@ body:not(.dark) .bprl{color:#6b6660}
           <button class="bsubmit" type="submit" id="betaGo">提交申请</button>
           <div class="bwait" id="betaWait">请等待</div>
           <button class="bagain" type="button" id="betaAgain" hidden>申请其他产品</button>
+          </div></div>
         </form>
       </div>
     </section>
@@ -1262,7 +1293,7 @@ body:not(.dark) .bprl{color:#6b6660}
            而且它一度卡在 v1.0.1 连着 11 次发布没动过，反而误导人。
            要查线上是哪一版：看 scripts/publish_log.jsonl，或 magicvoice-site 的 git log。
            ⚠️ 别再往 footer 加版本号，除非 Harry 明说要。 -->
-      <div class="ftver" id="ftVer">v2.2.0 · 2026-10-24 17:10:00 CST · Antigravity</div>
+      <div class="ftver" id="ftVer">v2.3.0 · 2026-10-24 17:20:00 CST · Antigravity</div>
       <span>© 2026 Peace &amp; Light</span>
       <span class="sp"></span>
       <a id="bizLink">Partnerships</a>
@@ -2663,21 +2694,21 @@ if(cur==='rm'){$$('.item').forEach(i=>i.classList.remove('on'));$$('.item[data-a
     en:['Aria Magic Voice','Remember Me','Everything About Me','Aria Magic Cat','Aria Magic Fan','Haha News']};
   var TX={
     hans:{title:'内测申请 · Aria App Store',h:'内测申请',lead:'先用上，再告诉我们哪里不好。',
-      desc:'选好产品和平台，填写邮箱。审批通过后，内测码会发到这个邮箱。',prod:'产品',plat:'平台',platPick:'请选择平台',badPlat:'请选择平台。',mail:'邮箱',
+      desc:'按清单一项项做完，最后留邮箱。审批通过后，内测码会发到这个邮箱。',prod:'产品',plat:'平台',platPick:'请选择平台',badPlat:'请选择平台。',mail:'邮箱',
       hint:'邮箱只用来发送审批结果和内测码。',s0:'未申请',p0:'选好产品和平台、填好邮箱后，点「提交申请」。',
       s1:'审批中',p1:'内测申请已提交。请随时查看邮箱；是否通过以工作人员通知为准。刷新页面后这里不会保留进度。',
       go:'提交申请',wait:'请等待',sending:'提交中…',again:'申请其他产品',
       bad:'请填写正确的邮箱地址。',fail:'提交失败了（网络或服务端问题）。邮箱还在框里，没有丢，请稍后再试。',
       rate:'现在申请的人比较多，请过几分钟再试。'},
     hant:{title:'內測申請 · Aria App Store',h:'內測申請',lead:'先用上，再告訴我們哪裡不好。',
-      desc:'選好產品和平台，填寫郵箱。審批通過後，內測碼會發到這個郵箱。',prod:'產品',plat:'平台',platPick:'請選擇平台',badPlat:'請選擇平台。',mail:'郵箱',
+      desc:'按清單一項項做完，最後留郵箱。審批通過後，內測碼會發到這個郵箱。',prod:'產品',plat:'平台',platPick:'請選擇平台',badPlat:'請選擇平台。',mail:'郵箱',
       hint:'郵箱只用來發送審批結果和內測碼。',s0:'未申請',p0:'選好產品和平台、填好郵箱後，點「提交申請」。',
       s1:'審批中',p1:'內測申請已提交。請隨時查看郵箱；是否通過以工作人員通知為準。刷新頁面後這裡不會保留進度。',
       go:'提交申請',wait:'請等待',sending:'提交中…',again:'申請其他產品',
       bad:'請填寫正確的郵箱地址。',fail:'提交失敗了（網絡或服務端問題）。郵箱還在框裡，沒有丟，請稍後再試。',
       rate:'現在申請的人比較多，請過幾分鐘再試。'},
     en:{title:'Beta · Aria App Store',h:'Beta',lead:'Try it early. Tell us what’s broken.',
-      desc:'Pick a product and platform, then enter your email. Once approved, your beta code will be sent to that address.',
+      desc:'Work through the checklist one item at a time and leave your email last. Once approved, your beta code will be sent to that address.',
       prod:'Product',plat:'Platform',platPick:'Choose a platform',badPlat:'Please choose a platform.',mail:'Email',hint:'We only use your email to send the review result and your beta code.',
       s0:'Not applied',p0:'Pick a product and platform, enter your email, then tap Submit.',
       s1:'In review',p1:'Your application is in. Keep an eye on your inbox — whether you’re approved is up to our staff. This page won’t remember your application after a refresh.',
@@ -2803,10 +2834,10 @@ if(cur==='rm'){$$('.item').forEach(i=>i.classList.remove('on'));$$('.item[data-a
   /* V2.1.0 三条推广换码 · by grokbot */
   var ART={"zh": "Aria输入法是注重隐私安全的离线输入法，断网也能语音输入。内置独立 AI，所有识别都在你自己的 iPhone、Mac 或安卓手机上完成，隐私保护、数据安全满分。传统输入法会把语音和聊天内容上传云端，银行账号、密码都有泄露风险。\n\n- Aria输入法 iPhone 版重磅更新 成为全球首发支持iPhone Duo折叠屏手机输入法\n  * 隐私第一：语音、打字、手写都只存在本机，不上传、不外发\n  * 全球首发支持iPhone Duo折叠屏手机输入法\n  * 全新中文手写：一笔/多笔连写秒出字，键盘不跳动，右下角发送/搜索一键直达\n  * 深色模式更纯粹：微信深色、系统下拉搜索自动切深色键盘\n  * 打字更准：九键十次有八次以上，首选就是你要的\n  * 常用词秒出：常用词一按即出，长句也打得准\n  * 拼音栏更好用：左侧点哪个音节，候选跟着变\n  * 语音不断：连说 1～2 分钟不中断\n  * 极其精简：依然只有几 MB，拒绝臃肿\n  * 搜索：Aria输入法 或 Aria Magic Voice\n\niPhone 版已通过苹果严格审核，不收集用户数据。适合对保密要求高、常在弱网或断网环境工作的个人和企业，如航空航天、金融、律师、高科技研发。\n\n搜「Aria输入法」或「Aria Magic Voice」就能找到\nMac 输入法和安卓版请到官网下载：ariamagicvoice.com/apps", "en": "Aria Magic Voice is a privacy-first offline input method that keeps working for voice input even without a network. Its built-in AI runs entirely on your own iPhone, Mac, or Android phone—privacy and data security stay with you. Traditional input methods upload your voice and chats to the cloud, which can put bank accounts and passwords at risk.\n\n- Aria Magic Voice for iPhone — major update, first to support the iPhone Duo foldable worldwide\n  * Privacy first: voice, typing, and handwriting stay on device only—never uploaded, never shared\n  * First worldwide to support the iPhone Duo foldable keyboard\n  * New Chinese handwriting: single- or multi-stroke continuous writing with instant candidates, no keyboard jump; send/search in the bottom-right in one tap\n  * Cleaner dark mode: WeChat dark mode and system pull-down search auto-switch to a dark keyboard\n  * More accurate typing: 9-key first choice is what you want more than 8 times out of 10\n  * Common phrases in one tap: long sentences stay accurate too\n  * Better pinyin bar: tap a syllable on the left and candidates follow\n  * Uninterrupted voice: speak continuously for 1–2 minutes\n  * Ultra-light: still only a few MB—no bloat\n  * Search: Aria输入法 or Aria Magic Voice\n\nThe iPhone version passed Apple's strict review and collects no user data. It's made for people and teams who need tight confidentiality or often work with weak or no connectivity, such as aerospace, finance, law and high-tech R&D.\n\nSearch \"Aria输入法\" or \"Aria Magic Voice\" to find it.\nMac and Android versions are available on our website: ariamagicvoice.com/apps"};
   var PROMO_T={zh:{gmT:'Gmail 用户：免做推广，直接加入',gmP:'用这个 Gmail 打开下面的链接，点「成为测试人员」，再从 Google Play 安装 Aria输入法。也可以继续点「提交申请」登记邮箱。',play:'加入 Google Play 封闭测试',
-      pt:'其他邮箱：完成三步，换内测码',s1:'复制文章',s2:'带图发出去',s2p:'点击保存配图，和文章一起发到三个不同的公开平台（如小红书、微博、抖音、知乎）。',s3:'贴三条链接',s3p:'把三条帖子的链接贴进来，格式正确就会变绿。',
+      pt:'其他邮箱：完成三步，换内测码',s1:'复制文章',s2:'带图发出去',s2p:'长按或点击保存下面的配图，和文章一起发出去。',s3:'发到知乎、小红书、微博，贴回三条链接',s3p:'链接格式对就亮绿勾，错了显示红叉。我们不读帖子内容。',
       copy:'复制文章',copied:'已复制',note:"以上完成，看到3个绿勾后，将整个页面截图或者3个绿勾加你的邮箱截图发给工作人员，谢谢。",ok:'提交成功',okm:'邮箱：'},
     en:{gmT:'Gmail users: skip the posts and join directly',gmP:'Open the link below with this Gmail, tap “Become a tester”, then install Aria Magic Voice from Google Play. You can still tap Submit to register your email.',play:'Join the Google Play closed test',
-      pt:'Other emails: three steps to get a beta code',s1:'Copy the post',s2:'Post it with the images',s2p:'Save the images and share them with the post on three different public platforms (e.g. X, Reddit, LinkedIn, Instagram).',s3:'Paste the three links',s3p:'Paste the links to your three posts. Each turns green once the link format is valid.',
+      pt:'Other emails: three steps to get a beta code',s1:'Copy the post',s2:'Post it with the images',s2p:'Save the images below and post them together with the article.',s3:'Post it on three platforms and paste the three links back',s3p:'A link turns green when its format is valid, red if not. We never read your posts.',
       copy:'Copy post',copied:'Copied',note:"When you see three green checks, screenshot the whole page — or the three green checks plus your email — and send it to our staff. Thank you.",ok:'Submitted',okm:'Email: '}};
   var LK=[el('betaLink1'),el('betaLink2'),el('betaLink3')],LL=[el('betaLamp1'),el('betaLamp2'),el('betaLamp3')];
   var ICK='<svg viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 27l8 8 16-18"/></svg>',
@@ -2834,18 +2865,29 @@ if(cur==='rm'){$$('.item').forEach(i=>i.classList.remove('on'));$$('.item[data-a
     if(!busy && state!==1) mail.disabled = needPromo() && !allG && !gmailSkip;
     prog(allG);
   }
-  var PROG_T={zh:['选产品和平台','复制文章','三个绿勾','邮箱','提交'],en:['Product & platform','Copy post','Three green checks','Email','Submit']};
-  var SKIP_T={zh:'用 Gmail？不用发帖，点这里直接填邮箱',en:'Using Gmail? Skip the posts — tap here to enter your email'};
-  var CK_SVG='<svg viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 27l8 8 16-18"/></svg>';
+  var UI_T={zh:{t1:'选产品和平台',d1:'选你要内测的产品和手机系统。',d2:'点一下复制，发到三个平台。',t4:'留下邮箱',d4l:'完成上面三步后解锁。内测码会发到这个邮箱。',d4:'内测码会发到这个邮箱。',t5:'提交',d5:'前面各项全绿才能点。',sk:'用 Gmail 邮箱？',ska:'不用发帖，改走 Google Play 封闭测试',ph:['知乎链接 https://…','小红书链接 https://…','微博链接 https://…']},
+            en:{t1:'Choose product & platform',d1:'Pick the product and the phone system you want to test.',d2:'Tap to copy, then post it on three platforms.',t4:'Leave your email',d4l:'Unlocks after the steps above. Your beta code will be sent to this email.',d4:'Your beta code will be sent to this email.',t5:'Submit',d5:'Available once everything above is green.',sk:'Using Gmail?',ska:'Skip the posts and join via Google Play closed testing',ph:['Link 1 https://…','Link 2 https://…','Link 3 https://…']}};
   function prog(allG){
-    var L=el('betaProgL'),bar=el('betaProgBar'); if(!L||!bar) return;
-    var pl=el('betaPlat'),np=needPromo();
-    var d=[ !!(pl&&pl.value), (!np||copiedFlag), (!np||allG), emailOk(mail.value.trim()), state===1 ];
-    var names=PROG_T[pz()],h='',n=0,k;
-    for(k=0;k<5;k++){ if(d[k]) n++; h+='<li data-d="'+(d[k]?1:0)+'"><span class="pk" aria-hidden="true">'+CK_SVG+'</span>'+names[k]+'</li>'; }
-    if(L.getAttribute('data-h')!==h){ L.innerHTML=h; L.setAttribute('data-h',h); }
-    bar.style.width=(n*20)+'%';
-    var sk=el('betaSkipG'); if(sk) put(sk,SKIP_T[pz()]);
+    var T=UI_T[pz()],np=needPromo(),pl=el('betaPlat');
+    var anyLink=LK.some(function(x){return x.value.trim()!=='';});
+    var s1=!!(pl&&pl.value), s2=!np||copiedFlag||anyLink, s3=!np||allG, s4=emailOk(mail.value.trim()), s5=(state===1);
+    var flags=[s1,s2,s3,s4,s5], lockf=[false,!s1,!s2,!!mail.disabled,!s4];
+    var n=0,total=0,k,it;
+    for(k=0;k<5;k++){
+      it=el('betaItem'+(k+1)); if(!it) continue;
+      var vis=(k===1||k===2)?np:true;
+      if(vis){ total++; if(flags[k]) n++; }
+      it.setAttribute('data-d',flags[k]?'1':'0');
+      it.classList.toggle('lock',!flags[k]&&lockf[k]);
+    }
+    put(el('betaT1'),T.t1); put(el('betaD1'),T.d1); put(el('betaD2'),T.d2);
+    put(el('betaT4'),T.t4); put(el('betaD4'),mail.disabled?T.d4l:T.d4);
+    put(el('betaT5'),T.t5); put(el('betaD5'),T.d5);
+    put(el('betaSkipT'),T.sk); put(el('betaSkipG'),T.ska);
+    for(k=0;k<3;k++) if(LK[k].getAttribute('placeholder')!==T.ph[k]) LK[k].setAttribute('placeholder',T.ph[k]);
+    el('betaProgBar').style.width=(total?Math.round(n*100/total):0)+'%';
+    put(el('betaProgTxt'),n+' / '+total);
+    stat.classList.toggle('bsr2',state!==1);
   }
   function paintPromo(){
     var t=PROMO_T[pz()];
