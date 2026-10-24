@@ -964,8 +964,8 @@ const VER_AND={
   beta:[{n:'官网',u:'downloads.ariamagicvoice.com/releases/aria/android/10.512/AriaInputMethod-Android-v10.512.apk',i:'official'}],
   free:'downloads.ariamagicvoice.com/releases/aria/android/10.512/AriaInputMethod-Android-v10.512.apk', pro:'ariamagicvoice.com/aria/pay-android.html', price:'$9.99'};
 const VER={
-  aria:{beta:[{n:'GitHub',u:'github.com/andywu1206/aria-magic-voice-download/releases/tag/aria-magic-voice-mac-v90.878-free',i:'gh'}],
-        free:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-magic-voice-mac-v90.878-free/AriaMagicVoice_Free_Website_v90.878.dmg',
+  aria:{beta:[{n:'GitHub',u:'github.com/andywu1206/aria-magic-voice-download/releases/tag/aria-magic-voice-mac-v90.879-free',i:'gh'}],
+        free:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-magic-voice-mac-v90.879-free/AriaMagicVoice_Free_Website_v90.879.dmg',
         pro:'buy.paddle.com',price:'$19.99'},
   rm:{beta:[{n:'TestFlight',u:'testflight.apple.com/join/…',i:'tf'}],
 
@@ -1171,7 +1171,7 @@ function mergeContent(o){
     if(!ap)continue;
     if(a[1]==='beta'){const b=ap.beta&&ap.beta[+a[2]];if(b)b.u=lk[k];}
     else if(a[1]==='free'||a[1]==='pro')ap[a[1]]=lk[k];}}
-/*BAKED-START*/const BAKED={"__links":{"aria:beta:0":"github.com/andywu1206/aria-magic-voice-download/releases/tag/aria-magic-voice-mac-v90.878-free","aria:free":"github.com/andywu1206/aria-magic-voice-download/releases/download/aria-magic-voice-mac-v90.878-free/AriaMagicVoice_Free_Website_v90.878.dmg","aria:pro":"buy.paddle.com"}};/*BAKED-END*/
+/*BAKED-START*/const BAKED={"__links":{"aria:beta:0":"github.com/andywu1206/aria-magic-voice-download/releases/tag/aria-magic-voice-mac-v90.879-free","aria:free":"github.com/andywu1206/aria-magic-voice-download/releases/download/aria-magic-voice-mac-v90.879-free/AriaMagicVoice_Free_Website_v90.879.dmg","aria:pro":"buy.paddle.com"}};/*BAKED-END*/
 mergeContent(BAKED);
 
 function linkCode(sc,u){
@@ -1247,7 +1247,7 @@ function renderCompare(){
 
   const VX  = AND ? VER_AND : VER[cur];
   const directSource={n:lang==='zh'?'官网':'Website',
-    u:({and:'downloads.ariamagicvoice.com/releases/aria/android/10.512/AriaInputMethod-Android-v10.512.apk',mac:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-magic-voice-mac-v90.878-free/AriaMagicVoice_Free_Website_v90.878.dmg'})[curPlat]||'',
+    u:({and:'downloads.ariamagicvoice.com/releases/aria/android/10.512/AriaInputMethod-Android-v10.512.apk',mac:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-magic-voice-mac-v90.879-free/AriaMagicVoice_Free_Website_v90.879.dmg'})[curPlat]||'',
     i:'official',fast:true};
   const hasDirect=cur==='aria'&&!!directSource.u;
   const betaSources=hasDirect?[directSource,...(VX.beta||[]).filter(b=>b.i!=='official'&&b.n!=='官网'&&b.n!=='Website')]:VX.beta;
