@@ -899,7 +899,7 @@ body.dark .item.beta{box-shadow:0 6px 16px -6px rgba(0,0,0,.6)}
   [data-v="9"].sbmin .item.beta .bm{font-size:13px}
   [data-v="9"].sbmin #supportSlab{width:28px;margin:6px auto 8px}
 }
-/* BETA_NAV_VERSION v2.6.2 · 2026-10-24 22:35:00 CST · by Antigravity · 官网原装左栏+右上角语言/深色开关 + 方案A六步内测卡 + 修复5个P0
+/* BETA_NAV_VERSION v2.6.3 · 2026-10-24 22:42:00 CST · by Antigravity · 官网原装左栏+右上角语言/深色开关 + 方案A六步内测卡 + 修复5个P0
    上一版：BETA_NAV_VERSION v2.1.3 · 2026-10-23 15:30 CST · by 1号-CEO · Harry 第二版 ART + 去掉审批时限承诺 + 绿勾后截图发工作人员
    上一版：BETA_NAV_VERSION v2.1.0 · 2026-10-22 16:01 CST · by grokbot · 三条推广换码 + Gate Lights + 去 Harry 字样 + 底部版本行（Harry 2026-10-22 授权直接改官网）
    上一版：BETA_NAV_VERSION v2.0.0 · 2026-10-21 23:05 CST · by grokbot · 上线单_内测申请侧栏_方案2_v1.0.2（Harry 23:01 授权直接上线）
@@ -1020,7 +1020,7 @@ body.dark .bpromo{border-color:rgba(235,235,245,.24)}
 .ft{flex-wrap:wrap} .ftver{flex-basis:100%;font-size:11px;opacity:.65;margin-bottom:4px}
 
 
-/* v2.6.2 · 2026-10-24 22:35:00 CST · by Antigravity：保留官网原装左栏与右上角按钮，主内容区 100% 采用方案 A 六步卡片样式 */
+/* v2.6.3 · 2026-10-24 22:42:00 CST · by Antigravity：保留官网原装左栏与右上角按钮，主内容区 100% 采用方案 A 六步卡片样式 */
 [data-v="9"] .beta-hero{align-items:start;min-height:0;padding:80px 48px 48px 312px;display:block}
 .beta-hero .copy{max-width:700px;width:100%;gap:0;padding-bottom:0;display:block}
 .beta-hero #betaH{font-size:64px;font-weight:900;letter-spacing:-.02em;line-height:1.08;margin:0;color:var(--ink)}
@@ -1064,7 +1064,8 @@ body.lb-open .side,body.lb-open .top{opacity:0!important;visibility:hidden!impor
 .beta-lb{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:99999;display:flex;align-items:center;justify-content:center;padding:24px 24px 86px;cursor:zoom-out;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 .beta-lb[hidden]{display:none!important}
 .beta-lb img{max-width:min(92vw,1080px);max-height:82vh;width:auto;height:auto;object-fit:contain;border-radius:14px;box-shadow:0 24px 64px rgba(0,0,0,.65);cursor:default;transition:opacity .18s}
-.beta-lb-x{position:fixed;top:24px;right:24px;width:36px;height:36px;border-radius:50%;border:0;padding:0;background:rgba(210,210,215,.64);color:rgba(0,0,0,.8);font-size:18px;cursor:pointer;display:grid;place-items:center;z-index:2;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:background .15s,color .15s}
+.beta-lb-x{position:fixed;top:24px;right:24px;width:36px;height:36px;border-radius:50%;border:0;padding:0;background:rgba(210,210,215,.64);color:rgba(0,0,0,.8);font-size:27px;cursor:pointer;display:grid;place-items:center;z-index:2;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:background .15s,color .15s}
+.beta-lb-x svg{width:30px;height:30px;display:block}
 .beta-lb-x:hover{background:rgba(223,223,227,.82);color:#000}
 .beta-lb-bar{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:14px;z-index:2;cursor:default}
 .beta-lb-nav{width:36px;height:36px;border-radius:50%;border:0;padding:0;background:rgba(210,210,215,.64);color:rgba(0,0,0,.8);cursor:pointer;display:grid;place-items:center;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:background .15s,color .15s,transform .15s}
@@ -1305,7 +1306,7 @@ body.dark .beta-hero .hint{color:rgba(235,235,245,.65)}
            而且它一度卡在 v1.0.1 连着 11 次发布没动过，反而误导人。
            要查线上是哪一版：看 scripts/publish_log.jsonl，或 magicvoice-site 的 git log。
            ⚠️ 别再往 footer 加版本号，除非 Harry 明说要。 -->
-      <div class="ftver" id="ftVer">v2.6.2 · 2026-10-24 22:35:00 CST · Antigravity</div>
+      <div class="ftver" id="ftVer">v2.6.3 · 2026-10-24 22:42:00 CST · Antigravity</div>
       <span>© 2026 Peace &amp; Light</span>
       <span class="sp"></span>
       <a id="bizLink">Partnerships</a>
@@ -1314,7 +1315,7 @@ body.dark .beta-hero .hint{color:rgba(235,235,245,.65)}
   </main>
 </div>
 <div class="beta-lb" id="betaLb" hidden>
-  <button type="button" class="beta-lb-x" id="betaLbX" aria-label="Close"><svg viewBox="0 0 36 36" width="20" height="20" fill="currentColor"><path d="m19.41 18 4.29-4.29a1 1 0 0 0-1.41-1.41L18 16.59l-4.29-4.3a1 1 0 0 0-1.42 1.42l4.3 4.29-4.3 4.29a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l4.29-4.3 4.29 4.3a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42z"/></svg></button>
+  <button type="button" class="beta-lb-x" id="betaLbX" aria-label="Close"><svg viewBox="0 0 36 36" width="30" height="30" fill="currentColor"><path d="m19.41 18 4.29-4.29a1 1 0 0 0-1.41-1.41L18 16.59l-4.29-4.3a1 1 0 0 0-1.42 1.42l4.3 4.29-4.3 4.29a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l4.29-4.3 4.29 4.3a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42z"/></svg></button>
   <img id="betaLbImg" src="" alt="">
   <div class="beta-lb-bar">
     <button type="button" class="beta-lb-nav beta-lb-prev" id="betaLbPrev" aria-label="Previous"><svg class="icon-control icon-control-chevronleft" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36"><path d="m20 25c-.3838 0-.7676-.1465-1.0605-.4395l-5.5-5.5c-.5859-.5854-.5859-1.5356 0-2.1211l5.5-5.5c.5859-.5859 1.5352-.5859 2.1211 0 .5859.5854.5859 1.5356 0 2.1211l-4.4395 4.4395 4.4395 4.4395c.5859.5854.5859 1.5356 0 2.1211-.293.293-.6768.4395-1.0605.4395z"></path></svg></button>
