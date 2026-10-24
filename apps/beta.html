@@ -899,7 +899,7 @@ body.dark .item.beta{box-shadow:0 6px 16px -6px rgba(0,0,0,.6)}
   [data-v="9"].sbmin .item.beta .bm{font-size:13px}
   [data-v="9"].sbmin #supportSlab{width:28px;margin:6px auto 8px}
 }
-/* BETA_NAV_VERSION v2.5.2 · 2026-10-24 21:18:00 CST · by Antigravity · 官网原装左栏+右上角语言/深色开关 + 方案A六步内测卡 + 修复5个P0
+/* BETA_NAV_VERSION v2.5.3 · 2026-10-24 21:26:00 CST · by Antigravity · 官网原装左栏+右上角语言/深色开关 + 方案A六步内测卡 + 修复5个P0
    上一版：BETA_NAV_VERSION v2.1.3 · 2026-10-23 15:30 CST · by 1号-CEO · Harry 第二版 ART + 去掉审批时限承诺 + 绿勾后截图发工作人员
    上一版：BETA_NAV_VERSION v2.1.0 · 2026-10-22 16:01 CST · by grokbot · 三条推广换码 + Gate Lights + 去 Harry 字样 + 底部版本行（Harry 2026-10-22 授权直接改官网）
    上一版：BETA_NAV_VERSION v2.0.0 · 2026-10-21 23:05 CST · by grokbot · 上线单_内测申请侧栏_方案2_v1.0.2（Harry 23:01 授权直接上线）
@@ -1020,7 +1020,7 @@ body.dark .bpromo{border-color:rgba(235,235,245,.24)}
 .ft{flex-wrap:wrap} .ftver{flex-basis:100%;font-size:11px;opacity:.65;margin-bottom:4px}
 
 
-/* v2.5.2 · 2026-10-24 21:18:00 CST · by Antigravity：保留官网原装左栏与右上角按钮，主内容区 100% 采用方案 A 六步卡片样式 */
+/* v2.5.3 · 2026-10-24 21:26:00 CST · by Antigravity：保留官网原装左栏与右上角按钮，主内容区 100% 采用方案 A 六步卡片样式 */
 [data-v="9"] .beta-hero{align-items:start;min-height:0;padding:80px 48px 48px 312px;display:block}
 .beta-hero .copy{max-width:700px;width:100%;gap:0;padding-bottom:0;display:block}
 .beta-hero #betaH{font-size:64px;font-weight:900;letter-spacing:-.02em;line-height:1.08;margin:0;color:var(--ink)}
@@ -1294,7 +1294,7 @@ body.dark .beta-hero .hint{color:rgba(235,235,245,.65)}
            而且它一度卡在 v1.0.1 连着 11 次发布没动过，反而误导人。
            要查线上是哪一版：看 scripts/publish_log.jsonl，或 magicvoice-site 的 git log。
            ⚠️ 别再往 footer 加版本号，除非 Harry 明说要。 -->
-      <div class="ftver" id="ftVer">v2.5.2 · 2026-10-24 21:18:00 CST · Antigravity</div>
+      <div class="ftver" id="ftVer">v2.5.3 · 2026-10-24 21:26:00 CST · Antigravity</div>
       <span>© 2026 Peace &amp; Light</span>
       <span class="sp"></span>
       <a id="bizLink">Partnerships</a>
@@ -2726,7 +2726,7 @@ Mac and Android versions are available on our website: ariamagicvoice.com/apps`}
     document.title=tr(L==='zh'?'内测申请 · Aria App Store':'Beta Request · Aria App Store');
     sec.querySelectorAll('[data-t]').forEach(e=>e.textContent=tr(t[e.dataset.t]));
     q('#txt').textContent=tr(TXT[L]);
-    q('#gal').innerHTML=IMG[L].map(f=>`<a href="share-img/${f}" download><img src="share-img/${f}" alt=""></a>`).join('');
+    q('#gal').innerHTML=IMG[L].map(f=>`<a href="share-img/${f}?v=253" download="${f}"><img src="share-img/${f}?v=253" alt=""></a>`).join('');
     q('#copy').textContent=tr(copied?t.copied:t.copy);
     q('#save').textContent=tr(t.save);
     const curProd=q('#prod').value||'aria';
