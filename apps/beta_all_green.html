@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>内测申请 A · v1.0.3</title>
+<style>
+*{box-sizing:border-box;margin:0}body{font-family:-apple-system,"PingFang SC","Noto Sans SC",sans-serif;color:#111;background:linear-gradient(135deg,#f8ecdc,#f6ebe6 45%,#fbf7f3);min-height:100vh}a{color:#111}a:hover{color:#555}
+button,input,select{font-family:inherit}
+.shell{display:grid;grid-template-columns:236px minmax(0,1fr);gap:56px;max-width:1300px;margin:0 auto;padding:40px 32px 80px}
+.side{background:rgba(255,253,247,.9);border-radius:20px;box-shadow:0 10px 30px rgba(120,90,60,.1);padding:20px 14px;align-self:start;position:sticky;top:24px}
+.it{display:flex;gap:10px;align-items:center;padding:8px;border-radius:10px;font:600 13px inherit}.it.on{background:#f6f0e6}.ic{width:32px;height:32px;border-radius:8px;display:grid;place-items:center;color:#fff;font-weight:800;font-size:15px;flex:none}.side hr{border:0;border-top:1px solid #eee3d6;margin:8px}
+main{max-width:700px;min-width:0}.hd{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}h1{font-size:64px;font-weight:900;letter-spacing:-.02em}.lead{font-size:22px;margin:6px 0 10px}.mut{color:#666;font-size:14px;line-height:1.7}
+.lang{display:flex;gap:4px;background:#fff;border:1px solid #e6ddd4;border-radius:999px;padding:3px;flex:none;margin-top:12px}.lang button{white-space:nowrap;border:0;background:none;padding:6px 12px;border-radius:999px;font:600 13px inherit;cursor:pointer;color:#555}.lang .on{background:#111;color:#fff}
+.card{background:#fff;border-radius:20px;box-shadow:0 12px 40px rgba(120,90,60,.08);padding:28px;margin-top:24px}
+.prog{display:flex;align-items:center;gap:12px;margin-bottom:8px}.bar{flex:1;height:6px;border-radius:3px;background:#eee;overflow:hidden}.bar i{display:block;height:100%;width:0;background:#16a34a;transition:width .25s}.prog span{font-size:13px;color:#888;white-space:nowrap}
+.stp{display:grid;grid-template-columns:36px minmax(0,1fr);gap:14px;padding:20px 0;border-top:1px solid #f0ece7;transition:opacity .2s}.stp:first-of-type,.prog+.stp{border-top:0;padding-top:0}
+.sn{width:32px;height:32px;border-radius:50%;background:#111;color:#fff;display:grid;place-items:center;font-weight:800}.stp.done .sn{background:#16a34a}.stp h3{font-size:18px;margin:4px 0 10px}
+.btn{border:0;border-radius:999px;background:#111;color:#fff;font:600 13px inherit;padding:8px 16px;cursor:pointer;white-space:nowrap}.btn.gh{background:#fff;color:#111;border:1px solid #ddd}.btn:hover{opacity:.85}
+.cta{width:calc(100% - 50px);margin:20px 0 0 50px;border:0;border-radius:999px;padding:16px;font:700 16px inherit;background:#111;color:#fff;cursor:pointer}.cta:disabled{background:#e7e4e0;color:#9b958f;cursor:not-allowed}.foot{font-size:13px;color:#777;margin:10px 0 0 50px;text-align:center}
+.art{border:1px solid #eee;border-radius:14px;overflow:hidden}.ah{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:#faf9f7;border-bottom:1px solid #eee;gap:8px}
+pre{white-space:pre-wrap;font-family:inherit;font-size:14px;line-height:1.75;padding:14px;max-height:180px;overflow:auto;color:#333}
+.gal{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:14px}.gal a{position:relative;aspect-ratio:3/4;border-radius:8px;overflow:hidden;background:#111;display:block}.gal img{width:100%;height:100%;object-fit:cover;object-position:top}.gal a:after{content:"↓";position:absolute;right:5px;bottom:5px;width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.92);display:grid;place-items:center;font-size:12px}
+.gb{display:flex;justify-content:center;margin-top:14px}
+.slot{border:1px solid #e5e5e5;border-radius:14px;padding:12px;display:grid;grid-template-columns:14px minmax(0,1fr) 28px;column-gap:8px;row-gap:8px;align-items:center;transition:background .2s}.slot+.slot{margin-top:10px}
+.slot>input,.slot>.sub{grid-column:2}.slot .n{color:#666;font-size:14px}
+select,input{font-size:15px;border:1px solid #d6d6d6;border-radius:10px;padding:11px 12px;background:#fff;width:100%;min-width:0}select{appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23111' stroke-width='1.6'/%3E%3C/svg%3E") no-repeat right 12px center;padding-right:32px}input:disabled,select:disabled{background-color:#f6f4f1}
+.st{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font:800 14px inherit;color:#fff}.st.ok{background:#16a34a}.st.x{background:#dc2626}.st.e{border:1.5px dashed #bbb;color:#bbb}
+.slot.ok{border-color:#bbe5c8;background:#f3fbf5}.slot.x{border-color:#f3c0c0;background:#fff6f6}.sub{font-size:12.5px;min-height:0}.ok .sub{color:#15803d}.x .sub{color:#b91c1c}.sub:empty{display:none}
+.fg{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}.fg input{grid-column:1/-1}
+.done-card{text-align:center;padding:24px 0 8px}.big{width:56px;height:56px;border-radius:50%;background:#16a34a;color:#fff;display:grid;place-items:center;font-size:28px;margin:0 auto 14px}.done-card h2{font-size:28px;margin-bottom:6px}.sum{text-align:left;margin:22px auto 0;max-width:460px;display:grid;gap:8px;font-size:14px;color:#333}.sum div{display:flex;gap:8px}.sum i{color:#16a34a;font-style:normal;font-weight:800}.sum span{word-break:break-all}
+[hidden]{display:none!important}
+@media(max-width:820px){.shell{grid-template-columns:52px minmax(0,1fr);gap:14px;padding:24px 12px 60px}.side{padding:10px 8px}.it{padding:5px;justify-content:center}.it span{display:none}h1{font-size:40px}.lead{font-size:18px}.card{padding:18px}}.lbl2{display:block;font-weight:700;font-size:15px;margin:16px 0 8px}.em{padding:14px 16px;border-color:#c8c8c8;border-radius:12px}.hint{font-size:13px;color:#666;margin-top:8px}.vg .lbl2:first-child{margin-top:0}.vg select{padding:14px 16px;border-color:#c8c8c8;border-radius:12px}
+</style></head><body>
+<div class="shell"><aside class="side" id="side"></aside>
+<main>
+<div class="hd"><div><h1 data-t="h1"></h1><p class="lead" data-t="lead"></p><p class="mut" data-t="sub"></p></div><div class="lang"><button data-l="zh" class="on">中文</button><button data-l="en">EN</button></div></div>
+<div class="card" id="form">
+<div class="prog" hidden><div class="bar"><i id="fill"></i></div><span id="cnt">0 / 3</span></div>
+<div class="stp" id="s0"><div class="sn">1</div><div><h3 data-t="lp"></h3><select id="prod" class="em"></select></div></div>
+<div class="stp" id="sP"><div class="sn">2</div><div><h3 data-t="lf"></h3><select id="plat" class="em"><option>iPhone</option><option>Mac</option><option>Android</option><option>Windows</option></select></div></div>
+<div class="stp" id="s1"><div class="sn">3</div><div><h3 data-t="s1"></h3><div class="art"><div class="ah"><span></span><button class="btn" id="copy"></button></div><pre id="txt"></pre></div></div></div>
+<div class="stp lock" id="sI"><div class="sn">4</div><div><h3 data-t="sI"></h3><p class="mut" data-t="sId" style="margin:-4px 0 12px"></p><div class="gal" id="gal" style="margin-top:0"></div><div class="gb"><button class="btn gh" id="save"></button></div></div></div>
+<div class="stp lock" id="s2"><div class="sn">5</div><div><h3 data-t="s2"></h3><p class="mut" data-t="s2d" style="margin:-4px 0 12px"></p><div id="slots"></div></div></div>
+<div class="stp lock" id="s3"><div class="sn">6</div><div><h3 data-t="em2"></h3><input id="email" type="email" class="em"><p class="hint" data-t="emh"></p></div></div>
+<button class="cta" id="go" disabled></button><p class="foot" data-t="foot"></p>
+</div>
+<div class="card done-card" id="ok" hidden><div class="big">✓</div><h2 data-t="okH"></h2><p class="mut" data-t="okP"></p><div class="sum" id="sum"></div><button class="btn gh" id="again" style="margin-top:22px" data-t="again"></button></div>
+</main></div>
+<script>
+const IMG={zh:['01.jpg','02.jpg','05.png','06.png'],en:['03.jpg','04.jpg','05.png','06.png']};
+const TXT={zh:`Aria输入法是离线输入法，断网也能语音输入。内置独立 AI，所有识别都在你自己的 iPhone、Mac 或安卓手机上完成。传统输入法会把语音和聊天内容上传云端，银行账号、密码都有泄露风险。
+
+- 语音输入支持中英文混着说，想怎么说就怎么说
+- 超级学习引擎：改过一次的词，下次自动打对，越用越懂你
+- 内置电子签名，商务文档随手签
+
+iPhone 版已通过苹果严格审核，正式上架 App Store，不收集用户数据。适合对保密要求高、常在弱网或断网环境工作的个人和企业，如航空航天、金融、律师、高科技研发。
+
+iOS 版去 App Store 下载：搜 Aria输入法 或 Aria Magic Voice
+Mac 输入法和安卓版请到官网下载：ariamagicvoice.com/apps`,en:`Aria is an offline keyboard, and voice input works even without internet. Its built-in AI handles all recognition right on your iPhone, Mac or Android phone. Most keyboards upload your voice and chats to the cloud, which can put your bank details and passwords at risk.
+
+- Voice input lets you mix Chinese and English freely, however you naturally talk
+- Smart learning: fix a word once and it gets it right next time, so the more you use it, the better it knows you
+- Built-in e-signature for signing business documents on the go
+
+The iPhone version passed Apple's strict review, is now live on the App Store, and collects no user data. It's made for people and teams who need tight confidentiality or often work with weak or no connectivity, such as aerospace, finance, law and high-tech R&D.
+
+On iPhone, search "Aria Magic Voice" on the App Store.
+Mac and Android versions are available on our website: ariamagicvoice.com/apps`};
+const T={zh:{h1:'内测申请',lead:'先用上，再告诉我们哪里不好。',s0:'选产品和平台',sId:'点击保存配图，和文章一起发到三个不同的公开平台（如小红书、微博、抖音、知乎）。',s2d:'把三条帖子的链接贴进来，格式正确就会变绿。',lp:'产品',lf:'平台',sI:'保存配图，和文案一起发送到 3 个不同的平台',sub:'分享到任意 3 个平台，全部通过后内测码发到你的邮箱。',s1:'复制文案',s2:'贴上 3 条帖子的链接',s3:'填写申请信息',foot:'3 条全部通过后，内测码发到你的邮箱 · 最长 3 个工作日',go:'提交审核',copy:'一键复制',copied:'已复制 ✓',save:'一键保存全部图片（4 张）',ph:'贴上帖子链接 https://…',em:'name@gmail.com',emh:'邮箱只用来发送审批结果和内测码。Gmail 邮箱优先通过。',ok:'已读到帖子，谢谢',bad:'链接无效，请重填',okH:'提交成功',okP:'内测码通过审核后发到你的邮箱。',again:'重新开始',pl:['小红书','抖音','微信朋友圈','X','Threads','Instagram','Facebook'],pr:['Aria Magic Voice','Remember Me','i人洞府','躺平猫','Aria魔法散热风扇','哈哈资讯'],side:['Harry App Store','Aria Magic Voice','Remember Me','i人洞府','躺平猫','Aria魔法散热风扇','哈哈资讯','内测申请','商务合作','用户反馈','赞助','关于我'],em2:'邮箱'},
+en:{h1:'Beta Request',lead:'Try it first, then tell us what to fix.',s0:'Choose product and platform',sId:'Save the images and share them with the post on three different public platforms (e.g. X, Reddit, LinkedIn, Instagram).',s2d:'Paste the links to your three posts. Valid links turn green.',lp:'Product',lf:'Platform',sI:'Save the images and post them with the text on 3 different platforms',sub:'Share on any 3 platforms. Once all are approved, your beta code is emailed to you.',s1:'Copy the text',s2:'Paste 3 post links',s3:'Your details',foot:'Your beta code is emailed once all 3 links are approved · Up to 3 business days',go:'Submit for review',copy:'Copy all',copied:'Copied ✓',save:'Save all images (4)',ph:'Paste post link https://…',em:'name@gmail.com',emh:'Your email is only used to send the review result and beta code. Gmail addresses are approved first.',ok:'Post found, thank you',bad:'Invalid link. Please resubmit',okH:'Submitted',okP:'Your beta code will be emailed once approved.',again:'Start over',pl:['X','Threads','Instagram','Facebook','Reddit','LinkedIn','Xiaohongshu','Douyin','WeChat Moments'],pr:['Aria Magic Voice','Remember Me','Introvert Den','Lazy Cat','Aria Magic Cooling Fan','Haha News'],side:['Harry App Store','Aria Magic Voice','Remember Me','Introvert Den','Lazy Cat','Aria Magic Cooling Fan','Haha News','Beta Request','Business','Feedback','Sponsor','About'],em2:'Email'}};
+const $=s=>document.querySelector(s),ICOL=['#6366f1','#0d1022','#111','#2b2f36','#f5c518','#3b6fd8','#f28c1e','#111','#222','#222','#ef4444','#222'];
+let L='zh',copied=false;const V=['','',''],P=[0,1,2];
+const okURL=v=>/^https?:\/\/[^\s]+\.[^\s]{2,}/i.test(v.trim());
+function build(){const t=T[L];document.documentElement.lang=L=='zh'?'zh-CN':'en';
+document.querySelectorAll('[data-t]').forEach(e=>e.textContent=t[e.dataset.t]);
+$('#side').innerHTML=t.side.map((n,i)=>(i==8?'<hr>':i==1?'<hr>':'')+`<div class="it ${i==7?'on':''}"><div class="ic" style="background:${ICOL[i]}">${n[0]}</div><span>${n}</span></div>`).join('');
+$('#txt').textContent=TXT[L];$('#gal').innerHTML=IMG[L].map(f=>`<a href="share-img/${f}" download><img src="share-img/${f}" alt=""></a>`).join('');
+$('#copy').textContent=copied?t.copied:t.copy;$('#save').textContent=t.save;
+$('#prod').innerHTML=t.pr.map(p=>`<option>${p}</option>`).join('');$('#email').placeholder=t.em;$('#go').textContent=t.go;
+$('#slots').innerHTML=[0,1,2].map(k=>`<div class="slot" data-k="${k}"><span class="n">${k+1}</span><input type="url" placeholder="${t.ph}" value="${V[k]}"><span class="st e">·</span><div class="sub"></div></div>`).join('');
+document.querySelectorAll('.slot').forEach(s=>{const k=+s.dataset.k;s.querySelector('input').oninput=e=>{V[k]=e.target.value;upd()}});upd()}
+function upd(){const t=T[L];let n=0;
+document.querySelectorAll('.slot').forEach((s,k)=>{const v=V[k].trim(),good=okURL(v),st=s.querySelector('.st');n+=good;s.className='slot '+(!v?'':good?'ok':'x');st.className='st '+(!v?'e':good?'ok':'x');st.textContent=!v?'·':good?'✓':'✕';s.querySelector('.sub').textContent=!v?'':good?t.ok:t.bad});
+const em=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test($('#email').value.trim()),all=n==3;
+$('#s2').classList.toggle('lock',!copied);$('#s3').classList.toggle('lock',!all);
+$('#s1').classList.toggle('done',copied);$('#sI').classList.toggle('lock',!copied);$('#sI').classList.toggle('done',copied);$('#s0').classList.add('done');$('#sP').classList.add('done');$('#s2').classList.toggle('done',all);$('#s3').classList.toggle('done',all&&em);
+const d=copied+all+(all&&em);$('#cnt').textContent=d+' / 3';$('#fill').style.width=d/3*100+'%';$('#go').disabled=d<3}
+$('#copy').onclick=()=>{navigator.clipboard?.writeText(TXT[L]);copied=true;$('#copy').textContent=T[L].copied;upd()};
+$('#save').onclick=()=>IMG[L].forEach((f,k)=>setTimeout(()=>{const a=document.createElement('a');a.href='share-img/'+f;a.download=f;a.click()},k*300));
+$('#email').oninput=upd;
+$('#go').onclick=()=>{$('#form').hidden=true;$('#ok').hidden=false;$('#sum').innerHTML=`<div><i>✓</i><span>${T[L].em2}: ${$('#email').value.replace(/</g,'&lt;')}</span></div>`+V.map(v=>`<div><i>✓</i><span>${v.replace(/</g,'&lt;')}</span></div>`).join('')};
+$('#again').onclick=()=>{copied=false;V.fill('');$('#email').value='';$('#form').hidden=false;$('#ok').hidden=true;build()};
+document.querySelectorAll('.lang button').forEach(b=>b.onclick=()=>{L=b.dataset.l;document.querySelectorAll('.lang button').forEach(x=>x.classList.toggle('on',x==b));build()});
+build();copied=true;const DEMO={zh:['https://www.xiaohongshu.com/explore/66f1c0a2e4b0','https://www.douyin.com/video/7429183650241','https://weibo.com/7821543/OzK3pQx9a'],en:['https://x.com/tester/status/1849201736520','https://www.instagram.com/p/DBx7kQ2sP9a/','https://www.facebook.com/tester/posts/1092837465']};V.splice(0,3,...DEMO.zh);$('#email').value='tester@gmail.com';build();document.querySelectorAll('.lang button').forEach(b=>b.addEventListener('click',()=>{V.splice(0,3,...DEMO[L]);build()}));
+</script></body></html>
