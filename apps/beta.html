@@ -1017,6 +1017,21 @@ body.dark .bpromo{border-color:rgba(235,235,245,.24)}
 .bokt{font-size:20px;font-weight:750;margin-top:10px} .bokm{margin:4px 0 10px;opacity:.85;word-break:break-all}
 .boklist{list-style:none;margin:0;padding:0;text-align:left} .boklist li{display:flex;gap:8px;align-items:center;margin:6px 0;word-break:break-all;font-size:13px}
 .ft{flex-wrap:wrap} .ftver{flex-basis:100%;font-size:11px;opacity:.65;margin-bottom:4px}
+
+/* v2.2.0 · 2026-10-24 17:10 CST · by Antigravity：邮箱后置 + 进度清单（全展开清单方案 A） */
+.bprog{display:flex;flex-direction:column;gap:10px;margin:0 0 6px}
+.bprb{height:8px;border-radius:99px;background:rgba(60,60,67,.18);overflow:hidden}
+body.dark .bprb{background:rgba(235,235,245,.22)}
+.bprb i{display:block;height:100%;width:0;background:#2e844a;transition:width .25s}
+.bprl{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px 14px;font:500 13px/1.3 var(--font);color:var(--ink2)}
+body:not(.dark) .bprl{color:#6b6660}
+.bprl li{display:inline-flex;align-items:center;gap:6px}
+.bprl .pk{width:18px;height:18px;border-radius:50%;border:1.5px solid #8e8e93;display:inline-flex;align-items:center;justify-content:center;color:#fff;box-sizing:border-box}
+.bprl .pk svg{width:10px;height:10px;display:none}
+.bprl li[data-d="1"] .pk{background:#2e844a;border-color:#2e844a}
+.bprl li[data-d="1"] .pk svg{display:block}
+.bprl li[data-d="1"]{color:var(--ink)}
+#betaSkipG{font-size:13px;color:inherit;text-decoration:underline}
 </style>
 </head>
 <body class="beta-page">
@@ -1111,6 +1126,7 @@ body.dark .bpromo{border-color:rgba(235,235,245,.24)}
         <p class="desc" id="betaDesc">选好产品和平台，填写邮箱。审批通过后，内测码会发到这个邮箱。</p>
         <form class="bcard" id="betaForm" novalidate>
           <noscript><p class="bhint">请开启 JavaScript 后再提交申请。Please turn on JavaScript to submit your application.</p></noscript>
+          <div class="bprog" id="betaProg" aria-live="polite"><div class="bprb"><i id="betaProgBar"></i></div><ol class="bprl" id="betaProgL"></ol></div>
           <div class="bfield">
             <label class="blab" for="betaProd" id="betaProdL">产品</label>
             <div class="bsel">
@@ -1125,18 +1141,7 @@ body.dark .bpromo{border-color:rgba(235,235,245,.24)}
               <svg viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5l5 5 5-5"/></svg>
             </div>
           </div>
-          <div class="bfield">
-            <label class="blab" for="betaMail" id="betaMailL">邮箱</label>
-            <input id="betaMail" type="email" inputmode="email" autocomplete="email" maxlength="254" placeholder="name@gmail.com" aria-required="true" aria-describedby="betaHint betaErr">
-            <div class="bhint" id="betaHint">邮箱只用来发送审批结果和内测码。</div>
-            <div class="berr" id="betaErr" role="alert" hidden></div>
-          </div>
           <!-- v2.1.0 · 2026-10-22 16:01 CST · by grokbot：三条推广换码（Harry 2026-10-22 定：用户只做三步，链接格式对即绿，三条全绿可提交；Gmail 免推广走 Play 封测；发码由 Harry 本人审批） -->
-          <div class="bpromo" id="betaGmail" hidden>
-            <div class="bpt" id="betaGmT">Gmail 用户：免做推广，直接加入</div>
-            <p id="betaGmP">用这个 Gmail 打开下面的链接，点「成为测试人员」，再从 Google Play 安装 Aria输入法。也可以继续点「提交申请」登记邮箱。</p>
-            <a class="bplay" id="betaPlay" href="https://play.google.com/apps/testing/com.ariamagicvoice.inputmethod" target="_blank" rel="noopener">加入 Google Play 封闭测试</a>
-          </div>
           <div class="bpromo" id="betaLinks" hidden>
             <div class="bpt" id="betaPT">其他邮箱：完成三步，换内测码</div>
             <ol class="bsteps">
@@ -1147,7 +1152,20 @@ body.dark .bpromo{border-color:rgba(235,235,245,.24)}
                 <div class="bimgs"><a href="/apps/img/share-beta/01.jpg" download="aria_01.jpg" target="_blank" rel="noopener"><img src="/apps/img/share-beta/01.jpg" alt="配图 1" loading="lazy"></a><a href="/apps/img/share-beta/02.jpg" download="aria_02.jpg" target="_blank" rel="noopener"><img src="/apps/img/share-beta/02.jpg" alt="配图 2" loading="lazy"></a><a href="/apps/img/share-beta/03.jpg" download="aria_03.jpg" target="_blank" rel="noopener"><img src="/apps/img/share-beta/03.jpg" alt="配图 3" loading="lazy"></a><a href="/apps/img/share-beta/04.jpg" download="aria_04.jpg" target="_blank" rel="noopener"><img src="/apps/img/share-beta/04.jpg" alt="配图 4" loading="lazy"></a></div></li>
               <li><b id="betaS3">贴三条链接</b><span id="betaS3p">把三条帖子的链接贴进来，格式正确就会变绿。</span><div class="blink"><span class="glamp" id="betaLamp1" data-s="" aria-hidden="true"></span><input id="betaLink1" type="url" inputmode="url" autocomplete="off" maxlength="500" placeholder="https://…" aria-label="链接 1"></div><div class="blink"><span class="glamp" id="betaLamp2" data-s="" aria-hidden="true"></span><input id="betaLink2" type="url" inputmode="url" autocomplete="off" maxlength="500" placeholder="https://…" aria-label="链接 2"></div><div class="blink"><span class="glamp" id="betaLamp3" data-s="" aria-hidden="true"></span><input id="betaLink3" type="url" inputmode="url" autocomplete="off" maxlength="500" placeholder="https://…" aria-label="链接 3"></div></li>
             </ol>
+            <p class="bnote"><a href="#" id="betaSkipG"></a></p>
             <p class="bnote" id="betaNote">以上完成，看到3个绿勾后，将整个页面截图或者3个绿勾加你的邮箱截图发给工作人员，谢谢。</p>
+          </div>
+          <!-- v2.2.0 · 2026-10-24 17:10 CST · Antigravity（Harry：「A，立刻上架」）：邮箱挪到三个绿勾之后；顶部加进度清单 -->
+          <div class="bfield">
+            <label class="blab" for="betaMail" id="betaMailL">邮箱</label>
+            <input id="betaMail" type="email" inputmode="email" autocomplete="email" maxlength="254" placeholder="name@gmail.com" aria-required="true" aria-describedby="betaHint betaErr">
+            <div class="bhint" id="betaHint">邮箱只用来发送审批结果和内测码。</div>
+            <div class="berr" id="betaErr" role="alert" hidden></div>
+          </div>
+          <div class="bpromo" id="betaGmail" hidden>
+            <div class="bpt" id="betaGmT">Gmail 用户：免做推广，直接加入</div>
+            <p id="betaGmP">用这个 Gmail 打开下面的链接，点「成为测试人员」，再从 Google Play 安装 Aria输入法。也可以继续点「提交申请」登记邮箱。</p>
+            <a class="bplay" id="betaPlay" href="https://play.google.com/apps/testing/com.ariamagicvoice.inputmethod" target="_blank" rel="noopener">加入 Google Play 封闭测试</a>
           </div>
           <div class="bok" id="betaOk" hidden>
             <span class="bokck" aria-hidden="true"><svg viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 27l8 8 16-18"/></svg></span>
@@ -1244,7 +1262,7 @@ body.dark .bpromo{border-color:rgba(235,235,245,.24)}
            而且它一度卡在 v1.0.1 连着 11 次发布没动过，反而误导人。
            要查线上是哪一版：看 scripts/publish_log.jsonl，或 magicvoice-site 的 git log。
            ⚠️ 别再往 footer 加版本号，除非 Harry 明说要。 -->
-      <div class="ftver" id="ftVer">v2.1.3 · 2026-10-23 15:30:00 CST · 1号-CEO</div>
+      <div class="ftver" id="ftVer">v2.2.0 · 2026-10-24 17:10:00 CST · Antigravity</div>
       <span>© 2026 Peace &amp; Light</span>
       <span class="sp"></span>
       <a id="bizLink">Partnerships</a>
@@ -2797,6 +2815,7 @@ if(cur==='rm'){$$('.item').forEach(i=>i.classList.remove('on'));$$('.item[data-a
   function pz(){ return loc()==='en'?'en':'zh'; }
   function isAria(){ return ((PRODUCTS[prod.selectedIndex<0?0:prod.selectedIndex]||PRODUCTS[0])[0])==='aria'; }
   function isGmail(){ return /@(gmail|googlemail)\.com$/i.test(mail.value.trim()); }
+  var gmailSkip=false, copiedFlag=false;
   function needPromo(){ return isAria()&&!isGmail(); }
   function linkOk(v){ v=(v||'').trim(); return /^https?:\/\/[a-z0-9-]+(\.[a-z0-9-]+)*\.[a-z]{2,}(:\d+)?\/\S+$/i.test(v)&&v.length<=500; }
   function setLamp(n,st){ if(n.getAttribute('data-s')===st&&n.innerHTML) return; n.setAttribute('data-s',st); n.innerHTML=st==='1'?ICK:(st==='0'?IX:IN); }
@@ -2809,7 +2828,24 @@ if(cur==='rm'){$$('.item').forEach(i=>i.classList.remove('on'));$$('.item[data-a
     for(i=0;i<3;i++){ setLamp(LL[i],st[i]); LK[i].setAttribute('data-ok',st[i]); if(st[i]==='0') LK[i].setAttribute('aria-invalid','true'); else LK[i].removeAttribute('aria-invalid'); }
     var showP=state!==1&&needPromo(), showG=state!==1&&isAria()&&isGmail();
     el('betaLinks').hidden=!showP; el('betaGmail').hidden=!showG;
-    if(!busy) go.disabled=showP&&!(st[0]==='1'&&st[1]==='1'&&st[2]==='1');
+    var allG=(st[0]==='1'&&st[1]==='1'&&st[2]==='1');
+    if(!busy) go.disabled=showP&&!allG;
+    /* v2.2.0 邮箱后置：需要推广的人，三个绿勾亮了才能填邮箱；Gmail 或点「Gmail 免发帖」可直接填 */
+    if(!busy && state!==1) mail.disabled = needPromo() && !allG && !gmailSkip;
+    prog(allG);
+  }
+  var PROG_T={zh:['选产品和平台','复制文章','三个绿勾','邮箱','提交'],en:['Product & platform','Copy post','Three green checks','Email','Submit']};
+  var SKIP_T={zh:'用 Gmail？不用发帖，点这里直接填邮箱',en:'Using Gmail? Skip the posts — tap here to enter your email'};
+  var CK_SVG='<svg viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 27l8 8 16-18"/></svg>';
+  function prog(allG){
+    var L=el('betaProgL'),bar=el('betaProgBar'); if(!L||!bar) return;
+    var pl=el('betaPlat'),np=needPromo();
+    var d=[ !!(pl&&pl.value), (!np||copiedFlag), (!np||allG), emailOk(mail.value.trim()), state===1 ];
+    var names=PROG_T[pz()],h='',n=0,k;
+    for(k=0;k<5;k++){ if(d[k]) n++; h+='<li data-d="'+(d[k]?1:0)+'"><span class="pk" aria-hidden="true">'+CK_SVG+'</span>'+names[k]+'</li>'; }
+    if(L.getAttribute('data-h')!==h){ L.innerHTML=h; L.setAttribute('data-h',h); }
+    bar.style.width=(n*20)+'%';
+    var sk=el('betaSkipG'); if(sk) put(sk,SKIP_T[pz()]);
   }
   function paintPromo(){
     var t=PROMO_T[pz()];
@@ -2826,6 +2862,9 @@ if(cur==='rm'){$$('.item').forEach(i=>i.classList.remove('on'));$$('.item[data-a
     catch(e){ ta.select(); try{document.execCommand('copy');}catch(e2){} okd(); }
   });
   LK.forEach(function(x){ x.addEventListener('input',gate); x.addEventListener('blur',function(){ var v=x.value.trim(); if(v!==x.value) x.value=v; gate(); }); });
+  el('betaCopy').addEventListener('click',function(){ copiedFlag=true; gate(); });
+  el('betaSkipG').addEventListener('click',function(e){ e.preventDefault(); gmailSkip=true; gate(); try{ mail.focus(); }catch(x){} });
+  el('betaPlat').addEventListener('change',gate);
   mail.addEventListener('input',gate);
   mail.addEventListener('blur',function(){ var v=mail.value.trim(); if(v!==mail.value) mail.value=v; gate(); });   /* BUG-P9-EMAIL-TRIM */
   prod.addEventListener('change',gate);
