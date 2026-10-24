@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>内测申请 A · v1.0.3</title>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>内测申请 · Aria App Store</title>
+<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect x="6" y="6" width="52" height="52" rx="16" fill="%235B6CFF"/><text x="32" y="44" font-family="Helvetica,Arial,sans-serif" font-size="36" font-weight="700" fill="white" text-anchor="middle">H</text></svg>'>
 <style>
-*{box-sizing:border-box;margin:0}body{font-family:-apple-system,"PingFang SC","Noto Sans SC",sans-serif;color:#111;background:linear-gradient(135deg,#f8ecdc,#f6ebe6 45%,#fbf7f3);min-height:100vh}a{color:#111}a:hover{color:#555}
+*{box-sizing:border-box;margin:0}body{font-family:-apple-system,"PingFang SC","Noto Sans SC",sans-serif;color:#111;background:linear-gradient(135deg,#f8ecdc,#f6ebe6 45%,#fbf7f3);min-height:100vh}a{color:#111;text-decoration:none}a:hover{color:#555}
 button,input,select{font-family:inherit}
 .shell{display:grid;grid-template-columns:236px minmax(0,1fr);gap:56px;max-width:1300px;margin:0 auto;padding:40px 32px 80px}
 .side{background:rgba(255,253,247,.9);border-radius:20px;box-shadow:0 10px 30px rgba(120,90,60,.1);padding:20px 14px;align-self:start;position:sticky;top:24px}
-.it{display:flex;gap:10px;align-items:center;padding:8px;border-radius:10px;font:600 13px inherit}.it.on{background:#f6f0e6}.ic{width:32px;height:32px;border-radius:8px;display:grid;place-items:center;color:#fff;font-weight:800;font-size:15px;flex:none}.side hr{border:0;border-top:1px solid #eee3d6;margin:8px}
+.it{display:flex;gap:10px;align-items:center;padding:8px;border-radius:10px;font:600 13px inherit;color:inherit;text-decoration:none}.it.on{background:#f6f0e6}.ic{width:32px;height:32px;border-radius:8px;display:grid;place-items:center;color:#fff;font-weight:800;font-size:15px;flex:none}.side hr{border:0;border-top:1px solid #eee3d6;margin:8px}
 main{max-width:700px;min-width:0}.hd{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}h1{font-size:64px;font-weight:900;letter-spacing:-.02em}.lead{font-size:22px;margin:6px 0 10px}.mut{color:#666;font-size:14px;line-height:1.7}
 .lang{display:flex;gap:4px;background:#fff;border:1px solid #e6ddd4;border-radius:999px;padding:3px;flex:none;margin-top:12px}.lang button{white-space:nowrap;border:0;background:none;padding:6px 12px;border-radius:999px;font:600 13px inherit;cursor:pointer;color:#555}.lang .on{background:#111;color:#fff}
 .card{background:#fff;border-radius:20px;box-shadow:0 12px 40px rgba(120,90,60,.08);padding:28px;margin-top:24px}
@@ -25,8 +27,15 @@ select,input{font-size:15px;border:1px solid #d6d6d6;border-radius:10px;padding:
 .slot.ok{border-color:#bbe5c8;background:#f3fbf5}.slot.x{border-color:#f3c0c0;background:#fff6f6}.sub{font-size:12.5px;min-height:0}.ok .sub{color:#15803d}.x .sub{color:#b91c1c}.sub:empty{display:none}
 .fg{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}.fg input{grid-column:1/-1}
 .done-card{text-align:center;padding:24px 0 8px}.big{width:56px;height:56px;border-radius:50%;background:#16a34a;color:#fff;display:grid;place-items:center;font-size:28px;margin:0 auto 14px}.done-card h2{font-size:28px;margin-bottom:6px}.sum{text-align:left;margin:22px auto 0;max-width:460px;display:grid;gap:8px;font-size:14px;color:#333}.sum div{display:flex;gap:8px}.sum i{color:#16a34a;font-style:normal;font-weight:800}.sum span{word-break:break-all}
+.err-box{margin:14px 0 0 50px;padding:12px 14px;border-radius:12px;border:1px solid #f3c0c0;background:#fff6f6;color:#b91c1c;font-size:13.5px;line-height:1.5}
+.gm-box{margin-top:10px;padding:12px 14px;border-radius:12px;border:1px solid #bbe5c8;background:#f3fbf5;color:#15803d;font-size:13.5px;line-height:1.6}
+.gm-box a{color:#15803d;font-weight:700;text-decoration:underline;margin-left:6px}
+.ft{margin-top:36px;padding-top:18px;border-top:1px solid rgba(0,0,0,.08);display:flex;flex-wrap:wrap;gap:12px;align-items:center;font-size:12px;color:#888}
+.ftver{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:#999;width:100%}
+.ft .sp{flex:1}
+.ft a{color:#777}.ft a:hover{color:#111;text-decoration:underline}
 [hidden]{display:none!important}
-@media(max-width:820px){.shell{grid-template-columns:52px minmax(0,1fr);gap:14px;padding:24px 12px 60px}.side{padding:10px 8px}.it{padding:5px;justify-content:center}.it span{display:none}h1{font-size:40px}.lead{font-size:18px}.card{padding:18px}}.lbl2{display:block;font-weight:700;font-size:15px;margin:16px 0 8px}.em{padding:14px 16px;border-color:#c8c8c8;border-radius:12px}.hint{font-size:13px;color:#666;margin-top:8px}.vg .lbl2:first-child{margin-top:0}.vg select{padding:14px 16px;border-color:#c8c8c8;border-radius:12px}
+@media(max-width:820px){.shell{grid-template-columns:52px minmax(0,1fr);gap:14px;padding:24px 12px 60px}.side{padding:10px 8px}.it{padding:5px;justify-content:center}.it span{display:none}h1{font-size:40px}.lead{font-size:18px}.card{padding:18px}.cta,.foot,.err-box{margin-left:0;width:100%}}.lbl2{display:block;font-weight:700;font-size:15px;margin:16px 0 8px}.em{padding:14px 16px;border-color:#c8c8c8;border-radius:12px}.hint{font-size:13px;color:#666;margin-top:8px}.vg .lbl2:first-child{margin-top:0}.vg select{padding:14px 16px;border-color:#c8c8c8;border-radius:12px}
 </style></head><body>
 <div class="shell"><aside class="side" id="side"></aside>
 <main>
@@ -34,16 +43,27 @@ select,input{font-size:15px;border:1px solid #d6d6d6;border-radius:10px;padding:
 <div class="card" id="form">
 <div class="prog" hidden><div class="bar"><i id="fill"></i></div><span id="cnt">0 / 3</span></div>
 <div class="stp" id="s0"><div class="sn">1</div><div><h3 data-t="lp"></h3><select id="prod" class="em"></select></div></div>
-<div class="stp" id="sP"><div class="sn">2</div><div><h3 data-t="lf"></h3><select id="plat" class="em"><option>iPhone</option><option>Mac</option><option>Android</option><option>Windows</option></select></div></div>
+<div class="stp" id="sP"><div class="sn">2</div><div><h3 data-t="lf"></h3><select id="plat" class="em"><option value="iOS">iPhone</option><option value="Mac">Mac</option><option value="Android">Android</option><option value="Windows">Windows</option></select></div></div>
 <div class="stp" id="s1"><div class="sn">3</div><div><h3 data-t="s1"></h3><div class="art"><div class="ah"><span></span><button class="btn" id="copy"></button></div><pre id="txt"></pre></div></div></div>
-<div class="stp lock" id="sI"><div class="sn">4</div><div><h3 data-t="sI"></h3><p class="mut" data-t="sId" style="margin:-4px 0 12px"></p><div class="gal" id="gal" style="margin-top:0"></div><div class="gb"><button class="btn gh" id="save"></button></div></div></div>
-<div class="stp lock" id="s2"><div class="sn">5</div><div><h3 data-t="s2"></h3><p class="mut" data-t="s2d" style="margin:-4px 0 12px"></p><div id="slots"></div></div></div>
-<div class="stp lock" id="s3"><div class="sn">6</div><div><h3 data-t="em2"></h3><input id="email" type="email" class="em"><p class="hint" data-t="emh"></p></div></div>
+<div class="stp" id="sI"><div class="sn">4</div><div><h3 data-t="sI"></h3><p class="mut" data-t="sId" style="margin:-4px 0 12px"></p><div class="gal" id="gal" style="margin-top:0"></div><div class="gb"><button class="btn gh" id="save"></button></div></div></div>
+<div class="stp" id="s2"><div class="sn">5</div><div><h3 data-t="s2"></h3><p class="mut" data-t="s2d" style="margin:-4px 0 12px"></p><div id="slots"></div></div></div>
+<div class="stp" id="s3"><div class="sn" id="sn6">6</div><div><h3 data-t="em2"></h3><input id="email" type="email" class="em"><p class="hint" data-t="emh"></p><div class="gm-box" id="gmBox" hidden><span data-t="gmTip"></span><a href="https://play.google.com/apps/testing/com.aria.magicvoice" target="_blank" rel="noopener" data-t="gmPlay"></a></div></div></div>
+<div class="err-box" id="err" role="alert" hidden></div>
 <button class="cta" id="go" disabled></button><p class="foot" data-t="foot"></p>
 </div>
 <div class="card done-card" id="ok" hidden><div class="big">✓</div><h2 data-t="okH"></h2><p class="mut" data-t="okP"></p><div class="sum" id="sum"></div><button class="btn gh" id="again" style="margin-top:22px" data-t="again"></button></div>
+<footer class="ft">
+  <div class="ftver" id="ftVer">v2.5.1 · 2026-10-24 21:03:00 CST · Antigravity</div>
+  <span>© 2026 Peace &amp; Light</span>
+  <span class="sp"></span>
+  <a href="/apps/biz.html" id="bizLink">Partnerships</a>
+  <a href="/apps/feedback.html" id="fbLink">Feedback</a>
+</footer>
 </main></div>
 <script>
+const MAIL_ENDPOINT='https://feedback.ariamagicvoice.com/';
+const PRODUCTS=[['aria','Aria Magic Voice'],['rm','Remember Me'],['p8','Everything About Me'],['nc','Aria Magic Cat'],['fan','Aria Magic Fan'],['haha','Haha News']];
+const PLATS={aria:[['iOS','iPhone'],['Mac','Mac'],['Android','Android'],['Windows','Windows']],rm:[['iOS','iPhone'],['Mac','Mac'],['Web','Web']],p8:[['iOS','iPhone'],['Mac','Mac']],nc:[['Mac','Mac']],fan:[['Mac','Mac']],haha:[['iOS','iPhone']]};
 const IMG={zh:['01.jpg','02.jpg','05.png','06.png'],en:['03.jpg','04.jpg','05.png','06.png']};
 const TXT={zh:`Aria输入法是离线输入法，断网也能语音输入。内置独立 AI，所有识别都在你自己的 iPhone、Mac 或安卓手机上完成。传统输入法会把语音和聊天内容上传云端，银行账号、密码都有泄露风险。
 
@@ -64,30 +84,134 @@ The iPhone version passed Apple's strict review, is now live on the App Store, a
 
 On iPhone, search "Aria Magic Voice" on the App Store.
 Mac and Android versions are available on our website: ariamagicvoice.com/apps`};
-const T={zh:{h1:'内测申请',lead:'先用上，再告诉我们哪里不好。',s0:'选产品和平台',sId:'点击保存配图，和文章一起发到三个不同的公开平台（如小红书、微博、抖音、知乎）。',s2d:'把三条帖子的链接贴进来，格式正确就会变绿。',lp:'产品',lf:'平台',sI:'保存配图，和文案一起发送到 3 个不同的平台',sub:'分享到任意 3 个平台，全部通过后内测码发到你的邮箱。',s1:'复制文案',s2:'贴上 3 条帖子的链接',s3:'填写申请信息',foot:'3 条全部通过后，内测码发到你的邮箱 · 最长 3 个工作日',go:'提交审核',copy:'一键复制',copied:'已复制 ✓',save:'一键保存全部图片（4 张）',ph:'贴上帖子链接 https://…',em:'name@gmail.com',emh:'邮箱只用来发送审批结果和内测码。Gmail 邮箱优先通过。',ok:'已读到帖子，谢谢',bad:'链接无效，请重填',okH:'提交成功',okP:'内测码通过审核后发到你的邮箱。',again:'重新开始',pl:['小红书','抖音','微信朋友圈','X','Threads','Instagram','Facebook'],pr:['Aria Magic Voice','Remember Me','i人洞府','躺平猫','Aria魔法散热风扇','哈哈资讯'],side:['Harry App Store','Aria Magic Voice','Remember Me','i人洞府','躺平猫','Aria魔法散热风扇','哈哈资讯','内测申请','商务合作','用户反馈','赞助','关于我'],em2:'邮箱'},
-en:{h1:'Beta Request',lead:'Try it first, then tell us what to fix.',s0:'Choose product and platform',sId:'Save the images and share them with the post on three different public platforms (e.g. X, Reddit, LinkedIn, Instagram).',s2d:'Paste the links to your three posts. Valid links turn green.',lp:'Product',lf:'Platform',sI:'Save the images and post them with the text on 3 different platforms',sub:'Share on any 3 platforms. Once all are approved, your beta code is emailed to you.',s1:'Copy the text',s2:'Paste 3 post links',s3:'Your details',foot:'Your beta code is emailed once all 3 links are approved · Up to 3 business days',go:'Submit for review',copy:'Copy all',copied:'Copied ✓',save:'Save all images (4)',ph:'Paste post link https://…',em:'name@gmail.com',emh:'Your email is only used to send the review result and beta code. Gmail addresses are approved first.',ok:'Post found, thank you',bad:'Invalid link. Please resubmit',okH:'Submitted',okP:'Your beta code will be emailed once approved.',again:'Start over',pl:['X','Threads','Instagram','Facebook','Reddit','LinkedIn','Xiaohongshu','Douyin','WeChat Moments'],pr:['Aria Magic Voice','Remember Me','Introvert Den','Lazy Cat','Aria Magic Cooling Fan','Haha News'],side:['Harry App Store','Aria Magic Voice','Remember Me','Introvert Den','Lazy Cat','Aria Magic Cooling Fan','Haha News','Beta Request','Business','Feedback','Sponsor','About'],em2:'Email'}};
+const T={zh:{h1:'内测申请',lead:'先用上，再告诉我们哪里不好。',s0:'选产品和平台',sId:'点击保存配图，和文章一起发到三个不同的公开平台（如小红书、微博、抖音、知乎）。',s2d:'把三条帖子的链接贴进来，格式正确就会变绿。',lp:'产品',lf:'平台',sI:'保存配图，和文案一起发送到 3 个不同的平台',sub:'分享到任意 3 个平台，全部通过后内测码发到你的邮箱。',s1:'复制文案',s2:'贴上 3 条帖子的链接',s3:'填写申请信息',foot:'3 条全部通过后，内测码发到你的邮箱 · 最长 3 个工作日',go:'提交审核',sending:'提交中…',copy:'一键复制',copied:'已复制 ✓',save:'一键保存全部图片（4 张）',ph:'贴上帖子链接 https://…',em:'name@gmail.com',emh:'邮箱只用来发送审批结果和内测码。Gmail 邮箱优先通过。',gmTip:'Gmail 用户：免做 3 条推广任务，可直接点下方「提交审核」登记，或直接加入测试：',gmPlay:'加入 Google Play 封闭测试 →',ok:'已读到帖子，谢谢',bad:'链接无效（需包含具体帖子路径），请重填',dup:'链接重复，请贴 3 条不同的帖子链接',fail:'提交失败了（网络或服务端问题）。邮箱和链接还在框里，没有丢，请稍后再试。',rate:'现在申请的人比较多，请过几分钟再试。',okH:'提交成功',okP:'内测码通过审核后发到你的邮箱。',again:'重新开始',pl:['小红书','抖音','微信朋友圈','X','Threads','Instagram','Facebook'],pr:['Aria Magic Voice','Remember Me','i人洞府','躺平猫','Aria魔法散热风扇','哈哈资讯'],side:['Harry App Store','Aria Magic Voice','Remember Me','i人洞府','躺平猫','Aria魔法散热风扇','哈哈资讯','内测申请','商务合作','用户反馈','赞助','关于我'],em2:'邮箱'},
+en:{h1:'Beta Request',lead:'Try it first, then tell us what to fix.',s0:'Choose product and platform',sId:'Save the images and share them with the post on three different public platforms (e.g. X, Reddit, LinkedIn, Instagram).',s2d:'Paste the links to your three posts. Valid links turn green.',lp:'Product',lf:'Platform',sI:'Save the images and post them with the text on 3 different platforms',sub:'Share on any 3 platforms. Once all are approved, your beta code is emailed to you.',s1:'Copy the text',s2:'Paste 3 post links',s3:'Your details',foot:'Your beta code is emailed once all 3 links are approved · Up to 3 business days',go:'Submit for review',sending:'Sending…',copy:'Copy all',copied:'Copied ✓',save:'Save all images (4)',ph:'Paste post link https://…',em:'name@gmail.com',emh:'Your email is only used to send the review result and beta code. Gmail addresses are approved first.',gmTip:'Gmail users skip the 3 promo posts: tap Submit below directly, or join testing now:',gmPlay:'Join Google Play closed test →',ok:'Post found, thank you',bad:'Invalid link (must include post path). Please resubmit',dup:'Duplicate link. Please paste 3 different post links',fail:'Couldn’t submit (network or server problem). Your email and links are still in the box — please try again later.',rate:'Lots of people are applying right now. Please try again in a few minutes.',okH:'Submitted',okP:'Your beta code will be emailed once approved.',again:'Start over',pl:['X','Threads','Instagram','Facebook','Reddit','LinkedIn','Xiaohongshu','Douyin','WeChat Moments'],pr:['Aria Magic Voice','Remember Me','Introvert Den','Lazy Cat','Aria Magic Cooling Fan','Haha News'],side:['Harry App Store','Aria Magic Voice','Remember Me','Introvert Den','Lazy Cat','Aria Magic Cooling Fan','Haha News','Beta Request','Business','Feedback','Sponsor','About'],em2:'Email'}};
 const $=s=>document.querySelector(s),ICOL=['#6366f1','#0d1022','#111','#2b2f36','#f5c518','#3b6fd8','#f28c1e','#111','#222','#222','#ef4444','#222'];
-let L='zh',copied=false;const V=['','',''],P=[0,1,2];
-const okURL=v=>/^https?:\/\/[^\s]+\.[^\s]{2,}/i.test(v.trim());
+const HREFS=['/apps/','/apps/aria-magic-voice/','/apps/remember-me/','/apps/everything-about-me/','/apps/night-cat/','/apps/aria-magic-fan/','/apps/haha.html','/apps/beta.html','/apps/biz.html','/apps/feedback.html','/apps/sponsor.html','/apps/about.html'];
+let L='zh',copied=false,busy=false,errKey='';const V=['','',''];
+/* 与中台 pull_inbox / uc_ledger 完全一致的严格链接正则：必须带域名与具体非空路径，且长度 <= 500 */
+const okURL=v=>{const s=(v||'').trim();return /^https?:\/\/[a-z0-9-]+(\.[a-z0-9-]+)*\.[a-z]{2,}(:\d+)?\/\S+$/i.test(s)&&s.length<=500};
+const isAria=()=>($('#prod').value||'aria')==='aria';
+const isGmail=()=>/@(gmail|googlemail)\.com$/i.test($('#email').value.trim());
+const needPromo=()=>isAria()&&!isGmail();
+function syncPlat(){
+  const pid=$('#prod').value||'aria',list=PLATS[pid]||PLATS.aria,keep=$('#plat').value;
+  $('#plat').innerHTML=list.map(([val,lbl])=>`<option value="${val}">${lbl}</option>`).join('');
+  if(list.some(([val])=>val===keep))$('#plat').value=keep;
+}
 function build(){const t=T[L];document.documentElement.lang=L=='zh'?'zh-CN':'en';
+document.title=L=='zh'?'内测申请 · Aria App Store':'Beta Request · Aria App Store';
 document.querySelectorAll('[data-t]').forEach(e=>e.textContent=t[e.dataset.t]);
-$('#side').innerHTML=t.side.map((n,i)=>(i==8?'<hr>':i==1?'<hr>':'')+`<div class="it ${i==7?'on':''}"><div class="ic" style="background:${ICOL[i]}">${n[0]}</div><span>${n}</span></div>`).join('');
+$('#side').innerHTML=t.side.map((n,i)=>(i==8?'<hr>':i==1?'<hr>':'')+`<a href="${HREFS[i]}" class="it ${i==7?'on':''}"><div class="ic" style="background:${ICOL[i]}">${n[0]}</div><span>${n}</span></a>`).join('');
 $('#txt').textContent=TXT[L];$('#gal').innerHTML=IMG[L].map(f=>`<a href="share-img/${f}" download><img src="share-img/${f}" alt=""></a>`).join('');
 $('#copy').textContent=copied?t.copied:t.copy;$('#save').textContent=t.save;
-$('#prod').innerHTML=t.pr.map(p=>`<option>${p}</option>`).join('');$('#email').placeholder=t.em;$('#go').textContent=t.go;
+const curProd=$('#prod').value||'aria';
+$('#prod').innerHTML=PRODUCTS.map(([id],i)=>`<option value="${id}">${t.pr[i]}</option>`).join('');
+$('#prod').value=curProd;
+syncPlat();
+$('#email').placeholder=t.em;$('#go').textContent=busy?t.sending:t.go;
+if(errKey)$('#err').textContent=t[errKey];
 $('#slots').innerHTML=[0,1,2].map(k=>`<div class="slot" data-k="${k}"><span class="n">${k+1}</span><input type="url" placeholder="${t.ph}" value="${V[k]}"><span class="st e">·</span><div class="sub"></div></div>`).join('');
 document.querySelectorAll('.slot').forEach(s=>{const k=+s.dataset.k;s.querySelector('input').oninput=e=>{V[k]=e.target.value;upd()}});upd()}
 function upd(){const t=T[L];let n=0;
-document.querySelectorAll('.slot').forEach((s,k)=>{const v=V[k].trim(),good=okURL(v),st=s.querySelector('.st');n+=good;s.className='slot '+(!v?'':good?'ok':'x');st.className='st '+(!v?'e':good?'ok':'x');st.textContent=!v?'·':good?'✓':'✕';s.querySelector('.sub').textContent=!v?'':good?t.ok:t.bad});
-const em=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test($('#email').value.trim()),all=n==3;
-$('#s2').classList.toggle('lock',!copied);$('#s3').classList.toggle('lock',!all);
-$('#s1').classList.toggle('done',copied);$('#sI').classList.toggle('lock',!copied);$('#sI').classList.toggle('done',copied);$('#s0').classList.add('done');$('#sP').classList.add('done');$('#s2').classList.toggle('done',all);$('#s3').classList.toggle('done',all&&em);
-const d=copied+all+(all&&em);$('#cnt').textContent=d+' / 3';$('#fill').style.width=d/3*100+'%';$('#go').disabled=d<3}
+const vals=V.map(x=>x.trim());
+document.querySelectorAll('.slot').forEach((s,k)=>{
+  const v=vals[k],fmtOk=okURL(v),dup=fmtOk&&vals.indexOf(v)!==k,good=fmtOk&&!dup,st=s.querySelector('.st');
+  n+=good?1:0;
+  s.className='slot '+(!v?'':good?'ok':'x');
+  st.className='st '+(!v?'e':good?'ok':'x');
+  st.textContent=!v?'·':good?'✓':'✕';
+  s.querySelector('.sub').textContent=!v?'':good?t.ok:(dup?t.dup:t.bad);
+});
+const aria=isAria(),gm=isGmail(),promo=needPromo();
+$('#s1').hidden=!aria;$('#sI').hidden=!aria;$('#s2').hidden=!aria;
+$('#sn6').textContent=aria?'6':'3';
+const em=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test($('#email').value.trim()),all=(n===3);
+$('#gmBox').hidden=!(aria&&gm&&!all);
+const promoDone=!promo||all;
+$('#s0').classList.add('done');$('#sP').classList.add('done');
+$('#s1').classList.toggle('done',copied||(aria&&gm));
+$('#sI').classList.toggle('done',copied||(aria&&gm));
+$('#s2').classList.toggle('done',all||(aria&&gm));
+$('#s3').classList.toggle('done',promoDone&&em);
+const d=(copied?1:0)+(all?1:0)+((promoDone&&em)?1:0);$('#cnt').textContent=d+' / 3';$('#fill').style.width=d/3*100+'%';
+$('#go').disabled=busy||!em||!promoDone}
+function lockForm(on){
+  busy=on;
+  $('#prod').disabled=on;$('#plat').disabled=on;$('#email').readOnly=on;
+  document.querySelectorAll('.slot input').forEach(inp=>inp.readOnly=on);
+  $('#go').disabled=on;$('#go').textContent=on?T[L].sending:T[L].go;
+}
+function showErr(k){
+  errKey=k;$('#err').textContent=T[L][k];$('#err').hidden=false;
+}
+function clearErr(){
+  errKey='';$('#err').textContent='';$('#err').hidden=true;
+}
+$('#prod').onchange=()=>{syncPlat();clearErr();upd()};
+$('#plat').onchange=()=>{clearErr();upd()};
 $('#copy').onclick=()=>{navigator.clipboard?.writeText(TXT[L]);copied=true;$('#copy').textContent=T[L].copied;upd()};
 $('#save').onclick=()=>IMG[L].forEach((f,k)=>setTimeout(()=>{const a=document.createElement('a');a.href='share-img/'+f;a.download=f;a.click()},k*300));
-$('#email').oninput=upd;
-$('#go').onclick=()=>{$('#form').hidden=true;$('#ok').hidden=false;$('#sum').innerHTML=`<div><i>✓</i><span>${T[L].em2}: ${$('#email').value.replace(/</g,'&lt;')}</span></div>`+V.map(v=>`<div><i>✓</i><span>${v.replace(/</g,'&lt;')}</span></div>`).join('')};
-$('#again').onclick=()=>{copied=false;V.fill('');$('#email').value='';$('#form').hidden=false;$('#ok').hidden=true;build()};
+$('#email').oninput=()=>{clearErr();upd()};
+$('#go').onclick=()=>{
+  if(busy)return;
+  clearErr();
+  const email=$('#email').value.trim();
+  const pid=$('#prod').value||'aria';
+  const pPair=PRODUCTS.find(x=>x[0]===pid)||PRODUCTS[0];
+  const plat=$('#plat').value||'iOS';
+  const promo=needPromo();
+  const trimV=V.map(x=>x.trim());
+  const has3=trimV.every((u,idx)=>okURL(u)&&trimV.indexOf(u)===idx);
+  if(promo&&!has3){upd();return;}
+  const plinks=(promo||has3)?trimV:[];
+  lockForm(true);
+  const body={
+    kind:'biz',
+    lang:L,
+    text:'内测申请 / Beta application\nProduct: '+pPair[1]+' ('+pPair[0]+')\nPlatform: '+plat+
+         (plinks.length===3?'\npromo_task: 要做满 3 条\nPromo links:\n1. '+plinks[0]+'\n2. '+plinks[1]+'\n3. '+plinks[2]
+               :(isAria()&&isGmail()?'\npromo_task: 官方政策：Gmail用户暂时免除3条推广任务':''))+
+         '\nCode: manual approval only',
+    promoLinks:plinks,
+    contact:email,
+    source:'Beta Application',
+    productId:pPair[0],
+    product:pPair[1],
+    platform:plat,
+    sku:pPair[0]+'_'+plat.toLowerCase(),
+    page:(location.origin+location.pathname).slice(0,500)
+  };
+  const ac=(typeof AbortController!=='undefined')?new AbortController():null;
+  const tm=setTimeout(()=>{if(ac)try{ac.abort()}catch(_){}},10000);
+  fetch(MAIL_ENDPOINT,{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(body),
+    signal:ac?ac.signal:undefined
+  }).then(r=>{
+    if(r.status===429){const e=new Error('rate');e.rate=true;throw e;}
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    return r.json();
+  }).then(j=>{
+    if(!j||j.ok!==true)throw new Error('bad response');
+    clearTimeout(tm);
+    lockForm(false);
+    $('#form').hidden=true;$('#ok').hidden=false;
+    const sum=$('#sum');sum.innerHTML='';
+    [T[L].em2+': '+email,...plinks].forEach(item=>{
+      const row=document.createElement('div'),ic=document.createElement('i'),sp=document.createElement('span');
+      ic.textContent='✓';sp.textContent=item;
+      row.appendChild(ic);row.appendChild(sp);sum.appendChild(row);
+    });
+  }).catch(e=>{
+    clearTimeout(tm);
+    lockForm(false);
+    upd();
+    showErr(e&&e.rate?'rate':'fail');
+  });
+};
+$('#again').onclick=()=>{clearErr();copied=false;V.fill('');$('#email').value='';$('#form').hidden=false;$('#ok').hidden=true;build()};
 document.querySelectorAll('.lang button').forEach(b=>b.onclick=()=>{L=b.dataset.l;document.querySelectorAll('.lang button').forEach(x=>x.classList.toggle('on',x==b));build()});
-build();copied=true;const DEMO={zh:['https://www.xiaohongshu.com/explore/66f1c0a2e4b0','https://www.douyin.com/video/7429183650241','https://weibo.com/7821543/OzK3pQx9a'],en:['https://x.com/tester/status/1849201736520','https://www.instagram.com/p/DBx7kQ2sP9a/','https://www.facebook.com/tester/posts/1092837465']};V.splice(0,3,...DEMO.zh);$('#email').value='tester@gmail.com';build();document.querySelectorAll('.lang button').forEach(b=>b.addEventListener('click',()=>{V.splice(0,3,...DEMO[L]);build()}));
+build();copied=true;const DEMO={zh:["https://www.xiaohongshu.com/explore/66f1c0a2e4b0","https://www.douyin.com/video/7429183650241","https://weibo.com/7821543/OzK3pQx9a"],en:["https://x.com/tester/status/1849201736520","https://www.instagram.com/p/DBx7kQ2sP9a/","https://www.facebook.com/tester/posts/1092837465"]};V.splice(0,3,...DEMO.zh);$("#email").value="tester@gmail.com";build();document.querySelectorAll(".lang button").forEach(b=>b.addEventListener("click",()=>{V.splice(0,3,...DEMO[L]);build()}));
 </script></body></html>
