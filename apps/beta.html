@@ -1059,6 +1059,58 @@ body.dark .bdsc{color:rgba(235,235,245,.7)}
 body.dark #betaSkipG{color:#9db0ff}
 #betaStat.bsr2{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);padding:0}
 #betaLinks{display:block}
+
+/* v2.4.0 · 2026-10-24 17:30 CST · by Antigravity（Harry：「100%复刻原型」）：控件尺寸/颜色/文案/行为全部按原型 A；去掉配图、截图提示、邮箱下提示、请等待；成功页按原型 */
+.bitem{padding:14px 0;border-top:1px solid #e5e5ea}
+body.dark .bitem{border-top-color:rgba(235,235,245,.16)}
+.bitem.first{border-top:0;padding-top:0}
+.bbody{gap:0}
+.bttl{font:600 15px/1.6 var(--font)}
+.bdsc{font:400 13px/1.6 var(--font);margin-top:2px}
+.bitem .bfield{gap:0}
+.bitem .bsel{margin-top:8px}
+.bitem select,.bitem input[type="email"],.bitem .blink input{font:400 15px/1.5 var(--font);padding:10px 12px;border:1px solid #e5e5ea;border-radius:10px;background:#fff;color:#1d1d1f;outline:0;margin:0}
+body.dark .bitem select,body.dark .bitem input[type="email"],body.dark .bitem .blink input{background:#1c1c1e;color:#f5f5f7;border-color:rgba(235,235,245,.24)}
+.bitem select{padding-right:36px}
+.bitem input[type="email"]{margin-top:8px}
+.bitem input:disabled{background:#f2f2f4;opacity:1}
+body.dark .bitem input:disabled{background:#2c2c2e}
+.bitem .bsel svg{right:14px}
+.bitem input::placeholder{color:#8e8e93;opacity:1}
+#betaArt{height:96px;max-height:96px;resize:none;margin-top:8px;padding:8px 10px;font:400 13px/1.6 var(--font);background:#faf9f7;border:1px solid #e5e5ea;border-radius:10px;color:#1d1d1f;overflow:auto}
+body.dark #betaArt{background:#232325;color:#f5f5f7;border-color:rgba(235,235,245,.24)}
+.bitem .bcopy{margin-top:8px;font:400 15px/1.5 var(--font);padding:6px 12px;border:1px solid #e5e5ea;border-radius:8px;background:#fff;color:#1d1d1f;cursor:pointer}
+body.dark .bitem .bcopy{background:#1c1c1e;color:#f5f5f7;border-color:rgba(235,235,245,.24)}
+.bitem .bcopy:disabled{opacity:.5;cursor:default}
+.bitem .blink{margin:8px 0 0;gap:8px}
+.bitem .blink:first-of-type{margin-top:8px}
+.blink .glamp{width:18px;height:18px;flex:0 0 18px;border-radius:50%;box-sizing:border-box;background:transparent;border:2px solid #c7c7cc;color:#fff}
+.blink .glamp svg{width:10px;height:10px}
+.blink .glamp[data-s=""] svg,.blink .glamp:not([data-s]) svg{display:none}
+.blink .glamp[data-s="1"]{background:#2e844a;border-color:#2e844a}
+.blink .glamp[data-s="0"]{background:#ba0517;border-color:#ba0517}
+#betaSkipP{margin-top:12px!important}
+#betaSkipP.sk #betaSkipG{display:none}
+.bimgs,.bsub,#betaNote,#betaHint,#betaWait,#betaGmP{display:none!important}
+.bitem .bsubmit,.bitem #betaGo{margin-top:16px;padding:12px;border-radius:12px;font:600 15px/1.5 var(--font);background:#1d1d1f;color:#fff}
+body.dark .bitem #betaGo{background:#f5f5f7;color:#1d1d1f}
+.bitem #betaGo:disabled{background:#c7c7cc;opacity:1;cursor:not-allowed}
+body.dark .bitem #betaGo:disabled{background:#48484a;color:#aeaeb2}
+#betaItem5{border-top:0;padding-top:0;padding-bottom:0}
+.bitem p{margin:0}
+#betaSkipP{margin:12px 0 0!important}
+.bitem .bfield,.bitem .bsel{margin-bottom:0}
+.bitem .bbody>*:last-child{margin-bottom:0}
+#betaItem5{border-top:1px solid #e5e5ea!important;padding-top:14px!important}
+body.dark #betaItem5{border-top-color:rgba(235,235,245,.16)!important}
+#betaItem5 .bitem-go,#betaItem5 #betaGo,#betaItem5 #betaAgain{margin-left:-36px;width:calc(100% + 36px)}
+.bprog{margin:0 0 16px}
+.bokck{display:none}
+.bok{padding:12px 0}
+.bokt{font-size:20px;font-weight:700;margin-top:0}
+.bokm{margin:6px 0 0;opacity:1;color:#6b6660;font-size:13px}
+.bcard.bdone .bprog,.bcard.bdone .bitem:not(#betaItem5),.bcard.bdone #betaLinks,.bcard.bdone #betaGmail,.bcard.bdone #betaStat{display:none!important}
+.bcard.bdone #betaAgain{display:block;margin:12px auto 0}
 </style>
 </head>
 <body class="beta-page">
@@ -1293,7 +1345,7 @@ body.dark #betaSkipG{color:#9db0ff}
            而且它一度卡在 v1.0.1 连着 11 次发布没动过，反而误导人。
            要查线上是哪一版：看 scripts/publish_log.jsonl，或 magicvoice-site 的 git log。
            ⚠️ 别再往 footer 加版本号，除非 Harry 明说要。 -->
-      <div class="ftver" id="ftVer">v2.3.0 · 2026-10-24 17:20:00 CST · Antigravity</div>
+      <div class="ftver" id="ftVer">v2.4.0 · 2026-10-24 17:30:00 CST · Antigravity</div>
       <span>© 2026 Peace &amp; Light</span>
       <span class="sp"></span>
       <a id="bizLink">Partnerships</a>
@@ -2791,7 +2843,7 @@ if(cur==='rm'){$$('.item').forEach(i=>i.classList.remove('on'));$$('.item[data-a
     if(lamp.getAttribute('data-s')!==String(s)){ lamp.innerHTML=LAMPS[s]; lamp.setAttribute('data-s',String(s)); }
     put(stT,s?t.s1:t.s0);
     put(stP,s?t.p1:t.p0);
-    go.hidden=s===1; wait.hidden=s===1; again.hidden=s!==1;
+    go.hidden=s===1; wait.hidden=s===1; again.hidden=s!==1; form.classList.toggle('bdone',s===1);
     prod.disabled=mail.disabled=el('betaPlat').disabled=(s===1);
   }
   function paint(){
@@ -2847,6 +2899,7 @@ if(cur==='rm'){$$('.item').forEach(i=>i.classList.remove('on'));$$('.item[data-a
   function isAria(){ return ((PRODUCTS[prod.selectedIndex<0?0:prod.selectedIndex]||PRODUCTS[0])[0])==='aria'; }
   function isGmail(){ return /@(gmail|googlemail)\.com$/i.test(mail.value.trim()); }
   var gmailSkip=false, copiedFlag=false;
+  function waived(){ return isGmail()||(gmailSkip&&mail.value.trim()===''); }
   function needPromo(){ return isAria()&&!isGmail(); }
   function linkOk(v){ v=(v||'').trim(); return /^https?:\/\/[a-z0-9-]+(\.[a-z0-9-]+)*\.[a-z]{2,}(:\d+)?\/\S+$/i.test(v)&&v.length<=500; }
   function setLamp(n,st){ if(n.getAttribute('data-s')===st&&n.innerHTML) return; n.setAttribute('data-s',st); n.innerHTML=st==='1'?ICK:(st==='0'?IX:IN); }
@@ -2857,37 +2910,45 @@ if(cur==='rm'){$$('.item').forEach(i=>i.classList.remove('on'));$$('.item[data-a
   function gate(){
     var st=linkStates(),i;
     for(i=0;i<3;i++){ setLamp(LL[i],st[i]); LK[i].setAttribute('data-ok',st[i]); if(st[i]==='0') LK[i].setAttribute('aria-invalid','true'); else LK[i].removeAttribute('aria-invalid'); }
-    var showP=state!==1&&needPromo(), showG=state!==1&&isAria()&&isGmail();
-    el('betaLinks').hidden=!showP; el('betaGmail').hidden=!showG;
+    var showL=state!==1&&isAria(), showG=state!==1&&isAria()&&isGmail();
+    el('betaLinks').hidden=!showL; el('betaGmail').hidden=!showG;
     var allG=(st[0]==='1'&&st[1]==='1'&&st[2]==='1');
-    if(!busy) go.disabled=showP&&!allG;
-    /* v2.2.0 邮箱后置：需要推广的人，三个绿勾亮了才能填邮箱；Gmail 或点「Gmail 免发帖」可直接填 */
-    if(!busy && state!==1) mail.disabled = needPromo() && !allG && !gmailSkip;
+    var s1=!!(el('betaPlat')&&el('betaPlat').value), gm=waived();
+    /* v2.4.0 按原型：复制按钮要先选好平台；链接框要先复制；Gmail/免发帖时两者灰着；邮箱要三个绿勾亮了才解锁 */
+    if(!busy){
+      el('betaCopy').disabled=!s1||gm;
+      for(i=0;i<3;i++) LK[i].disabled=gm||!(s1&&copiedFlag);
+      if(state!==1) mail.disabled = !s1 || (isAria() && !gmailSkip && !isGmail() && !allG);
+    }
     prog(allG);
   }
-  var UI_T={zh:{t1:'选产品和平台',d1:'选你要内测的产品和手机系统。',d2:'点一下复制，发到三个平台。',t4:'留下邮箱',d4l:'完成上面三步后解锁。内测码会发到这个邮箱。',d4:'内测码会发到这个邮箱。',t5:'提交',d5:'前面各项全绿才能点。',sk:'用 Gmail 邮箱？',ska:'不用发帖，改走 Google Play 封闭测试',ph:['知乎链接 https://…','小红书链接 https://…','微博链接 https://…']},
-            en:{t1:'Choose product & platform',d1:'Pick the product and the phone system you want to test.',d2:'Tap to copy, then post it on three platforms.',t4:'Leave your email',d4l:'Unlocks after the steps above. Your beta code will be sent to this email.',d4:'Your beta code will be sent to this email.',t5:'Submit',d5:'Available once everything above is green.',sk:'Using Gmail?',ska:'Skip the posts and join via Google Play closed testing',ph:['Link 1 https://…','Link 2 https://…','Link 3 https://…']}};
+  var UI_T={zh:{t1:'选产品和平台',d1:'选你要内测的产品和手机系统。',d2:'点一下复制，发到下面三个平台。',t4:'留下邮箱',d4l:'完成上面三步后解锁。内测码会发到这个邮箱。',d4:'内测码会发到这个邮箱。',t5:'提交',d5:'前四项全绿才能点。',sk:'用 Gmail 邮箱？',ska:'不用发帖，改走 Google Play 封闭测试',skd:'已选择：Gmail 免发帖，走 Google Play 封闭测试。',copied:'已复制 ✓',okmsg:'我们已收到申请。审批通过后，内测码会发到你的邮箱。',okmsgG:'Gmail 用户免做推广，我们会把 Google Play 封闭测试的加入方式发到你的邮箱。',ph:['知乎链接 https://…','小红书链接 https://…','微博链接 https://…']},
+            en:{t1:'Choose product & platform',d1:'Pick the product and the phone system you want to test.',d2:'Tap to copy, then post it on the three platforms below.',t4:'Leave your email',d4l:'Unlocks after the three steps above. Your beta code will be sent to this email.',d4:'Your beta code will be sent to this email.',t5:'Submit',d5:'Available once the first four are all green.',sk:'Using Gmail?',ska:'Skip the posts and join via Google Play closed testing',skd:'Selected: Gmail users skip the posts and join via Google Play closed testing.',copied:'Copied ✓',okmsg:'We have received your application. Once approved, your beta code will be sent to your email.',okmsgG:'Gmail users skip the promo posts. We will email you how to join the Google Play closed test.',ph:['Link 1 https://…','Link 2 https://…','Link 3 https://…']}};
   function prog(allG){
-    var T=UI_T[pz()],np=needPromo(),pl=el('betaPlat');
-    var anyLink=LK.some(function(x){return x.value.trim()!=='';});
-    var s1=!!(pl&&pl.value), s2=!np||copiedFlag||anyLink, s3=!np||allG, s4=emailOk(mail.value.trim()), s5=(state===1);
-    var flags=[s1,s2,s3,s4,s5], lockf=[false,!s1,!s2,!!mail.disabled,!s4];
-    var n=0,total=0,k,it;
+    var T=UI_T[pz()],aria=isAria(),gm=aria&&waived(),pl=el('betaPlat'),i,k,it;
+    var s1=!!(pl&&pl.value), s2=!aria||gm||copiedFlag, s3=!aria||gm||allG, s4=emailOk(mail.value.trim()), s5=(state===1);
+    var flags=[s1,s2,s3,s4,s5], lockf=[false,!s1,!s2,!s3,!s4];
+    var n=0,total=0;
     for(k=0;k<5;k++){
       it=el('betaItem'+(k+1)); if(!it) continue;
-      var vis=(k===1||k===2)?np:true;
-      if(vis){ total++; if(flags[k]) n++; }
+      var vis=(k===1||k===2)?aria:true;
+      if(vis&&k<5){ if(k<4||false){ total++; if(flags[k]) n++; } }
       it.setAttribute('data-d',flags[k]?'1':'0');
       it.classList.toggle('lock',!flags[k]&&lockf[k]);
     }
+    total=aria?5:3; n=0; var list=aria?[s1,s2,s3,s4,s5]:[s1,s4,s5]; list.forEach(function(f){ if(f) n++; });
     put(el('betaT1'),T.t1); put(el('betaD1'),T.d1); put(el('betaD2'),T.d2);
     put(el('betaT4'),T.t4); put(el('betaD4'),mail.disabled?T.d4l:T.d4);
     put(el('betaT5'),T.t5); put(el('betaD5'),T.d5);
-    put(el('betaSkipT'),T.sk); put(el('betaSkipG'),T.ska);
+    var skp=el('betaSkipP'); skp.classList.toggle('sk',!!gmailSkip);
+    put(el('betaSkipT'),gmailSkip?T.skd:T.sk); put(el('betaSkipG'),T.ska);
     for(k=0;k<3;k++) if(LK[k].getAttribute('placeholder')!==T.ph[k]) LK[k].setAttribute('placeholder',T.ph[k]);
-    el('betaProgBar').style.width=(total?Math.round(n*100/total):0)+'%';
+    var cb=el('betaCopy'); if(cb.getAttribute('data-c')==='1') put(cb,T.copied);
+    el('betaProgBar').style.width=Math.round(n*100/total)+'%';
     put(el('betaProgTxt'),n+' / '+total);
     stat.classList.toggle('bsr2',state!==1);
+    form.classList.toggle('bdone',state===1);
+    if(!busy) go.disabled=!(s1&&s2&&s3&&s4);
   }
   function paintPromo(){
     var t=PROMO_T[pz()];
@@ -2899,7 +2960,7 @@ if(cur==='rm'){$$('.item').forEach(i=>i.classList.remove('on'));$$('.item[data-a
   }
   el('betaCopy').addEventListener('click',function(){
     var ta=el('betaArt'),b=el('betaCopy'),t=PROMO_T[pz()];
-    function okd(){ b.setAttribute('data-c','1'); b.textContent=t.copied; setTimeout(function(){ b.removeAttribute('data-c'); b.textContent=PROMO_T[pz()].copy; },2000); }
+    function okd(){ b.setAttribute('data-c','1'); b.textContent=UI_T[pz()].copied; }
     try{ navigator.clipboard.writeText(ta.value).then(okd,function(){ ta.select(); try{document.execCommand('copy');}catch(e){} okd(); }); }
     catch(e){ ta.select(); try{document.execCommand('copy');}catch(e2){} okd(); }
   });
@@ -2911,9 +2972,10 @@ if(cur==='rm'){$$('.item').forEach(i=>i.classList.remove('on'));$$('.item[data-a
   mail.addEventListener('blur',function(){ var v=mail.value.trim(); if(v!==mail.value) mail.value=v; gate(); });   /* BUG-P9-EMAIL-TRIM */
   prod.addEventListener('change',gate);
   function showOk(email,links){
-    el('betaOkM').textContent=PROMO_T[pz()].okm+email;
+    var UT=UI_T[pz()];
+    el('betaOkM').textContent=links.length?UT.okmsg:UT.okmsgG;
     var ul=el('betaOkL'); ul.innerHTML='';
-    links.forEach(function(u){ var li=document.createElement('li'),s=document.createElement('span'); s.className='glamp'; s.setAttribute('data-s','1'); s.innerHTML=ICK; li.appendChild(s); li.appendChild(document.createTextNode(u)); ul.appendChild(li); });
+    [PROMO_T[pz()].okm+email].concat(links).forEach(function(u){ var li=document.createElement('li'),s=document.createElement('span'); s.className='glamp'; s.setAttribute('data-s','1'); s.innerHTML=ICK; li.appendChild(s); li.appendChild(document.createTextNode(u)); ul.appendChild(li); });
     el('betaOk').hidden=false; el('betaLinks').hidden=true; el('betaGmail').hidden=true;
   }
   try{ paintPromo(); }catch(e){}
@@ -2976,7 +3038,7 @@ if(cur==='rm'){$$('.item').forEach(i=>i.classList.remove('on'));$$('.item[data-a
     }
   });
   again.addEventListener('click',function(){
-    clearErr(); hp.value=''; el('betaOk').hidden=true; LK.forEach(function(x){x.value='';}); setState(0); gate(); lock(false); prod.focus();
+    clearErr(); hp.value=''; el('betaOk').hidden=true; LK.forEach(function(x){x.value='';}); copiedFlag=false; gmailSkip=false; var cbn=el('betaCopy'); cbn.removeAttribute('data-c'); cbn.textContent=PROMO_T[pz()].copy; setState(0); gate(); lock(false); prod.focus();
   });
   mail.addEventListener('input',function(){ if(mail.getAttribute('aria-invalid')) clearErr(); });
 
