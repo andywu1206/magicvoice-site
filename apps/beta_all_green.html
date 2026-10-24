@@ -899,7 +899,7 @@ body.dark .item.beta{box-shadow:0 6px 16px -6px rgba(0,0,0,.6)}
   [data-v="9"].sbmin .item.beta .bm{font-size:13px}
   [data-v="9"].sbmin #supportSlab{width:28px;margin:6px auto 8px}
 }
-/* BETA_NAV_VERSION v2.6.0 · 2026-10-24 22:19:00 CST · by Antigravity · 官网原装左栏+右上角语言/深色开关 + 方案A六步内测卡 + 修复5个P0
+/* BETA_NAV_VERSION v2.6.1 · 2026-10-24 22:28:00 CST · by Antigravity · 官网原装左栏+右上角语言/深色开关 + 方案A六步内测卡 + 修复5个P0
    上一版：BETA_NAV_VERSION v2.1.3 · 2026-10-23 15:30 CST · by 1号-CEO · Harry 第二版 ART + 去掉审批时限承诺 + 绿勾后截图发工作人员
    上一版：BETA_NAV_VERSION v2.1.0 · 2026-10-22 16:01 CST · by grokbot · 三条推广换码 + Gate Lights + 去 Harry 字样 + 底部版本行（Harry 2026-10-22 授权直接改官网）
    上一版：BETA_NAV_VERSION v2.0.0 · 2026-10-21 23:05 CST · by grokbot · 上线单_内测申请侧栏_方案2_v1.0.2（Harry 23:01 授权直接上线）
@@ -1020,7 +1020,7 @@ body.dark .bpromo{border-color:rgba(235,235,245,.24)}
 .ft{flex-wrap:wrap} .ftver{flex-basis:100%;font-size:11px;opacity:.65;margin-bottom:4px}
 
 
-/* v2.6.0 · 2026-10-24 22:19:00 CST · by Antigravity：保留官网原装左栏与右上角按钮，主内容区 100% 采用方案 A 六步卡片样式 */
+/* v2.6.1 · 2026-10-24 22:28:00 CST · by Antigravity：保留官网原装左栏与右上角按钮，主内容区 100% 采用方案 A 六步卡片样式 */
 [data-v="9"] .beta-hero{align-items:start;min-height:0;padding:80px 48px 48px 312px;display:block}
 .beta-hero .copy{max-width:700px;width:100%;gap:0;padding-bottom:0;display:block}
 .beta-hero #betaH{font-size:64px;font-weight:900;letter-spacing:-.02em;line-height:1.08;margin:0;color:var(--ink)}
@@ -1061,22 +1061,20 @@ body.dark .beta-hero pre{color:var(--ink)}
 .beta-hero .gal .gdl{position:absolute;right:6px;bottom:6px;width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.94);color:#111;display:grid;place-items:center;font-size:13px;font-weight:700;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.22);z-index:2;cursor:pointer}
 .beta-hero .gal .gdl:hover{background:#fff;transform:scale(1.08)}
 body.lb-open .side,body.lb-open .top{opacity:0!important;visibility:hidden!important;pointer-events:none!important}
-.beta-lb{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px 68px 64px;cursor:zoom-out;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.beta-lb{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:99999;display:flex;align-items:center;justify-content:center;padding:24px 24px 86px;cursor:zoom-out;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 .beta-lb[hidden]{display:none!important}
-.beta-lb img{max-width:min(88vw,1080px);max-height:84vh;width:auto;height:auto;object-fit:contain;border-radius:14px;box-shadow:0 24px 64px rgba(0,0,0,.65);cursor:default;transition:opacity .18s}
-.beta-lb-x{position:fixed;top:20px;right:20px;width:40px;height:40px;border-radius:50%;border:0;background:rgba(255,255,255,.16);color:#fff;font-size:20px;cursor:pointer;display:grid;place-items:center;z-index:2;transition:background .15s,transform .15s}
-.beta-lb-x:hover{background:rgba(255,255,255,.28);transform:scale(1.06)}
-.beta-lb-nav{position:fixed;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.14);color:#fff;cursor:pointer;display:grid;place-items:center;z-index:2;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:background .15s,transform .15s}
-.beta-lb-nav:hover{background:rgba(255,255,255,.28);transform:translateY(-50%) scale(1.06)}
-.beta-lb-prev{left:24px}
-.beta-lb-next{right:24px}
-.beta-lb-nav svg{width:22px;height:22px;stroke:currentColor;stroke-width:2.2;fill:none;stroke-linecap:round;stroke-linejoin:round}
-.beta-lb-dots{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);z-index:2;cursor:default}
-.beta-lb-dot{width:8px;height:8px;border-radius:999px;border:0;padding:0;background:rgba(255,255,255,.38);cursor:pointer;position:relative;overflow:hidden;transition:width .25s,background .25s}
-.beta-lb-dot.on{width:32px;background:rgba(255,255,255,.28)}
-.beta-lb-dot.on::after{content:"";position:absolute;inset:0;background:#fff;border-radius:999px;transform-origin:left center;animation:lbFill 10s linear forwards}
-@keyframes lbFill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-@media (max-width:640px){.beta-lb{padding:16px 48px 60px}.beta-lb-nav{width:38px;height:38px}.beta-lb-prev{left:10px}.beta-lb-next{right:10px}}
+.beta-lb img{max-width:min(92vw,1080px);max-height:82vh;width:auto;height:auto;object-fit:contain;border-radius:14px;box-shadow:0 24px 64px rgba(0,0,0,.65);cursor:default;transition:opacity .18s}
+.beta-lb-x{position:fixed;top:24px;right:24px;width:36px;height:36px;border-radius:50%;border:0;padding:0;background:rgba(210,210,215,.64);color:rgba(0,0,0,.8);font-size:18px;cursor:pointer;display:grid;place-items:center;z-index:2;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:background .15s,color .15s}
+.beta-lb-x:hover{background:rgba(223,223,227,.82);color:#000}
+.beta-lb-bar{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:14px;z-index:2;cursor:default}
+.beta-lb-nav{width:36px;height:36px;border-radius:50%;border:0;padding:0;background:rgba(210,210,215,.64);color:rgba(0,0,0,.8);cursor:pointer;display:grid;place-items:center;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:background .15s,color .15s,transform .15s}
+.beta-lb-nav:hover{background:rgba(223,223,227,.82);color:#000}
+.beta-lb-nav:active{transform:scale(.95)}
+.beta-lb-nav svg{width:36px;height:36px;fill:currentColor;display:block}
+.beta-lb-dots{display:flex;align-items:center;gap:10px;height:36px;padding:0 16px;border-radius:999px;background:rgba(210,210,215,.22);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.beta-lb-dot{width:8px;height:8px;border-radius:50%;border:0;padding:0;background:rgba(255,255,255,.42);cursor:pointer;transition:background .2s,transform .2s}
+.beta-lb-dot:hover{background:rgba(255,255,255,.72)}
+.beta-lb-dot.on{background:#fff;transform:scale(1.15)}
 .beta-hero .gb{display:flex;justify-content:center;margin-top:14px}
 .beta-hero .slot{border:1px solid #e5e5e5;border-radius:14px;padding:12px;display:grid;grid-template-columns:14px minmax(0,1fr) 28px;column-gap:8px;row-gap:8px;align-items:center;transition:background .2s}
 body.dark .beta-hero .slot{border-color:var(--line)}
@@ -1307,7 +1305,7 @@ body.dark .beta-hero .hint{color:rgba(235,235,245,.65)}
            而且它一度卡在 v1.0.1 连着 11 次发布没动过，反而误导人。
            要查线上是哪一版：看 scripts/publish_log.jsonl，或 magicvoice-site 的 git log。
            ⚠️ 别再往 footer 加版本号，除非 Harry 明说要。 -->
-      <div class="ftver" id="ftVer">v2.6.0 · 2026-10-24 22:19:00 CST · Antigravity</div>
+      <div class="ftver" id="ftVer">v2.6.1 · 2026-10-24 22:28:00 CST · Antigravity</div>
       <span>© 2026 Peace &amp; Light</span>
       <span class="sp"></span>
       <a id="bizLink">Partnerships</a>
@@ -1316,11 +1314,13 @@ body.dark .beta-hero .hint{color:rgba(235,235,245,.65)}
   </main>
 </div>
 <div class="beta-lb" id="betaLb" hidden>
-  <button type="button" class="beta-lb-x" id="betaLbX" aria-label="Close">✕</button>
-  <button type="button" class="beta-lb-nav beta-lb-prev" id="betaLbPrev" aria-label="Previous"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+  <button type="button" class="beta-lb-x" id="betaLbX" aria-label="Close"><svg viewBox="0 0 36 36" width="20" height="20" fill="currentColor"><path d="m19.41 18 4.29-4.29a1 1 0 0 0-1.41-1.41L18 16.59l-4.29-4.3a1 1 0 0 0-1.42 1.42l4.3 4.29-4.3 4.29a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l4.29-4.3 4.29 4.3a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42z"/></svg></button>
   <img id="betaLbImg" src="" alt="">
-  <button type="button" class="beta-lb-nav beta-lb-next" id="betaLbNext" aria-label="Next"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>
-  <div class="beta-lb-dots" id="betaLbDots"></div>
+  <div class="beta-lb-bar">
+    <button type="button" class="beta-lb-nav beta-lb-prev" id="betaLbPrev" aria-label="Previous"><svg class="icon-control icon-control-chevronleft" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36"><path d="m20 25c-.3838 0-.7676-.1465-1.0605-.4395l-5.5-5.5c-.5859-.5854-.5859-1.5356 0-2.1211l5.5-5.5c.5859-.5859 1.5352-.5859 2.1211 0 .5859.5854.5859 1.5356 0 2.1211l-4.4395 4.4395 4.4395 4.4395c.5859.5854.5859 1.5356 0 2.1211-.293.293-.6768.4395-1.0605.4395z"></path></svg></button>
+    <div class="beta-lb-dots" id="betaLbDots"></div>
+    <button type="button" class="beta-lb-nav beta-lb-next" id="betaLbNext" aria-label="Next"><svg class="icon-control icon-control-chevronright" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36"><path d="m22.5597 16.9375-5.5076-5.5c-.5854-.5854-1.5323-.5825-2.1157.0039-.5835.5869-.5815 1.5366.0039 2.1211l4.4438 4.4375-4.4438 4.4375c-.5854.5845-.5874 1.5342-.0039 2.1211.2922.2944.676.4414 1.0598.4414.3818 0 .7637-.1455 1.0559-.4375l5.5076-5.5c.2815-.2812.4403-.6636.4403-1.0625s-.1588-.7812-.4403-1.0625z"></path></svg></button>
+  </div>
 </div>
 
 <!-- 管理员授权 -->
@@ -2746,7 +2746,7 @@ Mac and Android versions are available on our website: ariamagicvoice.com/apps`}
     document.title=tr(L==='zh'?'内测申请 · Aria App Store':'Beta Request · Aria App Store');
     sec.querySelectorAll('[data-t]').forEach(e=>e.textContent=tr(t[e.dataset.t]));
     q('#txt').textContent=tr(TXT[L]);
-    q('#gal').innerHTML=IMG[L].map((f,idx)=>`<div class="gi" data-idx="${idx}" data-src="share-img/${f}?v=260"><img src="share-img/${f}?v=260" alt="" decoding="async"><a class="gdl" href="share-img/${f}?v=260" download="${f}" title="Download">↓</a></div>`).join('');
+    q('#gal').innerHTML=IMG[L].map((f,idx)=>`<div class="gi" data-idx="${idx}" data-src="share-img/${f}?v=261"><img src="share-img/${f}?v=261" alt="" decoding="async"><a class="gdl" href="share-img/${f}?v=261" download="${f}" title="Download">↓</a></div>`).join('');
     sec.querySelectorAll('.gal .gi').forEach(el=>{
       el.onclick=ev=>{
         if(ev.target.closest('.gdl'))return;
@@ -2810,7 +2810,7 @@ Mac and Android versions are available on our website: ariamagicvoice.com/apps`}
   q('#prod').onchange=()=>{syncPlat();clearErr();upd()};
   q('#plat').onchange=()=>{clearErr();upd()};
   q('#copy').onclick=()=>{navigator.clipboard?.writeText(q('#txt').textContent);copied=true;q('#copy').textContent=tr(T[L].copied);upd()};
-  q('#save').onclick=()=>IMG[L].forEach((f,k)=>setTimeout(()=>{const a=document.createElement('a');a.href='share-img/'+f+'?v=260';a.download=f;document.body.appendChild(a);a.click();a.remove()},k*300));
+  q('#save').onclick=()=>IMG[L].forEach((f,k)=>setTimeout(()=>{const a=document.createElement('a');a.href='share-img/'+f+'?v=261';a.download=f;document.body.appendChild(a);a.click();a.remove()},k*300));
   const lbEl=document.getElementById('betaLb'),lbImg=document.getElementById('betaLbImg'),lbDots=document.getElementById('betaLbDots');
   let lbIdx=0,lbTimer=0;
   function stopLbTimer(){if(lbTimer){clearInterval(lbTimer);lbTimer=0;}}
@@ -2818,7 +2818,7 @@ Mac and Android versions are available on our website: ariamagicvoice.com/apps`}
   function showLb(idx){
     const list=IMG[L]||IMG.zh;
     lbIdx=((idx%list.length)+list.length)%list.length;
-    if(lbImg)lbImg.src='share-img/'+list[lbIdx]+'?v=260';
+    if(lbImg)lbImg.src='share-img/'+list[lbIdx]+'?v=261';
     if(lbDots){
       lbDots.innerHTML=list.map((_,i)=>`<button type="button" class="beta-lb-dot${i===lbIdx?' on':''}" data-idx="${i}" aria-label="Slide ${i+1}"></button>`).join('');
       lbDots.querySelectorAll('.beta-lb-dot').forEach(b=>b.onclick=ev=>{ev.stopPropagation();showLb(+b.dataset.idx);});
