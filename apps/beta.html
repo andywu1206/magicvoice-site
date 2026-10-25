@@ -899,7 +899,8 @@ body.dark .item.beta{box-shadow:0 6px 16px -6px rgba(0,0,0,.6)}
   [data-v="9"].sbmin .item.beta .bm{font-size:13px}
   [data-v="9"].sbmin #supportSlab{width:28px;margin:6px auto 8px}
 }
-/* BETA_NAV_VERSION v2.6.7 · 2026-10-25 17:56:45 CST · by Antigravity · 安卓官网正式包下载链接升级至 v10.515 (SN输入框13.5sp防遮挡 + vivo市场名直读)
+/* BETA_NAV_VERSION v2.6.8 · 2026-10-25 19:45:00 CST · by Antigravity · 官网3条推广链接新增按平台域名去重校验（防止同一平台连发3条混绿勾）
+   上一版：BETA_NAV_VERSION v2.6.7 · 2026-10-25 17:56:45 CST · by Antigravity · 安卓官网正式包下载链接升级至 v10.515 (SN输入框13.5sp防遮挡 + vivo市场名直读)
    上一版：BETA_NAV_VERSION v2.6.6 · 2026-10-25 18:00:00 CST · by WorkBuddy · 官网自提 Gmail 不再免推广（需 3 条链接绿勾），豁免只认内部直通车（source != 'Beta Application'）
    上一版：BETA_NAV_VERSION v2.6.5 · 2026-10-24 22:58:00 CST · by Antigravity · 官网原装左栏+右上角语言/深色开关 + 方案A六步内测卡 + 修复5个P0
    上一版：BETA_NAV_VERSION v2.1.3 · 2026-10-23 15:30 CST · by 1号-CEO · Harry 第二版 ART + 去掉审批时限承诺 + 绿勾后截图发工作人员
@@ -1309,7 +1310,7 @@ body.dark .beta-hero .hint{color:rgba(235,235,245,.65)}
            而且它一度卡在 v1.0.1 连着 11 次发布没动过，反而误导人。
            要查线上是哪一版：看 scripts/publish_log.jsonl，或 magicvoice-site 的 git log。
            ⚠️ 别再往 footer 加版本号，除非 Harry 明说要。 -->
-      <div class="ftver" id="ftVer">v2.6.7 · 2026-10-25 17:56:45 CST · Antigravity</div>
+      <div class="ftver" id="ftVer">v2.6.8 · 2026-10-25 19:45:00 CST · Antigravity</div>
       <span>© 2026 Peace &amp; Light</span>
       <span class="sp"></span>
       <a id="bizLink">Partnerships</a>
@@ -2721,14 +2722,37 @@ The iPhone version passed Apple's strict review, is now live on the App Store, a
 On iPhone, search "Aria Magic Voice" on the App Store.
 Mac and Android versions are available on our website: ariamagicvoice.com/apps`};
   const T={
-    zh:{h1:'内测申请',lead:'先用上，再告诉我们哪里不好。',sId:'点击保存配图，和文章一起发到三个不同的公开平台（如小红书、微博、抖音、知乎）。',s2d:'把三条帖子的链接贴进来，格式正确就会变绿。',lp:'产品',lf:'平台',sI:'保存配图，和文案一起发送到 3 个不同的平台',sub:'分享到任意 3 个平台，全部通过后内测码发到你的邮箱。',s1:'复制文案',s2:'贴上 3 条帖子的链接',foot:'3 条全部通过后，内测码发到你的邮箱 · 最长 3 个工作日',go:'提交审核',sending:'提交中…',copy:'一键复制',copied:'已复制 ✓',save:'一键保存全部图片（4 张）',ph:'贴上帖子链接 https://…',em:'name@gmail.com',emh:'邮箱只用来发送审批结果和内测码。Gmail 邮箱优先通过。',gmTip:'Gmail 用户：免做 3 条推广任务，可直接点下方「提交审核」登记，或直接加入测试：',gmPlay:'加入 Google Play 封闭测试 →',ok:'已读到帖子，谢谢',bad:'链接无效（需包含具体帖子路径），请重填',dup:'链接重复，请贴 3 条不同的帖子链接',fail:'提交失败了（网络或服务端问题）。邮箱和链接还在框里，没有丢，请稍后再试。',rate:'现在申请的人比较多，请过几分钟再试。',okH:'提交成功',okP:'内测码通过审核后发到你的邮箱。',again:'重新开始',pr:['Aria Magic Voice ( Aria输入法 )','Remember Me','i人洞府','躺平猫','Aria魔法散热风扇','哈哈资讯'],em2:'邮箱'},
-    en:{h1:'Beta Request',lead:'Try it first, then tell us what to fix.',sId:'Save the images and share them with the post on three different public platforms (e.g. X, Reddit, LinkedIn, Instagram).',s2d:'Paste the links to your three posts. Valid links turn green.',lp:'Product',lf:'Platform',sI:'Save the images and post them with the text on 3 different platforms',sub:'Share on any 3 platforms. Once all are approved, your beta code is emailed to you.',s1:'Copy the text',s2:'Paste 3 post links',foot:'Your beta code is emailed once all 3 links are approved · Up to 3 business days',go:'Submit for review',sending:'Sending…',copy:'Copy all',copied:'Copied ✓',save:'Save all images (4)',ph:'Paste post link https://…',em:'name@gmail.com',emh:'Your email is only used to send the review result and beta code. Gmail addresses are approved first.',gmTip:'Gmail users skip the 3 promo posts: tap Submit below directly, or join testing now:',gmPlay:'Join Google Play closed test →',ok:'Post found, thank you',bad:'Invalid link (must include post path). Please resubmit',dup:'Duplicate link. Please paste 3 different post links',fail:'Couldn’t submit (network or server problem). Your email and links are still in the box — please try again later.',rate:'Lots of people are applying right now. Please try again in a few minutes.',okH:'Submitted',okP:'Your beta code will be emailed once approved.',again:'Start over',pr:['Aria Magic Voice','Remember Me','Everything About Me','Aria Magic Cat','Aria Magic Fan','Haha News'],em2:'Email'}
+    zh:{h1:'内测申请',lead:'先用上，再告诉我们哪里不好。',sId:'点击保存配图，和文章一起发到三个不同的公开平台（如小红书、微博、抖音、知乎）。',s2d:'把三条帖子的链接贴进来，格式正确就会变绿。',lp:'产品',lf:'平台',sI:'保存配图，和文案一起发送到 3 个不同的平台',sub:'分享到任意 3 个平台，全部通过后内测码发到你的邮箱。',s1:'复制文案',s2:'贴上 3 条帖子的链接',foot:'3 条全部通过后，内测码发到你的邮箱 · 最长 3 个工作日',go:'提交审核',sending:'提交中…',copy:'一键复制',copied:'已复制 ✓',save:'一键保存全部图片（4 张）',ph:'贴上帖子链接 https://…',em:'name@gmail.com',emh:'邮箱只用来发送审批结果和内测码。Gmail 邮箱优先通过。',gmTip:'Gmail 用户：免做 3 条推广任务，可直接点下方「提交审核」登记，或直接加入测试：',gmPlay:'加入 Google Play 封闭测试 →',ok:'已读到帖子，谢谢',bad:'链接无效（需包含具体帖子路径），请重填',dup:'链接重复，请贴 3 条不同的帖子链接',samePlat:'平台重复，请分享到 3 个不同的平台',fail:'提交失败了（网络或服务端问题）。邮箱和链接还在框里，没有丢，请稍后再试。',rate:'现在申请的人比较多，请过几分钟再试。',okH:'提交成功',okP:'内测码通过审核后发到你的邮箱。',again:'重新开始',pr:['Aria Magic Voice ( Aria输入法 )','Remember Me','i人洞府','躺平猫','Aria魔法散热风扇','哈哈资讯'],em2:'邮箱'},
+    en:{h1:'Beta Request',lead:'Try it first, then tell us what to fix.',sId:'Save the images and share them with the post on three different public platforms (e.g. X, Reddit, LinkedIn, Instagram).',s2d:'Paste the links to your three posts. Valid links turn green.',lp:'Product',lf:'Platform',sI:'Save the images and post them with the text on 3 different platforms',sub:'Share on any 3 platforms. Once all are approved, your beta code is emailed to you.',s1:'Copy the text',s2:'Paste 3 post links',foot:'Your beta code is emailed once all 3 links are approved · Up to 3 business days',go:'Submit for review',sending:'Sending…',copy:'Copy all',copied:'Copied ✓',save:'Save all images (4)',ph:'Paste post link https://…',em:'name@gmail.com',emh:'Your email is only used to send the review result and beta code. Gmail addresses are approved first.',gmTip:'Gmail users skip the 3 promo posts: tap Submit below directly, or join testing now:',gmPlay:'Join Google Play closed test →',ok:'Post found, thank you',bad:'Invalid link (must include post path). Please resubmit',dup:'Duplicate link. Please paste 3 different post links',samePlat:'Duplicate platform. Please share on 3 different platforms',fail:'Couldn’t submit (network or server problem). Your email and links are still in the box — please try again later.',rate:'Lots of people are applying right now. Please try again in a few minutes.',okH:'Submitted',okP:'Your beta code will be emailed once approved.',again:'Start over',pr:['Aria Magic Voice','Remember Me','Everything About Me','Aria Magic Cat','Aria Magic Fan','Haha News'],em2:'Email'}
   };
   const sec=document.getElementById('betaSec');
   const q=s=>sec.querySelector(s);
   let L='zh',copied=false,busy=false,errKey='';
   const V=['','',''];
   const okURL=v=>{const s=(v||'').trim();return /^https?:\/\/[a-z0-9-]+(\.[a-z0-9-]+)*\.[a-z]{2,}(:\d+)?\/\S+$/i.test(s)&&s.length<=500};
+  const platKey=u=>{
+    try{
+      const h=new URL(String(u||'').trim()).hostname.toLowerCase().replace(/^www\./,'');
+      if(/(^|\.)(xiaohongshu\.com|xhslink\.(com|cn))$/.test(h))return'xiaohongshu';
+      if(/(^|\.)(weibo\.(com|cn)|t\.cn)$/.test(h))return'weibo';
+      if(/(^|\.)(douyin\.com|iesdouyin\.com)$/.test(h))return'douyin';
+      if(/(^|\.)(tiktok\.com)$/.test(h))return'tiktok';
+      if(/(^|\.)(x\.com|twitter\.com|t\.co)$/.test(h))return'x';
+      if(/(^|\.)(zhihu\.com|zhuanlan\.zhihu\.com)$/.test(h))return'zhihu';
+      if(/(^|\.)(bilibili\.com|b23\.tv)$/.test(h))return'bilibili';
+      if(/(^|\.)(toutiao\.com|ixigua\.com)$/.test(h))return'toutiao';
+      if(/(^|\.)(qq\.com)$/.test(h))return'wechat_qq';
+      if(/(^|\.)(facebook\.com|fb\.(com|me))$/.test(h))return'facebook';
+      if(/(^|\.)(instagram\.com|instagr\.am)$/.test(h))return'instagram';
+      if(/(^|\.)(reddit\.com|redd\.it)$/.test(h))return'reddit';
+      if(/(^|\.)(linkedin\.com|lnkd\.in)$/.test(h))return'linkedin';
+      if(/(^|\.)(youtube\.com|youtu\.be)$/.test(h))return'youtube';
+      if(/(^|\.)(threads\.net)$/.test(h))return'threads';
+      const p=h.split('.');
+      if(p.length>=3&&/^(com|net|org|gov|edu|co)\.[a-z]{2}$/.test(p.slice(-2).join('.')))return p.slice(-3).join('.');
+      return p.length>=2?p.slice(-2).join('.'):h;
+    }catch(_){return'';}
+  };
   const isAria=()=>(q('#prod').value||'aria')==='aria';
   const isGmail=()=>/@(gmail|googlemail)\.com$/i.test(q('#email').value.trim());
   const needPromo=()=>isAria();
@@ -2777,14 +2801,14 @@ Mac and Android versions are available on our website: ariamagicvoice.com/apps`}
   }
   function upd(){
     const t=T[L];let n=0;
-    const vals=V.map(x=>x.trim());
+    const vals=V.map(x=>x.trim()),pkeys=vals.map(v=>okURL(v)?platKey(v):'');
     sec.querySelectorAll('.slot').forEach((s,k)=>{
-      const v=vals[k],fmtOk=okURL(v),dup=fmtOk&&vals.indexOf(v)!==k,good=fmtOk&&!dup,st=s.querySelector('.st');
+      const v=vals[k],fmtOk=okURL(v),dup=fmtOk&&vals.findIndex(x=>x.toLowerCase()===v.toLowerCase())!==k,pk=pkeys[k],samePlat=fmtOk&&!dup&&pk&&pkeys.indexOf(pk)!==k,good=fmtOk&&!dup&&!samePlat,st=s.querySelector('.st');
       n+=good?1:0;
       s.className='slot '+(!v?'':good?'ok':'x');
       st.className='st '+(!v?'e':good?'ok':'x');
       st.textContent=!v?'·':good?'✓':'✕';
-      s.querySelector('.sub').textContent=!v?'':tr(good?t.ok:(dup?t.dup:t.bad));
+      s.querySelector('.sub').textContent=!v?'':tr(good?t.ok:(dup?t.dup:(samePlat?t.samePlat:t.bad)));
     });
     const aria=isAria(),gm=isGmail(),promo=needPromo();
     q('#s1').hidden=!aria;q('#sI').hidden=!aria;q('#s2').hidden=!aria;
@@ -2859,8 +2883,8 @@ Mac and Android versions are available on our website: ariamagicvoice.com/apps`}
     const pPair=PRODUCTS.find(x=>x[0]===pid)||PRODUCTS[0];
     const plat=q('#plat').value||'iOS';
     const promo=needPromo();
-    const trimV=V.map(x=>x.trim());
-    const has3=trimV.every((u,idx)=>okURL(u)&&trimV.indexOf(u)===idx);
+    const trimV=V.map(x=>x.trim()),trimP=trimV.map(v=>okURL(v)?platKey(v):'');
+    const has3=trimV.every((u,idx)=>okURL(u)&&trimV.findIndex(x=>x.toLowerCase()===u.toLowerCase())===idx&&trimP[idx]&&trimP.indexOf(trimP[idx])===idx);
     if(promo&&!has3){upd();return;}
     const plinks=(promo||has3)?trimV:[];
     lockForm(true);
