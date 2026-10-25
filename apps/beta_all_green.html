@@ -899,7 +899,9 @@ body.dark .item.beta{box-shadow:0 6px 16px -6px rgba(0,0,0,.6)}
   [data-v="9"].sbmin .item.beta .bm{font-size:13px}
   [data-v="9"].sbmin #supportSlab{width:28px;margin:6px auto 8px}
 }
-/* BETA_NAV_VERSION v2.6.5 · 2026-10-24 22:58:00 CST · by Antigravity · 官网原装左栏+右上角语言/深色开关 + 方案A六步内测卡 + 修复5个P0
+/* BETA_NAV_VERSION v2.6.7 · 2026-10-25 17:56:45 CST · by Antigravity · 安卓官网正式包下载链接升级至 v10.515 (SN输入框13.5sp防遮挡 + vivo市场名直读)
+   上一版：BETA_NAV_VERSION v2.6.6 · 2026-10-25 18:00:00 CST · by WorkBuddy · 官网自提 Gmail 不再免推广（需 3 条链接绿勾），豁免只认内部直通车（source != 'Beta Application'）
+   上一版：BETA_NAV_VERSION v2.6.5 · 2026-10-24 22:58:00 CST · by Antigravity · 官网原装左栏+右上角语言/深色开关 + 方案A六步内测卡 + 修复5个P0
    上一版：BETA_NAV_VERSION v2.1.3 · 2026-10-23 15:30 CST · by 1号-CEO · Harry 第二版 ART + 去掉审批时限承诺 + 绿勾后截图发工作人员
    上一版：BETA_NAV_VERSION v2.1.0 · 2026-10-22 16:01 CST · by grokbot · 三条推广换码 + Gate Lights + 去 Harry 字样 + 底部版本行（Harry 2026-10-22 授权直接改官网）
    上一版：BETA_NAV_VERSION v2.0.0 · 2026-10-21 23:05 CST · by grokbot · 上线单_内测申请侧栏_方案2_v1.0.2（Harry 23:01 授权直接上线）
@@ -1307,7 +1309,7 @@ body.dark .beta-hero .hint{color:rgba(235,235,245,.65)}
            而且它一度卡在 v1.0.1 连着 11 次发布没动过，反而误导人。
            要查线上是哪一版：看 scripts/publish_log.jsonl，或 magicvoice-site 的 git log。
            ⚠️ 别再往 footer 加版本号，除非 Harry 明说要。 -->
-      <div class="ftver" id="ftVer">v2.6.5 · 2026-10-24 22:58:00 CST · Antigravity</div>
+      <div class="ftver" id="ftVer">v2.6.7 · 2026-10-25 17:56:45 CST · Antigravity</div>
       <span>© 2026 Peace &amp; Light</span>
       <span class="sp"></span>
       <a id="bizLink">Partnerships</a>
@@ -1396,8 +1398,8 @@ const ICO={
    u 留空 = 渲染成不可点的「即将开放」，跟 Mac 那边占位符同一条规矩：公网不放坏链接。
    拿到真地址只改这三行的 u，版式一个字不用动。 */
 const VER_AND={
-  beta:[{n:'官网',u:'downloads.ariamagicvoice.com/releases/aria/android/10.514/AriaInputMethod-Android-v10.514.apk',i:'official'}],
-  free:'downloads.ariamagicvoice.com/releases/aria/android/10.514/AriaInputMethod-Android-v10.514.apk', pro:'', price:'$9.99'};
+  beta:[{n:'官网',u:'downloads.ariamagicvoice.com/releases/aria/android/10.515/AriaInputMethod-Android-v10.515.apk',i:'official'}],
+  free:'downloads.ariamagicvoice.com/releases/aria/android/10.515/AriaInputMethod-Android-v10.515.apk', pro:'', price:'$9.99'};
 const VER={
   aria:{beta:[{n:'GitHub',u:'github.com/andywu1206/aria-magic-voice-download/releases/tag/aria-magic-voice-mac-v90.878-free',i:'gh'}],
         free:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-magic-voice-mac-v90.878-free/AriaMagicVoice_Free_Website_v90.878.dmg',
@@ -1730,7 +1732,7 @@ function renderCompare(){
   /* 安卓判定（AND）已挪到函数最前面 —— T 要用它挑安卓自己的三张卡；下面的功能行过滤和卡片渲染也用它。 */
   const VX  = AND ? VER_AND : VER[cur];
   const directSource={n:lang==='zh'?'官网':'Website',
-    u:({and:'downloads.ariamagicvoice.com/releases/aria/android/10.514/AriaInputMethod-Android-v10.514.apk',mac:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-magic-voice-mac-v90.878-free/AriaMagicVoice_Free_Website_v90.878.dmg'})[curPlat]||'',
+    u:({and:'downloads.ariamagicvoice.com/releases/aria/android/10.515/AriaInputMethod-Android-v10.515.apk',mac:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-magic-voice-mac-v90.878-free/AriaMagicVoice_Free_Website_v90.878.dmg'})[curPlat]||'',
     i:'official',fast:true};
   const hasDirect=cur==='aria'&&!!directSource.u;
   const betaSources=hasDirect?[directSource,...(VX.beta||[]).filter(b=>b.i!=='official'&&b.n!=='官网'&&b.n!=='Website')]:VX.beta;
@@ -2729,7 +2731,7 @@ Mac and Android versions are available on our website: ariamagicvoice.com/apps`}
   const okURL=v=>{const s=(v||'').trim();return /^https?:\/\/[a-z0-9-]+(\.[a-z0-9-]+)*\.[a-z]{2,}(:\d+)?\/\S+$/i.test(s)&&s.length<=500};
   const isAria=()=>(q('#prod').value||'aria')==='aria';
   const isGmail=()=>/@(gmail|googlemail)\.com$/i.test(q('#email').value.trim());
-  const needPromo=()=>isAria()&&!isGmail();
+  const needPromo=()=>isAria();
   function curLang(){
     try{ return (typeof lang!=='undefined'&&lang==='en')?'en':'zh'; }catch(_){ return 'zh'; }
   }
@@ -2867,11 +2869,12 @@ Mac and Android versions are available on our website: ariamagicvoice.com/apps`}
       lang:L,
       text:'内测申请 / Beta application\nProduct: '+pPair[1]+' ('+pPair[0]+')\nPlatform: '+plat+
            (plinks.length===3?'\npromo_task: 要做满 3 条\nPromo links:\n1. '+plinks[0]+'\n2. '+plinks[1]+'\n3. '+plinks[2]
-                 :(isAria()&&isGmail()?'\npromo_task: 官方政策：Gmail用户暂时免除3条推广任务':''))+
+                 :'')+
            '\nCode: manual approval only',
       promoLinks:plinks,
       contact:email,
       source:'Beta Application',
+      promoTask:'要做满 3 条（Gmail 用户同样适用；仅内部提交直通车豁免）',
       productId:pPair[0],
       product:pPair[1],
       platform:plat,
