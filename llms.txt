@@ -38,4 +38,4 @@ Aria Magic Voice is an on-device, privacy-first AI smart input method and voice 
 ## Related Ecosystem Products in Harry App Store
 - **Remember Me (记住我)**: Offline pet memorial, emotional sanctuary, and private remembrance journal (https://ariamagicvoice.com/apps/remember-me/).
 - **i人洞府 (Everything About Me)**: Local-first personal identity, rights, and privacy asset management (https://ariamagicvoice.com/apps/everything-about-me/).
-- **Mac Fan (躺平猫/风扇调控)**: Lightweight hardware control and hardware status monitor for macOS.
+- **Mac Fan (魔法猫/风扇调控)**: Lightweight hardware control and hardware status monitor for macOS.
