@@ -1060,7 +1060,7 @@ body.dark .beta-hero .art{border-color:var(--line)}
 body.dark .beta-hero .ah{background:rgba(255,255,255,.04);border-bottom-color:var(--line)}
 .beta-hero pre{white-space:pre-wrap;font-family:inherit;font-size:14px;line-height:1.75;padding:14px;max-height:180px;overflow:auto;color:#333;margin:0}
 body.dark .beta-hero pre{color:var(--ink)}
-.beta-hero .gal{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:14px}
+.beta-hero .gal{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-top:14px}@media(max-width:640px){.beta-hero .gal{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .beta-hero .gal .gi{position:relative;aspect-ratio:3/4;border-radius:8px;overflow:hidden;background:#111;display:block;cursor:zoom-in}
 .beta-hero .gal img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;transition:transform .2s}
 .beta-hero .gal .gi:hover img{transform:scale(1.02)}
@@ -2131,7 +2131,7 @@ $$('.tabs .t').forEach(b=>b.onclick=()=>{
 const MENU={
   lang:{el:'#mnuLang',btn:'#lang',
     items:()=>localeMenuItems(),
-    cur:()=>localeMode==='auto'?'auto':locale, set:v=>{ setLocale(v); render(); }}};
+    cur:()=>localeMode==='auto'?'auto':locale, set:v=>{ setLocale(v); render(); if(window.__rebuildBeta)window.__rebuildBeta(); }}};
 /* theme 下拉已移除（Harry 2026-09-01）——改成 #theme 点击直接切换，见下方 onclick。
    #mnuTheme 那个空 div 留着不删（U25 只增不删），没有任何代码再打开它。 */
 function closeMenus(){document.querySelectorAll('.mnu').forEach(m=>m.classList.remove('on'));}
@@ -2704,23 +2704,27 @@ if(cur==='rm'){$$('.item').forEach(i=>i.classList.remove('on'));$$('.item[data-a
   'use strict';
   const PRODUCTS=[['aria','Aria Magic Voice'],['rm','Remember Me'],['p8','Everything About Me'],['nc','Aria Magic Cat'],['fan','Aria Magic Fan'],['haha','Haha News']];
   const PLATS={aria:[['iOS','iPhone'],['Mac','Mac'],['Android','Android'],['Windows','Windows']],rm:[['iOS','iPhone'],['Mac','Mac'],['Web','Web']],p8:[['iOS','iPhone'],['Mac','Mac']],nc:[['Mac','Mac']],fan:[['Mac','Mac']],haha:[['iOS','iPhone']]};
-  const IMG={zh:['duo_zh_1.png','duo_all_2.jpg','poster_zh_3.jpg','poster_zh_4.jpg'],en:['duo_en_1.png','duo_all_2.jpg','poster_en_3.jpg','poster_en_4.jpg']};
-  const TXT={zh:`Aria输入法是离线输入法，断网也能语音输入。内置独立 AI，所有识别都在你自己的 iPhone、Mac 或安卓手机上完成。传统输入法会把语音和聊天内容上传云端，银行账号、密码都有泄露风险。
+  /* Harry 2026-11-01 宣传图三区排列组合铁律（共用最新 Aria 玻璃皮肤图组）：
+     - 国际区 (en)：英文 → 注音 → 仓颉/速成 → 繁体中文 → 简体拼音
+     - 中国大陆 (zh / zh-Hans)：简体中文 → 注音 → 仓颉/速成 → 繁体中文 → 英文（与国际区反过来）
+     - 台湾/香港 (zh-Hant)：注音 → 仓颉/速成 → 繁体中文 → 英文 → 简体拼音 */
+  const IMG={
+    en:['glass_en_1_duo_qwerty.png','glass_en_2_duo_voice.png','glass_en_3_duo_land_qwerty.png','glass_zhuyin_1_light.png','glass_zhuyin_2_dark.png','glass_sucheng_1_light.png','glass_sucheng_2_dark.png','glass_hant_1_settings.png','glass_hans_1_duo_pinyin9.png','glass_hans_2_duo_land_voice.png'],
+    zh:['glass_hans_1_duo_pinyin9.png','glass_hans_2_duo_land_voice.png','glass_hans_3_duo_land_pinyin9.png','glass_zhuyin_1_light.png','glass_zhuyin_2_dark.png','glass_sucheng_1_light.png','glass_sucheng_2_dark.png','glass_hant_1_settings.png','glass_en_1_duo_qwerty.png','glass_en_2_duo_voice.png'],
+    'zh-Hant':['glass_zhuyin_1_light.png','glass_zhuyin_2_dark.png','glass_sucheng_1_light.png','glass_sucheng_2_dark.png','glass_hant_1_settings.png','glass_en_1_duo_qwerty.png','glass_en_2_duo_voice.png','glass_en_3_duo_land_qwerty.png','glass_hans_1_duo_pinyin9.png','glass_hans_2_duo_land_voice.png']
+  };
+  const TXT={zh:`Aria 输入法是纯离线输入法：断网也能语音输入、键盘打字。内置端侧 AI，语音和打字内容只留在你的手机与电脑里，不上传、不外发，隐私保护满分，数据安全满分。传统输入法的准确率更高，是因为把语音和聊天数据（甚至银行卡号与密码）上传到云端服务器集群处理，存在隐私泄露风险。
 
-- 语音输入支持中英文混着说，想怎么说就怎么说
-- 超级学习引擎：改过一次的词，下次自动打对，越用越懂你
-- 内置电子签名，商务文档随手签
+- 全键盘支持：简体拼音（9 键 / 26 键）、台湾注音、香港仓颉 / 速成、英文 QWERTY 与中英混输语音
+- 超级学习引擎：改过一次的词，下次自动打对，越用越懂你；全新 Aria 玻璃皮肤，浅色深色随心切换
+- 国区特别优惠：为感谢大家耐心等待，中国大陆、中国台湾、中国香港、中国澳门统一享 ¥38 特别优惠（国际区 US$19.99 一次买断，无订阅）
 
-iPhone 版已通过苹果严格审核，正式上架 App Store，不收集用户数据。适合对保密要求高、常在弱网或断网环境工作的个人和企业，如航空航天、金融、律师、高科技研发。
+iOS 版去 App Store 下载：搜「Aria输入法」或「Aria Magic Voice」
+Mac 版与安卓版请到官网下载：ariamagicvoice.com/apps`,en:`Aria Magic Voice is a 100% on-device offline AI keyboard and voice dictation input method for iPhone, Mac, and Android. Voice dictation and typing work even in Airplane Mode — zero cloud uploads, zero telemetry, and zero ads. Cloud keyboards upload your voice and chat history to remote servers, putting confidential data and passwords at risk.
 
-iOS 版去 App Store 下载：搜 Aria输入法 或 Aria Magic Voice
-Mac 输入法和安卓版请到官网下载：ariamagicvoice.com/apps`,en:`Aria Magic Voice is an offline input method, and voice input works even without internet. Its built-in AI handles all recognition right on your iPhone, Mac or Android phone. Most input methods upload your voice and chats to the cloud, which can put your bank details and passwords at risk.
-
-- Voice input lets you mix Chinese and English freely, however you naturally talk
-- Smart learning: fix a word once and it gets it right next time, so the more you use it, the better it knows you
-- Built-in e-signature for signing business documents on the go
-
-The iPhone version passed Apple's strict review, is now live on the App Store, and collects no user data. It's made for people and teams who need tight confidentiality or often work with weak or no connectivity, such as aerospace, finance, law and high-tech R&D.
+- Full multi-layout support: English QWERTY, Voice Dictation (mixed English & Chinese), Traditional Zhuyin (Bopomofo), Cangjie / Sucheng, and Simplified Pinyin (9-key & 26-key)
+- On-device Smart Learning Engine & Aria Glass Skin (Light & Dark modes)
+- One-time purchase (Max Edition US$19.99, no subscription; special ¥38 CNY regional pricing for Mainland China, Taiwan, Hong Kong, and Macau)
 
 On iPhone, search "Aria Magic Voice" on the App Store.
 Mac and Android versions are available on our website: ariamagicvoice.com/apps`};
@@ -2777,7 +2781,8 @@ Mac and Android versions are available on our website: ariamagicvoice.com/apps`}
     document.title=tr(L==='zh'?'内测申请 · Aria App Store':'Beta Request · Aria App Store');
     sec.querySelectorAll('[data-t]').forEach(e=>e.textContent=tr(t[e.dataset.t]));
     q('#txt').textContent=tr(TXT[L]);
-    q('#gal').innerHTML=IMG[L].map((f,idx)=>`<div class="gi" data-idx="${idx}" data-src="share-img/${f}?v=262"><img src="share-img/${f}?v=262" alt="" decoding="async"><a class="gdl" href="share-img/${f}?v=262" download="${f}" title="Download">↓</a></div>`).join('');
+    const imgList=IMG[(L==='zh'&&typeof locale!=='undefined'&&locale==='zh-Hant')?'zh-Hant':L]||IMG.en;
+    q('#gal').innerHTML=imgList.map((f,idx)=>`<div class="gi" data-idx="${idx}" data-src="share-img/${f}?v=263"><img src="share-img/${f}?v=263" alt="" decoding="async"><a class="gdl" href="share-img/${f}?v=262" download="${f}" title="Download">↓</a></div>`).join('');
     sec.querySelectorAll('.gal .gi').forEach(el=>{
       el.onclick=ev=>{
         if(ev.target.closest('.gdl'))return;
@@ -2841,15 +2846,15 @@ Mac and Android versions are available on our website: ariamagicvoice.com/apps`}
   q('#prod').onchange=()=>{syncPlat();clearErr();upd()};
   q('#plat').onchange=()=>{clearErr();upd()};
   q('#copy').onclick=()=>{navigator.clipboard?.writeText(q('#txt').textContent);copied=true;q('#copy').textContent=tr(T[L].copied);upd()};
-  q('#save').onclick=()=>IMG[L].forEach((f,k)=>setTimeout(()=>{const a=document.createElement('a');a.href='share-img/'+f+'?v=262';a.download=f;document.body.appendChild(a);a.click();a.remove()},k*300));
+  q('#save').onclick=()=>{const imgList=IMG[(L==='zh'&&typeof locale!=='undefined'&&locale==='zh-Hant')?'zh-Hant':L]||IMG.en;imgList.forEach((f,k)=>setTimeout(()=>{const a=document.createElement('a');a.href='share-img/'+f+'?v=263';a.download=f;document.body.appendChild(a);a.click();a.remove()},k*300));
   const lbEl=document.getElementById('betaLb'),lbImg=document.getElementById('betaLbImg'),lbDots=document.getElementById('betaLbDots');
   let lbIdx=0,lbTimer=0;
   function stopLbTimer(){if(lbTimer){clearInterval(lbTimer);lbTimer=0;}}
   function startLbTimer(){stopLbTimer();lbTimer=setInterval(()=>showLb(lbIdx+1),10000);}
   function showLb(idx){
-    const list=IMG[L]||IMG.zh;
+    const list=IMG[(L==='zh'&&typeof locale!=='undefined'&&locale==='zh-Hant')?'zh-Hant':L]||IMG.en;
     lbIdx=((idx%list.length)+list.length)%list.length;
-    if(lbImg)lbImg.src='share-img/'+list[lbIdx]+'?v=262';
+    if(lbImg)lbImg.src='share-img/'+list[lbIdx]+'?v=263';
     if(lbDots){
       lbDots.innerHTML=list.map((_,i)=>`<button type="button" class="beta-lb-dot${i===lbIdx?' on':''}" data-idx="${i}" aria-label="Slide ${i+1}"></button>`).join('');
       lbDots.querySelectorAll('.beta-lb-dot').forEach(b=>b.onclick=ev=>{ev.stopPropagation();showLb(+b.dataset.idx);});
@@ -2962,6 +2967,7 @@ Mac and Android versions are available on our website: ariamagicvoice.com/apps`}
     };
   }
   
+  window.__rebuildBeta=build;
   build();
 })();
 </script>
