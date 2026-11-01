@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Support · Night Cat / 支持 · 躺平猫</title>
+<meta name="description" content="Night Cat (躺平猫) support: how the switch works, what still sleeps the Mac, how to verify the power assertions with pmset, and how to get help.">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --primary: #0071E3;
+  --bg: #F5F5F7;
+  --text-main: #1D1D1F;
+  --text-muted: #6E6E73;
+  --border: #E5E5EA;
+  --card: #FFFFFF;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans SC", "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text-main);
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+  padding: 64px 24px 96px;
+}
+main { max-width: 760px; margin: 0 auto; }
+.back { display: inline-block; color: var(--primary); text-decoration: none; font-size: .9rem; margin-bottom: 28px; }
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 40px 36px 44px; }
+h1 { font-size: 1.6rem; font-weight: 600; letter-spacing: .01em; }
+h2 { font-size: 1.05rem; font-weight: 600; margin-top: 2em; }
+.meta { color: var(--text-muted); font-size: .85rem; margin: .6em 0 2em; }
+p { margin: .6em 0; }
+ul, ol { padding-left: 1.3em; }
+li { margin: .3em 0; }
+a { color: var(--primary); }
+code { background: #F2F2F4; border-radius: 5px; padding: 1px 5px; font-size: .88em; }
+pre { background: #F2F2F4; border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; overflow-x: auto; margin: .8em 0; font-size: .85rem; }
+.lang-zh { margin-top: 3.5em; padding-top: 3em; border-top: 1px solid var(--border); }
+footer { max-width: 760px; margin: 24px auto 0; color: var(--text-muted); font-size: .8rem; text-align: center; }
+@media (max-width: 600px) { .card { padding: 28px 22px 32px; border-radius: 14px; } body { padding: 40px 16px 72px; } }
+</style>
+</head>
+<body>
+<main>
+  <a class="back" href="./privacy.html">Privacy Policy · Night Cat →</a>
+  <div class="card">
+
+    <h1>Support · Night Cat</h1>
+    <p class="meta">Night Cat · 躺平猫　·　Keep your Mac running while the screen is locked</p>
+
+    <h2>Requirements</h2>
+    <p>macOS 14 or later. One menu bar app, no helper, no login item.</p>
+
+    <h2>How to use it</h2>
+    <ol>
+      <li>Open Night Cat. The icon appears in the menu bar.</li>
+      <li>Turn the <strong>On / Off</strong> switch on. The status line shows it is running.</li>
+      <li>Lock the screen (Control-Command-Q) or let the display turn off on its own schedule. Long downloads, builds, renders and remote sessions keep going.</li>
+      <li>Turn the switch off when you are done, or quit from the menu.</li>
+    </ol>
+
+    <h2>Frequently asked</h2>
+
+    <h3>Why is my Mac still working after the screen went black?</h3>
+    <p>That is the point of the app. Locking the screen and turning the display off are separate from sleeping. While the switch is on, Night Cat asks macOS not to sleep from inactivity, so the screen can go dark while your work continues.</p>
+
+    <h3>Does it drain the battery?</h3>
+    <p>Yes, more than letting the Mac sleep — the screen is off but the machine stays awake. Leave it on only while you need a task to finish.</p>
+
+    <h3>Does it change my power settings?</h3>
+    <p>No. It does not touch Energy Saver, the sleep timers or any system setting. It holds temporary power assertions, and releases all of them when you turn the switch off or quit.</p>
+
+    <h3>What still puts the Mac to sleep?</h3>
+    <ul>
+      <li>Closing the lid of a notebook</li>
+      <li>Apple menu ▸ Sleep</li>
+      <li>A critically low battery</li>
+    </ul>
+    <p>Those are macOS behaviours. Night Cat does not prevent them and does not claim to.</p>
+
+    <h3>How can I check that it is really holding the wake request?</h3>
+    <p>Open Terminal and run:</p>
+    <pre>pmset -g assertions</pre>
+    <p>While the switch is on you should see three assertions named <code>P16KeepRunning</code> (<code>PreventUserIdleSystemSleep</code>, <code>PreventSystemSleep</code>, <code>PreventDiskIdle</code>). Turn the switch off — they disappear.</p>
+
+    <h3>Do I need an account or an internet connection?</h3>
+    <p>No. The app is sandboxed without the network entitlement, so it cannot use the network at all. There is no account, no sign-in and no data collection. See the <a href="./privacy.html">privacy policy</a>.</p>
+
+    <h2>Contact</h2>
+    <p>Email <a href="mailto:magicvoice.team@outlook.com">magicvoice.team@outlook.com</a>. Please include your macOS version (Apple menu ▸ About This Mac) and what you expected to happen. We usually reply within two business days.</p>
+
+    <div class="lang-zh">
+      <h1>支持 · 躺平猫</h1>
+      <p class="meta">躺平猫 · Night Cat　·　锁屏、黑屏时让 Mac 继续干活</p>
+
+      <h2>系统要求</h2>
+      <p>macOS 14 或更高版本。只在菜单栏运行，没有辅助进程，也不安装登录项。</p>
+
+      <h2>怎么用</h2>
+      <ol>
+        <li>打开躺平猫，图标出现在菜单栏。</li>
+        <li>把<strong>开关</strong>打开，状态会显示正在运转。</li>
+        <li>照平时的方式锁定屏幕（Control-Command-Q），或让屏幕按系统设置自己变黑。下载、编译、渲染、远程会话继续跑。</li>
+        <li>用完把开关关掉，或从菜单退出。</li>
+      </ol>
+
+      <h2>常见问题</h2>
+
+      <h3>屏幕黑了，为什么 Mac 还在干活？</h3>
+      <p>这正是这个 App 的用途。锁屏、熄屏和系统睡眠是三件事。开关打开时，躺平猫请求 macOS 不要因为空闲而睡眠，所以屏幕可以黑掉，活继续跑。</p>
+
+      <h3>会不会很费电？</h3>
+      <p>会比让 Mac 睡觉费电 —— 屏幕虽然黑着，机器是醒着的。只在需要任务跑完的时候开着就好。</p>
+
+      <h3>会不会改我的电源设置？</h3>
+      <p>不会。它不碰「节能」里的任何设置、不改睡眠计时，只持有临时电源断言；关掉开关或退出 App 时全部释放。</p>
+
+      <h3>哪些情况系统仍然会睡？</h3>
+      <ul>
+        <li>合上笔记本盖子</li>
+        <li>点苹果菜单里的「睡眠」</li>
+        <li>电量过低</li>
+      </ul>
+      <p>这些都是 macOS 的行为，躺平猫不阻止，也不宣称能阻止。</p>
+
+      <h3>怎么确认它真的在阻止闲置睡眠？</h3>
+      <p>打开「终端」，执行：</p>
+      <pre>pmset -g assertions</pre>
+      <p>开关打开时，应能看到三条名字为 <code>P16KeepRunning</code> 的断言（<code>PreventUserIdleSystemSleep</code>、<code>PreventSystemSleep</code>、<code>PreventDiskIdle</code>）。关掉开关，它们就消失。</p>
+
+      <h3>需要账号或联网吗？</h3>
+      <p>不需要。App 在沙盒里运行且没有网络权限，完全无法联网。没有账号、不用登录、不收集数据，详见<a href="./privacy.html">隐私政策</a>。</p>
+
+      <h2>联系支持</h2>
+      <p>邮箱：<a href="mailto:magicvoice.team@outlook.com">magicvoice.team@outlook.com</a>。请附上你的 macOS 版本（苹果菜单 ▸「关于本机」）和遇到的现象，我们通常在两个工作日内回复。</p>
+    </div>
+
+  </div>
+  <footer>Night Cat · 躺平猫 · 2026</footer>
+</main>
+</body>
+</html>

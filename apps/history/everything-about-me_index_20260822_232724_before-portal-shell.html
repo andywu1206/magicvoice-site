@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>i人洞府</title>
+<meta name="description" content="i人洞府：退休时间速查表、退休金计算器、政策动态。证件资料、社保档案、到期提醒等完整功能在 Mac / iOS / Android App 中。">
+<style>
+  body{margin:0;min-height:100vh;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC","Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased;font-size:14px;line-height:1.55;
+    --bg:linear-gradient(180deg,#20201e 0%,#1b1b19 100%);--card:#282826;--card2:#30302d;--line:rgba(255,255,255,.08);--line2:rgba(255,255,255,.18);
+    --t1:#dfdedb;--t2:#969692;--t3:#6e6e69;--pill:#3a3a37;--on:#deded9;--onT:#252522;--green:#7ec97e;--shadow:0 14px 36px rgba(0,0,0,.26);--logo:linear-gradient(145deg,#f6cf62,#e7b72a);--logoT:#171715;
+    background:var(--bg);color:var(--t2);}
+  html{background:#1b1b19;}
+  *{scrollbar-width:thin;scrollbar-color:rgba(128,128,128,.35) transparent;}
+  ::-webkit-scrollbar{width:8px;height:8px;background:transparent;} ::-webkit-scrollbar-thumb{background:rgba(128,128,128,.35);border-radius:999px;}
+  a{color:var(--t1);text-decoration:none;}
+  .wrap{max-width:960px;margin:0 auto;padding:40px 28px 80px;}
+  header{display:flex;align-items:center;gap:14px;}
+  .logo{width:48px;height:48px;border-radius:14px;background:var(--logo);color:var(--logoT);display:grid;place-items:center;font-weight:850;font-size:18px;box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 8px 20px rgba(0,0,0,.18);}
+  h1{margin:0;color:var(--t1);font-size:24px;font-weight:760;line-height:1.1;}
+  .sub{margin:5px 0 0;font-size:13px;color:var(--t2);}
+
+  /* ── 工具区 · 硬切换 + 默认展开（Harry 2026-08-22：不要两个入口，它就是本身）── */
+  .toolbar{margin-top:26px;display:flex;justify-content:center;}
+  .seg{display:inline-flex;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px;gap:4px;box-shadow:var(--shadow);}
+  .seg button{appearance:none;border:0;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:720;color:var(--t2);background:transparent;border-radius:999px;padding:9px 20px;transition:background .15s,color .15s;}
+  .seg button:hover{color:var(--t1);}
+  .seg button[aria-selected="true"]{background:var(--on);color:var(--onT);}
+  .toolstage{margin-top:14px;border:1px solid var(--line);border-radius:20px;background:var(--card);box-shadow:var(--shadow);overflow:hidden;}
+  .toolstage iframe{display:block;width:100%;border:0;min-height:560px;background:transparent;}
+
+  h3.sec{margin:38px 0 0;color:var(--t1);font-size:15px;font-weight:790;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;}
+  h3.sec span{color:var(--t3);font-size:12px;font-weight:500;}
+
+  /* ── 政策动态 ── */
+  .tracks{margin-top:12px;display:flex;flex-wrap:wrap;gap:7px;}
+  .tracks button{appearance:none;cursor:pointer;font-family:inherit;font-size:12px;font-weight:640;color:var(--t2);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 13px;}
+  .tracks button:hover{color:var(--t1);border-color:var(--line2);}
+  .tracks button[aria-pressed="true"]{background:var(--on);color:var(--onT);border-color:transparent;}
+  .tl{margin-top:14px;border-left:2px solid var(--line);padding-left:0;}
+  .yr{margin:22px 0 10px;padding-left:18px;color:var(--t3);font-size:12px;font-weight:700;letter-spacing:.04em;position:relative;}
+  .yr::before{content:"";position:absolute;left:-5px;top:5px;width:8px;height:8px;border-radius:50%;background:var(--pill);border:2px solid #1b1b19;}
+  .pi{position:relative;margin:0 0 12px 18px;border:1px solid var(--line);border-radius:16px;padding:15px 17px;background:var(--card);box-shadow:var(--shadow);}
+  .pi::before{content:"";position:absolute;left:-23px;top:19px;width:7px;height:7px;border-radius:50%;background:var(--t3);}
+  .pi .meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:11.5px;color:var(--t3);}
+  .pi .tk{border-radius:999px;padding:2px 9px;border:1px solid var(--line2);color:var(--t2);font-weight:700;}
+  .pi .vf{border-radius:999px;padding:2px 9px;font-weight:700;background:rgba(95,178,102,.16);color:var(--green);border:1px solid rgba(95,178,102,.5);}
+  .pi .vf.part{background:var(--pill);color:var(--t2);border-color:var(--line2);}
+  .pi b{display:block;margin:8px 0 0;color:var(--t1);font-size:14.5px;font-weight:790;line-height:1.45;}
+  .pi p{margin:7px 0 0;font-size:12.5px;color:var(--t2);line-height:1.65;}
+  .pi .me{margin-top:9px;border-left:2px solid var(--line2);padding-left:11px;font-size:12.5px;color:var(--t2);line-height:1.65;}
+  .pi .me em{color:var(--t1);font-style:normal;font-weight:700;}
+  .pi details{margin-top:10px;}
+  .pi summary{cursor:pointer;font-size:12px;color:var(--t3);list-style:none;}
+  .pi summary::-webkit-details-marker{display:none;}
+  .pi summary::before{content:"▸ ";}
+  .pi details[open] summary::before{content:"▾ ";}
+  .pi summary:hover{color:var(--t1);}
+  .pi .src{margin:9px 0 0;padding:0;list-style:none;}
+  .pi .src li{margin:0 0 6px;font-size:11.5px;line-height:1.6;color:var(--t3);}
+  .pi .src a{color:var(--t2);text-decoration:underline;text-underline-offset:2px;word-break:break-all;}
+  .pi .src a:hover{color:var(--t1);}
+
+  .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:14px;}
+  .card{border:1px solid var(--line);border-radius:18px;padding:16px;background:var(--card);box-shadow:var(--shadow);display:flex;flex-direction:column;gap:8px;min-height:128px;position:relative;}
+  .card b{color:var(--t1);font-size:14.5px;font-weight:790;}
+  .card p{margin:0;font-size:12.5px;color:var(--t2);line-height:1.55;}
+  .card .tag{position:absolute;top:14px;right:14px;font-size:11px;font-weight:700;border-radius:999px;padding:2px 9px;border:1px solid var(--line2);color:var(--t2);background:var(--pill);}
+  .card.lock{opacity:.92;} .card.lock:hover{opacity:1;border-color:var(--line2);}
+  .card .go{margin-top:auto;font-size:12.5px;color:var(--t2);}
+  .note{margin-top:26px;border:1px solid var(--line);border-radius:18px;padding:16px 18px;background:var(--card2);font-size:12.5px;color:var(--t2);line-height:1.7;}
+  .note b{color:var(--t1);}
+  footer{margin-top:40px;text-align:center;font-size:12px;color:var(--t3);}
+  footer a{color:var(--t2);margin:0 6px;}
+  @media (max-width:760px){.grid{grid-template-columns:1fr}.seg button{padding:9px 14px;font-size:12.5px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo">i</div>
+    <div>
+      <!-- Harry 2026-08-22 定：一个界面只出现一个名字。
+           本页 lang=zh-CN 是纯中文界面 → 只显示中文名「i人洞府」。
+           英文名「Everything about Me」等英文界面 / 美国版时才出现，两个名字不并排。 -->
+      <h1>i人洞府</h1>
+      <p class="sub">i人自己的洞府，无需打电话咨询，无需求人帮助，你的资料你做主</p>
+    </div>
+  </header>
+
+  <!-- 工具区：Harry 2026-08-22 明批 —— 不要「可用」标签、不要「打开」入口，
+       默认就是展开状态，顶部一个硬切换。「不然的话别人老是要点来点去的，很麻烦的」 -->
+  <div class="toolbar">
+    <div class="seg" role="tablist" aria-label="退休工具切换">
+      <button role="tab" id="tab-table" aria-selected="true"  data-src="./退休计算器/退休时间速查表.html">退休时间速查表</button>
+      <button role="tab" id="tab-calc"  aria-selected="false" data-src="./退休计算器/退休金计算器.html">退休金计算器</button>
+    </div>
+  </div>
+  <div class="toolstage">
+    <iframe id="toolFrame" title="退休工具" src="./退休计算器/退休时间速查表.html" scrolling="no"></iframe>
+  </div>
+
+  <h3 class="sec">政策动态 <span id="polCount"></span></h3>
+  <div class="tracks" id="tracks"></div>
+  <div class="tl" id="timeline"></div>
+
+  <h3 class="sec">下载 App 后可用 <span>网页版是轻量版；这些要装 App</span></h3>
+  <div class="grid">
+    <a class="card lock" href="https://ariamagicvoice.com/apps/" target="_blank" rel="noopener"><span class="tag">下载 App 可用</span><b>证件与资料</b><p>身份证、社保卡、离职材料原图 —— 本地加密保存，随时调出来用。</p><span class="go">去 Harry App Store 下载 →</span></a>
+    <a class="card lock" href="https://ariamagicvoice.com/apps/" target="_blank" rel="noopener"><span class="tag">下载 App 可用</span><b>社保 / 公积金档案</b><p>截图导入自动识别缴费年限、账户余额，不用手抄。</p><span class="go">去 Harry App Store 下载 →</span></a>
+    <a class="card lock" href="https://ariamagicvoice.com/apps/" target="_blank" rel="noopener"><span class="tag">下载 App 可用</span><b>到期主动提醒</b><p>失业金申领窗口、医保断缴、公积金可提取 —— 到点提醒你，不错过一分钱。</p><span class="go">去 Harry App Store 下载 →</span></a>
+  </div>
+
+  <div class="note">
+    <b>下载 App</b>　Mac / iOS：App Store 搜「i人洞府」或「Everything About Me」 · Android：内测包在 <a href="https://ariamagicvoice.com/apps/" target="_blank" rel="noopener">Harry App Store</a>。<br>
+    <b>关于数据</b>　网页版不收集、不上传任何输入；App 内数据默认只存在你自己的设备里。
+  </div>
+
+  <footer>
+    © 2026 Harry Wood · <a href="https://ariamagicvoice.com/apps/" target="_blank" rel="noopener">Harry App Store</a> · 模拟估算仅供参考，最终以社保经办机构核定为准
+  </footer>
+</div>
+
+<script>
+/* ── 工具硬切换 ──────────────────────────────────────────────
+   两个工具是独立页面（计算器挂 DC 运行时 + support.js，文件头写着 do not edit），
+   所以用 iframe 承载而不是把代码合并进来 —— 零 CSS/JS 冲突，且两页原有的
+   ?b= / ?k= 联动和共用 localStorage 照常工作。 */
+(function(){
+  var frame=document.getElementById('toolFrame');
+  var tabs=[].slice.call(document.querySelectorAll('.seg button'));
+
+  function select(btn){
+    tabs.forEach(function(t){ t.setAttribute('aria-selected', String(t===btn)); });
+    var src=btn.dataset.src;
+    if(frame.getAttribute('src')!==src) frame.setAttribute('src',src);
+  }
+  tabs.forEach(function(t){ t.addEventListener('click',function(){ select(t); }); });
+
+  /* 内嵌适配：两个工具本来是独立整页，塞进来要去掉两处「整页」痕迹。
+     只在 iframe 里注入，工具文件本身一个字不改（独立打开仍是完整页面）。 */
+  function adapt(d){
+    if(!d || d.getElementById('__embedFix')) return;
+    var st=d.createElement('style');
+    st.id='__embedFix';
+    st.textContent=
+      /* ① 工具页 body 有 min-height:100vh。iframe 视口 = 我设的高度，
+            100vh 就跟着变大 → 下次量又更高 → 无限增长（实测涨到 6255px）。
+            置 0 才能量到真实内容高度。 */
+      'html,body{min-height:0!important;background:transparent!important}'+
+      /* ② 工具页自带 header（logo + 「i人洞府 · 退休时间速查表」），
+            宿主页顶上已经有同一个头，框里再来一次就是重复。 */
+      /* 实测：两个工具各只有 1 个 <header>，就是页头，所以直接命中 header 是安全的。
+         速查表是 body>.wrap>header，计算器是 DC 结构 .sc-host>div>header —— 用标签选择器才能都盖到。 */
+      'header{display:none!important}'+
+      '.wrap{padding:20px 22px 24px!important;max-width:none!important}';
+    (d.head||d.documentElement).appendChild(st);
+  }
+
+  /* 自适应高度：同源可读；读不到就留 CSS 的 min-height 兜底 */
+  function fit(){
+    try{
+      var d=frame.contentDocument;
+      if(!d||!d.body) return;
+      adapt(d);
+      /* ⚠️ 只能用 body.scrollHeight。
+         documentElement.scrollHeight 至少等于 iframe 视口高 —— 我把 iframe 设成 H，
+         它就返回 ≥H，下一轮再 +4，测量值反馈进被测对象，永远追不上自己。
+         2026-08-22 实测：用 max(body, documentElement) 时每 1.2s 涨 4~12px 不收敛。 */
+      var h=d.body.scrollHeight;
+      if(!h) h=d.documentElement.scrollHeight;      /* body 量不到才退而求其次 */
+      if(h>0 && Math.abs(parseInt(frame.style.height||0,10)-(h+4))>3){
+        frame.style.height=(h+4)+'px';
+      }
+    }catch(e){ /* 跨源时静默：min-height 已兜底 */ }
+  }
+
+  frame.addEventListener('load',function(){
+    fit();
+    /* 折叠/翻页/图片会改高度，量几次收敛 */
+    [80,300,800,1600].forEach(function(ms){ setTimeout(fit,ms); });
+    /* 计算器结果行会跳到速查表 —— 顶部切换跟着同步 */
+    try{
+      var path=decodeURIComponent(frame.contentWindow.location.pathname||'');
+      tabs.forEach(function(t){
+        var file=decodeURIComponent(t.dataset.src).split('/').pop();
+        if(file && path.indexOf(file)>=0){
+          tabs.forEach(function(x){ x.setAttribute('aria-selected',String(x===t)); });
+        }
+      });
+    }catch(e){}
+  });
+  window.addEventListener('resize',fit);
+  setInterval(fit,1200);   /* 工具内部交互（选地区、翻页、切 Tab）也会改高度 */
+  fit();                   /* iframe 可能在脚本执行前就已 load 完 */
+})();
+
+/* ── 政策动态 ────────────────────────────────────────────────
+   数据由 scripts/gen_web_policy.py 从 Sources/MeApp/PolicyTimeline.swift 生成 —— App 是真源。
+   改政策只改 Swift，然后重跑脚本，不要手改下面这段。 */
+<!--POLICY-DATA-BEGIN-->
+const POLICY=[
+ {
+  "id": "pension-2030-minyears",
+  "track": "pension",
+  "trackTitle": "养老保险",
+  "effectiveDate": "2030-01-01",
+  "title": "按月领基本养老金的最低缴费年限：15 年 → 20 年",
+  "issuingBody": "全国人民代表大会常务委员会",
+  "summary": "自 2030-01-01 起，最低缴费年限**每年提高 6 个月**，由 15 年逐步提高至 20 年。2025–2029 为缓冲期，此间退休的仍按 15 年执行。按每年 +6 个月推算：2030 年退休 15.5 年 → 2039 年及以后满 20 年封顶。",
+  "impactOnMe": "你预计 2044 年退休，落在封顶区间 → **最低缴费年限 20 年**。⚠️ 但「你还差多少年」现在算不出来 —— 缺你的实际累计缴费年限，那要从粤省事「个人权益单」导入（App 里社保卡已标「待导入」）。",
+  "region": "全国",
+  "sources": [
+   {
+    "name": "中国政府网 · 全国人大常委会决定原文（含最低缴费年限条款）",
+    "url": "https://www.gov.cn/yaowen/liebiao/202409/content_6974294.htm",
+    "tier": "official",
+    "tierLabel": "官方",
+    "retrievedAt": "2026-08-08 11:58:00 周六 CST"
+   },
+   {
+    "name": "中国人大网 · 决定全文",
+    "url": "http://www.npc.gov.cn/npc/c2/kgfb/202409/t20240913_439534.html",
+    "tier": "official",
+    "tierLabel": "官方",
+    "retrievedAt": "2026-08-08 11:58:00 周六 CST"
+   },
+   {
+    "name": "广州日报数字报 ·「养老保险最低缴费年限为何调、怎么调」",
+    "url": "https://gzdaily.dayoo.com/pc/html/2024-09/14/content_868_868520.htm",
+    "tier": "official",
+    "tierLabel": "官方",
+    "retrievedAt": "2026-08-08 11:58:00 周六 CST"
+   }
+  ],
+  "officialCount": 3,
+  "verification": "corroborated"
+ },
+ {
+  "id": "medical-2030-unify-years",
+  "track": "medical",
+  "trackTitle": "医疗保险",
+  "effectiveDate": "2030-01-01",
+  "title": "广东职工医保缴费年限统一：男 30 年 / 女 25 年",
+  "issuingBody": "广东省医疗保障局",
+  "summary": "广东逐步统一全省职工医保累计缴费年限，到 2030-01-01 统一为**男职工 30 年、女职工 25 年**。未达标的地市自 2022 年起在本市 2021 年政策基础上**逐年调整**，平稳过渡，尽量减少对临近退休人员的影响。",
+  "impactOnMe": "**这条比养老那条更值得盯** —— 广州目前仍在过渡期，按 **10 年**（2014 年前参保）或 **15 年**（2014 年后参保）执行，**尚未涨到 30 年**。你 2044 年退休，届时早已按 30 年口径。\n⚠️ 但「你现在算几年、按 10 还是 15 起算」取决于你的**首次参保时间**，这个 App 里还没有 —— 同样要从粤省事「个人权益单」导入才能算。",
+  "region": "广东省（广州市执行）",
+  "sources": [
+   {
+    "name": "广州市人民政府门户 ·「广东将统一职工医保缴费年限：男职工30年 女职工25年」",
+    "url": "https://www.gz.gov.cn/zwfw/zxfw/ylfw/content/post_8355274.html",
+    "tier": "official",
+    "tierLabel": "官方",
+    "retrievedAt": "2026-08-08 16:40:00 周六 CST"
+   },
+   {
+    "name": "广东省人民政府门户 ·「广东将逐步统一职工医保缴费年限」",
+    "url": "http://www.gd.gov.cn/gdywdt/bmdt/content/post_3953808.html",
+    "tier": "official",
+    "tierLabel": "官方",
+    "retrievedAt": "2026-08-08 16:40:00 周六 CST"
+   },
+   {
+    "name": "广州市人民政府门户 ·「广东医保权威解答：调整职工医保缴费年限，如何影响参保人？」",
+    "url": "https://www.gz.gov.cn/zwfw/zxfw/ylfw/content/post_8418818.html",
+    "tier": "official",
+    "tierLabel": "官方",
+    "retrievedAt": "2026-08-08 16:40:00 周六 CST"
+   }
+  ],
+  "officialCount": 3,
+  "verification": "corroborated"
+ },
+ {
+  "id": "unemployment-gz-amount",
+  "track": "unemployment",
+  "trackTitle": "失业保险",
+  "effectiveDate": "2025-11-01",
+  "title": "广州失业保险金标准 = 本市月最低工资的 90%（2070 元/月）",
+  "issuingBody": "广州市人力资源和社会保障局",
+  "summary": "按月领取的失业保险金标准为**本市月最低工资标准的 90%**，现为 **2070 元/月**。\n领取的基本条件：① 失业前单位和本人累计缴费满 1 年（或不满 1 年但本人有尚未领完的期限）② **非因本人意愿中断就业** ③ 已办失业登记并有求职要求。",
+  "impactOnMe": "你是**协商一致解除**（2026-07-20），属「非因本人意愿中断就业」→ 条件 ② 满足。\n⚠️ **2070 元是「2025 年 11 月版」问答里的数字**，会随最低工资调整而变，**以社保局核定单为准**（App 里失业金卡「月发金额」那栏特意留空写「待核定单填写」，就是这个原因）。",
+  "region": "广州市",
+  "sources": [
+   {
+    "name": "广州市人力资源和社会保障局 ·「广州市失业保险常见问题解答（2025年11月版）」",
+    "url": "https://rsj.gz.gov.cn/ywzt/shbz/gzdt/content/post_10577823.html",
+    "tier": "official",
+    "tierLabel": "官方",
+    "retrievedAt": "2026-08-08 16:40:00 周六 CST"
+   },
+   {
+    "name": "广州市人民政府门户 · 同上问答（政府门户转载版）",
+    "url": "https://www.gz.gov.cn/zwfw/zxfw/sbfw/content/post_10582009.html",
+    "tier": "official",
+    "tierLabel": "官方",
+    "retrievedAt": "2026-08-08 16:40:00 周六 CST"
+   },
+   {
+    "name": "广州市人力资源和社会保障局 · 失业保险金申领发放办法",
+    "url": "https://rsj.gz.gov.cn/zcfg/flfg/content/post_9959305.html",
+    "tier": "official",
+    "tierLabel": "官方",
+    "retrievedAt": "2026-08-08 16:40:00 周六 CST"
+   }
+  ],
+  "officialCount": 3,
+  "verification": "corroborated"
+ },
+ {
+  "id": "retire-2025-delay",
+  "track": "retirementAge",
+  "trackTitle": "法定退休年龄",
+  "effectiveDate": "2025-01-01",
+  "title": "渐进式延迟法定退休年龄正式启动",
+  "issuingBody": "全国人民代表大会常务委员会",
+  "summary": "自 2025-01-01 起，男职工法定退休年龄**每四个月延迟一个月**，逐步延迟至 63 周岁；女职工原 50 / 55 周岁的，分别逐步延迟至 55 / 58 周岁。同时新增弹性退休：达到最低缴费年限可自愿提前，最长不超过 3 年，且不得低于原法定退休年龄。",
+  "impactOnMe": "退休时间计算器按出生年月计算到月份：男性按原 60 周岁路径，女性同时展示原 55 / 原 50 周岁两种口径。身份口径、弹性退休和最终日期均以参保地经办机构核定为准。",
+  "region": "全国",
+  "sources": [
+   {
+    "name": "中国政府网 · 全国人大常委会决定原文",
+    "url": "https://www.gov.cn/yaowen/liebiao/202409/content_6974294.htm",
+    "tier": "official",
+    "tierLabel": "官方",
+    "retrievedAt": "2026-08-08 11:58:00 周六 CST"
+   },
+   {
+    "name": "中国人大网 · 决定全文",
+    "url": "http://www.npc.gov.cn/npc/c2/kgfb/202409/t20240913_439534.html",
+    "tier": "official",
+    "tierLabel": "官方",
+    "retrievedAt": "2026-08-08 11:58:00 周六 CST"
+   },
+   {
+    "name": "中国广州网 · 广州市政府门户「延迟退休改革明年启动」",
+    "url": "http://www.guangzhou.gov.cn/202409/14/156098_54717985.htm",
+    "tier": "official",
+    "tierLabel": "官方",
+    "retrievedAt": "2026-08-08 11:58:00 周六 CST"
+   },
+   {
+    "name": "广州市越秀区政府 ·「2025年起弹性退休这样实施」",
+    "url": "http://www.yuexiu.gov.cn/ggfw/ztfw/sb/sbxx/content/post_10058781.html",
+    "tier": "official",
+    "tierLabel": "官方",
+    "retrievedAt": "2026-08-08 11:58:00 周六 CST"
+   },
+   {
+    "name": "人力资源和社会保障部 · 渐进式延迟法定退休年龄政策解读",
+    "url": "https://www.mohrss.gov.cn/wap/xw/rsxw/202501/t20250103_533838.html",
+    "tier": "official",
+    "tierLabel": "官方",
+    "retrievedAt": "2026-08-12 13:18:29 周三 CST"
+   }
+  ],
+  "officialCount": 5,
+  "verification": "corroborated"
+ },
+ {
+  "id": "hf-gz-resign-withdraw",
+  "track": "housingFund",
+  "trackTitle": "住房公积金",
+  "effectiveDate": "2023-08-01",
+  "title": "离职后公积金：账户封存；「封存满半年可销户提取」**仅限非本市户籍**",
+  "issuingBody": "广州住房公积金管理中心",
+  "summary": "与单位解除/终止劳动关系后，公积金账户转为**封存**状态。\n**非本市户籍**职工若未在异地继续缴存、账户**封存满半年**，可申请**销户提取**，另需满足：本市无未结清公积金贷款、无套取行为（或已全额退回）、账户未被依法冻结。\n线上办理：「广州住房公积金管理中心」公众号 → 提取业务 → 新增提取 → 非住房性消费提取 → 异地户口离职。",
+  "impactOnMe": "🔴 **先看你的户口本再决定要不要走这条**。「封存满半年销户提取」整条路径写明**只给非本市户籍**（办理入口的名字直接就叫「异地户口离职」）。如果你是**广州本市户籍**，这条路走不通。\n**这就是典型的「走错门」**：条件看起来都对得上（离职了、封存了、满半年），唯独户籍这一项把你排除在外 —— 而界面上不会告诉你为什么。\n⚠️ 本市户籍离职后的提取路径**我还没查到足够的官方出处**，按规则不写进来（编造 = 违规）。要用得先补齐来源或打公积金热线核实。",
+  "region": "广州市",
+  "sources": [
+   {
+    "name": "广州住房公积金管理中心 ·「非本市户籍职工离职满半年提取公积金线上操作指引」",
+    "url": "http://gjj.gz.gov.cn/bsfw/cjwt/tq/content/post_10095338.html",
+    "tier": "official",
+    "tierLabel": "官方",
+    "retrievedAt": "2026-08-08 17:15:00 周六 CST"
+   },
+   {
+    "name": "广州市人民政府门户 ·《广州市住房公积金提取管理办法》",
+    "url": "https://www.gz.gov.cn/gfxwj/sbmgfxwj/gzzfgjjglzx/content/post_9443084.html",
+    "tier": "official",
+    "tierLabel": "官方",
+    "retrievedAt": "2026-08-08 17:15:00 周六 CST"
+   },
+   {
+    "name": "广州住房公积金管理中心 ·「职工离职后，住房公积金怎么办？」",
+    "url": "http://gjj.gz.gov.cn/bsfw/cjwt/tq/content/post_9379639.html",
+    "tier": "official",
+    "tierLabel": "官方",
+    "retrievedAt": "2026-08-08 17:15:00 周六 CST"
+   },
+   {
+    "name": "广州市花都区政府 ·「广州公积金提取新政发布！离职后封存半年可提取」",
+    "url": "https://www.huadu.gov.cn/xxgk/zcwj/zcjd/rdjd/content/post_4794922.html",
+    "tier": "official",
+    "tierLabel": "官方",
+    "retrievedAt": "2026-08-08 17:15:00 周六 CST"
+   }
+  ],
+  "officialCount": 4,
+  "verification": "corroborated"
+ },
+ {
+  "id": "unemployment-benefit-duration",
+  "track": "unemployment",
+  "trackTitle": "失业保险",
+  "effectiveDate": "1999-01-22",
+  "title": "失业保险金领取期限：按累计缴费年限分三档，最长 24 个月",
+  "issuingBody": "国务院（失业保险条例）",
+  "summary": "累计缴费**满 1 年不足 5 年** → 最长 **12 个月**；**满 5 年不足 10 年** → 最长 **18 个月**；**10 年以上** → 最长 **24 个月**。\n重新就业后再次失业的，缴费时间**重新计算**，但可与上次应领未领的期限**合并计算**，合计不超过 24 个月。",
+  "impactOnMe": "App 里失业金卡按 **24 期（24 个月）** 排的进度 —— 对应「累计缴费 10 年以上」档。⚠️ 这个档位**取决于你的实际累计缴费年限**，同样要等「个人权益单」导入后才能确认。若实际不足 10 年，期数会短于 24。",
+  "region": "全国（广州执行）",
+  "sources": [
+   {
+    "name": "广州市人力资源和社会保障局 · 失业保险条例",
+    "url": "https://rsj.gz.gov.cn/zcfg/flfg/content/post_7993534.html",
+    "tier": "official",
+    "tierLabel": "官方",
+    "retrievedAt": "2026-08-08 16:40:00 周六 CST"
+   },
+   {
+    "name": "广州市人力资源和社会保障局 · 失业保险金申领发放办法",
+    "url": "https://rsj.gz.gov.cn/zcfg/flfg/content/post_9959305.html",
+    "tier": "official",
+    "tierLabel": "官方",
+    "retrievedAt": "2026-08-08 16:40:00 周六 CST"
+   },
+   {
+    "name": "广东省人民政府门户 · 广东省失业保险条例",
+    "url": "https://www.gd.gov.cn/zwgk/wjk/zcfgk/content/post_2716731.html",
+    "tier": "official",
+    "tierLabel": "官方",
+    "retrievedAt": "2026-08-08 16:40:00 周六 CST"
+   }
+  ],
+  "officialCount": 3,
+  "verification": "corroborated"
+ },
+ {
+  "id": "pension-stop-contrib-rule",
+  "track": "pension",
+  "trackTitle": "养老保险",
+  "effectiveDate": "1999-01-22",
+  "title": "缴满最低年限 ≠ 可以不缴（在职期间强制缴纳）",
+  "issuingBody": "国务院（社会保险费征缴暂行条例）",
+  "summary": "《社会保险费征缴暂行条例》确立：用人单位与职工**必须**依法缴纳社会保险费，属法定义务，不因已缴满最低年限而免除。只有**非在职**身份（灵活就业 / 自主缴纳）才存在「缴满即可自行停缴」的选择空间。",
+  "impactOnMe": "所以「到哪天可以不用交」取决于你的**就业状态**，不是单纯的年限：\n· 重新入职 → 单位必须继续缴，缴满 20 年也得缴，直到退休（预计 2044-12-06）\n· 保持非在职 → 你现在就可以不缴（但会影响养老金金额与医保待遇，需另行权衡）\n⚠️ 这条的具体条文出处只找到 1 个官方渠道，按规则标为「渠道不足」，**不可直接当依据**，需再补两个官方来源或向 020-12333 核实。",
+  "region": "全国",
+  "sources": [
+   {
+    "name": "中国政府网 · 社会保险费征缴暂行条例",
+    "url": "https://www.gov.cn/gongbao/content/2000/content_60086.htm",
+    "tier": "official",
+    "tierLabel": "官方",
+    "retrievedAt": "2026-08-08 11:58:00 周六 CST"
+   }
+  ],
+  "officialCount": 1,
+  "verification": "partial"
+ }
+];
+<!--POLICY-DATA-END-->
+
+(function(){
+  var tl=document.getElementById('timeline'), tr=document.getElementById('tracks');
+  if(!tl||!tr) return;
+  document.getElementById('polCount').textContent =
+    POLICY.length + ' 条 · 每条都带官方来源，可点开核对';
+
+  var order=['all'], seen={};
+  POLICY.forEach(function(p){ if(!seen[p.track]){seen[p.track]=p.trackTitle; order.push(p.track);} });
+  var cur='all';
+
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){
+    return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]; }); }
+  /* Swift 那边摘要里用 **加粗** 标重点，这里还原成 <em> */
+  function md(s){ return esc(s).replace(/\*\*(.+?)\*\*/g,'<em>$1</em>'); }
+
+  function renderTracks(){
+    tr.innerHTML = order.map(function(k){
+      return '<button type="button" data-k="'+k+'" aria-pressed="'+(k===cur)+'">'+
+             (k==='all'?'全部':esc(seen[k]))+'</button>';
+    }).join('');
+    [].slice.call(tr.children).forEach(function(b){
+      b.addEventListener('click',function(){ cur=b.dataset.k; renderTracks(); renderList(); });
+    });
+  }
+
+  function renderList(){
+    var list=POLICY.filter(function(p){ return cur==='all'||p.track===cur; });
+    if(!list.length){ tl.innerHTML='<div class="pi"><p>这个类别下暂无条目。</p></div>'; return; }
+    var html='', year='';
+    list.forEach(function(p){
+      var y=(p.effectiveDate||'').slice(0,4);
+      if(y!==year){ year=y; html+='<div class="yr">'+esc(year)+' 年起生效</div>'; }
+      var vf = p.verification==='corroborated'
+             ? '<span class="vf">✅ '+p.officialCount+' 个官方渠道互证</span>'
+             : '<span class="vf part">'+(p.verification==='partial'
+                 ? p.officialCount+' 个官方渠道' : '渠道不足，不可当依据')+'</span>';
+      html+='<article class="pi">'
+          +   '<div class="meta"><span class="tk">'+esc(p.trackTitle)+'</span>'
+          +     '<span>'+esc(p.effectiveDate)+' 生效</span><span>·</span>'
+          +     '<span>'+esc(p.region)+'</span>'+vf+'</div>'
+          +   '<b>'+esc(p.title)+'</b>'
+          +   '<p>'+md(p.summary)+'</p>'
+          +   '<p style="color:var(--t3);font-size:11.5px;margin-top:6px">发布机关：'+esc(p.issuingBody)+'</p>'
+          + (p.impactOnMe ? '<div class="me"><em>对你意味着</em>　'+md(p.impactOnMe)+'</div>' : '')
+          +   '<details><summary>来源 '+p.sources.length+' 条</summary><ul class="src">'
+          +     p.sources.map(function(s){
+                  return '<li>['+esc(s.tierLabel)+'] '+esc(s.name)+'<br>'
+                       + '<a href="'+esc(s.url)+'" target="_blank" rel="noopener">'+esc(s.url)+'</a>'
+                       + (s.retrievedAt?'<br>核实于 '+esc(s.retrievedAt):'')+'</li>'; }).join('')
+          +   '</ul></details>'
+          + '</article>';
+    });
+    tl.innerHTML=html;
+  }
+  renderTracks(); renderList();
+})();
+</script>
+</body>
+</html>

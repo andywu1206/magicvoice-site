@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 150" role="img" aria-labelledby="title desc">
+  <title id="title">Unavailable illustration</title>
+  <desc id="desc">A quiet line illustration for unavailable or coming soon states.</desc>
+  <g fill="none" stroke="#A9DFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path opacity=".38" d="M32 118h176"/>
+    <path opacity=".32" d="M48 103c12-14 26-19 43-14 13 4 20 2 31-8 14-13 35-13 49 0 9 8 16 12 29 12"/>
+    <path d="M75 66h86c9 0 16 7 16 16v36H59V82c0-9 7-16 16-16Z"/>
+    <path d="M59 92h118"/>
+    <path d="M91 66v52"/>
+    <path d="M145 66v52"/>
+    <path d="M103 47h30"/>
+    <path d="M118 47v19"/>
+    <path d="M72 118v10M164 118v10"/>
+    <path opacity=".55" d="M78 82h18M111 82h18M144 82h18"/>
+    <path opacity=".45" d="M75 35c6-6 15-6 21 0M161 37c5-5 13-5 18 0"/>
+  </g>
+  <g fill="#A9DFFF" opacity=".18">
+    <circle cx="196" cy="55" r="8"/>
+    <circle cx="44" cy="73" r="5"/>
+    <circle cx="130" cy="31" r="4"/>
+  </g>
+  <g fill="none" stroke="#A9DFFF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" opacity=".72">
+    <path d="M113 105h13"/>
+    <path d="M101 98c4-6 11-9 18-9s14 3 18 9"/>
+  </g>
+  <path fill="#A9DFFF" opacity=".28" d="M60 121h118v3H60z"/>
+</svg>
