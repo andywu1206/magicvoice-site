@@ -964,8 +964,8 @@ const VER_AND={
   beta:[{n:'官网',u:'downloads.ariamagicvoice.com/releases/aria/android/10.527/AriaInputMethod-Android-v10.527.apk',i:'official'},{n:'GitHub',u:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-android-v10.527-free/AriaInputMethod-Android-v10.527.apk',i:'gh'}],
   free:'downloads.ariamagicvoice.com/releases/aria/android/10.527/AriaInputMethod-Android-v10.527.apk', pro:'ariamagicvoice.com/aria/pay-android.html', price:'$19.99'};
 const VER={
-  aria:{beta:[{n:'GitHub',u:'github.com/andywu1206/aria-magic-voice-download/releases/tag/aria-magic-voice-mac-v90.893-free',i:'gh'}],
-        free:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-magic-voice-mac-v90.893-free/AriaMagicVoice_Free_Website_v90.893.dmg',
+  aria:{beta:[{n:'GitHub',u:'github.com/andywu1206/aria-magic-voice-download/releases/tag/aria-magic-voice-mac-v90.894-free',i:'gh'}],
+        free:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-magic-voice-mac-v90.894-free/AriaMagicVoice_Free_Website_v90.894.dmg',
         pro:'buy.paddle.com',price:'$19.99'},
   rm:{beta:[{n:'TestFlight',u:'testflight.apple.com/join/…',i:'tf'}],
 
@@ -1008,7 +1008,7 @@ const ROWS={
          ['Cloud sync and backup',1,0,1],['Early access to new features',1,0,0],['Reviewed on the App Store',0,1,1]]}};
 
 const PLATS6={
-  aria:[{k:'mac',zh:'Mac',en:'Mac',st:'live',dzh:'macOS 26 或更新 · Apple Silicon',den:'macOS 26 or later · Apple Silicon'},
+  aria:[{k:'mac',zh:'Mac',en:'Mac',st:'live',dzh:'macOS 15 或更新 · Apple Silicon',den:'macOS 15 or later · Apple Silicon'},
         {k:'and',zh:'Android',en:'Android',st:'live',dzh:'Android 10 或更新',den:'Android 10 or later'},
         {k:'ios',zh:'iPhone',en:'iPhone',st:'live',dzh:'iOS 17 或更新',den:'iOS 17 or later'}
        ],
@@ -1171,7 +1171,7 @@ function mergeContent(o){
     if(!ap)continue;
     if(a[1]==='beta'){const b=ap.beta&&ap.beta[+a[2]];if(b)b.u=lk[k];}
     else if(a[1]==='free'||a[1]==='pro')ap[a[1]]=lk[k];}}
-/*BAKED-START*/const BAKED={"__links":{"aria:beta:0":"github.com/andywu1206/aria-magic-voice-download/releases/tag/aria-magic-voice-mac-v90.893-free","aria:free":"github.com/andywu1206/aria-magic-voice-download/releases/download/aria-magic-voice-mac-v90.893-free/AriaMagicVoice_Free_Website_v90.893.dmg","aria:pro":"buy.paddle.com"}};/*BAKED-END*/
+/*BAKED-START*/const BAKED={"__links":{"aria:beta:0":"github.com/andywu1206/aria-magic-voice-download/releases/tag/aria-magic-voice-mac-v90.894-free","aria:free":"github.com/andywu1206/aria-magic-voice-download/releases/download/aria-magic-voice-mac-v90.894-free/AriaMagicVoice_Free_Website_v90.894.dmg","aria:pro":"buy.paddle.com"}};/*BAKED-END*/
 mergeContent(BAKED);
 
 function linkCode(sc,u){
@@ -1247,7 +1247,7 @@ function renderCompare(){
 
   const VX  = AND ? VER_AND : VER[cur];
   const directSource={n:lang==='zh'?'官网':'Website',
-    u:({and:'downloads.ariamagicvoice.com/releases/aria/android/10.527/AriaInputMethod-Android-v10.527.apk',mac:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-magic-voice-mac-v90.893-free/AriaMagicVoice_Free_Website_v90.893.dmg'})[curPlat]||'',
+    u:({and:'downloads.ariamagicvoice.com/releases/aria/android/10.527/AriaInputMethod-Android-v10.527.apk',mac:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-magic-voice-mac-v90.894-free/AriaMagicVoice_Free_Website_v90.894.dmg'})[curPlat]||'',
     i:'official',fast:true};
   const hasDirect=cur==='aria'&&!!directSource.u;
   const betaSources=hasDirect?[directSource,...(VX.beta||[]).filter(b=>b.i!=='official'&&b.n!=='官网'&&b.n!=='Website')]:VX.beta;
