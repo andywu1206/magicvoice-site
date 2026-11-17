@@ -22,6 +22,7 @@
 <meta name="twitter:description" content="Official product pages for i人洞府, Remember Me 记住我, and Aria Magic Voice.">
 <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect x="6" y="6" width="52" height="52" rx="16" fill="%235B6CFF"/><text x="32" y="44" font-family="Helvetica,Arial,sans-serif" font-size="36" font-weight="700" fill="white" text-anchor="middle">H</text></svg>'>
 <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+<script src="/apps/i18n_extra.js"></script>
 <style>
 
 *{margin:0;padding:0;box-sizing:border-box}
@@ -1381,8 +1382,8 @@ function renderVersions(){
 let cur=(location.hash==='#rm'?'rm':'aria'),lang='en';
 
 /*ARIA_BROWSER_LOCALE_V1_BEGIN*/
-const LOCALES=[['zh-Hans','简体中文'],['zh-Hant','繁體中文'],['en-US','English (US)'],['en-GB','English (UK)']];
-const LOCALE_SHORT={'zh-Hans':'简体','zh-Hant':'繁體','en-US':'EN US','en-GB':'EN UK'};
+const LOCALES=[['zh-Hans','简体中文'],['zh-Hant','繁體中文'],['en-US','English (US)'],['en-GB','English (UK)'],['ja','日本語'],['ko','한국어'],['de','Deutsch'],['fr','Français'],['es','Español'],['it','Italiano'],['pt','Português'],['nl','Nederlands'],['sv','Svenska'],['fi','Suomi'],['ar','العربية']];
+const LOCALE_SHORT={'zh-Hans':'简体','zh-Hant':'繁體','en-US':'EN US','en-GB':'EN UK','ja':'日本語','ko':'한국어','de':'DE','fr':'FR','es':'ES','it':'IT','pt':'PT','nl':'NL','sv':'SV','fi':'FI','ar':'AR'};
 let locale='en-US', localeMode='auto';
 function localeToLang(v){ return String(v).slice(0,2)==='zh' ? 'zh' : 'en'; }
 function canonicalBrowserLanguage(value){
@@ -1398,6 +1399,7 @@ function supportedBrowserLocale(tag){
     return ['tw','hk','mo'].includes(region)?'zh-Hant':'zh-Hans';
   }
   if(language==='en') return region==='gb'?'en-GB':'en-US';
+  if(['ja','ko','de','fr','es','it','pt','nl','sv','fi','ar'].includes(language)) return language;
   return null;
 }
 function resolveBrowserLocale(languages, language, country){
@@ -1442,7 +1444,7 @@ function browserLocale(){
   return resolveBrowserLocale(navigator.languages,navigator.language,undefined);
 }
 function applyResolvedLocale(value){
-  locale=value; lang=localeToLang(value); document.documentElement.lang=value;
+  locale=value; lang=localeToLang(value); document.documentElement.lang=value; document.documentElement.dir=(value==='ar'?'rtl':'ltr');
 }
 function setLocale(value){
   if(value!=='auto'&&!LOCALES.some(x=>x[0]===value)) return;
@@ -1459,7 +1461,7 @@ try{ savedSharedLocale=localStorage.getItem(SHARED_LOCALE_KEY); savedLocale=loca
 const initialLocale=resolveSharedLocalePreference(savedSharedLocale,savedLocale,savedLang,savedLocaleMode,navigator.languages,navigator.language,undefined);
 localeMode=initialLocale.mode; applyResolvedLocale(initialLocale.locale);
 { let q=''; try{ q=String(new URLSearchParams(location.search).get('lang')||'').toLowerCase(); }catch(_){}
-  const QL={'en':'en-US','en-us':'en-US','en-gb':'en-GB','zh':'zh-Hans','zh-hans':'zh-Hans','zh-hant':'zh-Hant'};
+  const QL={'en':'en-US','en-us':'en-US','en-gb':'en-GB','zh':'zh-Hans','zh-hans':'zh-Hans','zh-hant':'zh-Hant','ja':'ja','ko':'ko','de':'de','fr':'fr','es':'es','it':'it','pt':'pt','nl':'nl','sv':'sv','fi':'fi','ar':'ar'};
   if(QL[q]){ localeMode='manual'; applyResolvedLocale(QL[q]); } }
 try{ if(localStorage.getItem('hasTheme')==='dark') document.body.classList.add('dark'); }catch(_){}
 window.addEventListener('languagechange',()=>{if(localeMode==='auto'){applyResolvedLocale(browserLocale());render();}});
@@ -1482,7 +1484,9 @@ const GB_KEYS=Object.keys(GB_SPELL);
 const localeTextSnapshots=new WeakMap(),localeAttributeSnapshots=new WeakMap();
 function localizedInterfaceString(text){
   if(locale==='zh-Hant')return toHant(text);
-  if(locale==='en-GB')for(const key of GB_KEYS)text=text.replace(new RegExp('\\b'+key+'\\b','g'),GB_SPELL[key]);
+  if(locale==='en-GB'){for(const key of GB_KEYS)text=text.replace(new RegExp('\\b'+key+'\\b','g'),GB_SPELL[key]);return text;}
+  const dict=window.ARIA_I18N_EXTRA&&window.ARIA_I18N_EXTRA[locale];
+  if(dict){const t=text.trim();if(dict[t])return text.replace(t,dict[t]);}
   return text;
 }
 function localeSnapshotValue(map,key,current){
@@ -1490,7 +1494,7 @@ function localeSnapshotValue(map,key,current){
   const base=prior&&current===prior.rendered?prior.base:current;
   const rendered=localizedInterfaceString(base);map.set(key,{base,rendered});return rendered;
 }
-function localeSkipNode(node){return false;}
+function localeSkipNode(node){return !!(node&&node.closest&&node.closest('[data-haha-news],.haha-news-body,#haha-feed'));}
 
 function applyLocaleText(){
   const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode(n){
