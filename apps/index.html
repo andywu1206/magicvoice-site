@@ -964,6 +964,9 @@ const ICO={
 const VER_AND={
   beta:[{n:'官网',u:'downloads.ariamagicvoice.com/releases/aria/android/10.572/AriaInputMethod-Android-v10.572.apk',i:'official'},{n:'GitHub',u:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-android-v10.572-free/AriaInputMethod-Android-v10.572.apk',i:'gh'}],
   free:'downloads.ariamagicvoice.com/releases/aria/android/10.572/AriaInputMethod-Android-v10.572.apk', pro:'ariamagicvoice.com/aria/pay-android.html', price:'$19.99'};
+const VER_WIN={
+  beta:[{n:'官网',u:'downloads.ariamagicvoice.com/releases/aria/windows/20.113/Aria_Windows_v20.113_ARM64_Setup.zip',i:'official'},{n:'GitHub',u:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-windows-v20.113-free/Aria_Windows_v20.113_ARM64_Setup.zip',i:'gh'}],
+  free:'downloads.ariamagicvoice.com/releases/aria/windows/20.113/Aria_Windows_v20.113_ARM64_Setup.zip', pro:'buy.paddle.com', price:'$19.99'};
 const VER={
   aria:{beta:[{n:'GitHub',u:'github.com/andywu1206/aria-magic-voice-download/releases/tag/aria-magic-voice-mac-v90.902-free',i:'gh'}],
         free:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-magic-voice-mac-v90.902-free/AriaMagicVoice_Free_Website_v90.902.dmg',
@@ -1242,14 +1245,15 @@ function renderCompare(){
   if(cmpSection) cmpSection.hidden = false;
   const V6=app.dataset.v==='6'||app.dataset.v==='7'||app.dataset.v==='8'||app.dataset.v==='9';
   const AND = (cur==='aria' && curPlat==='and');
+  const WIN = (cur==='aria' && curPlat==='win');
   const T=V6?{...CMP[lang],cols:(AND?COLS6_AND:COLS6)[lang],
     h:lang==='zh'?'选择版本':'Choose a version',
     p:'',
     note:''}:CMP[lang];
 
-  const VX  = AND ? VER_AND : VER[cur];
+  const VX  = WIN ? VER_WIN : (AND ? VER_AND : VER[cur]);
   const directSource={n:lang==='zh'?'官网':'Website',
-    u:({and:'downloads.ariamagicvoice.com/releases/aria/android/10.572/AriaInputMethod-Android-v10.572.apk',mac:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-magic-voice-mac-v90.902-free/AriaMagicVoice_Free_Website_v90.902.dmg'})[curPlat]||'',
+    u:({win:'downloads.ariamagicvoice.com/releases/aria/windows/20.113/Aria_Windows_v20.113_ARM64_Setup.zip',and:'downloads.ariamagicvoice.com/releases/aria/android/10.572/AriaInputMethod-Android-v10.572.apk',mac:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-magic-voice-mac-v90.902-free/AriaMagicVoice_Free_Website_v90.902.dmg'})[curPlat]||'',
     i:'official',fast:true};
   const hasDirect=cur==='aria'&&!!directSource.u;
   const betaSources=hasDirect?[directSource,...(VX.beta||[]).filter(b=>b.i!=='official'&&b.n!=='官网'&&b.n!=='Website')]:VX.beta;
@@ -2135,7 +2139,7 @@ if(cur==='rm'){$$('.item').forEach(i=>i.classList.remove('on'));$$('.item[data-a
   var PLAT = {
     mac: { cny: "100", usd: "19.99", price: "pri_01kmx0x2kg7dckq4j2q5nhwj6c", qr: "/apps/img/qr/paddle_pay_mac.svg" },
     and: { cny: "60",  usd: "19.99",  price: "pri_01m4vxn2pt7zbwvrc5edr2hp24", qr: "/apps/img/qr/paddle_pay_android.svg" },
-    win: { cny: "100", usd: "19.99", price: "pri_01m7kw9j63rz2rdseebqr8jsp3", qr: "/apps/img/qr/paddle_pay_mac.svg" }
+    win: { cny: "100", usd: "19.99", price: "pri_01m7kw9j63rz2rdseebqr8jsp3", qr: "/apps/img/qr/paddle_pay_win.svg" }
   };
   var B3 = {
     zh: { h: function (p) { return "购买 Aria Max · " + (p === "win" ? "Windows" : (p === "and" ? "Android" : "Mac")) + " 版"; }, sub: "一次购买，无订阅",

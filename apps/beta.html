@@ -1371,7 +1371,7 @@ const APPS={
     en:{t:'Aria Magic Voice',l:'Speak freely. Stay private.',d:'Turns your voice into text on your own Mac — nothing leaves the machine.',c:'Download',c2:'Learn more'},
     /* 方案 4 专属文案（Harry 2026-08-04：要绝对、要抓眼球）—— 方案 1/2/3 的文案一个字未动 */
     zh4:{hm:'支持 英文语音输入 · 中文语音输入 · 粤语语音输入 · 中英混合语音输入 · 英文键盘输入法 · 拼音输入法',hb:'前往官网',
-      t:'Aria 输入法',l:'打造最准确的输入法。',
+      t:'Aria输入法',l:'打造最准确的输入法。',
       d:'你的原始聊天记录绝对不上传云端，锁定在你自己的 Mac 中，隐私保障拉满。超级学习引擎让输入法越用越懂你，越用越准确。'},
     /* 命名定稿 2026-08-04：英文正式名 Aria Magic Voice · Slogan 由 */
     en4:{hm:'English speech · Chinese speech · Cantonese speech · Mixed CN-EN speech · English keyboard · Pinyin',hb:'Visit Website',
@@ -1403,7 +1403,10 @@ const ICO={
    拿到真地址只改这三行的 u，版式一个字不用动。 */
 const VER_AND={
   beta:[{n:'官网',u:'downloads.ariamagicvoice.com/releases/aria/android/10.572/AriaInputMethod-Android-v10.572.apk',i:'official'},{n:'GitHub',u:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-android-v10.572-free/AriaInputMethod-Android-v10.572.apk',i:'gh'}],
-  free:'downloads.ariamagicvoice.com/releases/aria/android/10.572/AriaInputMethod-Android-v10.572.apk', pro:'', price:'$9.99'};
+  free:'downloads.ariamagicvoice.com/releases/aria/android/10.572/AriaInputMethod-Android-v10.572.apk', pro:'ariamagicvoice.com/aria/pay-android.html', price:'$19.99'};
+const VER_WIN={
+  beta:[{n:'官网',u:'downloads.ariamagicvoice.com/releases/aria/windows/20.113/Aria_Windows_v20.113_ARM64_Setup.zip',i:'official'},{n:'GitHub',u:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-windows-v20.113-free/Aria_Windows_v20.113_ARM64_Setup.zip',i:'gh'}],
+  free:'downloads.ariamagicvoice.com/releases/aria/windows/20.113/Aria_Windows_v20.113_ARM64_Setup.zip', pro:'buy.paddle.com', price:'$19.99'};
 const VER={
   aria:{beta:[{n:'GitHub',u:'github.com/andywu1206/aria-magic-voice-download/releases/tag/aria-magic-voice-mac-v90.902-free',i:'gh'}],
         free:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-magic-voice-mac-v90.902-free/AriaMagicVoice_Free_Website_v90.902.dmg',
@@ -1515,26 +1518,26 @@ const COLS6_AND={
 /* 第 5 个元素 = 按列覆盖文字（Pro / Beta 是「更高精度」，免费版是「高精度」）*/
 const ROWS6={
  zh:[['智能离线输入法 · 所有原始聊天数据不上传 · 隐私第一',1,1,1],
-     ['智能英文语音输入 · 智能中文语音输入',1,1,1],
-     ['智能拼音 26 键 · 智能英文 QWERTY 键盘',1,1,1],
+     ['智能中文（普通话 / 粤语）· 智能英文语音输入',1,1,1],
+     ['智能简体拼音 · 繁体仓颉 · 繁体注音 · 英文 QWERTY 键盘',1,1,1],
      ['超级学习引擎 · 越用越懂你',1,0,1,{1:'超级学习引擎（Max 解锁）'}],
      ['AI 自动润色 · 口语直接变书面语',1,0,1,
        {1:'AI 自动润色（Max 解锁，可选开启）',2:'AI 自动润色 · 可选开启'}],
      ['更高精度的本地语音识别',1,0,1,{1:'更高精度的本地语音识别（Max 解锁）'}],
      ['口水词过滤与词表纠错',1,1,1],
-     ['中英混说 · 一句话里换语言，不用切输入法',1,1,1],
+     ['中英混说与多语言混说 · 一句话里中英粤无缝切换，不用切输入法',1,1,1],
      ['全局语音唤起',1,1,1],
      ['简体转繁體输出',1,1,1],
      ['界面语言 English US / English UK / 简体中文 / 繁體中文',1,1,1]],
  en:[['Offline input method · nothing uploaded · privacy first',1,1,1],
-     ['English and Chinese voice input',1,1,1],
-     ['Pinyin 26-key · English QWERTY',1,1,1],
+     ['Chinese (Mandarin & Cantonese) & English voice input',1,1,1],
+     ['Simplified Pinyin · Traditional Cangjie · Zhuyin (Bopomofo) · English QWERTY',1,1,1],
      ['Super Learning — it gets to know you',1,0,1,{1:'Super Learning (Max only)'}],
      ['AI polish — spoken words become clean writing',1,0,1,
        {1:'AI polish (Max only, optional)',2:'AI polish — optional'}],
      ['Higher-accuracy on-device recognition',1,0,1,{1:'Higher-accuracy recognition (Max only)'}],
      ['Filler-word cleanup and lexicon correction',1,1,1],
-     ['Mixed English & Chinese — switch mid-sentence',1,1,1],
+     ['Mixed CN-EN & multilingual code-switching — switch mid-sentence',1,1,1],
      ['Global voice hotkey',1,1,1],
      ['One-tap Traditional Chinese output',1,1,1],
      ['Interface in English US / English UK / 简体中文 / 繁體中文',1,1,1]]};
@@ -1729,14 +1732,15 @@ function renderMq(){
 function renderCompare(){
   const V6=app.dataset.v==='6'||app.dataset.v==='7'||app.dataset.v==='8'||app.dataset.v==='9';
   const AND = (cur==='aria' && curPlat==='and');   /* 要比 T 更早：安卓有自己的三张卡 */
+  const WIN = (cur==='aria' && curPlat==='win');
   const T=V6?{...CMP[lang],cols:(AND?COLS6_AND:COLS6)[lang],
     h:lang==='zh'?'选择版本':'Choose a version',
     p:'',   /* Harry 2026-08-04：只留标题，描述句删掉 */
     note:''}:CMP[lang];
   /* 安卓判定（AND）已挪到函数最前面 —— T 要用它挑安卓自己的三张卡；下面的功能行过滤和卡片渲染也用它。 */
-  const VX  = AND ? VER_AND : VER[cur];
+  const VX  = WIN ? VER_WIN : (AND ? VER_AND : VER[cur]);
   const directSource={n:lang==='zh'?'官网':'Website',
-    u:({and:'downloads.ariamagicvoice.com/releases/aria/android/10.572/AriaInputMethod-Android-v10.572.apk',mac:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-magic-voice-mac-v90.902-free/AriaMagicVoice_Free_Website_v90.902.dmg'})[curPlat]||'',
+    u:({win:'downloads.ariamagicvoice.com/releases/aria/windows/20.113/Aria_Windows_v20.113_ARM64_Setup.zip',and:'downloads.ariamagicvoice.com/releases/aria/android/10.572/AriaInputMethod-Android-v10.572.apk',mac:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-magic-voice-mac-v90.902-free/AriaMagicVoice_Free_Website_v90.902.dmg'})[curPlat]||'',
     i:'official',fast:true};
   const hasDirect=cur==='aria'&&!!directSource.u;
   const betaSources=hasDirect?[directSource,...(VX.beta||[]).filter(b=>b.i!=='official'&&b.n!=='官网'&&b.n!=='Website')]:VX.beta;
@@ -1814,8 +1818,9 @@ function renderCompare(){
       mainKind=freeSlot?'free':'pro',
       mainU=freeSlot?VX.free:VX.pro,
       mainKey=`${cur}:${mainKind}`,
-      mainProblem=linkProblem(mainKey,mainU),
-      mainPh=isPlaceholder(mainU),
+      buyModal=(mainKind==='pro'&&cur==='aria'),
+      mainProblem=buyModal?'':linkProblem(mainKey,mainU),
+      mainPh=buyModal?false:isPlaceholder(mainU),
       mainBad=!!mainProblem,
       mainOff=mainPh||mainBad;
     return `<div class="ccard${i===1?' on':''}${beta?' hasbeta':''}">
@@ -1823,7 +1828,7 @@ function renderCompare(){
       <div class="csub">${E(c.s)}</div>
       <div class="cprice"><span>${E(p)}</span>${c.pu?`<u>${E(c.pu)}</u>`:''}</div>
       ${beta||`<${mainOff?'span':'a'} class="cbtn${mainPh?' soon':''}${mainBad?' unavailable':''}"${mainOff?' aria-disabled="true"':''}`+
-        `${mainOff?'':(mainKind==='pro'&&cur==='aria'?` href="javascript:void(0)" onclick="openAriaBuy(event)"`:` href="${E(hrefOf(mainU))}"`+
+        `${mainOff?'':(buyModal?` href="javascript:void(0)" onclick="openAriaBuy(event,'${curPlat==='win'?'win':(AND?'and':'mac')}')"`:` href="${E(hrefOf(mainU))}"`+
         ` target="_blank" rel="noopener"`)}${(AND&&mainOff)?'':` data-track="${E(cur+':'+mainKind)}"`}>${
         (AND&&(mainPh||mainBad))||(cur==='aria'&&mainPh)?soon(lang==='zh')
           :(mainBad?E(c.btn):(mainPh?soon(lang==='zh'):E(c.btn)))}${mainBad?warnMark(mainProblem):''}</${mainOff?'span':'a'}>`}
@@ -2694,9 +2699,110 @@ if(cur==='rm'){$$('.item').forEach(i=>i.classList.remove('on'));$$('.item[data-a
     if (e && e.preventDefault) e.preventDefault();
     if (isMainlandZh()) openWeChat(e); else openPaddle(e);
   }
-  window.openAriaBuy = openBuy;          /* 「购买」按钮：简体中文 → 微信转账弹窗；其余 → Paddle */
-  window.openAriaWeChat = openWeChat;    /* 小链接：任何语言都能直接打开微信转账弹窗 */
-  window.openAriaPaddle = openPaddle;    /* 小链接：任何语言都能直接走 Paddle */
+
+  var PLAT = {
+    mac: { cny: "100", usd: "19.99", price: "pri_01kmx0x2kg7dckq4j2q5nhwj6c", qr: "/apps/img/qr/paddle_pay_mac.svg" },
+    and: { cny: "60",  usd: "19.99",  price: "pri_01m4vxn2pt7zbwvrc5edr2hp24", qr: "/apps/img/qr/paddle_pay_android.svg" },
+    win: { cny: "100", usd: "19.99", price: "pri_01m7kw9j63rz2rdseebqr8jsp3", qr: "/apps/img/qr/paddle_pay_win.svg" }
+  };
+  var B3 = {
+    zh: { h: function (p) { return "购买 Aria Max · " + (p === "win" ? "Windows" : (p === "and" ? "Android" : "Mac")) + " 版"; }, sub: "一次购买，无订阅",
+      wx: ["国内 · 微信", "加微信好友购买", "扫码加好友，发送「购买 Aria Max」<br>微信转账后，我们发激活码给你", "复制", "已复制"],
+      cn: ["国内 · 在线付款", "直接在线付款", "银行卡 / 支付宝 / PayPal<br><span class=\"b3-scan\">手机扫码，或点下方按钮付款</span>", "用 Paddle 付款 "],
+      foot: ["付款后，我们会把激活码发到你的付款邮箱", "由 Paddle 安全处理付款", "有问题加微信 AriaMagicVoice"], close: "关闭" },
+    tw: { h: function (p) { return "購買 Aria Max · " + (p === "win" ? "Windows" : (p === "and" ? "Android" : "Mac")) + " 版"; }, sub: "一次購買，無訂閱",
+      foot: ["付款後，我們會把啟用碼寄到你的付款信箱", "由 Paddle 安全處理付款", "有問題加微信 AriaMagicVoice"], close: "關閉",
+      in: ["International", "線上付款", "信用卡 / PayPal / Apple Pay<br><span class=\"b3-scan\">手機掃碼，或點下方按鈕付款</span>", "以 Paddle 付款 "] },
+    en: { h: function (p) { return "Buy Aria Max for " + (p === "win" ? "Windows" : (p === "and" ? "Android" : "Mac")); }, sub: "One-time purchase. No subscription.",
+      foot: ["We'll email your license key.", "Payments secured by Paddle", "Questions? WeChat AriaMagicVoice"], close: "Close" }
+  };
+  var IN_EN = ["International", "Pay online", "Card / PayPal / Apple Pay<br><span class=\"b3-scan\">Scan with your phone or pay here</span>", "Pay with Paddle "];
+  var CSS3 = ".b3-card{box-sizing:border-box;position:relative;width:min(780px,100%);max-height:calc(100vh - 40px);max-height:calc(100dvh - 40px);overflow:auto;background:#fff;color:#1D1D1F;border-radius:24px;box-shadow:0 30px 80px rgba(0,0,0,.25);padding:32px 28px 22px;font:400 14px/1.5 -apple-system,BlinkMacSystemFont,\"PingFang SC\",\"Helvetica Neue\",sans-serif;text-align:center}" +
+    ".b3-card *{box-sizing:border-box}.b3-card.one{width:min(380px,100%)}" +
+    ".b3-x{position:absolute;right:16px;top:16px;width:30px;height:30px;border-radius:50%;border:0;background:#F2F2F4;color:#6E6E73;font-size:16px;cursor:pointer}" +
+    ".b3-h{margin:0;font-size:21px;font-weight:600;letter-spacing:-.01em}.b3-sub{font-size:13px;color:#86868B;margin-top:6px}" +
+    ".b3-cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:24px}.b3-card.one .b3-cols{grid-template-columns:1fr}" +
+    ".b3-col{border:1px solid #E5E5EA;border-radius:18px;padding:18px 16px 16px;display:grid;grid-template-rows:auto auto auto 1fr auto;justify-items:center}" +
+    ".b3-col.rec{border-color:#0A6CFF;box-shadow:0 0 0 3px rgba(10,108,255,.10)}" +
+    ".b3-tag{font-size:11px;font-weight:600;padding:3px 8px;border-radius:6px;line-height:1.2}.b3-cn{background:#E9F8EE;color:#1A8F4A}.b3-in{background:#E8F0FF;color:#0A6CFF}" +
+    ".b3-ttl{font-size:15px;font-weight:600;margin-top:10px}.b3-price{font-size:26px;font-weight:700;letter-spacing:-.02em;margin-top:2px;line-height:34px}" +
+    ".b3-qr{width:148px;height:148px;margin-top:14px;border-radius:12px;border:1px solid #EDEDF0;padding:6px;background:#fff;overflow:hidden}" +
+    ".b3-qr img{width:100%;height:100%;display:block;object-fit:contain}" +
+    ".b3-qr.wx img{object-fit:cover;object-position:50% 54%}" +
+    ".b3-cap{font-size:12px;line-height:1.6;color:#6E6E73;margin-top:10px}.b3-act{width:100%;margin-top:14px;min-height:40px}" +
+    ".b3-id{display:flex;align-items:center;justify-content:center;gap:10px;background:#F5F5F7;border-radius:10px;font-size:13px;font-weight:600;height:40px}" +
+    ".b3-copy{border:0;background:#0A6CFF;color:#fff;border-radius:7px;font:600 12px -apple-system,\"PingFang SC\",sans-serif;padding:6px 12px;cursor:pointer;min-width:58px}" +
+    ".b3-pay{width:100%;height:40px;border:0;border-radius:999px;background:#1D1D1F;color:#fff;font:600 14px -apple-system,\"PingFang SC\",sans-serif;cursor:pointer}.b3-pay:hover{background:#000}" +
+    ".b3-foot{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-top:18px;padding-top:16px;border-top:1px solid #F0F0F2;font-size:12px;color:#86868B}" +
+    "@media (max-width:720px){.b3-cols{grid-template-columns:1fr}.b3-card{padding:28px 18px 18px}}" +
+    "@media (pointer:coarse) and (max-width:720px),(pointer:coarse) and (max-height:500px){.b3-qr:not(.wx){display:none}.b3-scan{display:none}}";
+  function pageVariant() { var l = pageLang(); if (isMainlandZh()) return "zh"; if (l.indexOf("zh") === 0) return "tw"; return "en"; }
+  function paddleOpen(plat) {
+    var t0 = nowMs();
+    if (lastPaddleAt !== null && t0 - lastPaddleAt < PADDLE_GAP_MS) return;
+    close();
+    if (!PLAT[plat] || !PLAT[plat].price || !paddleReady()) { showUnavailable(); return; }
+    lastPaddleAt = t0;
+    try {
+      window.Paddle.Checkout.open({ items: [{ priceId: PLAT[plat].price, quantity: 1 }], settings: { successUrl: "https://ariamagicvoice.com/apps/thank-you.html", theme: "light" } });
+    } catch (err) { lastPaddleAt = null; showUnavailable(); }
+  }
+  function openBuy3(e, plat) {
+    if (e && e.preventDefault) e.preventDefault();
+    if (mask) return;
+    plat = PLAT[plat] ? plat : "mac";
+    var v = pageVariant(), t = B3[v], pr = PLAT[plat], zh = v === "zh";
+    var inT = v === "tw" ? B3.tw.in : IN_EN;
+    if (!document.getElementById("abm-style")) { var st = document.createElement("style"); st.id = "abm-style"; st.textContent = CSS; document.head.appendChild(st); }
+    if (!document.getElementById("b3-style")) { var s3 = document.createElement("style"); s3.id = "b3-style"; s3.textContent = CSS3; document.head.appendChild(s3); }
+    var usd = "US$" + pr.usd, cny = "¥" + pr.cny;
+    var inCol = '<div class="b3-col' + (zh ? "" : " rec") + '"><span class="b3-tag b3-in">' + inT[0] + '</span><div class="b3-ttl">' + inT[1] + '</div><div class="b3-price">' + usd + '</div>' +
+      '<div class="b3-qr"><img data-src="' + pr.qr + '" alt="QR"></div><div class="b3-cap">' + inT[2] + '</div><div class="b3-act"><button type="button" class="b3-pay" data-b3pay>' + esc(inT[3] + usd) + '</button></div></div>';
+    var cols = zh
+      ? '<div class="b3-col"><span class="b3-tag b3-cn">' + t.wx[0] + '</span><div class="b3-ttl">' + t.wx[1] + '</div><div class="b3-price">' + cny + '</div>' +
+        '<div class="b3-qr wx"><img data-src="' + CFG.qr + '" alt="微信二维码 AriaMagicVoice"></div><div class="b3-cap">' + t.wx[2] + '</div>' +
+        '<div class="b3-act b3-id"><span>' + CFG.wx + '</span><button type="button" class="b3-copy">' + t.wx[3] + '</button></div></div>' +
+        '<div class="b3-col rec"><span class="b3-tag b3-cn">' + t.cn[0] + '</span><div class="b3-ttl">' + t.cn[1] + '</div><div class="b3-price">' + cny + '</div>' +
+        '<div class="b3-qr"><img data-src="' + pr.qr + '" alt="QR"></div><div class="b3-cap">' + t.cn[2] + '</div><div class="b3-act"><button type="button" class="b3-pay" data-b3pay>' + esc(t.cn[3] + cny) + '</button></div></div>' + inCol
+      : inCol;
+    lastFocus = document.activeElement;
+    var m = document.createElement("div");
+    m.className = "abm-mask"; m.setAttribute("data-abm", "buy3"); m.setAttribute("data-plat", plat);
+    m.setAttribute("data-prev-overflow", document.documentElement.style.overflow || "");
+    m.innerHTML = '<div class="b3-card' + (zh ? "" : " one") + '" role="dialog" aria-modal="true" aria-labelledby="b3-h">' +
+      '<button type="button" class="b3-x" aria-label="' + esc(t.close) + '">✕</button>' +
+      '<h2 class="b3-h" id="b3-h">' + esc(t.h(plat)) + '</h2><div class="b3-sub">' + esc(t.sub) + '</div>' +
+      '<div class="b3-cols">' + cols + '</div>' +
+      '<div class="b3-foot"><span>✉ ' + esc(t.foot[0]) + '</span><span>🛡 ' + esc(t.foot[1]) + '</span><span>' + esc(t.foot[2]) + '</span></div></div>';
+    document.body.appendChild(m);
+    mask = m;
+    Array.prototype.forEach.call(m.querySelectorAll("img[data-src]"), function (im) { im.src = im.getAttribute("data-src"); });
+    m.addEventListener("click", function (ev) { if (ev.target === m) close(); });
+    m.querySelector(".b3-x").addEventListener("click", close);
+    var cp = m.querySelector(".b3-copy");
+    if (cp) cp.addEventListener("click", function () { copyId(this, { copied: t.wx[4], failed: "复制失败" }); });
+    Array.prototype.forEach.call(m.querySelectorAll("[data-b3pay]"), function (b) { b.addEventListener("click", function () { paddleOpen(plat); }); });
+    document.documentElement.style.overflow = "hidden";
+    document.addEventListener("keydown", onKey, true);
+    requestAnimationFrame(function () { m.classList.add("on"); });
+    m.querySelector(".b3-x").focus();
+  }
+
+  try {
+    var qs = new URLSearchParams(location.search), qb = qs.get("buy");
+    if (qb && PLAT[qb]) {
+      var direct = qs.get("pay") === "1", tries = 0;
+      (function go() {
+        if (!direct) { openBuy3(null, qb); return; }
+        if (paddleReady()) { paddleOpen(qb); return; }
+        if (++tries < 25) setTimeout(go, 200); else openBuy3(null, qb);
+      })();
+    }
+  } catch (e) {}
+  window.openAriaBuy = openBuy3;
+  window.openAriaBuyLegacy = openBuy;
+  window.openAriaWeChat = openWeChat;
+  window.openAriaPaddle = openPaddle;
 })();
 </script>
 <script>
@@ -2713,7 +2819,7 @@ if(cur==='rm'){$$('.item').forEach(i=>i.classList.remove('on'));$$('.item[data-a
     zh:['glass_hans_1_duo_pinyin9.png','glass_hans_2_duo_land_voice.png','glass_hans_3_duo_land_pinyin9.png','glass_zhuyin_1_light.png','glass_zhuyin_2_dark.png','glass_sucheng_1_light.png','glass_sucheng_2_dark.png','glass_hant_1_settings.png','glass_en_1_duo_qwerty.png','glass_en_2_duo_voice.png'],
     'zh-Hant':['glass_zhuyin_1_light.png','glass_zhuyin_2_dark.png','glass_sucheng_1_light.png','glass_sucheng_2_dark.png','glass_hant_1_settings.png','glass_en_1_duo_qwerty.png','glass_en_2_duo_voice.png','glass_en_3_duo_land_qwerty.png','glass_hans_1_duo_pinyin9.png','glass_hans_2_duo_land_voice.png']
   };
-  const TXT={zh:`Aria 输入法是纯离线输入法：断网也能语音输入、键盘打字。内置端侧 AI，语音和打字内容只留在你的手机与电脑里，不上传、不外发，隐私保护满分，数据安全满分。传统输入法的准确率更高，是因为把语音和聊天数据（甚至银行卡号与密码）上传到云端服务器集群处理，存在隐私泄露风险。
+  const TXT={zh:`Aria输入法是纯离线输入法：断网也能语音输入、键盘打字。内置端侧 AI，语音和打字内容只留在你的手机与电脑里，不上传、不外发，隐私保护满分，数据安全满分。传统输入法的准确率更高，是因为把语音和聊天数据（甚至银行卡号与密码）上传到云端服务器集群处理，存在隐私泄露风险。
 
 - 全键盘支持：简体拼音（9 键 / 26 键）、台湾注音、香港仓颉 / 速成、英文 QWERTY 与中英混输语音
 - 超级学习引擎：改过一次的词，下次自动打对，越用越懂你；全新 Aria 玻璃皮肤，浅色深色随心切换
