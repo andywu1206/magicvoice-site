@@ -968,8 +968,8 @@ const VER_WIN={
   beta:[{n:'官网',u:'downloads.ariamagicvoice.com/releases/aria/windows/20.115/Aria_Windows_v20.115_ARM64_Setup.zip',i:'official'},{n:'GitHub',u:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-windows-v20.115-free/Aria_Windows_v20.115_ARM64_Setup.zip',i:'gh'}],
   free:'downloads.ariamagicvoice.com/releases/aria/windows/20.115/Aria_Windows_v20.115_ARM64_Setup.zip', pro:'buy.paddle.com', price:'$19.99'};
 const VER={
-  aria:{beta:[{n:'GitHub',u:'github.com/andywu1206/aria-magic-voice-download/releases/tag/aria-magic-voice-mac-v90.902-free',i:'gh'}],
-        free:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-magic-voice-mac-v90.902-free/AriaMagicVoice_Free_Website_v90.902.dmg',
+  aria:{beta:[{n:'GitHub',u:'github.com/andywu1206/aria-magic-voice-download/releases/tag/aria-magic-voice-mac-v90.915-free',i:'gh'}],
+        free:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-magic-voice-mac-v90.915-free/AriaMagicVoice_Free_Website_v90.915.dmg',
         pro:'buy.paddle.com',price:'$19.99'},
   rm:{beta:[{n:'TestFlight',u:'testflight.apple.com/join/…',i:'tf'}],
 
@@ -1176,7 +1176,7 @@ function mergeContent(o){
     if(!ap)continue;
     if(a[1]==='beta'){const b=ap.beta&&ap.beta[+a[2]];if(b)b.u=lk[k];}
     else if(a[1]==='free'||a[1]==='pro')ap[a[1]]=lk[k];}}
-/*BAKED-START*/const BAKED={"__links":{"aria:beta:0":"github.com/andywu1206/aria-magic-voice-download/releases/tag/aria-magic-voice-mac-v90.902-free","aria:free":"github.com/andywu1206/aria-magic-voice-download/releases/download/aria-magic-voice-mac-v90.902-free/AriaMagicVoice_Free_Website_v90.902.dmg","aria:pro":"buy.paddle.com"}};/*BAKED-END*/
+/*BAKED-START*/const BAKED={"__links":{"aria:beta:0":"github.com/andywu1206/aria-magic-voice-download/releases/tag/aria-magic-voice-mac-v90.915-free","aria:free":"github.com/andywu1206/aria-magic-voice-download/releases/download/aria-magic-voice-mac-v90.915-free/AriaMagicVoice_Free_Website_v90.915.dmg","aria:pro":"buy.paddle.com"}};/*BAKED-END*/
 mergeContent(BAKED);
 
 function linkCode(sc,u){
@@ -1253,7 +1253,7 @@ function renderCompare(){
 
   const VX  = WIN ? VER_WIN : (AND ? VER_AND : VER[cur]);
   const directSource={n:lang==='zh'?'官网':'Website',
-    u:({win:'downloads.ariamagicvoice.com/releases/aria/windows/20.115/Aria_Windows_v20.115_ARM64_Setup.zip',and:'downloads.ariamagicvoice.com/releases/aria/android/10.573/AriaInputMethod-Android-v10.573.apk',mac:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-magic-voice-mac-v90.902-free/AriaMagicVoice_Free_Website_v90.902.dmg'})[curPlat]||'',
+    u:({win:'downloads.ariamagicvoice.com/releases/aria/windows/20.115/Aria_Windows_v20.115_ARM64_Setup.zip',and:'downloads.ariamagicvoice.com/releases/aria/android/10.573/AriaInputMethod-Android-v10.573.apk',mac:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-magic-voice-mac-v90.915-free/AriaMagicVoice_Free_Website_v90.915.dmg'})[curPlat]||'',
     i:'official',fast:true};
   const hasDirect=cur==='aria'&&!!directSource.u;
   const betaSources=hasDirect?[directSource,...(VX.beta||[]).filter(b=>b.i!=='official'&&b.n!=='官网'&&b.n!=='Website')]:VX.beta;
