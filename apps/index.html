@@ -966,8 +966,8 @@ const VER_AND={
   beta:[{n:'官网',u:'downloads.ariamagicvoice.com/releases/aria/android/10.575/AriaInputMethod-Android-v10.575.apk',i:'official'},{n:'GitHub',u:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-android-v10.575-free/AriaInputMethod-Android-v10.575.apk',i:'gh'}],
   free:'downloads.ariamagicvoice.com/releases/aria/android/10.575/AriaInputMethod-Android-v10.575.apk', pro:'ariamagicvoice.com/aria/pay-android.html', price:'$19.99'};
 const VER_WIN={
-  beta:[{n:'官网',u:'downloads.ariamagicvoice.com/releases/aria/windows/20.118/AriaMagicVoice.exe',i:'official'},{n:'Microsoft Store',u:'apps.microsoft.com/detail/9NMW7BL4V6N3',i:'ms'},{n:'GitHub',u:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-windows-v20.118-free/Aria.Magic.Voice.exe',i:'gh'}],
-  free:'downloads.ariamagicvoice.com/releases/aria/windows/20.118/AriaMagicVoice.exe', pro:'buy.paddle.com', price:'$19.99'};
+  beta:[{n:'官网',u:'downloads.ariamagicvoice.com/releases/aria/windows/20.119/AriaMagicVoice.exe',i:'official'},{n:'Microsoft Store',u:'apps.microsoft.com/detail/9NMW7BL4V6N3',i:'ms'},{n:'GitHub',u:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-windows-v20.119-free/Aria.Magic.Voice.exe',i:'gh'}],
+  free:'downloads.ariamagicvoice.com/releases/aria/windows/20.119/AriaMagicVoice.exe', pro:'buy.paddle.com', price:'$19.99'};
 const VER={
   aria:{beta:[{n:'GitHub',u:'github.com/andywu1206/aria-magic-voice-download/releases/tag/aria-magic-voice-mac-v90.918-free',i:'gh'}],
         free:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-magic-voice-mac-v90.918-free/AriaMagicVoice_Free_Website_v90.918.dmg',
@@ -1254,7 +1254,7 @@ function renderCompare(){
 
   const VX  = WIN ? VER_WIN : (AND ? VER_AND : VER[cur]);
   const directSource={n:lang==='zh'?'官网':'Website',
-    u:({win:'downloads.ariamagicvoice.com/releases/aria/windows/20.118/AriaMagicVoice.exe',and:'downloads.ariamagicvoice.com/releases/aria/android/10.575/AriaInputMethod-Android-v10.575.apk',mac:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-magic-voice-mac-v90.918-free/AriaMagicVoice_Free_Website_v90.918.dmg'})[curPlat]||'',
+    u:({win:'downloads.ariamagicvoice.com/releases/aria/windows/20.119/AriaMagicVoice.exe',and:'downloads.ariamagicvoice.com/releases/aria/android/10.575/AriaInputMethod-Android-v10.575.apk',mac:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-magic-voice-mac-v90.918-free/AriaMagicVoice_Free_Website_v90.918.dmg'})[curPlat]||'',
     i:'official',fast:true};
   const hasDirect=cur==='aria'&&!!directSource.u;
   const betaSources=hasDirect?[directSource,...(VX.beta||[]).filter(b=>b.i!=='official'&&b.n!=='官网'&&b.n!=='Website')]:VX.beta;
