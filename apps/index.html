@@ -956,6 +956,7 @@ const DL={zh:{h:'下载来源',p:'三个渠道内容相同，就近选择即可�
 
 const ICO={
  official:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true"><path d="M4 3v10M12 3v10M4 8h8"/></svg>',
+ ms:'<svg viewBox="0 0 16 16" fill="currentColor"><path d="M0 0h7.5v7.5H0zm8.5 0H16v7.5H8.5zM0 8.5h7.5V16H0zm8.5 0H16V16H8.5z"/></svg>',
  gh:'<svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>',
  dr:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linejoin="round"><path d="M1.9 4.4a1.3 1.3 0 0 1 1.3-1.3h2.8l1.5 1.7h5.3a1.3 1.3 0 0 1 1.3 1.3v5.5a1.3 1.3 0 0 1-1.3 1.3H3.2a1.3 1.3 0 0 1-1.3-1.3V4.4Z"/></svg>',
  bd:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"><path d="M4.4 11.9A2.9 2.9 0 0 1 4.2 6.2a4 4 0 0 1 7.7-1 3.1 3.1 0 0 1-.4 6.7"/><path d="M8 8.1v4.6M6.3 11l1.7 1.7L9.7 11"/></svg>',
@@ -965,8 +966,8 @@ const VER_AND={
   beta:[{n:'官网',u:'downloads.ariamagicvoice.com/releases/aria/android/10.573/AriaInputMethod-Android-v10.573.apk',i:'official'},{n:'GitHub',u:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-android-v10.573-free/AriaInputMethod-Android-v10.573.apk',i:'gh'}],
   free:'downloads.ariamagicvoice.com/releases/aria/android/10.573/AriaInputMethod-Android-v10.573.apk', pro:'ariamagicvoice.com/aria/pay-android.html', price:'$19.99'};
 const VER_WIN={
-  beta:[{n:'官网',u:'downloads.ariamagicvoice.com/releases/aria/windows/20.115/Aria_Windows_v20.115_ARM64_Setup.zip',i:'official'},{n:'GitHub',u:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-windows-v20.115-free/Aria_Windows_v20.115_ARM64_Setup.zip',i:'gh'}],
-  free:'downloads.ariamagicvoice.com/releases/aria/windows/20.115/Aria_Windows_v20.115_ARM64_Setup.zip', pro:'buy.paddle.com', price:'$19.99'};
+  beta:[{n:'官网',u:'downloads.ariamagicvoice.com/releases/aria/windows/20.117/Aria_Windows_v20.117_ARM64_Setup.zip',i:'official'},{n:'Microsoft Store',u:'apps.microsoft.com/detail/9NMW7BL4V6N3',i:'ms'},{n:'GitHub',u:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-windows-v20.117-free/Aria_Windows_v20.117_ARM64_Setup.zip',i:'gh'}],
+  free:'downloads.ariamagicvoice.com/releases/aria/windows/20.117/Aria_Windows_v20.117_ARM64_Setup.zip', pro:'buy.paddle.com', price:'$19.99'};
 const VER={
   aria:{beta:[{n:'GitHub',u:'github.com/andywu1206/aria-magic-voice-download/releases/tag/aria-magic-voice-mac-v90.915-free',i:'gh'}],
         free:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-magic-voice-mac-v90.915-free/AriaMagicVoice_Free_Website_v90.915.dmg',
@@ -1012,7 +1013,7 @@ const ROWS={
          ['Cloud sync and backup',1,0,1],['Early access to new features',1,0,0],['Reviewed on the App Store',0,1,1]]}};
 
 const PLATS6={
-  aria:[{k:'win',zh:'Windows',en:'Windows',st:'live',dzh:'Windows 10 / 11（64 位）',den:'Windows 10 / 11 (64-bit)'},
+  aria:[{k:'win',zh:'Windows',en:'Windows',st:'live',dzh:'Windows 10 / 11（ARM64 · 已上架 Microsoft Store 与官网下载）',den:'Windows 10 / 11 (ARM64 · Available on Microsoft Store & Website)'},
         {k:'mac',zh:'Mac',en:'Mac',st:'live',dzh:'macOS 15 或更新 · Apple Silicon',den:'macOS 15 or later · Apple Silicon'},
         {k:'and',zh:'Android',en:'Android',st:'live',dzh:'Android 10 或更新',den:'Android 10 or later'},
         {k:'ios',zh:'iPhone',en:'iPhone',st:'live',dzh:'iOS 17 或更新',den:'iOS 17 or later'}
@@ -1253,7 +1254,7 @@ function renderCompare(){
 
   const VX  = WIN ? VER_WIN : (AND ? VER_AND : VER[cur]);
   const directSource={n:lang==='zh'?'官网':'Website',
-    u:({win:'downloads.ariamagicvoice.com/releases/aria/windows/20.115/Aria_Windows_v20.115_ARM64_Setup.zip',and:'downloads.ariamagicvoice.com/releases/aria/android/10.573/AriaInputMethod-Android-v10.573.apk',mac:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-magic-voice-mac-v90.915-free/AriaMagicVoice_Free_Website_v90.915.dmg'})[curPlat]||'',
+    u:({win:'downloads.ariamagicvoice.com/releases/aria/windows/20.117/Aria_Windows_v20.117_ARM64_Setup.zip',and:'downloads.ariamagicvoice.com/releases/aria/android/10.573/AriaInputMethod-Android-v10.573.apk',mac:'github.com/andywu1206/aria-magic-voice-download/releases/download/aria-magic-voice-mac-v90.915-free/AriaMagicVoice_Free_Website_v90.915.dmg'})[curPlat]||'',
     i:'official',fast:true};
   const hasDirect=cur==='aria'&&!!directSource.u;
   const betaSources=hasDirect?[directSource,...(VX.beta||[]).filter(b=>b.i!=='official'&&b.n!=='官网'&&b.n!=='Website')]:VX.beta;
@@ -1268,6 +1269,16 @@ function renderCompare(){
                     .replace('智能简体拼音 · 繁体仓颉 · 繁体注音 · 英文 QWERTY 键盘','智能拼音 9 键 · 拼音 26 键 · 繁体仓颉 · 繁体注音 · 笔画 · 19 款多语种键盘')
                     .replace('Simplified Pinyin · Traditional Cangjie · Zhuyin (Bopomofo) · English QWERTY','Pinyin 9/26-key · Cangjie · Zhuyin · Stroke · 19 multilingual keyboards');
            return c; });
+  }
+  if(WIN && V6){
+    R = R.map(r=>{ const c=r.slice();
+      c[0]=c[0].replace('留在本机，绝不上传云端','留在这台电脑，绝不上传云端')
+               .replace('stay 100% on this Mac','stay 100% on this PC')
+               .replace('智能简体拼音 · 繁体仓颉 · 繁体注音 · 英文 QWERTY 键盘','简体拼音 · 繁体仓颉 · 繁体注音 · 英文及日韩阿德法西俄希北欧等 22 种输入模式')
+               .replace('Simplified Pinyin · Traditional Cangjie · Zhuyin (Bopomofo) · English QWERTY','Pinyin · Cangjie · Zhuyin · 22 input modes (EN/JA/KO/AR/DE/FR/ES/RU/EL/Nordic & more)')
+               .replace('界面语言 English US / English UK / 简体中文 / 繁體中文','22 种界面语言本地化 · 已在 Microsoft Store 与官网正式开放下载')
+               .replace('Interface in English US / English UK / 简体中文 / 繁體中文','22 UI languages localized · Available now on Microsoft Store & Website');
+      return c; });
   }
   $('#ch').textContent=T.h;$('#cp').textContent=T.p;$('#cn').textContent=T.note;
 
