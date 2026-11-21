@@ -1903,8 +1903,15 @@ $('#mYes').onclick=async()=>{
       await Promise.race([fetchP, timeoutP]).finally(()=>clearTimeout(tm));
       showSentCountdown();
     }catch(e){
-      alert(zh?'发送失败了（网络或服务端问题）。\n\n内容还在框里，没有丢。'
-             :'Sending failed (network or server).\n\nYour text is still in the box.');
+      let copied=false;
+      try{await navigator.clipboard.writeText(t);copied=true;}catch(_){}
+      alert(zh
+        ?'发送超时或失败（国内直连海外反馈服务偶尔受阻）。\n\n'
+          +(copied?'内容已自动复制到剪贴板，':'内容仍在框里，没有丢，')
+          +'可直接发邮件至：\n'+MAIL
+        :'Sending failed or timed out (network/server issue).\n\n'
+          +(copied?'Your text has been copied to the clipboard. ':'Your text is still in the box. ')
+          +'You can email it directly to:\n'+MAIL);
     }
     return;
   }
