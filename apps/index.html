@@ -567,7 +567,7 @@ body.dark [data-v="9"] .sbtoggle{background:rgba(255,255,255,.08);border-color:r
 [data-v="9"].sbmin .side .sp{flex:1;min-height:6px}
 
 [data-v="9"] .hero{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;
-  gap:32px;padding:76px 48px 28px 312px;min-height:360px}
+  gap:32px;padding:76px 48px 34px 312px;min-height:430px}
 [data-v="9"] .copy{display:grid;gap:18px;justify-items:start;max-width:640px;padding-bottom:0}
 [data-v="9"] .acts{display:none!important}
 [data-v="9"] .logo{width:270px;height:270px;margin-right:-58px}
@@ -726,7 +726,8 @@ body.dark .item.beta{box-shadow:0 6px 16px -6px rgba(0,0,0,.6)}
 [data-v="9"].sbmin #supportSlab{display:block;width:56px;margin:10px auto 6px}
 
 @media (max-height:820px){
-  .item.beta{height:38px;margin:4px 0 3px}
+  [data-v="9"] .side{top:72px!important;padding:12px 10px 12px!important;min-height:0!important;max-height:calc(100svh - 86px)!important}
+  [data-v="9"] .side .item,[data-v="9"] #betaNav.item.beta,.item.beta{height:40px!important;margin:1px 0!important}
   [data-v="9"]:not(.sbmin) #supportSlab{height:0;margin:0;background:none}
 }
 
