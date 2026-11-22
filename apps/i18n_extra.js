@@ -250,7 +250,17 @@ window.ARIA_I18N_EXTRA = {
     "iPhone, iPad and Mac. See the App Store page for the exact system versions. The app interface is currently in Simplified Chinese. The Android test build is on the": "iPhone、iPad、Mac。詳しい対応OSバージョンはApp Storeページをご確認ください。アプリUIは現在簡体字中国語です。Androidテスト版は",
     "one-time": "買い切り",
     "setting fan speed needs a one-time administrator approval to install a small helper; how much cooler your Mac runs depends on the Mac and the workload, and we don't promise a number; how to get the app, the price and the system requirements will be posted here before release.": "ファン速度制御には初回のみヘルパーインストールのための管理者承認が必要です。温度低下の度合いは端末と負荷に依存するため数値を確約するものではありません。入手方法、価格、動作環境は発売前に掲載します。",
-    "¥100 in China": "中国本土では ¥100"
+    "¥100 in China": "中国本土では ¥100",
+    "The world's first 100% offline input method focused on privacy and data security": "プライバシーとデータ保護に特化した世界初の完全オフライン入力メソッド",
+    "Aria's defining feature: your chat data is never uploaded, protecting your privacy.": "Aria最大の特長は、チャットデータを一切アップロードせずプライバシーを守ること。",
+    "All platforms: Mac / Windows / iOS / Android · 20 languages · 26 offline keyboards · Mixed-language speech · Works offline · Super Learning · Aria Glass Skin": "全プラットフォーム対応 Mac / Windows / iOS / Android · 20言語 · 26種のオフラインキーボード · 多言語混在音声 · オフライン動作 · スーパー学習 · Aria ガラススキン",
+    "Aria's defining feature: your chat data is never uploaded, protecting your privacy.\nAll platforms: Mac / Windows / iOS / Android · 20 languages · 26 offline keyboards · Mixed-language speech · Works offline · Super Learning · Aria Glass Skin": "Aria最大の特長は、チャットデータを一切アップロードせずプライバシーを守ること。\n全プラットフォーム対応 Mac / Windows / iOS / Android · 20言語 · 26種のオフラインキーボード · 多言語混在音声 · オフライン動作 · スーパー学習 · Aria ガラススキン",
+    "Privacy & Data Security — Every word stays on your device, never uploaded": "プライバシーとデータ保護 — 音声も入力内容も端末内のみ、アップロード一切なし",
+    "Built-in on-device AI keeps voice dictation accurate even offline — built for flights, outdoor trails, mines, and sensitive work in finance, research, legal, and healthcare.": "オンデバイスAI内蔵でオフラインでも高精度な音声入力。フライト中、アウトドア、地下現場、金融・研究・法務・医療などの機密業務に最適。",
+    "All Platforms · 20 Languages, 26 Offline Keyboards": "全プラットフォーム対応 · 20言語・26種のオフラインキーボード",
+    "Mac, Windows, iOS & Android. Covers Chinese (9/26-key Pinyin, Stroke, Handwriting, Zhuyin, Sucheng), English, Japanese, Korean, Arabic, German, French, Spanish, Italian, Portuguese, Swedish, Dutch, Finnish, Norwegian, Danish, Icelandic, Polish, Czech, Greek, and Russian.": "Mac・Windows・iOS・Android対応。中国語（ピンイン9/26キー・筆画・手書き・注音・速成）、英語、日本語、韓国語、アラビア語、ドイツ語、フランス語、スペイン語、イタリア語、ポルトガル語、スウェーデン語、オランダ語、フィンランド語、ノルウェー語、デンマーク語、アイスランド語、ポーランド語、チェコ語、ギリシャ語、ロシア語に対応。",
+    "Mixed-Language Speech · Super Learning · Aria Glass Skin": "多言語混在音声 · スーパー学習エンジン · Aria ガラススキン",
+    "Speak multiple languages together even offline; one-time corrections stick automatically so Aria learns your wording; switch freely between Light and Dark Aria Glass themes.": "複数言語を混ぜて話してもオフラインで高精度変換。一度直した語句を自動学習し、ライト／ダークのガラススキンも自在に切替。"
   },
   "ko": {
     "Follow browser language": "브라우저 언어 따르기",
@@ -503,7 +513,17 @@ window.ARIA_I18N_EXTRA = {
     "iPhone, iPad and Mac. See the App Store page for the exact system versions. The app interface is currently in Simplified Chinese. The Android test build is on the": "iPhone, iPad 및 Mac. 자세한 OS 요구사항은 App Store 페이지를 확인하세요. 앱 인터페이스는 현재 간체 중국어입니다. Android 테스트 빌드는",
     "one-time": "1회 구매",
     "setting fan speed needs a one-time administrator approval to install a small helper; how much cooler your Mac runs depends on the Mac and the workload, and we don't promise a number; how to get the app, the price and the system requirements will be posted here before release.": "팬 속도 제어에는 도우미 프로그램 설치를 위한 1회 관리자 승인이 필요합니다. 온도 하강 정도는 기종 및 작업 환경에 따라 다르므로 특정 수치를 보증하지 않습니다. 출시 전 가격 및 사양이 공개됩니다.",
-    "¥100 in China": "중국 본토 기준 ¥100"
+    "¥100 in China": "중국 본토 기준 ¥100",
+    "The world's first 100% offline input method focused on privacy and data security": "개인정보 보호와 데이터 보안에 집중한 세계 최초 완전 오프라인 입력기",
+    "Aria's defining feature: your chat data is never uploaded, protecting your privacy.": "Aria의 가장 큰 특징은 채팅 데이터를 절대 업로드하지 않아 개인정보를 지킨다는 점입니다.",
+    "All platforms: Mac / Windows / iOS / Android · 20 languages · 26 offline keyboards · Mixed-language speech · Works offline · Super Learning · Aria Glass Skin": "전 플랫폼 지원 Mac / Windows / iOS / Android · 20개 언어 · 26종 오프라인 키보드 · 다국어 혼합 음성 · 오프라인 사용 · 슈퍼 러닝 · Aria 글래스 스킨",
+    "Aria's defining feature: your chat data is never uploaded, protecting your privacy.\nAll platforms: Mac / Windows / iOS / Android · 20 languages · 26 offline keyboards · Mixed-language speech · Works offline · Super Learning · Aria Glass Skin": "Aria의 가장 큰 특징은 채팅 데이터를 절대 업로드하지 않아 개인정보를 지킨다는 점입니다.\n전 플랫폼 지원 Mac / Windows / iOS / Android · 20개 언어 · 26종 오프라인 키보드 · 다국어 혼합 음성 · 오프라인 사용 · 슈퍼 러닝 · Aria 글래스 스킨",
+    "Privacy & Data Security — Every word stays on your device, never uploaded": "개인정보 보호 및 데이터 보안 — 모든 음성과 타이핑은 기기에만 저장, 업로드 없음",
+    "Built-in on-device AI keeps voice dictation accurate even offline — built for flights, outdoor trails, mines, and sensitive work in finance, research, legal, and healthcare.": "온디바이스 AI 내장으로 오프라인에서도 높은 음성 인식 정확도. 비행 중, 야외 활동, 지하 현장 및 금융·연구·법률·의료 분야에 적합합니다.",
+    "All Platforms · 20 Languages, 26 Offline Keyboards": "전 플랫폼 지원 · 20개 언어, 26종 오프라인 키보드",
+    "Mac, Windows, iOS & Android. Covers Chinese (9/26-key Pinyin, Stroke, Handwriting, Zhuyin, Sucheng), English, Japanese, Korean, Arabic, German, French, Spanish, Italian, Portuguese, Swedish, Dutch, Finnish, Norwegian, Danish, Icelandic, Polish, Czech, Greek, and Russian.": "Mac, Windows, iOS 및 Android 지원. 중국어(병음 9/26키, 획, 필기, 주음, 속성), 영어, 일본어, 한국어, 아랍어, 독일어, 프랑스어, 스페인어, 이탈리아어, 포르투갈어, 스웨덴어, 네덜란드어, 핀란드어, 노르웨이어, 덴마크어, 아이슬란드어, 폴란드어, 체코어, 그리스어, 러시아어 지원.",
+    "Mixed-Language Speech · Super Learning · Aria Glass Skin": "다국어 혼합 음성 · 슈퍼 러닝 엔진 · Aria 글래스 스킨",
+    "Speak multiple languages together even offline; one-time corrections stick automatically so Aria learns your wording; switch freely between Light and Dark Aria Glass themes.": "오프라인에서도 여러 언어를 섞어 말할 수 있으며, 한 번 수정한 단어를 자동 학습합니다. 라이트/다크 글래스 테마를 자유롭게 전환하세요."
   },
   "de": {
     "Follow browser language": "Browsersprache folgen",
@@ -753,7 +773,17 @@ window.ARIA_I18N_EXTRA = {
     "macOS 15 or later · Apple Silicon": "macOS 15 oder neuer · Apple Silicon",
     "one-time": "einmalig",
     "setting fan speed needs a one-time administrator approval to install a small helper; how much cooler your Mac runs depends on the Mac and the workload, and we don't promise a number; how to get the app, the price and the system requirements will be posted here before release.": "Die Lüftersteuerung erfordert eine einmalige Administrator-Bestätigung zur Installation eines Hilfswerkzeugs; die tatsächliche Temperaturabsenkung hängt vom Gerät und der Last ab; Bezugsquellen, Preis und Systemvoraussetzungen werden vor dem Start hier veröffentlicht.",
-    "¥100 in China": "¥100 in China"
+    "¥100 in China": "¥100 in China",
+    "The world's first 100% offline input method focused on privacy and data security": "Die weltweit erste 100 % Offline-Eingabemethode mit Fokus auf Datenschutz und Datensicherheit",
+    "Aria's defining feature: your chat data is never uploaded, protecting your privacy.": "Das wichtigste Merkmal von Aria: Ihre Chatdaten werden niemals hochgeladen – voller Schutz Ihrer Privatsphäre.",
+    "All platforms: Mac / Windows / iOS / Android · 20 languages · 26 offline keyboards · Mixed-language speech · Works offline · Super Learning · Aria Glass Skin": "Alle Plattformen: Mac / Windows / iOS / Android · 20 Sprachen · 26 Offline-Tastaturen · Mehrsprachiges Diktieren · Offline nutzbar · Super Learning · Aria Glass Skin",
+    "Aria's defining feature: your chat data is never uploaded, protecting your privacy.\nAll platforms: Mac / Windows / iOS / Android · 20 languages · 26 offline keyboards · Mixed-language speech · Works offline · Super Learning · Aria Glass Skin": "Das wichtigste Merkmal von Aria: Ihre Chatdaten werden niemals hochgeladen – voller Schutz Ihrer Privatsphäre.\nAlle Plattformen: Mac / Windows / iOS / Android · 20 Sprachen · 26 Offline-Tastaturen · Mehrsprachiges Diktieren · Offline nutzbar · Super Learning · Aria Glass Skin",
+    "Privacy & Data Security — Every word stays on your device, never uploaded": "Datenschutz & Datensicherheit — Jedes Wort bleibt auf Ihrem Gerät, niemals hochgeladen",
+    "Built-in on-device AI keeps voice dictation accurate even offline — built for flights, outdoor trails, mines, and sensitive work in finance, research, legal, and healthcare.": "Integrierte On-Device-KI sorgt auch offline für präzise Spracheingabe – ideal für Flüge, Outdoor-Touren, Bergwerke sowie Finanzen, Forschung, Recht und Medizin.",
+    "All Platforms · 20 Languages, 26 Offline Keyboards": "Alle Plattformen · 20 Sprachen, 26 Offline-Tastaturen",
+    "Mac, Windows, iOS & Android. Covers Chinese (9/26-key Pinyin, Stroke, Handwriting, Zhuyin, Sucheng), English, Japanese, Korean, Arabic, German, French, Spanish, Italian, Portuguese, Swedish, Dutch, Finnish, Norwegian, Danish, Icelandic, Polish, Czech, Greek, and Russian.": "Mac, Windows, iOS & Android. Unterstützt Chinesisch (Pinyin 9/26, Strich, Handschrift, Zhuyin, Sucheng), Englisch, Japanisch, Koreanisch, Arabisch, Deutsch, Französisch, Spanisch, Italienisch, Portugiesisch, Schwedisch, Niederländisch, Finnisch, Norwegisch, Dänisch, Isländisch, Polnisch, Tschechisch, Griechisch und Russisch.",
+    "Mixed-Language Speech · Super Learning · Aria Glass Skin": "Mehrsprachige Spracheingabe · Super Learning · Aria Glass Skin",
+    "Speak multiple languages together even offline; one-time corrections stick automatically so Aria learns your wording; switch freely between Light and Dark Aria Glass themes.": "Sprechen Sie mehrere Sprachen gemischt auch offline; einmal korrigierte Wörter merkt sich Aria automatisch; wechseln Sie frei zwischen hellem und dunklem Aria Glass Design."
   },
   "fr": {
     "Follow browser language": "Langue du navigateur",
@@ -1000,7 +1030,17 @@ window.ARIA_I18N_EXTRA = {
     "macOS 15 or later · Apple Silicon": "macOS 15 ou version ultérieure · Apple Silicon",
     "one-time": "achat unique",
     "setting fan speed needs a one-time administrator approval to install a small helper; how much cooler your Mac runs depends on the Mac and the workload, and we don't promise a number; how to get the app, the price and the system requirements will be posted here before release.": "L'ajustement de la vitesse nécessite une validation administrateur ponctuelle pour installer un petit programme d'assistance ; le gain réel de température dépend de la charge et du matériel ; tarif et compatibilités seront précisés ici avant diffusion.",
-    "¥100 in China": "100 ¥ en Chine"
+    "¥100 in China": "100 ¥ en Chine",
+    "The world's first 100% offline input method focused on privacy and data security": "La première méthode de saisie 100 % hors ligne au monde dédiée à la confidentialité et à la sécurité des données",
+    "Aria's defining feature: your chat data is never uploaded, protecting your privacy.": "La force d'Aria : vos données de discussion ne sont jamais envoyées dans le cloud, protégeant votre vie privée.",
+    "All platforms: Mac / Windows / iOS / Android · 20 languages · 26 offline keyboards · Mixed-language speech · Works offline · Super Learning · Aria Glass Skin": "Toutes plateformes : Mac / Windows / iOS / Android · 20 langues · 26 claviers hors ligne · Dictée multilingue · Fonctionne hors ligne · Super Learning · Thème Aria Glass",
+    "Aria's defining feature: your chat data is never uploaded, protecting your privacy.\nAll platforms: Mac / Windows / iOS / Android · 20 languages · 26 offline keyboards · Mixed-language speech · Works offline · Super Learning · Aria Glass Skin": "La force d'Aria : vos données de discussion ne sont jamais envoyées dans le cloud, protégeant votre vie privée.\nToutes plateformes : Mac / Windows / iOS / Android · 20 langues · 26 claviers hors ligne · Dictée multilingue · Fonctionne hors ligne · Super Learning · Thème Aria Glass",
+    "Privacy & Data Security — Every word stays on your device, never uploaded": "Confidentialité & Sécurité — Chaque mot reste sur votre appareil, jamais envoyé",
+    "Built-in on-device AI keeps voice dictation accurate even offline — built for flights, outdoor trails, mines, and sensitive work in finance, research, legal, and healthcare.": "L'IA embarquée assure une dictée vocale précise même hors ligne — idéale en avion, en randonnée, en sous-sol et dans la finance, la recherche, le droit et la santé.",
+    "All Platforms · 20 Languages, 26 Offline Keyboards": "Toutes plateformes · 20 langues, 26 claviers hors ligne",
+    "Mac, Windows, iOS & Android. Covers Chinese (9/26-key Pinyin, Stroke, Handwriting, Zhuyin, Sucheng), English, Japanese, Korean, Arabic, German, French, Spanish, Italian, Portuguese, Swedish, Dutch, Finnish, Norwegian, Danish, Icelandic, Polish, Czech, Greek, and Russian.": "Mac, Windows, iOS & Android. Couvre le chinois (Pinyin 9/26 touches, Traits, Manuscrit, Zhuyin, Sucheng), l'anglais, le japonais, le coréen, l'arabe, l'allemand, le français, l'espagnol, l'italien, le portugais, le suédois, le néerlandais, le finnois, le norvégien, le danois, l'islandais, le polonais, le tchèque, le grec et le russe.",
+    "Mixed-Language Speech · Super Learning · Aria Glass Skin": "Voix multilingue · Super Learning · Thème Aria Glass",
+    "Speak multiple languages together even offline; one-time corrections stick automatically so Aria learns your wording; switch freely between Light and Dark Aria Glass themes.": "Mélangez plusieurs langues à l'oral même hors ligne ; une correction unique est retenue automatiquement ; basculez librement entre les thèmes Aria Glass clair et sombre."
   },
   "es": {
     "Follow browser language": "Seguir idioma del navegador",
@@ -1247,7 +1287,17 @@ window.ARIA_I18N_EXTRA = {
     "macOS 15 or later · Apple Silicon": "macOS 15 o posterior · Apple Silicon",
     "one-time": "pago único",
     "setting fan speed needs a one-time administrator approval to install a small helper; how much cooler your Mac runs depends on the Mac and the workload, and we don't promise a number; how to get the app, the price and the system requirements will be posted here before release.": "Ajustar ventiladores requiere permiso de administrador una sola vez; cuánto se enfríe tu Mac depende de la carga y el modelo; precios y requisitos se publicarán antes del lanzamiento.",
-    "¥100 in China": "¥100 en China"
+    "¥100 in China": "¥100 en China",
+    "The world's first 100% offline input method focused on privacy and data security": "El primer método de entrada 100 % sin conexión del mundo enfocado en la privacidad y la seguridad de datos",
+    "Aria's defining feature: your chat data is never uploaded, protecting your privacy.": "La mayor ventaja de Aria: tus chats nunca se suben a la nube, protegiendo tu privacidad.",
+    "All platforms: Mac / Windows / iOS / Android · 20 languages · 26 offline keyboards · Mixed-language speech · Works offline · Super Learning · Aria Glass Skin": "Todas las plataformas: Mac / Windows / iOS / Android · 20 idiomas · 26 teclados sin conexión · Voz multilingüe · Funciona sin internet · Super Learning · Tema Aria Glass",
+    "Aria's defining feature: your chat data is never uploaded, protecting your privacy.\nAll platforms: Mac / Windows / iOS / Android · 20 languages · 26 offline keyboards · Mixed-language speech · Works offline · Super Learning · Aria Glass Skin": "La mayor ventaja de Aria: tus chats nunca se suben a la nube, protegiendo tu privacidad.\nTodas las plataformas: Mac / Windows / iOS / Android · 20 idiomas · 26 teclados sin conexión · Voz multilingüe · Funciona sin internet · Super Learning · Tema Aria Glass",
+    "Privacy & Data Security — Every word stays on your device, never uploaded": "Privacidad y Seguridad — Cada palabra se queda en tu dispositivo, nunca se sube",
+    "Built-in on-device AI keeps voice dictation accurate even offline — built for flights, outdoor trails, mines, and sensitive work in finance, research, legal, and healthcare.": "IA integrada en el dispositivo para dictado preciso incluso sin conexión — ideal para vuelos, exteriores, minas y sectores sensibles como finanzas, investigación, derecho y salud.",
+    "All Platforms · 20 Languages, 26 Offline Keyboards": "Todas las plataformas · 20 idiomas, 26 teclados sin conexión",
+    "Mac, Windows, iOS & Android. Covers Chinese (9/26-key Pinyin, Stroke, Handwriting, Zhuyin, Sucheng), English, Japanese, Korean, Arabic, German, French, Spanish, Italian, Portuguese, Swedish, Dutch, Finnish, Norwegian, Danish, Icelandic, Polish, Czech, Greek, and Russian.": "Mac, Windows, iOS y Android. Incluye chino (Pinyin 9/26 teclas, Trazos, Escritura a mano, Zhuyin, Sucheng), inglés, japonés, coreano, árabe, alemán, francés, español, italiano, portugués, sueco, neerlandés, finés, noruego, danés, islandés, polaco, checo, griego y ruso.",
+    "Mixed-Language Speech · Super Learning · Aria Glass Skin": "Voz multilingüe · Super Learning · Tema Aria Glass",
+    "Speak multiple languages together even offline; one-time corrections stick automatically so Aria learns your wording; switch freely between Light and Dark Aria Glass themes.": "Habla varios idiomas mezclados incluso sin conexión; corrige una palabra una vez y Aria la aprende automáticamente; alterna libremente entre Aria Glass claro y oscuro."
   },
   "it": {
     "Follow browser language": "Segui la lingua del browser",
@@ -1489,7 +1539,17 @@ window.ARIA_I18N_EXTRA = {
     "macOS 15 or later · Apple Silicon": "macOS 15 o posterior · Apple Silicon",
     "one-time": "acquisto unico",
     "setting fan speed needs a one-time administrator approval to install a small helper; how much cooler your Mac runs depends on the Mac and the workload, and we don't promise a number; how to get the app, the price and the system requirements will be posted here before release.": "Ajustar ventiladores requiere permiso de administrador una sola vez; cuánto se enfríe tu Mac depende de la carga y el modelo; precios y requisitos se publicarán antes del lanzamiento.",
-    "¥100 in China": "¥100 en China"
+    "¥100 in China": "¥100 en China",
+    "The world's first 100% offline input method focused on privacy and data security": "Il primo metodo di input 100% offline al mondo incentrato su privacy e sicurezza dei dati",
+    "Aria's defining feature: your chat data is never uploaded, protecting your privacy.": "La caratteristica distintiva di Aria: le tue chat non vengono mai caricate online, tutelando la tua privacy.",
+    "All platforms: Mac / Windows / iOS / Android · 20 languages · 26 offline keyboards · Mixed-language speech · Works offline · Super Learning · Aria Glass Skin": "Tutte le piattaforme: Mac / Windows / iOS / Android · 20 lingue · 26 tastiere offline · Voce multilingue · Funziona offline · Super Learning · Tema Aria Glass",
+    "Aria's defining feature: your chat data is never uploaded, protecting your privacy.\nAll platforms: Mac / Windows / iOS / Android · 20 languages · 26 offline keyboards · Mixed-language speech · Works offline · Super Learning · Aria Glass Skin": "La caratteristica distintiva di Aria: le tue chat non vengono mai caricate online, tutelando la tua privacy.\nTutte le piattaforme: Mac / Windows / iOS / Android · 20 lingue · 26 tastiere offline · Voce multilingue · Funziona offline · Super Learning · Tema Aria Glass",
+    "Privacy & Data Security — Every word stays on your device, never uploaded": "Privacy e Sicurezza — Ogni parola resta sul tuo dispositivo, mai caricata",
+    "Built-in on-device AI keeps voice dictation accurate even offline — built for flights, outdoor trails, mines, and sensitive work in finance, research, legal, and healthcare.": "IA integrata sul dispositivo per dettatura vocale precisa anche offline — ideale in volo, all'aperto, in miniera e nei settori finanza, ricerca, legale e sanitario.",
+    "All Platforms · 20 Languages, 26 Offline Keyboards": "Tutte le piattaforme · 20 lingue, 26 tastiere offline",
+    "Mac, Windows, iOS & Android. Covers Chinese (9/26-key Pinyin, Stroke, Handwriting, Zhuyin, Sucheng), English, Japanese, Korean, Arabic, German, French, Spanish, Italian, Portuguese, Swedish, Dutch, Finnish, Norwegian, Danish, Icelandic, Polish, Czech, Greek, and Russian.": "Mac, Windows, iOS e Android. Supporta cinese (Pinyin 9/26 tasti, Tratti, Scrittura a mano, Zhuyin, Sucheng), inglese, giapponese, coreano, arabo, tedesco, francese, spagnolo, italiano, portoghese, svedese, olandese, finlandese, norvegese, danese, islandese, polacco, ceco, greco e russo.",
+    "Mixed-Language Speech · Super Learning · Aria Glass Skin": "Voce multilingue · Super Learning · Tema Aria Glass",
+    "Speak multiple languages together even offline; one-time corrections stick automatically so Aria learns your wording; switch freely between Light and Dark Aria Glass themes.": "Parla più lingue insieme anche offline; le correzioni vengono memorizzate automaticamente; passa liberamente tra il tema Aria Glass chiaro e scuro."
   },
   "pt": {
     "Follow browser language": "Seguir idioma do navegador",
@@ -1731,7 +1791,17 @@ window.ARIA_I18N_EXTRA = {
     "macOS 15 or later · Apple Silicon": "macOS 15 o posterior · Apple Silicon",
     "one-time": "compra única",
     "setting fan speed needs a one-time administrator approval to install a small helper; how much cooler your Mac runs depends on the Mac and the workload, and we don't promise a number; how to get the app, the price and the system requirements will be posted here before release.": "Ajustar ventiladores requiere permiso de administrador una sola vez; cuánto se enfríe tu Mac depende de la carga y el modelo; precios y requisitos se publicarán antes del lanzamiento.",
-    "¥100 in China": "¥100 en China"
+    "¥100 in China": "¥100 en China",
+    "The world's first 100% offline input method focused on privacy and data security": "O primeiro método de entrada 100% offline do mundo focado em privacidade e segurança de dados",
+    "Aria's defining feature: your chat data is never uploaded, protecting your privacy.": "O maior diferencial do Aria: seus dados de conversa nunca são enviados à nuvem, protegendo sua privacidade.",
+    "All platforms: Mac / Windows / iOS / Android · 20 languages · 26 offline keyboards · Mixed-language speech · Works offline · Super Learning · Aria Glass Skin": "Todas as plataformas: Mac / Windows / iOS / Android · 20 idiomas · 26 teclados offline · Voz multilíngue · Funciona offline · Super Learning · Tema Aria Glass",
+    "Aria's defining feature: your chat data is never uploaded, protecting your privacy.\nAll platforms: Mac / Windows / iOS / Android · 20 languages · 26 offline keyboards · Mixed-language speech · Works offline · Super Learning · Aria Glass Skin": "O maior diferencial do Aria: seus dados de conversa nunca são enviados à nuvem, protegendo sua privacidade.\nTodas as plataformas: Mac / Windows / iOS / Android · 20 idiomas · 26 teclados offline · Voz multilíngue · Funciona offline · Super Learning · Tema Aria Glass",
+    "Privacy & Data Security — Every word stays on your device, never uploaded": "Privacidade e Segurança — Cada palavra fica no seu dispositivo, nunca enviada",
+    "Built-in on-device AI keeps voice dictation accurate even offline — built for flights, outdoor trails, mines, and sensitive work in finance, research, legal, and healthcare.": "IA local integrada mantém o ditado por voz preciso mesmo offline — ideal para voos, trilhas, minas e áreas sensíveis como finanças, pesquisa, jurídico e saúde.",
+    "All Platforms · 20 Languages, 26 Offline Keyboards": "Todas as plataformas · 20 idiomas, 26 teclados offline",
+    "Mac, Windows, iOS & Android. Covers Chinese (9/26-key Pinyin, Stroke, Handwriting, Zhuyin, Sucheng), English, Japanese, Korean, Arabic, German, French, Spanish, Italian, Portuguese, Swedish, Dutch, Finnish, Norwegian, Danish, Icelandic, Polish, Czech, Greek, and Russian.": "Mac, Windows, iOS e Android. Inclui chinês (Pinyin 9/26 teclas, Traços, Escrita à mão, Zhuyin, Sucheng), inglês, japonês, coreano, árabe, alemão, francês, espanhol, italiano, português, sueco, holandês, finlandês, norueguês, dinamarquês, islandês, polonês, tcheco, grego e russo.",
+    "Mixed-Language Speech · Super Learning · Aria Glass Skin": "Voz multilíngue · Super Learning · Tema Aria Glass",
+    "Speak multiple languages together even offline; one-time corrections stick automatically so Aria learns your wording; switch freely between Light and Dark Aria Glass themes.": "Fale vários idiomas misturados mesmo offline; correções feitas uma vez ficam salvas automaticamente; alterne livremente entre os temas Aria Glass claro e escuro."
   },
   "nl": {
     "Follow browser language": "Volg browsertaal",
@@ -1973,7 +2043,17 @@ window.ARIA_I18N_EXTRA = {
     "macOS 15 or later · Apple Silicon": "macOS 15 of nieuwer · Apple Silicon",
     "one-time": "eenmalig",
     "setting fan speed needs a one-time administrator approval to install a small helper; how much cooler your Mac runs depends on the Mac and the workload, and we don't promise a number; how to get the app, the price and the system requirements will be posted here before release.": "het instellen van de ventilatorsnelheid vereist een eenmalige beheerdersgoedkeuring om een klein hulpprogramma te installeren; hoeveel koeler je Mac blijft hangt af van de Mac en de belasting, en we beloven geen vast getal; hoe je de app krijgt, de prijs en de systeemvereisten worden hier vóór de release geplaatst.",
-    "¥100 in China": "¥100 in China"
+    "¥100 in China": "¥100 in China",
+    "The world's first 100% offline input method focused on privacy and data security": "'s Werelds eerste 100% offline invoermethode gericht op privacy en gegevensbeveiliging",
+    "Aria's defining feature: your chat data is never uploaded, protecting your privacy.": "Het belangrijkste kenmerk van Aria: uw chatgegevens worden nooit geüpload, zodat uw privacy beschermd blijft.",
+    "All platforms: Mac / Windows / iOS / Android · 20 languages · 26 offline keyboards · Mixed-language speech · Works offline · Super Learning · Aria Glass Skin": "Alle platforms: Mac / Windows / iOS / Android · 20 talen · 26 offline toetsenborden · Meertalige spraak · Werkt offline · Super Learning · Aria Glass-thema",
+    "Aria's defining feature: your chat data is never uploaded, protecting your privacy.\nAll platforms: Mac / Windows / iOS / Android · 20 languages · 26 offline keyboards · Mixed-language speech · Works offline · Super Learning · Aria Glass Skin": "Het belangrijkste kenmerk van Aria: uw chatgegevens worden nooit geüpload, zodat uw privacy beschermd blijft.\nAlle platforms: Mac / Windows / iOS / Android · 20 talen · 26 offline toetsenborden · Meertalige spraak · Werkt offline · Super Learning · Aria Glass-thema",
+    "Privacy & Data Security — Every word stays on your device, never uploaded": "Privacy & Gegevensbeveiliging — Elk woord blijft op uw apparaat, nooit geüpload",
+    "Built-in on-device AI keeps voice dictation accurate even offline — built for flights, outdoor trails, mines, and sensitive work in finance, research, legal, and healthcare.": "Ingebouwde on-device AI zorgt ook offline voor nauwkeurige spraakherkenning — ideaal voor vluchten, buitenactiviteiten, mijnen en gevoelige sectoren zoals financiën, onderzoek, recht en zorg.",
+    "All Platforms · 20 Languages, 26 Offline Keyboards": "Alle platforms · 20 talen, 26 offline toetsenborden",
+    "Mac, Windows, iOS & Android. Covers Chinese (9/26-key Pinyin, Stroke, Handwriting, Zhuyin, Sucheng), English, Japanese, Korean, Arabic, German, French, Spanish, Italian, Portuguese, Swedish, Dutch, Finnish, Norwegian, Danish, Icelandic, Polish, Czech, Greek, and Russian.": "Mac, Windows, iOS & Android. Ondersteunt Chinees (9/26-toets Pinyin, Streepjes, Handschrift, Zhuyin, Sucheng), Engels, Japans, Koreaans, Arabisch, Duits, Frans, Spaans, Italiaans, Portugees, Zweeds, Nederlands, Fins, Noors, Deens, IJslands, Pools, Tsjechisch, Grieks en Russisch.",
+    "Mixed-Language Speech · Super Learning · Aria Glass Skin": "Meertalige spraak · Super Learning · Aria Glass-thema",
+    "Speak multiple languages together even offline; one-time corrections stick automatically so Aria learns your wording; switch freely between Light and Dark Aria Glass themes.": "Spreek meerdere talen door elkaar, zelfs offline; eenmalige correcties worden automatisch onthouden; schakel vrij tussen licht en donker Aria Glass."
   },
   "sv": {
     "Follow browser language": "Följ webbläsarens språk",
@@ -2215,7 +2295,17 @@ window.ARIA_I18N_EXTRA = {
     "macOS 15 or later · Apple Silicon": "macOS 15 eller senare · Apple Silicon",
     "one-time": "engångsköp",
     "setting fan speed needs a one-time administrator approval to install a small helper; how much cooler your Mac runs depends on the Mac and the workload, and we don't promise a number; how to get the app, the price and the system requirements will be posted here before release.": "att ställa in fläkthastighet kräver ett engångsgodkännande av administratör för att installera en liten hjälpare; hur mycket svalare din Mac blir beror på datorn och arbetsbelastningen, och vi lovar ingen siffra; hur man hämtar appen, priset och systemkraven publiceras här före lansering.",
-    "¥100 in China": "¥100 i Kina"
+    "¥100 in China": "¥100 i Kina",
+    "The world's first 100% offline input method focused on privacy and data security": "Världens första 100 % offline-inmatningsmetod med fokus på integritet och datasäkerhet",
+    "Aria's defining feature: your chat data is never uploaded, protecting your privacy.": "Arias främsta egenskap: dina chattdata laddas aldrig upp, vilket skyddar din integritet.",
+    "All platforms: Mac / Windows / iOS / Android · 20 languages · 26 offline keyboards · Mixed-language speech · Works offline · Super Learning · Aria Glass Skin": "Alla plattformar: Mac / Windows / iOS / Android · 20 språk · 26 offline-tangentbord · Flerspråkigt tal · Fungerar offline · Super Learning · Aria Glass-tema",
+    "Aria's defining feature: your chat data is never uploaded, protecting your privacy.\nAll platforms: Mac / Windows / iOS / Android · 20 languages · 26 offline keyboards · Mixed-language speech · Works offline · Super Learning · Aria Glass Skin": "Arias främsta egenskap: dina chattdata laddas aldrig upp, vilket skyddar din integritet.\nAlla plattformar: Mac / Windows / iOS / Android · 20 språk · 26 offline-tangentbord · Flerspråkigt tal · Fungerar offline · Super Learning · Aria Glass-tema",
+    "Privacy & Data Security — Every word stays on your device, never uploaded": "Integritet & Datasäkerhet — Varje ord stannar på din enhet, laddas aldrig upp",
+    "Built-in on-device AI keeps voice dictation accurate even offline — built for flights, outdoor trails, mines, and sensitive work in finance, research, legal, and healthcare.": "Inbyggd AI på enheten ger träffsäker röstdiktering även offline — byggd för flyg, friluftsliv, gruvor samt finans, forskning, juridik och vård.",
+    "All Platforms · 20 Languages, 26 Offline Keyboards": "Alla plattformar · 20 språk, 26 offline-tangentbord",
+    "Mac, Windows, iOS & Android. Covers Chinese (9/26-key Pinyin, Stroke, Handwriting, Zhuyin, Sucheng), English, Japanese, Korean, Arabic, German, French, Spanish, Italian, Portuguese, Swedish, Dutch, Finnish, Norwegian, Danish, Icelandic, Polish, Czech, Greek, and Russian.": "Mac, Windows, iOS & Android. Täcker kinesiska (9/26-tangenters Pinyin, Streck, Handskrift, Zhuyin, Sucheng), engelska, japanska, koreanska, arabiska, tyska, franska, spanska, italienska, portugisiska, svenska, nederländska, finska, norska, danska, isländska, polska, tjeckiska, grekiska och ryska.",
+    "Mixed-Language Speech · Super Learning · Aria Glass Skin": "Flerspråkigt tal · Super Learning · Aria Glass-tema",
+    "Speak multiple languages together even offline; one-time corrections stick automatically so Aria learns your wording; switch freely between Light and Dark Aria Glass themes.": "Tala flera språk blandat även offline; engångskorrigeringar sparas automatiskt så Aria lär sig ditt språk; växla fritt mellan ljust och mörkt Aria Glass."
   },
   "fi": {
     "Follow browser language": "Noudata selaimen kieltä",
@@ -2457,7 +2547,17 @@ window.ARIA_I18N_EXTRA = {
     "macOS 15 or later · Apple Silicon": "macOS 15 tai uudempi · Apple Silicon",
     "one-time": "kertaostos",
     "setting fan speed needs a one-time administrator approval to install a small helper; how much cooler your Mac runs depends on the Mac and the workload, and we don't promise a number; how to get the app, the price and the system requirements will be posted here before release.": "tuulettimen nopeuden asettaminen vaatii kertaluonteisen järjestelmänvalvojan hyväksynnän pienen apuohjelman asentamiseksi; se, kuinka paljon viileämpänä Macisi käy, riippuu Macista ja työkuormasta, emmekä lupaa tiettyä lukemaa; sovelluksen hankintatapa, hinta ja järjestelmävaatimukset julkaistaan täällä ennen julkaisua.",
-    "¥100 in China": "¥100 Kiinassa"
+    "¥100 in China": "¥100 Kiinassa",
+    "The world's first 100% offline input method focused on privacy and data security": "Maailman ensimmäinen täysin offline-tilassa toimiva syöttömenetelmä tietosuojaan ja tietoturvaan",
+    "Aria's defining feature: your chat data is never uploaded, protecting your privacy.": "Arian tärkein ominaisuus: keskustelutietojasi ei koskaan ladata pilveen, mikä suojaa yksityisyyttäsi.",
+    "All platforms: Mac / Windows / iOS / Android · 20 languages · 26 offline keyboards · Mixed-language speech · Works offline · Super Learning · Aria Glass Skin": "Kaikki alustat: Mac / Windows / iOS / Android · 20 kieltä · 26 offline-näppäimistöä · Monikielinen puhe · Toimii offline · Super Learning · Aria Glass -teema",
+    "Aria's defining feature: your chat data is never uploaded, protecting your privacy.\nAll platforms: Mac / Windows / iOS / Android · 20 languages · 26 offline keyboards · Mixed-language speech · Works offline · Super Learning · Aria Glass Skin": "Arian tärkein ominaisuus: keskustelutietojasi ei koskaan ladata pilveen, mikä suojaa yksityisyyttäsi.\nKaikki alustat: Mac / Windows / iOS / Android · 20 kieltä · 26 offline-näppäimistöä · Monikielinen puhe · Toimii offline · Super Learning · Aria Glass -teema",
+    "Privacy & Data Security — Every word stays on your device, never uploaded": "Tietosuoja & Tietoturva — Jokainen sana pysyy laitteellasi, ei koskaan pilvessä",
+    "Built-in on-device AI keeps voice dictation accurate even offline — built for flights, outdoor trails, mines, and sensitive work in finance, research, legal, and healthcare.": "Laitteeseen sisäänrakennettu tekoäly pitää puheentunnistuksen tarkkana myös offline-tilassa — lennoille, retkille, kaivoksiin sekä rahoitus-, tutkimus-, laki- ja terveysalalle.",
+    "All Platforms · 20 Languages, 26 Offline Keyboards": "Kaikki alustat · 20 kieltä, 26 offline-näppäimistöä",
+    "Mac, Windows, iOS & Android. Covers Chinese (9/26-key Pinyin, Stroke, Handwriting, Zhuyin, Sucheng), English, Japanese, Korean, Arabic, German, French, Spanish, Italian, Portuguese, Swedish, Dutch, Finnish, Norwegian, Danish, Icelandic, Polish, Czech, Greek, and Russian.": "Mac, Windows, iOS & Android. Kattaa kiinan (9/26-näppäimen Pinyin, Viivat, Käsiala, Zhuyin, Sucheng), englannin, japanin, korean, arabian, saksan, ranskan, espanjan, italian, portugalin, ruotsin, hollannin, suomen, norjan, tanskan, islannin, puolan, tšekin, kreikan ja venäjän.",
+    "Mixed-Language Speech · Super Learning · Aria Glass Skin": "Monikielinen puhe · Super Learning · Aria Glass -teema",
+    "Speak multiple languages together even offline; one-time corrections stick automatically so Aria learns your wording; switch freely between Light and Dark Aria Glass themes.": "Puhu useita kieliä sekaisin myös offline-tilassa; kerran korjatut sanat tallentuvat automaattisesti; vaihda vapaasti vaalean ja tumman Aria Glass -teeman välillä."
   },
   "no": {
     "22 UI languages localized · Available now on Microsoft Store & Website": "22 UI-språk lokalisert · Tilgjengelig nå på Microsoft Store og nettsiden",
@@ -2695,7 +2795,17 @@ window.ARIA_I18N_EXTRA = {
     "macOS 15 or later · Apple Silicon": "macOS 15 eller nyere · Apple Silicon",
     "one-time": "engangskjøp",
     "setting fan speed needs a one-time administrator approval to install a small helper; how much cooler your Mac runs depends on the Mac and the workload, and we don't promise a number; how to get the app, the price and the system requirements will be posted here before release.": "innstilling av viftehastighet krever en engangsgodkjenning fra administrator for å installere et lite hjelpeprogram; hvor mye kjøligere Mac-en din blir avhenger av Mac-en og arbeidsmengden, og vi lover ikke et bestemt tall; hvordan du får tak i appen, prisen og systemkravene blir lagt ut her før lansering.",
-    "¥100 in China": "¥100 i Kina"
+    "¥100 in China": "¥100 i Kina",
+    "The world's first 100% offline input method focused on privacy and data security": "Verdens første 100 % frakoblede inndatametode med fokus på personvern og datasikkerhet",
+    "Aria's defining feature: your chat data is never uploaded, protecting your privacy.": "Arias viktigste egenskap: chatdataene dine lastes aldri opp, noe som beskytter personvernet ditt.",
+    "All platforms: Mac / Windows / iOS / Android · 20 languages · 26 offline keyboards · Mixed-language speech · Works offline · Super Learning · Aria Glass Skin": "Alle plattformer: Mac / Windows / iOS / Android · 20 språk · 26 frakoblede tastaturer · Flerspråklig tale · Fungerer offline · Super Learning · Aria Glass-tema",
+    "Aria's defining feature: your chat data is never uploaded, protecting your privacy.\nAll platforms: Mac / Windows / iOS / Android · 20 languages · 26 offline keyboards · Mixed-language speech · Works offline · Super Learning · Aria Glass Skin": "Arias viktigste egenskap: chatdataene dine lastes aldri opp, noe som beskytter personvernet ditt.\nAlle plattformer: Mac / Windows / iOS / Android · 20 språk · 26 frakoblede tastaturer · Flerspråklig tale · Fungerer offline · Super Learning · Aria Glass-tema",
+    "Privacy & Data Security — Every word stays on your device, never uploaded": "Personvern & Datasikkerhet — Hvert ord forblir på enheten din, lastes aldri opp",
+    "Built-in on-device AI keeps voice dictation accurate even offline — built for flights, outdoor trails, mines, and sensitive work in finance, research, legal, and healthcare.": "Innebygd lokal AI gir nøyaktig talediktering selv uten nett — laget for flyreiser, friluftsliv, gruver og sensitivt arbeid innen finans, forskning, jus og helse.",
+    "All Platforms · 20 Languages, 26 Offline Keyboards": "Alle plattformer · 20 språk, 26 frakoblede tastaturer",
+    "Mac, Windows, iOS & Android. Covers Chinese (9/26-key Pinyin, Stroke, Handwriting, Zhuyin, Sucheng), English, Japanese, Korean, Arabic, German, French, Spanish, Italian, Portuguese, Swedish, Dutch, Finnish, Norwegian, Danish, Icelandic, Polish, Czech, Greek, and Russian.": "Mac, Windows, iOS & Android. Dekker kinesisk (9/26-tasters Pinyin, Strek, Håndskrift, Zhuyin, Sucheng), engelsk, japansk, koreansk, arabisk, tysk, fransk, spansk, italiensk, portugisisk, svensk, nederlandsk, finsk, norsk, dansk, islandsk, polsk, tsjekkisk, gresk og russisk.",
+    "Mixed-Language Speech · Super Learning · Aria Glass Skin": "Flerspråklig tale · Super Learning · Aria Glass-tema",
+    "Speak multiple languages together even offline; one-time corrections stick automatically so Aria learns your wording; switch freely between Light and Dark Aria Glass themes.": "Snakk flere språk sammen selv offline; engangsrettelser huskes automatisk; bytt fritt mellom lyst og mørkt Aria Glass-tema."
   },
   "da": {
     "22 UI languages localized · Available now on Microsoft Store & Website": "22 UI-sprog lokaliseret · Tilgængelig nu på Microsoft Store og hjemmeside",
@@ -2933,7 +3043,17 @@ window.ARIA_I18N_EXTRA = {
     "macOS 15 or later · Apple Silicon": "macOS 15 eller nyere · Apple Silicon",
     "one-time": "engangskøb",
     "setting fan speed needs a one-time administrator approval to install a small helper; how much cooler your Mac runs depends on the Mac and the workload, and we don't promise a number; how to get the app, the price and the system requirements will be posted here before release.": "indstilling af blæserhastighed kræver en engangsgodkendelse fra administrator for at installere et lille hjælpeprogram; hvor meget køligere din Mac kører afhænger af din Mac og arbejdsbyrden, og vi lover ikke et bestemt tal; hvordan man får appen, prisen og systemkravene bliver lagt op her før udgivelsen.",
-    "¥100 in China": "¥100 i Kina"
+    "¥100 in China": "¥100 i Kina",
+    "The world's first 100% offline input method focused on privacy and data security": "Verdens første 100 % offline inputmetode med fokus på privatliv og datasikkerhed",
+    "Aria's defining feature: your chat data is never uploaded, protecting your privacy.": "Arias vigtigste egenskab: dine chatdata uploades aldrig, hvilket beskytter dit privatliv.",
+    "All platforms: Mac / Windows / iOS / Android · 20 languages · 26 offline keyboards · Mixed-language speech · Works offline · Super Learning · Aria Glass Skin": "Alle platforme: Mac / Windows / iOS / Android · 20 sprog · 26 offline-tastaturer · Flersproget tale · Virker offline · Super Learning · Aria Glass-tema",
+    "Aria's defining feature: your chat data is never uploaded, protecting your privacy.\nAll platforms: Mac / Windows / iOS / Android · 20 languages · 26 offline keyboards · Mixed-language speech · Works offline · Super Learning · Aria Glass Skin": "Arias vigtigste egenskab: dine chatdata uploades aldrig, hvilket beskytter dit privatliv.\nAlle platforme: Mac / Windows / iOS / Android · 20 sprog · 26 offline-tastaturer · Flersproget tale · Virker offline · Super Learning · Aria Glass-tema",
+    "Privacy & Data Security — Every word stays on your device, never uploaded": "Privatliv & Datasikkerhed — Hvert ord bliver på din enhed, aldrig uploadet",
+    "Built-in on-device AI keeps voice dictation accurate even offline — built for flights, outdoor trails, mines, and sensitive work in finance, research, legal, and healthcare.": "Indbygget lokal AI holder stemmediktering nøjagtig selv offline — skabt til flyrejser, udendørsture, miner samt finans, forskning, jura og sundhed.",
+    "All Platforms · 20 Languages, 26 Offline Keyboards": "Alle platforme · 20 sprog, 26 offline-tastaturer",
+    "Mac, Windows, iOS & Android. Covers Chinese (9/26-key Pinyin, Stroke, Handwriting, Zhuyin, Sucheng), English, Japanese, Korean, Arabic, German, French, Spanish, Italian, Portuguese, Swedish, Dutch, Finnish, Norwegian, Danish, Icelandic, Polish, Czech, Greek, and Russian.": "Mac, Windows, iOS & Android. Dækker kinesisk (9/26-tasters Pinyin, Streg, Håndskrift, Zhuyin, Sucheng), engelsk, japansk, koreansk, arabisk, tysk, fransk, spansk, italiensk, portugisisk, svensk, hollandsk, finsk, norsk, dansk, islandsk, polsk, tjekkisk, græsk og russisk.",
+    "Mixed-Language Speech · Super Learning · Aria Glass Skin": "Flersproget tale · Super Learning · Aria Glass-tema",
+    "Speak multiple languages together even offline; one-time corrections stick automatically so Aria learns your wording; switch freely between Light and Dark Aria Glass themes.": "Tal flere sprog blandet selv offline; engangsrettelser huskes automatisk; skift frit mellem lyst og mørkt Aria Glass-tema."
   },
   "is": {
     "22 UI languages localized · Available now on Microsoft Store & Website": "22 tungumál í viðmóti · Fáanlegt á Microsoft Store og vefsíðu",
@@ -3171,7 +3291,17 @@ window.ARIA_I18N_EXTRA = {
     "macOS 15 or later · Apple Silicon": "macOS 15 eða nýrra · Apple Silicon",
     "one-time": "einskiptiskaup",
     "setting fan speed needs a one-time administrator approval to install a small helper; how much cooler your Mac runs depends on the Mac and the workload, and we don't promise a number; how to get the app, the price and the system requirements will be posted here before release.": "stilling á viftuhraða krefst eins skiptis samþykkis kerfisstjóra til að setja upp lítið hjálparforrit; hversu mikið kaldari Mac-tölvan þín verður fer eftir tölvunni og álaginu, og við lofum engri tölu; hvernig á að nálgast forritið, verðið og kerfiskröfurnar verða birt hér fyrir útgáfu.",
-    "¥100 in China": "¥100 í Kína"
+    "¥100 in China": "¥100 í Kína",
+    "The world's first 100% offline input method focused on privacy and data security": "Fyrsta 100% ótengda innsláttaraðferð heims með áherslu á friðhelgi og gagnaöryggi",
+    "Aria's defining feature: your chat data is never uploaded, protecting your privacy.": "Helsti kostur Aria: spjallgögnum þínum er aldrei hlaðið upp, sem verndar friðhelgi þína.",
+    "All platforms: Mac / Windows / iOS / Android · 20 languages · 26 offline keyboards · Mixed-language speech · Works offline · Super Learning · Aria Glass Skin": "Allir pallar: Mac / Windows / iOS / Android · 20 tungumál · 26 ótengd lyklaborð · Fjöltyngt tal · Virkar ótengt · Super Learning · Aria Glass-þema",
+    "Aria's defining feature: your chat data is never uploaded, protecting your privacy.\nAll platforms: Mac / Windows / iOS / Android · 20 languages · 26 offline keyboards · Mixed-language speech · Works offline · Super Learning · Aria Glass Skin": "Helsti kostur Aria: spjallgögnum þínum er aldrei hlaðið upp, sem verndar friðhelgi þína.\nAllir pallar: Mac / Windows / iOS / Android · 20 tungumál · 26 ótengd lyklaborð · Fjöltyngt tal · Virkar ótengt · Super Learning · Aria Glass-þema",
+    "Privacy & Data Security — Every word stays on your device, never uploaded": "Friðhelgi & Gagnaöryggi — Hvert orð verður eftir á tækinu þínu, aldrei hlaðið upp",
+    "Built-in on-device AI keeps voice dictation accurate even offline — built for flights, outdoor trails, mines, and sensitive work in finance, research, legal, and healthcare.": "Innbyggð gervigreind á tækinu heldur talgreiningu nákvæmri jafnvel án nets — hönnuð fyrir flug, útivist, námur og viðkvæm störf í fjármálum, rannsóknum, lögfræði og heilbrigðisþjónustu.",
+    "All Platforms · 20 Languages, 26 Offline Keyboards": "Allir pallar · 20 tungumál, 26 ótengd lyklaborð",
+    "Mac, Windows, iOS & Android. Covers Chinese (9/26-key Pinyin, Stroke, Handwriting, Zhuyin, Sucheng), English, Japanese, Korean, Arabic, German, French, Spanish, Italian, Portuguese, Swedish, Dutch, Finnish, Norwegian, Danish, Icelandic, Polish, Czech, Greek, and Russian.": "Mac, Windows, iOS & Android. Styður kínversku (9/26-lykla Pinyin, Strika, Handskrift, Zhuyin, Sucheng), ensku, japönsku, kóresku, arabísku, þýsku, frönsku, spænsku, ítölsku, portúgölsku, sænsku, hollensku, finnsku, norsku, dönsku, íslensku, pólsku, tékknesku, grísku og rússnesku.",
+    "Mixed-Language Speech · Super Learning · Aria Glass Skin": "Fjöltyngt tal · Super Learning · Aria Glass-þema",
+    "Speak multiple languages together even offline; one-time corrections stick automatically so Aria learns your wording; switch freely between Light and Dark Aria Glass themes.": "Talaðu mörg tungumál saman jafnvel ótengt; leiðréttingar festast sjálfkrafa í minni; skiptu frjálst milli ljóss og dökks Aria Glass-þema."
   },
   "pl": {
     "22 UI languages localized · Available now on Microsoft Store & Website": "22 języki interfejsu · Dostępne w Microsoft Store i na stronie",
@@ -3409,7 +3539,17 @@ window.ARIA_I18N_EXTRA = {
     "macOS 15 or later · Apple Silicon": "macOS 15 lub nowszy · Apple Silicon",
     "one-time": "jednorazowy zakup",
     "setting fan speed needs a one-time administrator approval to install a small helper; how much cooler your Mac runs depends on the Mac and the workload, and we don't promise a number; how to get the app, the price and the system requirements will be posted here before release.": "ustawianie prędkości wentylatorów wymaga jednorazowej zgody administratora na instalację małego narzędzia pomocniczego; to, o ile chłodniejszy będzie Twój Mac, zależy od modelu i obciążenia, więc nie obiecujemy konkretnej liczby; informacje o sposobie pobrania, cenie i wymaganiach systemowych pojawią się tutaj przed premierą.",
-    "¥100 in China": "¥100 w Chinach"
+    "¥100 in China": "¥100 w Chinach",
+    "The world's first 100% offline input method focused on privacy and data security": "Pierwsza na świecie w 100% offline metoda wprowadzania skupiona na prywatności i bezpieczeństwie danych",
+    "Aria's defining feature: your chat data is never uploaded, protecting your privacy.": "Najważniejsza cecha Aria: Twoje dane z czatów nigdy nie są wysyłane do chmury, chroniąc Twoją prywatność.",
+    "All platforms: Mac / Windows / iOS / Android · 20 languages · 26 offline keyboards · Mixed-language speech · Works offline · Super Learning · Aria Glass Skin": "Wszystkie platformy: Mac / Windows / iOS / Android · 20 języków · 26 klawiatur offline · Mowa wielojęzyczna · Działa offline · Super Learning · Motyw Aria Glass",
+    "Aria's defining feature: your chat data is never uploaded, protecting your privacy.\nAll platforms: Mac / Windows / iOS / Android · 20 languages · 26 offline keyboards · Mixed-language speech · Works offline · Super Learning · Aria Glass Skin": "Najważniejsza cecha Aria: Twoje dane z czatów nigdy nie są wysyłane do chmury, chroniąc Twoją prywatność.\nWszystkie platformy: Mac / Windows / iOS / Android · 20 języków · 26 klawiatur offline · Mowa wielojęzyczna · Działa offline · Super Learning · Motyw Aria Glass",
+    "Privacy & Data Security — Every word stays on your device, never uploaded": "Prywatność i Bezpieczeństwo — Każde słowo zostaje na Twoim urządzeniu, bez wysyłania",
+    "Built-in on-device AI keeps voice dictation accurate even offline — built for flights, outdoor trails, mines, and sensitive work in finance, research, legal, and healthcare.": "Wbudowana lokalna SI zapewnia dokładne dyktowanie nawet bez internetu — idealna w locie, w terenie, w kopalniach oraz w finansach, badaniach, prawie i medycynie.",
+    "All Platforms · 20 Languages, 26 Offline Keyboards": "Wszystkie platformy · 20 języków, 26 klawiatur offline",
+    "Mac, Windows, iOS & Android. Covers Chinese (9/26-key Pinyin, Stroke, Handwriting, Zhuyin, Sucheng), English, Japanese, Korean, Arabic, German, French, Spanish, Italian, Portuguese, Swedish, Dutch, Finnish, Norwegian, Danish, Icelandic, Polish, Czech, Greek, and Russian.": "Mac, Windows, iOS i Android. Obsługuje chiński (Pinyin 9/26, Kreski, Pismo odręczne, Zhuyin, Sucheng), angielski, japoński, koreański, arabski, niemiecki, francuski, hiszpański, włoski, portugalski, szwedzki, niderlandzki, fiński, norweski, duński, islandzki, polski, czeski, grecki i rosyjski.",
+    "Mixed-Language Speech · Super Learning · Aria Glass Skin": "Mowa wielojęzyczna · Super Learning · Motyw Aria Glass",
+    "Speak multiple languages together even offline; one-time corrections stick automatically so Aria learns your wording; switch freely between Light and Dark Aria Glass themes.": "Mów w kilku językach naraz nawet offline; jednorazowe poprawki są automatycznie zapamiętywane; swobodnie przełączaj jasny i ciemny motyw Aria Glass."
   },
   "cs": {
     "22 UI languages localized · Available now on Microsoft Store & Website": "22 jazyků rozhraní · Nyní v Microsoft Store a na webu",
@@ -3647,7 +3787,17 @@ window.ARIA_I18N_EXTRA = {
     "macOS 15 or later · Apple Silicon": "macOS 15 nebo novější · Apple Silicon",
     "one-time": "jednorázový nákup",
     "setting fan speed needs a one-time administrator approval to install a small helper; how much cooler your Mac runs depends on the Mac and the workload, and we don't promise a number; how to get the app, the price and the system requirements will be posted here before release.": "nastavení otáček ventilátorů vyžaduje jednorázové schválení správcem pro instalaci malého pomocného nástroje; o kolik chladnější bude váš Mac, závisí na konkrétním modelu a zátěži a konkrétní číslo neslibujeme; informace o stažení aplikace, ceně a systémových požadavcích zde zveřejníme před vydáním.",
-    "¥100 in China": "¥100 v Číně"
+    "¥100 in China": "¥100 v Číně",
+    "The world's first 100% offline input method focused on privacy and data security": "První 100% offline metoda zadávání na světě zaměřená na soukromí a bezpečnost dat",
+    "Aria's defining feature: your chat data is never uploaded, protecting your privacy.": "Hlavní přednost Aria: vaše chatová data se nikdy nenahrávají do cloudu, čímž chrání vaše soukromí.",
+    "All platforms: Mac / Windows / iOS / Android · 20 languages · 26 offline keyboards · Mixed-language speech · Works offline · Super Learning · Aria Glass Skin": "Všechny platformy: Mac / Windows / iOS / Android · 20 jazyků · 26 offline klávesnic · Vícejazyčná řeč · Funguje offline · Super Learning · Motiv Aria Glass",
+    "Aria's defining feature: your chat data is never uploaded, protecting your privacy.\nAll platforms: Mac / Windows / iOS / Android · 20 languages · 26 offline keyboards · Mixed-language speech · Works offline · Super Learning · Aria Glass Skin": "Hlavní přednost Aria: vaše chatová data se nikdy nenahrávají do cloudu, čímž chrání vaše soukromí.\nVšechny platformy: Mac / Windows / iOS / Android · 20 jazyků · 26 offline klávesnic · Vícejazyčná řeč · Funguje offline · Super Learning · Motiv Aria Glass",
+    "Privacy & Data Security — Every word stays on your device, never uploaded": "Soukromí a Bezpečnost dat — Každé slovo zůstává ve vašem zařízení, nikdy se nenahrává",
+    "Built-in on-device AI keeps voice dictation accurate even offline — built for flights, outdoor trails, mines, and sensitive work in finance, research, legal, and healthcare.": "Vestavěná lokální AI udržuje přesné hlasové diktování i bez internetu — ideální do letadla, do přírody, dolů i pro finance, výzkum, právo a zdravotnictví.",
+    "All Platforms · 20 Languages, 26 Offline Keyboards": "Všechny platformy · 20 jazyků, 26 offline klávesnic",
+    "Mac, Windows, iOS & Android. Covers Chinese (9/26-key Pinyin, Stroke, Handwriting, Zhuyin, Sucheng), English, Japanese, Korean, Arabic, German, French, Spanish, Italian, Portuguese, Swedish, Dutch, Finnish, Norwegian, Danish, Icelandic, Polish, Czech, Greek, and Russian.": "Mac, Windows, iOS a Android. Zahrnuje čínštinu (Pinyin 9/26 kláves, Tahy, Rukopis, Zhuyin, Sucheng), angličtinu, japonštinu, korejštinu, arabštinu, němčinu, francouzštinu, španělštinu, italštinu, portugalštinu, švédštinu, nizozemštinu, finštinu, norštinu, dánštinu, islandštinu, polštinu, češtinu, řečtinu a ruštinu.",
+    "Mixed-Language Speech · Super Learning · Aria Glass Skin": "Vícejazyčná řeč · Super Learning · Motiv Aria Glass",
+    "Speak multiple languages together even offline; one-time corrections stick automatically so Aria learns your wording; switch freely between Light and Dark Aria Glass themes.": "Mluvte více jazyky najednou i offline; jednou opravená slova se automaticky uloží; libovolně přepínejte světlý a tmavý motiv Aria Glass."
   },
   "el": {
     "22 UI languages localized · Available now on Microsoft Store & Website": "22 γλώσσες διεπαφής · Διαθέσιμο στο Microsoft Store & ιστότοπο",
@@ -3885,7 +4035,17 @@ window.ARIA_I18N_EXTRA = {
     "macOS 15 or later · Apple Silicon": "macOS 15 ή νεότερο · Apple Silicon",
     "one-time": "εφάπαξ αγορά",
     "setting fan speed needs a one-time administrator approval to install a small helper; how much cooler your Mac runs depends on the Mac and the workload, and we don't promise a number; how to get the app, the price and the system requirements will be posted here before release.": "ο ορισμός ταχύτητας ανεμιστήρα απαιτεί μία εφάπαξ έγκριση διαχειριστή για την εγκατάσταση ενός μικρού βοηθητικού προγράμματος· πόσο πιο δροσερός λειτουργεί ο Mac σας εξαρτάται από τον Mac και τον φόρτο εργασίας, και δεν υποσχόμαστε κάποιον αριθμό· ο τρόπος απόκτησης της εφαρμογής, η τιμή και οι απαιτήσεις συστήματος θα δημοσιευτούν εδώ πριν την κυκλοφορία.",
-    "¥100 in China": "¥100 στην Κίνα"
+    "¥100 in China": "¥100 στην Κίνα",
+    "The world's first 100% offline input method focused on privacy and data security": "Η πρώτη 100% offline μέθοδος εισαγωγής στον κόσμο με επίκεντρο το απόρρητο και την ασφάλεια δεδομένων",
+    "Aria's defining feature: your chat data is never uploaded, protecting your privacy.": "Το βασικό χαρακτηριστικό του Aria: τα δεδομένα συνομιλιών σας δεν ανεβαίνουν ποτέ, προστατεύοντας το απόρρητό σας.",
+    "All platforms: Mac / Windows / iOS / Android · 20 languages · 26 offline keyboards · Mixed-language speech · Works offline · Super Learning · Aria Glass Skin": "Όλες οι πλατφόρμες: Mac / Windows / iOS / Android · 20 γλώσσες · 26 offline πληκτρολόγια · Πολύγλωσση ομιλία · Λειτουργία offline · Super Learning · Θέμα Aria Glass",
+    "Aria's defining feature: your chat data is never uploaded, protecting your privacy.\nAll platforms: Mac / Windows / iOS / Android · 20 languages · 26 offline keyboards · Mixed-language speech · Works offline · Super Learning · Aria Glass Skin": "Το βασικό χαρακτηριστικό του Aria: τα δεδομένα συνομιλιών σας δεν ανεβαίνουν ποτέ, προστατεύοντας το απόρρητό σας.\nΌλες οι πλατφόρμες: Mac / Windows / iOS / Android · 20 γλώσσες · 26 offline πληκτρολόγια · Πολύγλωσση ομιλία · Λειτουργία offline · Super Learning · Θέμα Aria Glass",
+    "Privacy & Data Security — Every word stays on your device, never uploaded": "Απόρρητο & Ασφάλεια Δεδομένων — Κάθε λέξη μένει στη συσκευή σας, χωρίς αποστολή",
+    "Built-in on-device AI keeps voice dictation accurate even offline — built for flights, outdoor trails, mines, and sensitive work in finance, research, legal, and healthcare.": "Ενσωματωμένη τοπική AI για ακριβή φωνητική υπαγόρευση ακόμη και χωρίς δίκτυο — ιδανική για πτήσεις, εξωτερικούς χώρους, ορυχεία και ευαίσθητους κλάδους (οικονομικά, έρευνα, νομικά, υγεία).",
+    "All Platforms · 20 Languages, 26 Offline Keyboards": "Όλες οι πλατφόρμες · 20 γλώσσες, 26 offline πληκτρολόγια",
+    "Mac, Windows, iOS & Android. Covers Chinese (9/26-key Pinyin, Stroke, Handwriting, Zhuyin, Sucheng), English, Japanese, Korean, Arabic, German, French, Spanish, Italian, Portuguese, Swedish, Dutch, Finnish, Norwegian, Danish, Icelandic, Polish, Czech, Greek, and Russian.": "Mac, Windows, iOS & Android. Καλύπτει Κινεζικά (Pinyin 9/26, Γραμμές, Χειρόγραφη, Zhuyin, Sucheng), Αγγλικά, Ιαπωνικά, Κορεατικά, Αραβικά, Γερμανικά, Γαλλικά, Ισπανικά, Ιταλικά, Πορτογαλικά, Σουηδικά, Ολλανδικά, Φινλανδικά, Νορβηγικά, Δανικά, Ισλανδικά, Πολωνικά, Τσεχικά, Ελληνικά και Ρωσικά.",
+    "Mixed-Language Speech · Super Learning · Aria Glass Skin": "Πολύγλωσση ομιλία · Super Learning · Θέμα Aria Glass",
+    "Speak multiple languages together even offline; one-time corrections stick automatically so Aria learns your wording; switch freely between Light and Dark Aria Glass themes.": "Μιλήστε πολλές γλώσσες μαζί ακόμη και offline· οι διορθώσεις αποθηκεύονται αυτόματα· εναλλάξτε ελεύθερα φωτεινό και σκούρο θέμα Aria Glass."
   },
   "ru": {
     "22 UI languages localized · Available now on Microsoft Store & Website": "22 языка интерфейса · Доступно в Microsoft Store и на сайте",
@@ -4125,7 +4285,17 @@ window.ARIA_I18N_EXTRA = {
     "setting fan speed needs a one-time administrator approval to install a small helper; how much cooler your Mac runs depends on the Mac and the workload, and we don't promise a number; how to get the app, the price and the system requirements will be posted here before release.": "setting fan speed needs a one-time administrator approval to install a small helper; how much cooler your Mac runs depends on the Mac and the workload, and we don't promise a number; how to get the app, the price and the system requirements will be posted here before release.",
     "¥100 in China": "¥100 в Китае",
     "setting fan speed needs a one-time administrator approval to install a small helper. Reading speeds and temperatures doesn't need it.": "для управления скоростью вентиляторов требуется разовое подтверждение администратора для установки небольшого помощника. Для чтения оборотов и температур оно не нужно.",
-    "how much cooler your Mac runs depends on the Mac and the workload, and we don't promise a number; how to get the app, the price and the system requirements will be posted here before release.": "насколько холоднее станет ваш Mac, зависит от модели и нагрузки, и мы не обещаем конкретных цифр; способы получения приложения, цена и системные требования будут опубликованы здесь перед релизом."
+    "how much cooler your Mac runs depends on the Mac and the workload, and we don't promise a number; how to get the app, the price and the system requirements will be posted here before release.": "насколько холоднее станет ваш Mac, зависит от модели и нагрузки, и мы не обещаем конкретных цифр; способы получения приложения, цена и системные требования будут опубликованы здесь перед релизом.",
+    "The world's first 100% offline input method focused on privacy and data security": "Первый в мире полностью офлайн-метод ввода с акцентом на конфиденциальность и защиту данных",
+    "Aria's defining feature: your chat data is never uploaded, protecting your privacy.": "Главная особенность Aria: ваши переписки никогда не загружаются в облако, надёжно защищая приватность.",
+    "All platforms: Mac / Windows / iOS / Android · 20 languages · 26 offline keyboards · Mixed-language speech · Works offline · Super Learning · Aria Glass Skin": "Все платформы: Mac / Windows / iOS / Android · 20 языков · 26 офлайн-клавиатур · Многоязычная речь · Работа без сети · Super Learning · Тема Aria Glass",
+    "Aria's defining feature: your chat data is never uploaded, protecting your privacy.\nAll platforms: Mac / Windows / iOS / Android · 20 languages · 26 offline keyboards · Mixed-language speech · Works offline · Super Learning · Aria Glass Skin": "Главная особенность Aria: ваши переписки никогда не загружаются в облако, надёжно защищая приватность.\nВсе платформы: Mac / Windows / iOS / Android · 20 языков · 26 офлайн-клавиатур · Многоязычная речь · Работа без сети · Super Learning · Тема Aria Glass",
+    "Privacy & Data Security — Every word stays on your device, never uploaded": "Конфиденциальность и защита данных — Каждое слово остаётся на устройстве, без отправки",
+    "Built-in on-device AI keeps voice dictation accurate even offline — built for flights, outdoor trails, mines, and sensitive work in finance, research, legal, and healthcare.": "Встроенный локальный ИИ обеспечивает точный голосовой ввод даже без сети — для перелётов, походов, шахт, а также финансов, науки, права и медицины.",
+    "All Platforms · 20 Languages, 26 Offline Keyboards": "Все платформы · 20 языков, 26 офлайн-клавиатур",
+    "Mac, Windows, iOS & Android. Covers Chinese (9/26-key Pinyin, Stroke, Handwriting, Zhuyin, Sucheng), English, Japanese, Korean, Arabic, German, French, Spanish, Italian, Portuguese, Swedish, Dutch, Finnish, Norwegian, Danish, Icelandic, Polish, Czech, Greek, and Russian.": "Mac, Windows, iOS и Android. Поддерживает китайский (Pinyin 9/26, черты, рукописный, Zhuyin, Sucheng), английский, японский, корейский, арабский, немецкий, французский, испанский, итальянский, португальский, шведский, нидерландский, финский, норвежский, датский, исландский, польский, чешский, греческий и русский.",
+    "Mixed-Language Speech · Super Learning · Aria Glass Skin": "Многоязычная речь · Super Learning · Тема Aria Glass",
+    "Speak multiple languages together even offline; one-time corrections stick automatically so Aria learns your wording; switch freely between Light and Dark Aria Glass themes.": "Говорите на нескольких языках вперемешку даже офлайн; исправленные слова запоминаются автоматически; свободно переключайте светлую и тёмную тему Aria Glass."
   },
   "ar": {
     "Follow browser language": "اتبع لغة المتصفح",
@@ -4367,6 +4537,16 @@ window.ARIA_I18N_EXTRA = {
     "macOS 15 or later · Apple Silicon": "macOS 15 أو أحدث · Apple Silicon",
     "one-time": "شراء لمرة واحدة",
     "setting fan speed needs a one-time administrator approval to install a small helper; how much cooler your Mac runs depends on the Mac and the workload, and we don't promise a number; how to get the app, the price and the system requirements will be posted here before release.": "يتطلب ضبط سرعة المروحة موافقة المسؤول لمرة واحدة لتثبيت أداة مساعدة صغيرة؛ ومدى انخفاض حرارة Mac يعتمد على الجهاز وحجم العمل، ولا نعد برقم محدد؛ وسيتم نشر كيفية الحصول على التطبيق والسعر ومتطلبات النظام هنا قبل الإصدار.",
-    "¥100 in China": "¥100 في الصين"
+    "¥100 in China": "¥100 في الصين",
+    "The world's first 100% offline input method focused on privacy and data security": "أول لوحة إدخال في العالم تعمل دون إنترنت بنسبة 100% وتضع الخصوصية وأمن البيانات أولاً",
+    "Aria's defining feature: your chat data is never uploaded, protecting your privacy.": "أبرز ميزة في Aria: لا يتم رفع بيانات محادثاتك أبداً، مما يحمي خصوصيتك بالكامل.",
+    "All platforms: Mac / Windows / iOS / Android · 20 languages · 26 offline keyboards · Mixed-language speech · Works offline · Super Learning · Aria Glass Skin": "جميع المنصات: Mac / Windows / iOS / Android · 20 لغة · 26 لوحة مفاتيح دون إنترنت · إملاء صوتي متعدد اللغات · يعمل دون شبكة · التعلّم الفائق · مظهر Aria الزجاجي",
+    "Aria's defining feature: your chat data is never uploaded, protecting your privacy.\nAll platforms: Mac / Windows / iOS / Android · 20 languages · 26 offline keyboards · Mixed-language speech · Works offline · Super Learning · Aria Glass Skin": "أبرز ميزة في Aria: لا يتم رفع بيانات محادثاتك أبداً، مما يحمي خصوصيتك بالكامل.\nجميع المنصات: Mac / Windows / iOS / Android · 20 لغة · 26 لوحة مفاتيح دون إنترنت · إملاء صوتي متعدد اللغات · يعمل دون شبكة · التعلّم الفائق · مظهر Aria الزجاجي",
+    "Privacy & Data Security — Every word stays on your device, never uploaded": "الخصوصية وأمن البيانات — كل كلمة تبقى على جهازك ولا تُرفع أبداً",
+    "Built-in on-device AI keeps voice dictation accurate even offline — built for flights, outdoor trails, mines, and sensitive work in finance, research, legal, and healthcare.": "ذكاء اصطناعي مدمج على الجهاز لإملاء صوتي دقيق حتى دون إنترنت — مثالي للرحلات الجوية والطبيعة والمناجم وقطاعات المال والبحث والقانون والطب.",
+    "All Platforms · 20 Languages, 26 Offline Keyboards": "جميع المنصات · 20 لغة و26 لوحة مفاتيح دون إنترنت",
+    "Mac, Windows, iOS & Android. Covers Chinese (9/26-key Pinyin, Stroke, Handwriting, Zhuyin, Sucheng), English, Japanese, Korean, Arabic, German, French, Spanish, Italian, Portuguese, Swedish, Dutch, Finnish, Norwegian, Danish, Icelandic, Polish, Czech, Greek, and Russian.": "Mac وWindows وiOS وAndroid. يدعم الصينية والإنكليزية واليابانية والكورية والعربية والألمانية والفرنسية والإسبانية والإيطالية والبرتغالية والسويدية والهولندية والفنلندية والنرويجية والدنماركية والآيسلندية والبولندية والتشيكية واليونانية والروسية.",
+    "Mixed-Language Speech · Super Learning · Aria Glass Skin": "إملاء صوتي متعدد اللغات · التعلّم الفائق · مظهر Aria الزجاجي",
+    "Speak multiple languages together even offline; one-time corrections stick automatically so Aria learns your wording; switch freely between Light and Dark Aria Glass themes.": "تحدث بعدة لغات معاً حتى دون إنترنت؛ يتعلم Aria تصحيحاتك تلقائياً؛ بدّل بحرية بين مظهر Aria الزجاجي الفاتح والداكن."
   }
 };
