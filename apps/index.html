@@ -1291,7 +1291,7 @@ function renderCompare(){
    if(_dl){
      const _show=(cur==='aria');
      _dl.hidden=!_show;
-     _dl.innerHTML=_show?(lang==='zh'?'全网累计下载 <b>113,660</b> 人次':'<b>113,660</b> downloads worldwide'):'';
+     _dl.innerHTML=_show?((lang==='zh'?'全网累计下载 <b>':'<b>')+dlcFmt(dlcCount())+(lang==='zh'?'</b> 人次':'</b> downloads worldwide')):'';
    }}
 
   renderPlatforms();
@@ -1940,6 +1940,17 @@ $('#mYes').onclick=async()=>{
 };
 
 const ARIA_PADDLE_PRICE_ID='pri_01kmx0x2kg7dckq4j2q5nhwj6c';
+
+/* ── 全网累计下载计数器（2026-11-23 23:20 Harry 定规则）──
+   每 12 小时 +30~99；基准 113,660 @ 2026-11-23 20:00 CST。
+   纯前端确定性公式：所有访客同一时刻显示同一个数；无后端、无定时任务、不碰生产。
+   调基数/锚点时改 DLC_CFG 并同步 项目0_MiniSite 母版 + 项目4_Design 旧副本。 */
+const DLC_CFG={base:113660,epoch:Date.parse('2026-11-23T20:00:00+08:00'),stepMs:12*60*60*1000,incMin:30,incMax:99};
+function dlcIncAt(i){const h=(i*2654435761)>>>0;return DLC_CFG.incMin+(h%(DLC_CFG.incMax-DLC_CFG.incMin+1));}
+function dlcCountAt(steps){let s=0;for(let i=1;i<=steps;i++)s+=dlcIncAt(i);return DLC_CFG.base+s;}
+function dlcCount(){return dlcCountAt(Math.max(0,Math.floor((Date.now()-DLC_CFG.epoch)/DLC_CFG.stepMs)));}
+function dlcFmt(n){return String(n).replace(/\B(?=(\d{3})+(?!\d))/g,',');}
+window.__dlCountAt=dlcCountAt; window.__dlCfg=DLC_CFG; /* 测试钩子 */
 const ARIA_CHECKOUT_SUCCESS_URL='https://ariamagicvoice.com/apps/thank-you.html';
 function openAriaCheckout(e){
   if(e&&e.preventDefault)e.preventDefault();
