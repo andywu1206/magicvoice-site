@@ -260,6 +260,7 @@ body.dark{--line-soft:rgba(255,255,255,.07)}
 [data-v="5"] .dl{display:none}
 [data-v="5"] #admin{display:none}          /* 访客看到的样子：前台没有管理员入口 */
 .cmp{display:none}
+.cmp[hidden]{display:none!important}
 [data-v="5"] .cmp{display:block;padding:34px 56px 44px;border-top:1px solid var(--line)}
 /* 三卡上下都对齐：stretch 让它们等高，底边严格平齐*/
 /* ═══ 平台 Tab（Harry 2026-08-30 · 方案 1）═══ */
@@ -1735,6 +1736,12 @@ function renderMq(){
 }
 
 function renderCompare(){
+  const cmpSection = document.querySelector('.cmp');
+  if(cur==='rm'){
+    if(cmpSection) cmpSection.hidden = true;
+    return;
+  }
+  if(cmpSection) cmpSection.hidden = false;
   const V6=app.dataset.v==='6'||app.dataset.v==='7'||app.dataset.v==='8'||app.dataset.v==='9';
   const AND = (cur==='aria' && curPlat==='and');   /* 要比 T 更早：安卓有自己的三张卡 */
   const WIN = (cur==='aria' && curPlat==='win');
