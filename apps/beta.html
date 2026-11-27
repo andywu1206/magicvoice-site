@@ -2688,7 +2688,7 @@ if(cur==='rm'){$$('.item').forEach(i=>i.classList.remove('on'));$$('.item[data-a
       '<button type="button" class="abm-x" aria-label="' + esc(t.close) + '">×</button>' +
       '<p class="abm-h" id="abm-u">' + esc(t.msg) + '</p>' +
       '<div class="abm-alt"><button type="button" class="abm-copy" data-abm-retry="1">' + esc(t.retry) + '</button>' +
-      (zhMain ? ' <a role="button" tabindex="0" data-abm-alt="1" data-abm-wechat="1">' + esc(t.wechat) + '</a>' : '') +
+      '' +
       '</div></div>';
     document.body.appendChild(m);
     mask = m;
@@ -2717,7 +2717,7 @@ if(cur==='rm'){$$('.item').forEach(i=>i.classList.remove('on'));$$('.item[data-a
   }
   function openBuy(e) {
     if (e && e.preventDefault) e.preventDefault();
-    if (isMainlandZh()) openWeChat(e); else openPaddle(e);
+    openPaddle(e);
   }
 
   var PLAT = {
@@ -2727,21 +2727,20 @@ if(cur==='rm'){$$('.item').forEach(i=>i.classList.remove('on'));$$('.item[data-a
   };
   var B3 = {
     zh: { h: function (p) { return "购买 Aria Max · " + (p === "win" ? "Windows" : (p === "and" ? "Android" : "Mac")) + " 版"; }, sub: "一次购买，无订阅",
-      wx: ["国内 · 微信", "加微信好友购买", "扫码加好友，发送「购买 Aria Max」<br>微信转账后，我们发激活码给你", "复制", "已复制"],
       cn: ["国内 · 在线付款", "直接在线付款", "银行卡 / 支付宝 / PayPal<br><span class=\"b3-scan\">手机扫码，或点下方按钮付款</span>", "用 Paddle 付款 "],
-      foot: ["付款后，我们会把激活码发到你的付款邮箱", "由 Paddle 安全处理付款", "有问题加微信 AriaMagicVoice"], close: "关闭" },
+      foot: ["付款后，我们会把激活码发到你的付款邮箱", "由 Paddle 安全处理付款"], close: "关闭" },
     tw: { h: function (p) { return "購買 Aria Max · " + (p === "win" ? "Windows" : (p === "and" ? "Android" : "Mac")) + " 版"; }, sub: "一次購買，無訂閱",
-      foot: ["付款後，我們會把啟用碼寄到你的付款信箱", "由 Paddle 安全處理付款", "有問題加微信 AriaMagicVoice"], close: "關閉",
+      foot: ["付款後，我們會把啟用碼寄到你的付款信箱", "由 Paddle 安全處理付款"], close: "關閉",
       in: ["International", "線上付款", "信用卡 / PayPal / Apple Pay<br><span class=\"b3-scan\">手機掃碼，或點下方按鈕付款</span>", "以 Paddle 付款 "] },
     en: { h: function (p) { return "Buy Aria Max for " + (p === "win" ? "Windows" : (p === "and" ? "Android" : "Mac")); }, sub: "One-time purchase. No subscription.",
-      foot: ["We'll email your license key.", "Payments secured by Paddle", "Questions? WeChat AriaMagicVoice"], close: "Close" }
+      foot: ["We'll email your license key.", "Payments secured by Paddle"], close: "Close" }
   };
   var IN_EN = ["International", "Pay online", "Card / PayPal / Apple Pay<br><span class=\"b3-scan\">Scan with your phone or pay here</span>", "Pay with Paddle "];
-  var CSS3 = ".b3-card{box-sizing:border-box;position:relative;width:min(780px,100%);max-height:calc(100vh - 40px);max-height:calc(100dvh - 40px);overflow:auto;background:#fff;color:#1D1D1F;border-radius:24px;box-shadow:0 30px 80px rgba(0,0,0,.25);padding:32px 28px 22px;font:400 14px/1.5 -apple-system,BlinkMacSystemFont,\"PingFang SC\",\"Helvetica Neue\",sans-serif;text-align:center}" +
+  var CSS3 = ".b3-card{box-sizing:border-box;position:relative;width:min(620px,100%);max-height:calc(100vh - 40px);max-height:calc(100dvh - 40px);overflow:auto;background:#fff;color:#1D1D1F;border-radius:24px;box-shadow:0 30px 80px rgba(0,0,0,.25);padding:32px 28px 22px;font:400 14px/1.5 -apple-system,BlinkMacSystemFont,\"PingFang SC\",\"Helvetica Neue\",sans-serif;text-align:center}" +
     ".b3-card *{box-sizing:border-box}.b3-card.one{width:min(380px,100%)}" +
     ".b3-x{position:absolute;right:16px;top:16px;width:30px;height:30px;border-radius:50%;border:0;background:#F2F2F4;color:#6E6E73;font-size:16px;cursor:pointer}" +
     ".b3-h{margin:0;font-size:21px;font-weight:600;letter-spacing:-.01em}.b3-sub{font-size:13px;color:#86868B;margin-top:6px}" +
-    ".b3-cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:24px}.b3-card.one .b3-cols{grid-template-columns:1fr}" +
+    ".b3-cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:24px}.b3-card.one .b3-cols{grid-template-columns:1fr}" +
     ".b3-col{border:1px solid #E5E5EA;border-radius:18px;padding:18px 16px 16px;display:grid;grid-template-rows:auto auto auto 1fr auto;justify-items:center}" +
     ".b3-col.rec{border-color:#0A6CFF;box-shadow:0 0 0 3px rgba(10,108,255,.10)}" +
     ".b3-tag{font-size:11px;font-weight:600;padding:3px 8px;border-radius:6px;line-height:1.2}.b3-cn{background:#E9F8EE;color:#1A8F4A}.b3-in{background:#E8F0FF;color:#0A6CFF}" +
@@ -2779,10 +2778,7 @@ if(cur==='rm'){$$('.item').forEach(i=>i.classList.remove('on'));$$('.item[data-a
     var inCol = '<div class="b3-col' + (zh ? "" : " rec") + '"><span class="b3-tag b3-in">' + inT[0] + '</span><div class="b3-ttl">' + inT[1] + '</div><div class="b3-price">' + usd + '</div>' +
       '<div class="b3-qr"><img data-src="' + pr.qr + '" alt="QR"></div><div class="b3-cap">' + inT[2] + '</div><div class="b3-act"><button type="button" class="b3-pay" data-b3pay>' + esc(inT[3] + usd) + '</button></div></div>';
     var cols = zh
-      ? '<div class="b3-col"><span class="b3-tag b3-cn">' + t.wx[0] + '</span><div class="b3-ttl">' + t.wx[1] + '</div><div class="b3-price">' + cny + '</div>' +
-        '<div class="b3-qr wx"><img data-src="' + CFG.qr + '" alt="微信二维码 AriaMagicVoice"></div><div class="b3-cap">' + t.wx[2] + '</div>' +
-        '<div class="b3-act b3-id"><span>' + CFG.wx + '</span><button type="button" class="b3-copy">' + t.wx[3] + '</button></div></div>' +
-        '<div class="b3-col rec"><span class="b3-tag b3-cn">' + t.cn[0] + '</span><div class="b3-ttl">' + t.cn[1] + '</div><div class="b3-price">' + cny + '</div>' +
+      ? '<div class="b3-col rec"><span class="b3-tag b3-cn">' + t.cn[0] + '</span><div class="b3-ttl">' + t.cn[1] + '</div><div class="b3-price">' + cny + '</div>' +
         '<div class="b3-qr"><img data-src="' + pr.qr + '" alt="QR"></div><div class="b3-cap">' + t.cn[2] + '</div><div class="b3-act"><button type="button" class="b3-pay" data-b3pay>' + esc(t.cn[3] + cny) + '</button></div></div>' + inCol
       : inCol;
     lastFocus = document.activeElement;
@@ -2793,7 +2789,7 @@ if(cur==='rm'){$$('.item').forEach(i=>i.classList.remove('on'));$$('.item[data-a
       '<button type="button" class="b3-x" aria-label="' + esc(t.close) + '">✕</button>' +
       '<h2 class="b3-h" id="b3-h">' + esc(t.h(plat)) + '</h2><div class="b3-sub">' + esc(t.sub) + '</div>' +
       '<div class="b3-cols">' + cols + '</div>' +
-      '<div class="b3-foot"><span>✉ ' + esc(t.foot[0]) + '</span><span>🛡 ' + esc(t.foot[1]) + '</span><span>' + esc(t.foot[2]) + '</span></div></div>';
+      '<div class="b3-foot"><span>✉ ' + esc(t.foot[0]) + '</span><span>🛡 ' + esc(t.foot[1]) + '</span></div></div>';
     document.body.appendChild(m);
     mask = m;
     Array.prototype.forEach.call(m.querySelectorAll("img[data-src]"), function (im) { im.src = im.getAttribute("data-src"); });
