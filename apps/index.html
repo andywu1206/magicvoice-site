@@ -282,6 +282,8 @@ body.dark{--line-soft:rgba(255,255,255,.07)}
 .cbadge{height:20px;padding:0 8px;display:inline-flex;align-items:center;border-radius:999px;
   font:600 11px/1 var(--font);background:var(--sel);color:var(--ink2)}
 .csub{font:400 13px/1.3 var(--font);color:var(--ink2);align-self:center}
+.plocki{font-weight:700;color:var(--ink)}
+@media (min-width:900px){.plocki{white-space:nowrap}}
 .cprice{font:600 34px/1 var(--font);color:var(--ink);letter-spacing:-.03em;align-self:center;
   display:flex;align-items:baseline;gap:5px}
 .cprice u{font:400 13px/1 var(--font);color:var(--ink2);text-decoration:none}
@@ -1298,7 +1300,8 @@ function renderCompare(){
   renderPlatforms();
   const _pl=platsOf(cur), _pc=_pl.find(p=>p.k===curPlat)||_pl[0];
   const _pd=document.getElementById('pfd6');
-  if(_pd) _pd.textContent=(_pl.length>1&&_pc)?(lang==='zh'?_pc.dzh:_pc.den):'';
+  if(_pd){const _b=(_pl.length>1&&_pc)?(lang==='zh'?_pc.dzh:_pc.den):'';
+    _pd.innerHTML=E(_b)+((_pc&&_pc.k==='and')?` <span class="plocki">· ${lang==='zh'?'渠道锁定：从哪下载就一直在哪更新，换渠道注册码失效':'Channel-locked: keep updating where you installed — switching voids the license code'}</span>`:'');}
   if(_pl.length>1&&_pc&&_pc.st!=='live'){
     $('#cg').classList.remove('two');
     $('#cg').innerHTML='<div class="pfsoon"><b>'+
