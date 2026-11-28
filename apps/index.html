@@ -1301,7 +1301,7 @@ function renderCompare(){
   const _pl=platsOf(cur), _pc=_pl.find(p=>p.k===curPlat)||_pl[0];
   const _pd=document.getElementById('pfd6');
   if(_pd){const _b=(_pl.length>1&&_pc)?(lang==='zh'?_pc.dzh:_pc.den):'';
-    _pd.innerHTML=E(_b)+((_pc&&_pc.k==='and')?` <span class="plocki">· ${lang==='zh'?'渠道锁定：从哪下载就一直在哪更新，换渠道注册码失效':'Channel-locked: keep updating where you installed — switching voids the license code'}</span>`:'');}
+    _pd.innerHTML=E(_b)+((_pc&&_pc.k==='and')?` <span class="plocki">· ${lang==='zh'?'渠道锁定：从哪下载，就一直在那里下载。因为渠道不同注册不同，跨渠道换包，之前的注册码必失效，切记！':'Channel-locked: keep downloading from where you started. Registration differs per channel — switching channels voids your previous license code. Remember this!'}</span>`:'');}
   if(_pl.length>1&&_pc&&_pc.st!=='live'){
     $('#cg').classList.remove('two');
     $('#cg').innerHTML='<div class="pfsoon"><b>'+
